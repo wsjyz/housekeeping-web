@@ -4,7 +4,6 @@ package com.eighth.housekeeping.proxy;
 
 import com.eighth.housekeeping.proxy.utils.Classes;
 import com.eighth.housekeeping.proxy.utils.HTTPClient;
-
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,14 +11,15 @@ import java.util.Map;
 /**
  * Created by dam on 2014/6/26.
  */
-public class RemoteProxy<M> extends CglibProxyFactory<M> {
+public class RemoteProxy<M> extends ProxyFactory<M> {
 
     private HTTPClient client = new HTTPClient();
 
     private Map<String,Object> map = new HashMap<String, Object>();
 
-    public RemoteProxy(M target){
-        super(target);
+    public RemoteProxy<M> putOtherParameters(String parameterName,Object parameterValue){
+        map.put(parameterName,parameterValue);
+        return this;
     }
 
     public RemoteProxy(Class clazz){
@@ -31,11 +31,11 @@ public class RemoteProxy<M> extends CglibProxyFactory<M> {
     }
 
     @Override
-    public Object after(Type retrunType) {
+    public Object after(Type returnType) {
         String serviceUri = Classes.parseClassMethodToUri(super.getTargetClassName(), super.getMethodName());
         client.setServiceUri(serviceUri);
         String responseStr = client.request();
-        return Classes.stringToObject(responseStr,retrunType);
+        return Classes.stringToObject(responseStr,returnType);
     }
 
     @Override

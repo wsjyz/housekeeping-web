@@ -111,16 +111,11 @@
         <artifactId>jetty-webapp</artifactId>
         <version>9.2.0.RC0</version>
     </dependency>
-    <dependency>
-        <groupId>org.ow2.asm</groupId>
-        <artifactId>asm</artifactId>
-        <version>5.0.3</version>
-    </dependency>
-    <dependency>
-        <groupId>cglib</groupId>
-        <artifactId>cglib</artifactId>
-        <version>3.1</version>
-    </dependency>
+    <!--<dependency>-->
+        <!--<groupId>cglib</groupId>-->
+        <!--<artifactId>cglib</artifactId>-->
+        <!--<version>3.1</version>-->
+    <!--</dependency>-->
     <dependency>
         <groupId>com.alibaba</groupId>
         <artifactId>fastjson</artifactId>
@@ -129,20 +124,58 @@
 </dependencies>
     <build>
     <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-archetype-plugin</artifactId>
-            <version>2.2</version>
-            <configuration>
-                <encoding>UTF-8</encoding>
-            </configuration>
-        </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <id>default-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <!--<classifier>lib</classifier>-->
+                            <includes>
+                                <include>**/domain/*</include>
+                                <include>**/proxy/**</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/dao/**</exclude>
+                                <exclude>**/controller/**</exclude>
+                                <exclude>**/util/**</exclude>
+                                <exclude>**/web/**</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-resources-plugin</artifactId>
             <version>2.6</version>
             <configuration>
                 <encoding>UTF-8</encoding>
+            </configuration>
+        </plugin>
+        <plugin>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>2.1</version>
+            <executions>
+                <execution>
+                    <id>copy-dependencies</id>
+                    <phase>prepare-package</phase>
+                    <goals>
+                        <goal>copy-dependencies</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <includeTypes>jar</includeTypes>
+                <overWriteSnapshots>true</overWriteSnapshots>
+                <type>jar</type>
+                <outputDirectory>${project.build.directory}/lib</outputDirectory>
             </configuration>
         </plugin>
     </plugins>

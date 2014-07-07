@@ -1,6 +1,7 @@
 package com.eighth.housekeeping.proxy.service;
 
 import com.eighth.housekeeping.domain.Review;
+import com.eighth.housekeeping.proxy.annotation.RemoteMethod;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 
 /**
@@ -15,5 +16,6 @@ public interface ReviewService {
      * @return
      * @throws RemoteInvokeException
      */
+    @RemoteMethod(methodVarNames={ "review" })
     Review addReview(Review review)throws RemoteInvokeException;
 }

@@ -2,7 +2,9 @@ package com.eighth.housekeeping.proxy.service;
 
 import com.eighth.housekeeping.domain.AuntInfo;
 import com.eighth.housekeeping.domain.AuntWorkCase;
+import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.Review;
+import com.eighth.housekeeping.proxy.annotation.RemoteMethod;
 
 import java.util.List;
 
@@ -16,6 +18,7 @@ public interface AuntService {
      * @param auntId
      * @return
      */
+    @RemoteMethod(methodVarNames={ "auntId" })
     AuntInfo findAuntById(String auntId);
 
     /**
@@ -23,6 +26,7 @@ public interface AuntService {
      * @param caseId
      * @return
      */
+    @RemoteMethod(methodVarNames={ "caseId" })
     AuntWorkCase findCaseById(String caseId);
 
     /**
@@ -31,7 +35,8 @@ public interface AuntService {
      * @param auntId
      * @return
      */
-    List<Review> findReviewByAuntId(String reviewTag,String auntId,int startIndex,int size);
+    @RemoteMethod(methodVarNames={ "reviewTag","auntId","page" })
+    List<Review> findReviewByAuntId(String reviewTag,String auntId,OpenPage page);
 
 
 }

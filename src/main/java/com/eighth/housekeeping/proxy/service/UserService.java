@@ -3,6 +3,7 @@ package com.eighth.housekeeping.proxy.service;
 
 import com.eighth.housekeeping.domain.MemberInfo;
 import com.eighth.housekeeping.domain.VerifyCode;
+import com.eighth.housekeeping.proxy.annotation.RemoteMethod;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 
 /**
@@ -16,6 +17,7 @@ public interface UserService {
      * @return
      * @throws RemoteInvokeException
      */
+    @RemoteMethod(methodVarNames={ "mobile" })
     MemberInfo login(String mobile) throws RemoteInvokeException;
 
     /**
@@ -25,6 +27,7 @@ public interface UserService {
      * @return
      * @throws RemoteInvokeException
      */
+    @RemoteMethod(methodVarNames={ "userInfo" })
     MemberInfo add(MemberInfo userInfo)throws RemoteInvokeException;
 
     /**
@@ -32,6 +35,7 @@ public interface UserService {
      * @return
      * @throws RemoteInvokeException
      */
+    @RemoteMethod
     VerifyCode obtainVerifyCode()throws RemoteInvokeException;
 
     /**
@@ -40,6 +44,7 @@ public interface UserService {
      * @return RIGHT正确、FAULT错误、PAST过期
      * @throws RemoteInvokeException
      */
+    @RemoteMethod(methodVarNames={ "tokenId" })
     String checkVerifyCode(String tokenId)throws RemoteInvokeException;
 
     /**
@@ -48,7 +53,20 @@ public interface UserService {
      * @return SUCCESS成功，FAIL失败
      * @throws RemoteInvokeException
      */
+    @RemoteMethod(methodVarNames={ "userInfo" })
     String modifyMemberInfo(MemberInfo userInfo)throws RemoteInvokeException;
+
+    /**
+     * 设置阿姨信息推送频率
+     * @param memberId
+     * @param days
+     * @return MemberInfo中有pushAuntInfo字段，memberId字段
+     * @throws RemoteInvokeException
+     */
+    @RemoteMethod(methodVarNames={ "memberId", "days" })
+    MemberInfo modifyPushAuntInfo(String memberId,int days)throws RemoteInvokeException;
+
+
 
 
 }

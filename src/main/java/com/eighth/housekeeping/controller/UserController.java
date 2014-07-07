@@ -19,7 +19,7 @@ public class UserController {
     public MemberInfo login(@RequestParam String mobile){
         MemberInfo memberInfo = new MemberInfo();
         //Exception
-        memberInfo = null;
+        //memberInfo = null;
         memberInfo.setNickName("baby");
         System.out.println("mobile:"+mobile);
 

@@ -2,6 +2,12 @@ package com.eighth.housekeeping.proxy;
 
 
 
+
+import com.eighth.housekeeping.domain.MemberInfo;
+import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
+import com.eighth.housekeeping.proxy.service.UserService;
+
+import java.io.File;
 import java.lang.reflect.Array;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
@@ -14,14 +20,18 @@ public class ProxyTest {
 
     public static void main(String[] args) {
 //        UserService userService = new UserServiceImpl();
-//        UserService proxy = new RemoteProxy<UserService>(new UserServiceImpl()).getProxy();
+        UserService proxy = new RemoteProxy<UserService>(UserService.class)
+                .putOtherParameters("access_token","124")
+                .putOtherParameters("imei","222")
+                .getProxy();
+
 //        //UserService proxy = new RemoteProxy<UserService>(UserService.class).getProxy();
-//        try {
-//            UserInfo userInfo = proxy.login("sef", "ddd");
-//            System.out.println(userInfo.getLoginTip());
-//        } catch (RemoteInvokeException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            MemberInfo userInfo = proxy.login("sef");
+            System.out.println(userInfo.getNickName());
+        } catch (RemoteInvokeException e) {
+            e.printStackTrace();
+        }
 //
 //        InfoServiceRemote infoServiceRemote = new RemoteProxy<InfoServiceRemote>(new InfoServiceRemoteImpl()).getProxy();
 //

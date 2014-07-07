@@ -17,7 +17,34 @@ public class MemberInfo extends BaseDomain {
     private String status;//状态 ACTIVE激活 NOT_ACTIVE禁用 DELETE删除
     private String couponCounts;//优惠券数量
     private String couponEndTime;//优惠券到期时间yyyy-MM-dd
+    private String sessionId;//登录sessionid
+    private int pushAuntInfo;//设置多长时间需要推送服务的天数
 
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public int getPushAuntInfo() {
+        return pushAuntInfo;
+    }
+
+    public void setPushAuntInfo(int pushAuntInfo) {
+        this.pushAuntInfo = pushAuntInfo;
+    }
+
+    private OpenPage<AuntInfo> auntList;//收藏的小时工
+
+    public OpenPage<AuntInfo> getAuntList() {
+        return auntList;
+    }
+
+    public void setAuntList(OpenPage<AuntInfo> auntList) {
+        this.auntList = auntList;
+    }
 
     public String getUserId() {
         return userId;
