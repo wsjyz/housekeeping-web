@@ -26,7 +26,7 @@ public interface OrderService {
      * @return SUCCESS成功，FAIL失败
      * @throws RemoteInvokeException
      */
-    @RemoteMethod(methodVarNames={ "orderId" })
+    @RemoteMethod(methodVarNames={"memberId", "orderId" })
     String payOrder(String memberId,String orderId)throws RemoteInvokeException;
 
     /**
@@ -47,4 +47,14 @@ public interface OrderService {
      */
     @RemoteMethod(methodVarNames={ "orderId" })
     AuntOrder findOrderById(String orderId)throws RemoteInvokeException;
+
+    /**
+     * 删除订单
+     * @param memberId 用户ID
+     * @param orderId 订单ID
+     * @return SUCCESS成功，FAIL失败
+     * @throws RemoteInvokeException
+     */
+    @RemoteMethod(methodVarNames={ "memberId","orderId" })
+    String deleteOrder(String memberId,String orderId)throws RemoteInvokeException;
 }

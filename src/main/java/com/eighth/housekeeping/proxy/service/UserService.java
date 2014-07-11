@@ -40,12 +40,12 @@ public interface UserService {
 
     /**
      * 验证注册码是否正确
-     * @param tokenId 是obtainRegistCode方法返回的
+     * @param token 是obtainRegistCode方法返回的
      * @return RIGHT正确、FAULT错误、PAST过期
      * @throws RemoteInvokeException
      */
-    @RemoteMethod(methodVarNames={ "tokenId" })
-    String checkVerifyCode(String tokenId)throws RemoteInvokeException;
+    @RemoteMethod(methodVarNames={ "token" })
+    String checkVerifyCode(String token)throws RemoteInvokeException;
 
     /**
      * 修改个人信息

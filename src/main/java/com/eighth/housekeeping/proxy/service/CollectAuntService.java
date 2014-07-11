@@ -1,6 +1,7 @@
 package com.eighth.housekeeping.proxy.service;
 
 import com.eighth.housekeeping.domain.CollectAunt;
+import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.proxy.annotation.RemoteMethod;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 
@@ -18,4 +19,13 @@ public interface CollectAuntService {
      */
     @RemoteMethod(methodVarNames={ "auntId","memberId" })
     CollectAunt addCollect(String auntId,String memberId)throws RemoteInvokeException;
+
+    /**
+     * 我收藏的阿姨
+     * @param userId
+     * @return 分页列表
+     * @throws RemoteInvokeException
+     */
+    @RemoteMethod(methodVarNames={ "userId"})
+    OpenPage<CollectAunt> findCollectAuntList(String userId)throws RemoteInvokeException;
 }

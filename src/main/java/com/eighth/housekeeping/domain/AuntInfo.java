@@ -33,6 +33,16 @@ public class AuntInfo extends BaseDomain {
     private List<AuntWorkCase> caseList;//案例
     private OpenPage<Review> reviews;//评论
 
+    //以下是统计信息
+    private BigDecimal yearOfIncome;//年度金额
+    private int monthOfOrderCounts;//月度订单数
+    private int totalOrderCounts;//总订单数
+    private int mothOfIncome;//本月收入
+    private int verySatisfyCounts;//非常满意评价数量
+    private int satisfyCounts;//满意评价数量
+    private int notSatisfyCounts;//不满意评价数量
+    private int monthOfSignCounts;//本月签到天数
+
 
 
     public OpenPage<Review> getReviews() {
