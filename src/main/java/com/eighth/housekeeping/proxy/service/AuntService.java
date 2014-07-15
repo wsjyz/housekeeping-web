@@ -22,6 +22,7 @@ public interface AuntService {
      * @return
      * @throws RemoteInvokeException
      */
+    @RemoteMethod(methodVarNames={ "mobile","password" })
     AuntInfo login(String mobile,String password)throws RemoteInvokeException;
 
     /**

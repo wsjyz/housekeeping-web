@@ -1,5 +1,8 @@
 package com.eighth.housekeeping.domain;
 
+import com.eighth.housekeeping.domain.annotation.Column;
+import com.eighth.housekeeping.domain.annotation.Table;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -7,31 +10,51 @@ import java.util.List;
  * 阿姨
  * Created by dam on 2014/7/3.
  */
+@Table(name="t_aunt_info",comment = "阿姨|小时工")
 public class AuntInfo extends BaseDomain {
 
+    @Column(name="aunt_id",pk=true,length = 32)
     private String auntId;
-    private String password;//密码
-    private String mobile;//手机号
-    private String userName;//姓名
-    private String identityCard;//身份证号
-    private String sex;//MALE|FAMALE
-    private String age;//年龄
-    private String address;//居住地址
-    private BigDecimal price;//单价
-    private String telephone;//电话
-    private int workYear;//工作经验
-    private int abilityScore;//能力分值
-    private boolean integrityAuth;//诚信认证
-    private String description;//简评
-    private String nativePlace;//籍贯
-    private String busiDesc;//业务
-    private String bloodType;//血型
-    private String selfEvaluate;//自我评价
-    private String constellation;//星座
-    private String workType;//分类
-    private String start;//星级
-    private List<AuntWorkCase> caseList;//案例
-    private OpenPage<Review> reviews;//评论
+    @Column(name="password",comment = "密码",length = 32)
+    private String password;
+    @Column(name="mobile",comment = "手机号",length = 11)
+    private String mobile;
+    @Column(name="user_name",comment = "姓名",length = 50)
+    private String userName;
+    @Column(name="identity_card",comment = "身份证号",length = 20)
+    private String identityCard;
+    @Column(name="sex",comment = "MALE|FAMALE",length = 6)
+    private String sex;
+    @Column(name="age",comment = "年龄",length = 3)
+    private String age;
+    @Column(name="address",comment = "居住地址",length = 50)
+    private String address;
+    @Column(name="price",comment = "单价",length = 10,decimal = 2)
+    private BigDecimal price;
+    @Column(name="telephone",comment = "电话",length = 10)
+    private String telephone;
+    @Column(name="work_year",comment = "工作经验",length = 100)
+    private int workYear;
+    @Column(name="ability_score",comment = "能力分值",length = 2)
+    private int abilityScore;
+    @Column(name="integrity_auth",comment = "诚信认证")
+    private boolean integrityAuth;
+    @Column(name="description",comment = "简评",length = 100)
+    private String description;
+    @Column(name="native_place",comment = "籍贯",length = 5)
+    private String nativePlace;
+    @Column(name="busi_desc",comment = "业务",length = 20)
+    private String busiDesc;
+    @Column(name="blood_type",comment = "血型",length = 3)
+    private String bloodType;
+    @Column(name="self_evaluate",comment = "自我评价",length = 100)
+    private String selfEvaluate;
+    @Column(name="constellation",comment = "星座")
+    private String constellation;
+    @Column(name="work_type",comment = "分类",length = 5)
+    private String workType;
+    @Column(name="start",comment = "星级",length = 1)
+    private String start;
 
     //以下是统计信息
     private BigDecimal yearOfIncome;//年度金额
@@ -44,6 +67,9 @@ public class AuntInfo extends BaseDomain {
     private int monthOfSignCounts;//本月签到天数
 
 
+    //以下是关系
+    private List<AuntWorkCase> caseList;//案例
+    private OpenPage<Review> reviews;//评论
 
     public OpenPage<Review> getReviews() {
         return reviews;

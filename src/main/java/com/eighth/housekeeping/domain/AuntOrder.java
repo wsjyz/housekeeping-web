@@ -1,33 +1,48 @@
 package com.eighth.housekeeping.domain;
 
+import com.eighth.housekeeping.domain.annotation.Column;
+import com.eighth.housekeeping.domain.annotation.Table;
+
 import java.math.BigDecimal;
 
 /**
  * Created by dam on 2014/7/3.
  */
+@Table(name="t_aunt_order",comment = "小时工订单")
 public class AuntOrder extends BaseDomain {
-
-    private String orderId;//订单编号
-    //用途:小时工HOURLY_WORKER 新居开荒NEW_HOUSE
+    @Column(name="order_id",pk=true,length = 32)
+    private String orderId;
+    @Column(name="order_use",length = 13,comment = "用途:小时工HOURLY_WORKER 新居开荒NEW_HOUSE")
     private String orderUse;
-    private String workTime;//服务时间yyyy-MM-dd HH:mm
-    private int workLength;//服务时长
-    private String address;//服务地址
+    @Column(name="work_time",length = 16,comment = "服务时间yyyy-MM-dd HH:mm")
+    private String workTime;
+    @Column(name="work_length",length = 3,comment = "服务时长")
+    private int workLength;
+    @Column(name="address",length = 50,comment = "服务地址")
+    private String address;
+    @Column(name="description",length = 100,comment = "备注")
     private String description;//备注
+    @Column(name="unit_price",length = 5,decimal = 2,comment = "单价")
     private BigDecimal unitPrice;//单价
+    @Column(name="total_price",length = 5,decimal = 2,comment = "总价")
     private BigDecimal totalPrice;//总价
+    @Column(name="actual_price",length = 5,decimal = 2,comment = "实付价格")
     private BigDecimal actualPrice;//实付价格
+    @Column(name="use_coupon_count",length = 1,comment = "是否使用优惠券 0=没有使用")
     private int useCouponCount;//是否使用优惠券 0=没有使用
+    @Column(name="floor_space",length = 5,comment = "房屋面积")
     private int floorSpace;//房屋面积
-    //支付状态 ONLINE_PAYED线上已支付  NOT_PAY未支付
+    @Column(name="order_status",length = 12,comment = "支付状态 ONLINE_PAYED线上已支付  NOT_PAY未支付")
     private String orderStatus;
-    private String specialNeed;//特殊要求
-    private String contactWay;//联系方式
+    @Column(name="special_need",length = 100,comment = "特殊要求")
+    private String specialNeed;
+    @Column(name="contact_way",length = 50,comment = "联系方式")
+    private String contactWay;
 
     //以下是关系
-
-    private String corpId;//所属机构
+    @Column(name="aunt_id",length = 32,comment = "所属阿姨")
     private String auntId;//阿姨
+    @Column(name="user_id",length = 32,comment = "提交人ID")
     private String userId;//提交人ID
 
 
@@ -141,14 +156,6 @@ public class AuntOrder extends BaseDomain {
 
     public void setContactWay(String contactWay) {
         this.contactWay = contactWay;
-    }
-
-    public String getCorpId() {
-        return corpId;
-    }
-
-    public void setCorpId(String corpId) {
-        this.corpId = corpId;
     }
 
     public String getAuntId() {
