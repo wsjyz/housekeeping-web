@@ -22,7 +22,7 @@ public interface UserService {
 
     /**
      * 新增
-     * 必填项mobile、loginName、password
+     * 必填项mobile、userName、password
      * @param userInfo
      * @return
      * @throws RemoteInvokeException
@@ -45,7 +45,7 @@ public interface UserService {
      * @throws RemoteInvokeException
      */
     @RemoteMethod(methodVarNames={ "token" })
-    String checkVerifyCode(String token)throws RemoteInvokeException;
+    String checkVerifyCode(VerifyCode token)throws RemoteInvokeException;
 
     /**
      * 修改个人信息

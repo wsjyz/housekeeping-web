@@ -28,12 +28,4 @@ public class VerifyCode extends BaseDomain{
     public void setToken(String token) {
         this.token = token;
     }
-
-    public String getOptTime() {
-        return optTime;
-    }
-
-    public void setOptTime(String optTime) {
-        this.optTime = optTime;
-    }
 }

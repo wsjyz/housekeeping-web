@@ -8,6 +8,8 @@ import com.eighth.housekeeping.domain.annotation.Table;
  */
 @Table(name="t_collect_aunt",comment = "会员收藏的小时工")
 public class CollectAunt extends BaseDomain {
+    @Column(name="collect_id",pk=true,length = 32)
+    private String collectId;
     @Column(name="member_id",length = 32,comment = "所属会员")
     private String memberId;
     @Column(name="aunt_id",length = 32,comment = "阿姨|小时工")

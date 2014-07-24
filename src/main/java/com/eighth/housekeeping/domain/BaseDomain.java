@@ -2,6 +2,9 @@ package com.eighth.housekeeping.domain;
 
 import com.eighth.housekeeping.domain.annotation.Column;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by dam on 2014/6/30.
  */
@@ -21,6 +24,10 @@ public class BaseDomain implements java.io.Serializable {
     }
 
     public String getOptTime() {
+        if(optTime == null){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            optTime = sdf.format(new Date());
+        }
         return optTime;
     }
 

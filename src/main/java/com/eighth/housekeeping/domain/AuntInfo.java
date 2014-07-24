@@ -33,7 +33,7 @@ public class AuntInfo extends BaseDomain {
     private BigDecimal price;
     @Column(name="telephone",comment = "电话",length = 10)
     private String telephone;
-    @Column(name="work_year",comment = "工作经验",length = 100)
+    @Column(name="work_year",comment = "工作经验",length = 2)
     private int workYear;
     @Column(name="ability_score",comment = "能力分值",length = 2)
     private int abilityScore;
@@ -57,13 +57,21 @@ public class AuntInfo extends BaseDomain {
     private String start;
 
     //以下是统计信息
+    @Column(name="year_of_income",comment = "年度金额",length = 10,decimal = 2)
     private BigDecimal yearOfIncome;//年度金额
+    @Column(name="month_of_order_counts",comment = "月度订单数",length = 3)
     private int monthOfOrderCounts;//月度订单数
+    @Column(name="total_order_counts",comment = "总订单数",length = 3)
     private int totalOrderCounts;//总订单数
+    @Column(name="moth_of_income",comment = "本月收入",length = 3)
     private int mothOfIncome;//本月收入
+    @Column(name="very_satisfy_counts",comment = "非常满意评价数量",length = 3)
     private int verySatisfyCounts;//非常满意评价数量
+    @Column(name="satisfy_counts",comment = "满意评价数量",length = 3)
     private int satisfyCounts;//满意评价数量
+    @Column(name="not_satisfy_counts",comment = "不满意评价数量",length = 3)
     private int notSatisfyCounts;//不满意评价数量
+    @Column(name="month_of_sign_counts",comment = "本月签到天数",length = 3)
     private int monthOfSignCounts;//本月签到天数
 
 
