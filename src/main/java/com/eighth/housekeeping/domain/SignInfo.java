@@ -24,6 +24,32 @@ public class SignInfo extends BaseDomain {
     @Column(name="sign_geographic",length = 20,comment = "签到经纬度")
     private String signGeographic;//签到经纬度
 
+    private String lastSignDate;//最后一次签到时间，传值用
+    private int signCountsMonth;//本月签到次数
+
+    public String getLastSignDate() {
+        return lastSignDate;
+    }
+
+    public void setLastSignDate(String lastSignDate) {
+        this.lastSignDate = lastSignDate;
+    }
+
+    public int getSignCountsMonth() {
+        return signCountsMonth;
+    }
+
+    public void setSignCountsMonth(int signCountsMonth) {
+        this.signCountsMonth = signCountsMonth;
+    }
+
+    public String getSignId() {
+        return signId;
+    }
+
+    public void setSignId(String signId) {
+        this.signId = signId;
+    }
 
     public String getAuntId() {
         return auntId;

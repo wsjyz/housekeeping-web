@@ -8,17 +8,27 @@ import com.eighth.housekeeping.domain.annotation.Table;
  */
 @Table(name="t_verify_code",comment = "验证码")
 public class VerifyCode extends BaseDomain{
-    @Column(name="token_id",pk=true,length = 32,comment = "当前验证码ID")
-    private String tokenId;//当前验证码ID
+    @Column(name="user_id",pk=true,length = 32,comment = "用户ID")
+    private String memberId;//当前验证码ID
     @Column(name="token",length = 6,comment = "当前验证码值")
     private String token;//当前验证码值
+    @Column(name="mobile",length = 11,comment = "手机号")
+    private String mobile;//手机号
 
-    public String getTokenId() {
-        return tokenId;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setTokenId(String tokenId) {
-        this.tokenId = tokenId;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
     }
 
     public String getToken() {

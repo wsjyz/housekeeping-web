@@ -14,8 +14,18 @@ public class AuntWorkCase extends BaseDomain {
     private String caseId;
     @Column(name="description",length = 100,comment = "简介")
     private String description;
+    @Column(name="aunt_id",length = 32)
+    private String auntId;
 
     private List<ImageObj> images;
+
+    public String getAuntId() {
+        return auntId;
+    }
+
+    public void setAuntId(String auntId) {
+        this.auntId = auntId;
+    }
 
     public String getCaseId() {
         return caseId;

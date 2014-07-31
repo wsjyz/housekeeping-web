@@ -3,9 +3,10 @@ package com.eighth.housekeeping.proxy;
 
 
 
-import com.eighth.housekeeping.domain.MemberInfo;
+import com.alibaba.fastjson.JSON;
+import com.eighth.housekeeping.domain.*;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
-import com.eighth.housekeeping.proxy.service.UserService;
+import com.eighth.housekeeping.proxy.service.*;
 
 import java.io.File;
 import java.lang.reflect.Array;
@@ -19,43 +20,55 @@ import java.lang.reflect.Type;
 public class ProxyTest {
 
     public static void main(String[] args) {
-//        UserService userService = new UserServiceImpl();
+        String memberId = "u1";
+        String auntId = "1";
         UserService proxy = new RemoteProxy<UserService>(UserService.class)
                 .putOtherParameters("access_token","124")
                 .putOtherParameters("imei","222")
                 .getProxy();
+        OrderService orderService = new RemoteProxy<OrderService>(OrderService.class).getProxy();
 
-//        //UserService proxy = new RemoteProxy<UserService>(UserService.class).getProxy();
+        ReviewService reviewService = new RemoteProxy<ReviewService>(ReviewService.class).getProxy();
+
+        SignInfoService signInfoService = new RemoteProxy<SignInfoService>(SignInfoService.class).getProxy();
+
+        SystemService systemService = new RemoteProxy<SystemService>(SystemService.class).getProxy();
+
+        AuntService auntService = new RemoteProxy<AuntService>(AuntService.class).getProxy();
+
+
         try {
-            MemberInfo userInfo = proxy.login("sef");
-            System.out.println(userInfo.getNickName());
+//            VerifyCode code = proxy.obtainVerifyCode("13833441123");
+//            String result = proxy.checkVerifyCode(code);
+//            MemberInfo info = proxy.findMemberByMemberId(result);
+//            info.setUserName("理光");
+//            proxy.modifyMemberInfo(info);
+//            MemberInfo info1 = proxy.findMemberByMemberId(result);
+//            System.out.println(info1.getUserName());
+           // OpenPage<AuntOrder> orderOpenPage = orderService.findOrderList(memberId, "ALL",new OpenPage<AuntOrder>());
+//            AuntOrder order = orderService.findOrderById("o1");
+//            orderService.saveUserOrder(order);
+            //orderService.deleteOrder(memberId,"dd3f1bfdbc414c17b8c5efa0022da539");
+//            Review review = new Review();
+//            review.setReviewTag("VERY_SATISFY");
+//            review.setReviewContent("NB1");
+//            review.setCreateUserId(memberId);
+//            review.setAuntId(auntId);
+//            Review a = reviewService.addReview(review);
+//            SignInfo signInfo = new SignInfo();
+//            signInfo.setAuntId(auntId);
+//            signInfo.setSignPlaceDesc("西直门地铁A出口");
+//            signInfo.setSignGeographic("xxx");
+//            SignInfo a = signInfoService.sign(signInfo);
+
+            //APKVersion version = systemService.updateAPK("1.0.0");
+//            AuntInfo auntInfo = auntService.findAuntByIdForMember(auntId);
+//            SignInfo signInfo = signInfoService.findSignDetail(auntId);
+            AuntWorkCase workCase = auntService.findCaseById("1");
+            System.out.println(JSON.toJSONString(workCase));
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }
-//
-//        InfoServiceRemote infoServiceRemote = new RemoteProxy<InfoServiceRemote>(new InfoServiceRemoteImpl()).getProxy();
-//
-//        List<Information> list = infoServiceRemote.getInformations("{ \"pageNo\": 0, \"pageSize\": 10 }").getRows();
-//        for(Information info:list){
-//            System.out.println(info.getContent());
-//        }
-
-//        String jsonStr = "{\"pageNo\":1,\"pageSize\":10,\"autoCount\":true,\"autoPaging\":true,\"rows\":[{\"informationId\":\"26123b1cf5c211e3bede52540077b0c2\",\"title\":\"title1\",\"content\":\"内容content内容content内容contentcontent内容content内容\",\"postTime\":\"2014-06-17 00:00:00.0\",\"status\":\"POST\"},{\"informationId\":\"b9d42bc6f5c211e3bede52540077b0c2\",\"title\":\"title2\",\"content\":\"content内容content内容content内容content内容content内容\",\"postTime\":\"2014-06-18 00:00:00.0\",\"status\":\"POST\"},{\"informationId\":\"b9d42c84f5c211e3bede52540077b0c2\",\"title\":\"title3\",\"content\":\"内容content内容content内容contentcontent内容content内容\",\"postTime\":\"2014-06-19 00:00:00.0\",\"status\":\"POST\"},{\"informationId\":\"b9d42cc0f5c211e3bede52540077b0c2\",\"title\":\"title4\",\"content\":\"内容content内容content内容contentcontent内容content内容\",\"postTime\":\"2014-06-20 00:00:00.0\",\"status\":\"POST\"},{\"informationId\":\"b9d42cfcf5c211e3bede52540077b0c2\",\"title\":\"title5\",\"content\":\"内容content内容content内容contentcontent内容content内容\",\"postTime\":\"2014-06-21 00:00:00.0\",\"status\":\"POST\"},{\"informationId\":\"b9d42d42f5c211e3bede52540077b0c2\",\"title\":\"title6\",\"content\":\"内容content内容content内容contentcontent内容content内容\",\"postTime\":\"2014-06-22 00:00:00.0\",\"status\":\"POST\"},{\"informationId\":\"b9d42d88f5c211e3bede52540077b0c2\",\"title\":\"title7\",\"content\":\"内容content内容content内容contentcontent内容content内容\",\"postTime\":\"2014-06-23 00:00:00.0\",\"status\":\"POST\"}],\"total\":7,\"totalPages\":1,\"hasNext\":false,\"nextPage\":1,\"hasPre\":false,\"prePage\":1,\"first\":1}";
-//
-//        Method m = null;
-//        try {
-//            m = InfoServiceRemote.class.getMethod("getInformations",String.class);
-//        } catch (NoSuchMethodException e) {
-//            e.printStackTrace();
-//        }
-//        Type type = m.getGenericReturnType();
-//        ProxyTest pt = new ProxyTest();
-//        OpenPage<Information> l1 = JSON.parseObject(jsonStr,type);
-//         //= JSON.parseObject(jsonStr,new TypeReference<OpenPage<Information>>(){});
-//        for(Information info:l1.getRows()){
-//            System.out.println(info.getContent());
-//        }
-
 
     }
     private Class getGenericClass(ParameterizedType parameterizedType, int i) {

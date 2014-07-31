@@ -23,12 +23,12 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
     @Override
     public void saveVerifyCode(final VerifyCode code) {
         StringBuilder sql = new StringBuilder("");
-        sql.append("insert into t_verify_code (token_id,token,opt_time)");
+        sql.append("insert into t_verify_code (mobile,token,opt_time)");
         sql.append("values(?,?,?)");
         getJdbcTemplate().update(sql.toString(),new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
-                ps.setString(1,code.getTokenId());
+                ps.setString(1,code.getMobile());
                 ps.setString(2,code.getToken());
                 ps.setString(3,code.getOptTime());
             }
@@ -36,10 +36,17 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
     }
 
     @Override
-    public VerifyCode findVerifyCodeById(String id) {
+    public void deleteVerifyCode(String mobile) {
         StringBuilder sql = new StringBuilder("");
-        sql.append("select * from t_verify_code where token_id = ?");
-        List<VerifyCode> list = getJdbcTemplate().query(sql.toString(),new String[]{id}, new RowMapper<VerifyCode>() {
+        sql.append("delete from t_verify_code where mobile = ?");
+        getJdbcTemplate().update(sql.toString(),new String[]{mobile});
+    }
+
+    @Override
+    public VerifyCode findVerifyCodeByMobile(String mobile) {
+        StringBuilder sql = new StringBuilder("");
+        sql.append("select * from t_verify_code where mobile = ?");
+        List<VerifyCode> list = getJdbcTemplate().query(sql.toString(),new String[]{mobile}, new RowMapper<VerifyCode>() {
             @Override
             public VerifyCode mapRow(ResultSet rs, int rowNum) throws SQLException {
                 VerifyCode code = new VerifyCode();
@@ -54,17 +61,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
         return null;
     }
 
-    @Override
-    public MemberInfo findMemberByMobile(String mobile) {
-        StringBuilder sql = new StringBuilder("");
-        sql.append("select * from t_member_info where mobile = ?");
-        List<MemberInfo> list = getJdbcTemplate().query(sql.toString(),
-                new String[]{mobile},new MemberInfoRowMapper());
-        if(list != null && !list.isEmpty()){
-            return list.get(0);
-        }
-        return null;
-    }
+
 
     @Override
     public void saveMember(final MemberInfo info) {
@@ -125,6 +122,18 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
         sql.append("select * from t_member_info where user_id = ?");
         List<MemberInfo> list = getJdbcTemplate().query(sql.toString(),
                 new String[]{memberId},new MemberInfoRowMapper());
+        if(list != null && !list.isEmpty()){
+            return list.get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public MemberInfo findMemberByMobile(String mobile) {
+        StringBuilder sql = new StringBuilder("");
+        sql.append("select * from t_member_info where mobile = ?");
+        List<MemberInfo> list = getJdbcTemplate().query(sql.toString(),
+                new String[]{mobile},new MemberInfoRowMapper());
         if(list != null && !list.isEmpty()){
             return list.get(0);
         }

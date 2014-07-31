@@ -19,7 +19,7 @@ public interface AuntService {
      * 阿姨登录
      * @param mobile 手机号
      * @param password 密码
-     * @return
+     * @return AuntInfo.loginResult SUCCESS成功|ACOUNT_NOT_CORRECT用户名或密码错
      * @throws RemoteInvokeException
      */
     @RemoteMethod(methodVarNames={ "mobile","password" })

@@ -32,12 +32,12 @@ public interface OrderService {
     /**
      * 获取用户订单列表
      * @param memberId
-     * @param orderType PAYED已支付|UNPAY未支付|null全部
+     * @param orderType PAYED已支付|UNPAY未支付|ALL全部
      * @return
      * @throws RemoteInvokeException
      */
-    @RemoteMethod(methodVarNames={ "memberId","orderType" })
-    OpenPage<AuntOrder> findOrderList(String memberId,String orderType)throws RemoteInvokeException;
+    @RemoteMethod(methodVarNames={ "memberId","orderType","page" })
+    OpenPage<AuntOrder> findOrderList(String memberId,String orderType,OpenPage<AuntOrder> page)throws RemoteInvokeException;
 
     /**
      * 获取订单详情

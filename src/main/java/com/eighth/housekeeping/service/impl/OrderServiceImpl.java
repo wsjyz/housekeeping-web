@@ -1,9 +1,12 @@
 package com.eighth.housekeeping.service.impl;
 
+import com.eighth.housekeeping.dao.OrderDAO;
 import com.eighth.housekeeping.domain.AuntOrder;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.OrderService;
+import com.eighth.housekeeping.utils.CommonStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,9 +14,15 @@ import org.springframework.stereotype.Service;
  */
 @Service("OrderService")
 public class OrderServiceImpl implements OrderService {
+
+    @Autowired
+    private OrderDAO orderDAO;
+
     @Override
     public AuntOrder saveUserOrder(AuntOrder order) throws RemoteInvokeException {
-        return null;
+        order.setOrderId(CommonStringUtils.genPK());
+        orderDAO.saveUserOrder(order);
+        return order;
     }
 
     @Override
@@ -22,17 +31,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OpenPage<AuntOrder> findOrderList(String memberId, String orderType) throws RemoteInvokeException {
-        return null;
+    public OpenPage<AuntOrder> findOrderList(String memberId, String orderType,OpenPage<AuntOrder> page) throws RemoteInvokeException {
+        return orderDAO.findOrderList(memberId,orderType,page);
     }
 
     @Override
     public AuntOrder findOrderById(String orderId) throws RemoteInvokeException {
-        return null;
+        return orderDAO.findOrderById(orderId);
     }
 
     @Override
     public String deleteOrder(String memberId, String orderId) throws RemoteInvokeException {
-        return null;
+        orderDAO.deleteOrder(memberId,orderId);
+        return "SUCCESS";
     }
 }

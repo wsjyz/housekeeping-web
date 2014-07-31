@@ -15,6 +15,24 @@ public class CollectAunt extends BaseDomain {
     @Column(name="aunt_id",length = 32,comment = "阿姨|小时工")
     private String auntId;
 
+    private String collectResult;//收藏结果，传值用 SUCCESS收藏成功|COLLECTED已经收藏
+
+    public String getCollectResult() {
+        return collectResult;
+    }
+
+    public void setCollectResult(String collectResult) {
+        this.collectResult = collectResult;
+    }
+
+    public String getCollectId() {
+        return collectId;
+    }
+
+    public void setCollectId(String collectId) {
+        this.collectId = collectId;
+    }
+
     public String getMemberId() {
         return memberId;
     }

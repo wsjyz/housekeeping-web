@@ -14,7 +14,7 @@ public interface CollectAuntService {
      * 收藏阿姨
      * @param auntId
      * @param memberId
-     * @return
+     * @return CollectAunt.collectResult SUCCESS收藏成功|COLLECTED已经收藏
      * @throws RemoteInvokeException
      */
     @RemoteMethod(methodVarNames={ "auntId","memberId" })
@@ -27,5 +27,5 @@ public interface CollectAuntService {
      * @throws RemoteInvokeException
      */
     @RemoteMethod(methodVarNames={ "userId"})
-    OpenPage<CollectAunt> findCollectAuntList(String userId)throws RemoteInvokeException;
+    OpenPage<CollectAunt> findCollectAuntList(String userId,OpenPage page)throws RemoteInvokeException;
 }

@@ -11,14 +11,6 @@ import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
  */
 public interface UserService {
 
-    /**
-     * 登录
-     * @param mobile
-     * @return
-     * @throws RemoteInvokeException
-     */
-    @RemoteMethod(methodVarNames={ "mobile" })
-    MemberInfo login(String mobile) throws RemoteInvokeException;
 
     /**
      * 新增
@@ -32,20 +24,21 @@ public interface UserService {
 
     /**
      * 获取注册验证码
+     * @param mobile 手机号
      * @return
      * @throws RemoteInvokeException
      */
-    @RemoteMethod
-    VerifyCode obtainVerifyCode()throws RemoteInvokeException;
+    @RemoteMethod(methodVarNames={ "mobile" })
+    VerifyCode obtainVerifyCode(String mobile)throws RemoteInvokeException;
 
     /**
      * 验证注册码是否正确
-     * @param token 是obtainRegistCode方法返回的
-     * @return RIGHT正确、FAULT错误、PAST过期
+     * 必填项 mobile、token 是obtainRegistCode方法返回的
+     * @return 如果是32位UUID则代表登录成功返回值为memberId、FAULT错误、PAST过期
      * @throws RemoteInvokeException
      */
-    @RemoteMethod(methodVarNames={ "token" })
-    String checkVerifyCode(VerifyCode token)throws RemoteInvokeException;
+    @RemoteMethod(methodVarNames={ "code" })
+    String checkVerifyCode(VerifyCode code)throws RemoteInvokeException;
 
     /**
      * 修改个人信息
@@ -66,7 +59,13 @@ public interface UserService {
     @RemoteMethod(methodVarNames={ "memberId", "days" })
     MemberInfo modifyPushAuntInfo(String memberId,int days)throws RemoteInvokeException;
 
-
-
+    /**
+     * 获取会员信息
+     * @param memberId
+     * @return
+     * @throws RemoteInvokeException
+     */
+    @RemoteMethod(methodVarNames={ "memberId"})
+    MemberInfo findMemberByMemberId(String memberId)throws RemoteInvokeException;
 
 }

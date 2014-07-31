@@ -10,13 +10,15 @@ public interface UserDAO {
 
     void saveVerifyCode(VerifyCode code);
 
-    VerifyCode findVerifyCodeById(String id);
+    void deleteVerifyCode(String mobile);
 
-    MemberInfo findMemberByMobile(String mobile);
+    VerifyCode findVerifyCodeByMobile(String mobile);
 
     void saveMember(MemberInfo info);
 
     String modifyMemberInfo(MemberInfo userInfo);
 
     MemberInfo findMemberByMemberId(String memberId);
+
+    MemberInfo findMemberByMobile(String mobile);
 }

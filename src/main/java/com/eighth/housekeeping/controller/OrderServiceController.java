@@ -43,10 +43,10 @@ public class OrderServiceController {
 
     @ResponseBody
     @RequestMapping(value = "/findOrderList")
-    public OpenPage<AuntOrder> findOrderList(@RequestParam String memberId, @RequestParam String orderType) {
+    public OpenPage<AuntOrder> findOrderList(@RequestParam String memberId, @RequestParam String orderType,@FastJson OpenPage<AuntOrder> page) {
         OpenPage<AuntOrder> openPage = null;
         try {
-            openPage = orderService.findOrderList(memberId, orderType);
+            openPage = orderService.findOrderList(memberId, orderType,page);
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }

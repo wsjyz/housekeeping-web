@@ -1,11 +1,16 @@
 package com.eighth.housekeeping.service.impl;
 
+import com.eighth.housekeeping.dao.AuntDAO;
+import com.eighth.housekeeping.dao.AuntWorkCaseDAO;
+import com.eighth.housekeeping.dao.ReviewDAO;
 import com.eighth.housekeeping.domain.AuntInfo;
 import com.eighth.housekeeping.domain.AuntWorkCase;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.Review;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.AuntService;
+import com.eighth.housekeeping.utils.CommonStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,29 +18,37 @@ import org.springframework.stereotype.Service;
  */
 @Service("AuntService")
 public class AuntServiceImpl implements AuntService {
+    @Autowired
+    private AuntDAO auntDAO;
+    @Autowired
+    private AuntWorkCaseDAO auntWorkCaseDAO;
+    @Autowired
+    private ReviewDAO reviewDAO;
+
     @Override
     public AuntInfo login(String mobile, String password) throws RemoteInvokeException {
-        return null;
+        String md5Psw = CommonStringUtils.getMD5(password.getBytes());
+        return auntDAO.findAuntByMobileAndPsw(mobile,md5Psw);
     }
 
     @Override
     public AuntInfo findAuntByIdForAunt(String auntId) throws RemoteInvokeException {
-        return null;
+        return auntDAO.findAuntByIdForAunt(auntId);
     }
 
     @Override
     public AuntInfo findAuntByIdForMember(String auntId) throws RemoteInvokeException {
-        return null;
+        return auntDAO.findAuntByIdForMember(auntId);
     }
 
     @Override
     public AuntWorkCase findCaseById(String caseId) throws RemoteInvokeException {
-        return null;
+        return auntWorkCaseDAO.findCaseById(caseId);
     }
 
     @Override
     public OpenPage<Review> findReviewByAuntId(String reviewTag, String auntId, OpenPage page) throws RemoteInvokeException {
-        return null;
+        return reviewDAO.findReviewByAuntId(reviewTag,auntId,page);
     }
 
     @Override

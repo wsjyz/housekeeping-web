@@ -11,11 +11,18 @@ public interface SignInfoService {
 
     /**
      * 签到
-     * @param auntId
+     * @param signInfo
      * @return
      */
+    @RemoteMethod(methodVarNames={ "signInfo" })
+    SignInfo sign(SignInfo signInfo)throws RemoteInvokeException;
+
+    /**
+     * 获取阿姨签到详情
+     * @param auntId
+     * @return
+     * @throws RemoteInvokeException
+     */
     @RemoteMethod(methodVarNames={ "auntId" })
-    SignInfo sign(String auntId)throws RemoteInvokeException;
-
-
+    SignInfo findSignDetail(String auntId)throws RemoteInvokeException;
 }

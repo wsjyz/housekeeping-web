@@ -1,6 +1,7 @@
 package com.eighth.housekeeping.proxy.utils;
 
 import com.alibaba.fastjson.*;
+import com.eighth.housekeeping.domain.VerifyCode;
 import com.eighth.housekeeping.proxy.annotation.RemoteMethod;
 import com.eighth.housekeeping.proxy.service.UserService;
 
@@ -15,6 +16,12 @@ public class Classes {
 
 
     public static Object stringToObject(String s, java.lang.reflect.Type type){
+        if(type instanceof Class){
+            Class c = (Class)type;
+            if(c.isAssignableFrom(String.class)){
+                return s;
+            }
+        }
         return JSON.parseObject(s,type);
     }
 
@@ -38,10 +45,15 @@ public class Classes {
         Method m = null;
         try {
             //m = cl.getMethod("modifyPushAuntInfo",String.class,int.class);
-            m = cl.getMethod("obtainVerifyCode");
+            m = cl.getMethod("checkVerifyCode", VerifyCode.class);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        Classes.parseMethodVarNames(m);
+        Type t = m.getReturnType();
+        Class c = (Class)t;
+        if(c.isAssignableFrom(String.class)){
+            System.out.println("yes");
+        }
+        //Classes.parseMethodVarNames(m);
     }
 }

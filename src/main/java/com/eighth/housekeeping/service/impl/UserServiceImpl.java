@@ -21,23 +21,21 @@ import java.util.Date;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserDAO userDAO;
-    @Override
-    public MemberInfo login(String mobile) throws RemoteInvokeException {
-
-        return userDAO.findMemberByMobile(mobile);
-    }
 
     @Override
     public MemberInfo add(MemberInfo userInfo) throws RemoteInvokeException {
-        userInfo.setUserId(CommonStringUtils.genPK());
+        if(StringUtils.isBlank(userInfo.getUserId())){
+            userInfo.setUserId(CommonStringUtils.genPK());
+        }
         userDAO.saveMember(userInfo);
         return userInfo;
     }
 
     @Override
-    public VerifyCode obtainVerifyCode() throws RemoteInvokeException {
+    public VerifyCode obtainVerifyCode(String mobile) throws RemoteInvokeException {
+        userDAO.deleteVerifyCode(mobile);
         VerifyCode code = new VerifyCode();
-        code.setTokenId(CommonStringUtils.genPK());
+        code.setMobile(mobile);
         code.setToken(CommonStringUtils.gen4RandomKey());
         userDAO.saveVerifyCode(code);
         return code;
@@ -46,11 +44,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public String checkVerifyCode(VerifyCode token) throws RemoteInvokeException {
         String result = "";
-        if(token == null || StringUtils.isBlank(token.getTokenId())
+        if(token == null || StringUtils.isBlank(token.getMobile())
                 || StringUtils.isBlank(token.getToken())){
             result = "FAULT";
         }else {
-            VerifyCode code = userDAO.findVerifyCodeById(token.getTokenId());
+            VerifyCode code = userDAO.findVerifyCodeByMobile(token.getMobile());
             if(code == null){
                 result = "FAULT";
             }else{
@@ -66,7 +64,16 @@ public class UserServiceImpl implements UserService {
                 if(diffResult > 30){
                     result = "PAST";
                 }else if(token.getToken().equals(code.getToken())){
-                    result = "RIGHT";
+                    MemberInfo memberInfo = userDAO.findMemberByMobile(token.getMobile());
+                    if(memberInfo == null){
+                        String memberId = CommonStringUtils.genPK();
+                        memberInfo = new MemberInfo();
+                        memberInfo.setMobile(token.getMobile());
+                        memberInfo.setUserId(memberId);
+                        add(memberInfo);
+                    }
+                    result = memberInfo.getUserId();
+
                 }else{
                     result = "FAULT";
                 }
@@ -95,4 +102,11 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
+    @Override
+    public MemberInfo findMemberByMemberId(String memberId) throws RemoteInvokeException {
+        return userDAO.findMemberByMemberId(memberId);
+    }
+
+
 }

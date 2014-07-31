@@ -49,9 +49,9 @@ public class AuntInfo extends BaseDomain {
     private String bloodType;
     @Column(name="self_evaluate",comment = "自我评价",length = 100)
     private String selfEvaluate;
-    @Column(name="constellation",comment = "星座")
+    @Column(name="constellation",comment = "星座",length = 5)
     private String constellation;
-    @Column(name="work_type",comment = "分类",length = 5)
+    @Column(name="work_type",comment = "分类:HOUR_WORK",length = 5)
     private String workType;
     @Column(name="start",comment = "星级",length = 1)
     private String start;
@@ -74,6 +74,15 @@ public class AuntInfo extends BaseDomain {
     @Column(name="month_of_sign_counts",comment = "本月签到天数",length = 3)
     private int monthOfSignCounts;//本月签到天数
 
+    private String loginResult;//登录结果，传值用 UCCESS成功|ACOUNT_NOT_CORRECT用户名或密码错
+
+    public String getLoginResult() {
+        return loginResult;
+    }
+
+    public void setLoginResult(String loginResult) {
+        this.loginResult = loginResult;
+    }
 
     //以下是关系
     private List<AuntWorkCase> caseList;//案例
@@ -261,5 +270,69 @@ public class AuntInfo extends BaseDomain {
 
     public void setCaseList(List<AuntWorkCase> caseList) {
         this.caseList = caseList;
+    }
+
+    public BigDecimal getYearOfIncome() {
+        return yearOfIncome;
+    }
+
+    public void setYearOfIncome(BigDecimal yearOfIncome) {
+        this.yearOfIncome = yearOfIncome;
+    }
+
+    public int getMonthOfOrderCounts() {
+        return monthOfOrderCounts;
+    }
+
+    public void setMonthOfOrderCounts(int monthOfOrderCounts) {
+        this.monthOfOrderCounts = monthOfOrderCounts;
+    }
+
+    public int getTotalOrderCounts() {
+        return totalOrderCounts;
+    }
+
+    public void setTotalOrderCounts(int totalOrderCounts) {
+        this.totalOrderCounts = totalOrderCounts;
+    }
+
+    public int getMothOfIncome() {
+        return mothOfIncome;
+    }
+
+    public void setMothOfIncome(int mothOfIncome) {
+        this.mothOfIncome = mothOfIncome;
+    }
+
+    public int getVerySatisfyCounts() {
+        return verySatisfyCounts;
+    }
+
+    public void setVerySatisfyCounts(int verySatisfyCounts) {
+        this.verySatisfyCounts = verySatisfyCounts;
+    }
+
+    public int getSatisfyCounts() {
+        return satisfyCounts;
+    }
+
+    public void setSatisfyCounts(int satisfyCounts) {
+        this.satisfyCounts = satisfyCounts;
+    }
+
+    public int getNotSatisfyCounts() {
+        return notSatisfyCounts;
+    }
+
+    public void setNotSatisfyCounts(int notSatisfyCounts) {
+        this.notSatisfyCounts = notSatisfyCounts;
+    }
+
+    public int getMonthOfSignCounts() {
+        return monthOfSignCounts;
+    }
+
+    public void setMonthOfSignCounts(int monthOfSignCounts) {
+        this.monthOfSignCounts = monthOfSignCounts;
     }
 }

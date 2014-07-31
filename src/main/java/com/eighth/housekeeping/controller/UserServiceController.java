@@ -5,6 +5,7 @@ import com.eighth.housekeeping.domain.VerifyCode;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.UserService;
 import com.eighth.housekeeping.web.FastJson;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,18 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UserServiceController {
     @Autowired
     UserService userService;
-
-    @ResponseBody
-    @RequestMapping(value = "/login")
-    public MemberInfo login(@RequestParam String mobile) {
-        MemberInfo memberInfo = null;
-        try {
-            memberInfo = userService.login(mobile);
-        } catch (RemoteInvokeException e) {
-            e.printStackTrace();
-        }
-        return memberInfo;
-    }
 
     @ResponseBody
     @RequestMapping(value = "/add")
@@ -43,10 +32,10 @@ public class UserServiceController {
 
     @ResponseBody
     @RequestMapping(value = "/obtainVerifyCode")
-    public VerifyCode obtainVerifyCode(){
+    public VerifyCode obtainVerifyCode(@RequestParam String mobile){
         VerifyCode verifyCode = null;
         try {
-            verifyCode = userService.obtainVerifyCode();
+            verifyCode = userService.obtainVerifyCode(mobile);
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }
@@ -55,10 +44,10 @@ public class UserServiceController {
 
     @ResponseBody
     @RequestMapping(value = "/checkVerifyCode")
-    public String checkVerifyCode(@FastJson VerifyCode token) {
+    public String checkVerifyCode(@FastJson VerifyCode code) {
         String string = null;
         try {
-            string = userService.checkVerifyCode(token);
+            string = userService.checkVerifyCode(code);
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }
@@ -87,5 +76,13 @@ public class UserServiceController {
             e.printStackTrace();
         }
         return memberInfo;
+    }
+    @ResponseBody
+    @RequestMapping(value = "/findMemberByMemberId")
+    public MemberInfo findMemberByMemberId(String memberId)throws RemoteInvokeException{
+        if(StringUtils.isNotBlank(memberId)){
+            return  userService.findMemberByMemberId(memberId);
+        }
+        return null;
     }
 }
