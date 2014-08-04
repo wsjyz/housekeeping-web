@@ -1,6 +1,7 @@
 package com.eighth.housekeeping.proxy.service;
 
 import com.eighth.housekeeping.domain.APKVersion;
+import com.eighth.housekeeping.domain.SystemManage;
 import com.eighth.housekeeping.proxy.annotation.RemoteMethod;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 
@@ -16,4 +17,12 @@ public interface SystemService {
      */
     @RemoteMethod(methodVarNames={ "currentVersionCode" })
     APKVersion updateAPK(String currentVersionCode)throws RemoteInvokeException;
+
+    /**
+     * 获取系统设置信息（会员端首页）
+     * @return
+     * @throws RemoteInvokeException
+     */
+    @RemoteMethod()
+    SystemManage findSystemManage()throws RemoteInvokeException;
 }

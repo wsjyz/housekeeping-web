@@ -1,6 +1,7 @@
 package com.eighth.housekeeping.controller;
 
 import com.eighth.housekeeping.domain.APKVersion;
+import com.eighth.housekeeping.domain.SystemManage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,16 @@ public class SystemServiceController {
             e.printStackTrace();
         }
         return aPKVersion;
+    }
+    @ResponseBody
+    @RequestMapping(value = "/findSystemManage")
+    public SystemManage findSystemManage(){
+        SystemManage systemManage = null;
+        try {
+            systemManage = systemService.findSystemManage();
+        } catch (RemoteInvokeException e) {
+            e.printStackTrace();
+        }
+        return systemManage;
     }
 }

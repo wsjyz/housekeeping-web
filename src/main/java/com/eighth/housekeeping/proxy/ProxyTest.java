@@ -38,7 +38,7 @@ public class ProxyTest {
 
 
         try {
-//            VerifyCode code = proxy.obtainVerifyCode("13833441123");
+           // VerifyCode code = proxy.obtainVerifyCode("13833441123");
 //            String result = proxy.checkVerifyCode(code);
 //            MemberInfo info = proxy.findMemberByMemberId(result);
 //            info.setUserName("理光");
@@ -64,8 +64,9 @@ public class ProxyTest {
             //APKVersion version = systemService.updateAPK("1.0.0");
 //            AuntInfo auntInfo = auntService.findAuntByIdForMember(auntId);
 //            SignInfo signInfo = signInfoService.findSignDetail(auntId);
-            AuntWorkCase workCase = auntService.findCaseById("1");
-            System.out.println(JSON.toJSONString(workCase));
+          //  AuntWorkCase workCase = auntService.findCaseById("1");
+            SystemManage systemManage = systemService.findSystemManage();
+            System.out.println(JSON.toJSONString(systemManage));
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }
