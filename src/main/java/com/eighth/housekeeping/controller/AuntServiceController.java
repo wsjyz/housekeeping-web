@@ -7,6 +7,7 @@ import com.eighth.housekeeping.domain.Review;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.AuntService;
 import com.eighth.housekeeping.web.FastJson;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -90,4 +91,9 @@ public class AuntServiceController {
         }
         return string;
     }
+    
+    @RequestMapping(value = "/toAunt")
+   	public String toAunt()  throws RemoteInvokeException{
+   		return "aunt/aunt";
+   	}
 }
