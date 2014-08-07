@@ -1,6 +1,7 @@
 package com.eighth.housekeeping.proxy.service;
 
 import com.eighth.housekeeping.domain.APKVersion;
+import com.eighth.housekeeping.domain.FeedBack;
 import com.eighth.housekeeping.domain.SystemManage;
 import com.eighth.housekeeping.proxy.annotation.RemoteMethod;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
@@ -25,4 +26,25 @@ public interface SystemService {
      */
     @RemoteMethod()
     SystemManage findSystemManage()throws RemoteInvokeException;
+
+    /**
+     * 保存意见反馈
+     * @param feedBack
+     * @return
+     * @throws RemoteInvokeException
+     */
+    @RemoteMethod(methodVarNames={ "feedBack" })
+    FeedBack saveFeedBack(FeedBack feedBack)throws RemoteInvokeException;
+
+    /**
+     * 移动端退出登录 (阿姨端、会员端)
+     * @param userId
+     * @param userType AUNT阿姨（小时工）|MEMBER会员
+     * @return SUCCESS成功|FAIL失败
+     * @throws RemoteInvokeException
+     */
+    @RemoteMethod()
+    String appLogout(String userId,String userType)throws RemoteInvokeException;
+
+
 }

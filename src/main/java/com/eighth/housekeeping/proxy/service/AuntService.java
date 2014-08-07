@@ -35,11 +35,13 @@ public interface AuntService {
 
     /**
      * 阿姨详情 需要加载案例（会员端）
+     * 注意：以userCollected字段标识是否收藏过
      * @param auntId
+     * @param memberId
      * @return
      */
-    @RemoteMethod(methodVarNames={ "auntId" })
-    AuntInfo findAuntByIdForMember(String auntId)throws RemoteInvokeException;
+    @RemoteMethod(methodVarNames={ "auntId","memberId" })
+    AuntInfo findAuntByIdForMember(String auntId,String memberId)throws RemoteInvokeException;
 
     /**
      * 工作效果详情

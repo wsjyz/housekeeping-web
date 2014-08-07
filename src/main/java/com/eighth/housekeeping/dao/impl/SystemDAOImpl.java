@@ -3,11 +3,14 @@ package com.eighth.housekeeping.dao.impl;
 import com.eighth.housekeeping.dao.BaseDAO;
 import com.eighth.housekeeping.dao.SystemDAO;
 import com.eighth.housekeeping.domain.APKVersion;
+import com.eighth.housekeeping.domain.FeedBack;
 import com.eighth.housekeeping.domain.SystemManage;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -17,6 +20,26 @@ import java.util.List;
  */
 @Repository("SystemDAO")
 public class SystemDAOImpl extends BaseDAO implements SystemDAO {
+
+    @Override
+    public void saveFeedBack(final FeedBack feedBack) {
+        StringBuilder sql = new StringBuilder("insert into t_feedback " +
+                "(feedback_id,aunt_id,member_id,content," +
+                "corp_id,opt_time)");
+        sql.append("values(?,?,?,?,?,?)");
+        getJdbcTemplate().update(sql.toString(),new PreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps) throws SQLException {
+                ps.setString(1,feedBack.getFeedbackId());
+                ps.setString(2,feedBack.getAuntId());
+                ps.setString(3,feedBack.getMemberId());
+                ps.setString(4,feedBack.getContent());
+                ps.setString(5,feedBack.getCorpId());
+                ps.setString(6,feedBack.getOptTime());
+            }
+        });
+    }
+
     @Override
     public APKVersion findLastVersion() {
         StringBuilder sql = new StringBuilder("");

@@ -5,6 +5,7 @@ import com.eighth.housekeeping.dao.OrderDAO;
 import com.eighth.housekeeping.domain.AuntOrder;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.Review;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -96,6 +97,33 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
         sql.append("delete from t_aunt_order where user_id = ? and order_id = ?");
         getJdbcTemplate().update(sql.toString(),new String[]{memberId,orderId});
     }
+
+    @Override
+    public void deleteOrderBatch(final String memberId, final String... orderIds) {
+        StringBuilder sql = new StringBuilder("");
+        sql.append("delete from t_aunt_order where user_id = ? and order_id = ?");
+        getJdbcTemplate().batchUpdate(sql.toString(),new BatchPreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps, int i) throws SQLException {
+                ps.setString(1,memberId);
+                ps.setString(2,orderIds[i]);
+            }
+
+            @Override
+            public int getBatchSize() {
+                return orderIds.length;
+            }
+        });
+    }
+
+    @Override
+    public int findOrderCountsByMemberIdAndType(String memberId,String orderType){
+        StringBuilder countSql = new StringBuilder("select count(*) from t_aunt_order where user_id = ? " +
+                "and order_status =?");
+        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),new String[]{memberId,orderType},Integer.class);
+        return count;
+    }
+
     public class AuntOrderRowMapper implements RowMapper<AuntOrder>{
 
         @Override

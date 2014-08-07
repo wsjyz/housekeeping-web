@@ -28,4 +28,6 @@ public interface CollectAuntService {
      */
     @RemoteMethod(methodVarNames={ "userId"})
     OpenPage<CollectAunt> findCollectAuntList(String userId,OpenPage page)throws RemoteInvokeException;
+
+
 }

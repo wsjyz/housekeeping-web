@@ -45,10 +45,10 @@ public class AuntServiceController {
 
     @ResponseBody
     @RequestMapping(value = "/findAuntByIdForMember")
-    public AuntInfo findAuntByIdForMember(@RequestParam String auntId) {
+    public AuntInfo findAuntByIdForMember(@RequestParam String auntId,@RequestParam String memberId) {
         AuntInfo auntInfo = null;
         try {
-            auntInfo = auntService.findAuntByIdForMember(auntId);
+            auntInfo = auntService.findAuntByIdForMember(auntId,memberId);
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }

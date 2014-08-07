@@ -3,7 +3,9 @@ package com.eighth.housekeeping.dao.impl;
 import com.eighth.housekeeping.dao.AuntDAO;
 import com.eighth.housekeeping.dao.AuntWorkCaseDAO;
 import com.eighth.housekeeping.dao.BaseDAO;
+import com.eighth.housekeeping.dao.CollectAuntDAO;
 import com.eighth.housekeeping.domain.AuntInfo;
+import com.eighth.housekeeping.domain.CollectAunt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -22,6 +24,9 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
     @Autowired
     private AuntWorkCaseDAO auntWorkCaseDAO;
 
+    @Autowired
+    private CollectAuntDAO collectAuntDAO;
+
     @Override
     public AuntInfo findAuntByIdForAunt(String auntId) {
         StringBuilder sql = new StringBuilder("");
@@ -35,13 +40,21 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
     }
 
     @Override
-    public AuntInfo findAuntByIdForMember(String auntId) {
+    public AuntInfo findAuntByIdForMember(String auntId,String memberId) {
         StringBuilder sql = new StringBuilder("");
         sql.append("select * from t_aunt_info where aunt_id = ?");
+
         List<AuntInfo> auntInfoList = getJdbcTemplate().query(sql.toString(),new String[]{auntId},new AuntRowMapper());
         if(!CollectionUtils.isEmpty(auntInfoList) ){
             AuntInfo auntInfo = auntInfoList.get(0);
             auntInfo.setCaseList(auntWorkCaseDAO.findCaseByAuntId(auntId));
+            CollectAunt collectAunt = collectAuntDAO.findCollectAuntByMemberIdAndAuntId(memberId,auntId);
+            if(collectAunt != null){
+                auntInfo.setUserCollected(true);
+            }else{
+                auntInfo.setUserCollected(false);
+            }
+
             return auntInfo;
         }
         return null;

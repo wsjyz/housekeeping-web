@@ -88,6 +88,16 @@ public class AuntInfo extends BaseDomain {
     private List<AuntWorkCase> caseList;//案例
     private OpenPage<Review> reviews;//评论
 
+    private boolean userCollected;//当前用户是否收藏了此阿姨
+
+    public boolean getUserCollected() {
+        return userCollected;
+    }
+
+    public void setUserCollected(boolean userCollected) {
+        this.userCollected = userCollected;
+    }
+
     public OpenPage<Review> getReviews() {
         return reviews;
     }

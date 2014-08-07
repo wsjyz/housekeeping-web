@@ -76,4 +76,25 @@ public class OrderServiceController {
         }
         return string;
     }
+    @ResponseBody
+    @RequestMapping(value = "/deleteOrderBatch")
+    String deleteOrderBatch(@RequestParam String memberId, @FastJson String... orderIds){
+        String string = null;
+        try {
+            string = orderService.deleteOrderBatch(memberId, orderIds);
+        } catch (RemoteInvokeException e) {
+            e.printStackTrace();
+        }
+        return string;
+    }
+    @ResponseBody
+    @RequestMapping(value = "/findOrderCountsByMemberIdAndType")
+    int findOrderCountsByMemberIdAndType(@RequestParam String memberId,@RequestParam String orderType){
+        try {
+            return orderService.findOrderCountsByMemberIdAndType(memberId,orderType);
+        } catch (RemoteInvokeException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

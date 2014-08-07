@@ -46,7 +46,7 @@ public class ProxyTest {
 //            MemberInfo info1 = proxy.findMemberByMemberId(result);
 //            System.out.println(info1.getUserName());
            // OpenPage<AuntOrder> orderOpenPage = orderService.findOrderList(memberId, "ALL",new OpenPage<AuntOrder>());
-//            AuntOrder order = orderService.findOrderById("o1");
+            //AuntOrder order = orderService.findOrderById("o1");
 //            orderService.saveUserOrder(order);
             //orderService.deleteOrder(memberId,"dd3f1bfdbc414c17b8c5efa0022da539");
 //            Review review = new Review();
@@ -61,12 +61,23 @@ public class ProxyTest {
 //            signInfo.setSignGeographic("xxx");
 //            SignInfo a = signInfoService.sign(signInfo);
 
-            //APKVersion version = systemService.updateAPK("1.0.0");
-//            AuntInfo auntInfo = auntService.findAuntByIdForMember(auntId);
+            APKVersion version = systemService.updateAPK("1.0.0");
+            AuntInfo auntInfo = auntService.findAuntByIdForMember(auntId,memberId);
 //            SignInfo signInfo = signInfoService.findSignDetail(auntId);
           //  AuntWorkCase workCase = auntService.findCaseById("1");
-            SystemManage systemManage = systemService.findSystemManage();
-            System.out.println(JSON.toJSONString(systemManage));
+           // SystemManage systemManage = systemService.findSystemManage();
+
+//            FeedBack feedBack = new FeedBack();
+//            feedBack.setMemberId("0fceb950b214421e82debdf048126c75");
+//            feedBack.setContent("功能太好用了，受不了");
+//            FeedBack newFeed = systemService.saveFeedBack(feedBack);
+
+//            String result = orderService.deleteOrderBatch("0fceb950b214421e82debdf048126c75","70c77431aa6941b7a0a240a3d0625b2f");
+//            System.out.println(result);
+
+//            int orderCounts = orderService.findOrderCountsByMemberIdAndType("u1","ONLINE_PAYED");
+//            System.out.println(orderCounts);
+            System.out.println(JSON.toJSONString(auntInfo));
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }

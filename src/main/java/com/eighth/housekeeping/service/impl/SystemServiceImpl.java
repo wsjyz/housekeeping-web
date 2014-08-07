@@ -2,9 +2,11 @@ package com.eighth.housekeeping.service.impl;
 
 import com.eighth.housekeeping.dao.SystemDAO;
 import com.eighth.housekeeping.domain.APKVersion;
+import com.eighth.housekeeping.domain.FeedBack;
 import com.eighth.housekeeping.domain.SystemManage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.SystemService;
+import com.eighth.housekeeping.utils.CommonStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +36,17 @@ public class SystemServiceImpl implements SystemService {
     @Override
     public SystemManage findSystemManage() throws RemoteInvokeException {
         return systemDAO.findSystemManage();
+    }
+
+    @Override
+    public FeedBack saveFeedBack(FeedBack feedBack) throws RemoteInvokeException {
+        feedBack.setFeedbackId(CommonStringUtils.genPK());
+        systemDAO.saveFeedBack(feedBack);
+        return feedBack;
+    }
+
+    @Override
+    public String appLogout(String userId, String userType) throws RemoteInvokeException {
+        return "SUCCESS";
     }
 }

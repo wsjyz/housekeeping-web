@@ -15,4 +15,8 @@ public interface OrderDAO {
     AuntOrder findOrderById(String orderId);
 
     void deleteOrder(String memberId, String orderId);
+
+    void deleteOrderBatch(String memberId, String... orderIds);
+
+    int findOrderCountsByMemberIdAndType(String memberId,String orderType);
 }

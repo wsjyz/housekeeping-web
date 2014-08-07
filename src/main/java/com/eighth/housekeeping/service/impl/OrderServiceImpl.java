@@ -45,4 +45,18 @@ public class OrderServiceImpl implements OrderService {
         orderDAO.deleteOrder(memberId,orderId);
         return "SUCCESS";
     }
+
+    @Override
+    public String deleteOrderBatch(String memberId, String... orderIds) throws RemoteInvokeException {
+        if(orderIds != null && orderIds.length>0){
+            orderDAO.deleteOrderBatch(memberId,orderIds);
+            return "SUCCESS";
+        }
+        return "FAIL";
+    }
+
+    @Override
+    public int findOrderCountsByMemberIdAndType(String memberId,String orderType)throws RemoteInvokeException {
+        return orderDAO.findOrderCountsByMemberIdAndType(memberId,orderType);
+    }
 }

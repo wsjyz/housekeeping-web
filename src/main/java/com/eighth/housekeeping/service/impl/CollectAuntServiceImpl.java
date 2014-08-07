@@ -38,4 +38,6 @@ public class CollectAuntServiceImpl implements CollectAuntService {
     public OpenPage<CollectAunt> findCollectAuntList(String userId,OpenPage page) throws RemoteInvokeException {
         return collectAuntDAO.findCollectAuntList(userId,page);
     }
+
+
 }

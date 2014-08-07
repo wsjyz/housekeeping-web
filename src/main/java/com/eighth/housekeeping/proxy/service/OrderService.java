@@ -57,4 +57,24 @@ public interface OrderService {
      */
     @RemoteMethod(methodVarNames={ "memberId","orderId" })
     String deleteOrder(String memberId,String orderId)throws RemoteInvokeException;
+
+    /**
+     * 批量删除订单
+     * @param memberId 用户ID
+     * @param orderIds 订单ID数组
+     * @return SUCCESS成功，FAIL失败
+     * @throws RemoteInvokeException
+     */
+    @RemoteMethod(methodVarNames={ "memberId","orderIds" })
+    String deleteOrderBatch(String memberId,String... orderIds)throws RemoteInvokeException;
+
+    /**
+     * 查询相应类型订单数量
+     * @param memberId 会员ID
+     * @param orderType PAYED已支付|UNPAY未支付|ALL全部
+     * @return
+     * @throws RemoteInvokeException
+     */
+    @RemoteMethod(methodVarNames={ "memberId","orderType" })
+    int findOrderCountsByMemberIdAndType(String memberId,String orderType)throws RemoteInvokeException;
 }

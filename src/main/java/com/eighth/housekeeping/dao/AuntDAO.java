@@ -9,7 +9,7 @@ public interface AuntDAO {
 
     AuntInfo findAuntByIdForAunt(String auntId);
 
-    AuntInfo findAuntByIdForMember(String auntId);
+    AuntInfo findAuntByIdForMember(String auntId,String memberId);
 
     AuntInfo findAuntByMobileAndPsw(String mobile,String password);
 }

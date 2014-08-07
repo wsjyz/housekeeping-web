@@ -37,8 +37,8 @@ public class AuntServiceImpl implements AuntService {
     }
 
     @Override
-    public AuntInfo findAuntByIdForMember(String auntId) throws RemoteInvokeException {
-        return auntDAO.findAuntByIdForMember(auntId);
+    public AuntInfo findAuntByIdForMember(String auntId,String memberId) throws RemoteInvokeException {
+        return auntDAO.findAuntByIdForMember(auntId,memberId);
     }
 
     @Override
