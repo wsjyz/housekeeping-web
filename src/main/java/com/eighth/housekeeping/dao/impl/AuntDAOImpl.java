@@ -40,10 +40,9 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
     }
 
     @Override
-    public AuntInfo findAuntByIdForMember(String auntId,String memberId) {
+    public AuntInfo findAuntByIdForMember(String auntId) {
         StringBuilder sql = new StringBuilder("");
         sql.append("select * from t_aunt_info where aunt_id = ?");
-
         List<AuntInfo> auntInfoList = getJdbcTemplate().query(sql.toString(),new String[]{auntId},new AuntRowMapper());
         if(!CollectionUtils.isEmpty(auntInfoList) ){
             AuntInfo auntInfo = auntInfoList.get(0);

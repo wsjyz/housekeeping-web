@@ -1,0 +1,166 @@
+<div class="content-tools clearfix">
+  <form action="member.html" method="get" accept-charset="utf-8">
+    <div class="input-group">
+      <span class="input-group-addon">评论人</span>
+      <input type="text" class="form-control">
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon">评论对象</span>
+      <input type="text" class="form-control">
+    </div>
+
+    <div class="btns">
+      <button type="button" class="btn btn-default">查找</button>
+      <button type="reset" class="btn btn-default">重置</button>
+    </div>
+
+    <div class="btns-right">
+      <a href="member-add.html" class="btn btn-primary">
+        <span class="glyphicon glyphicon-arrow-left"></span> 返回
+      </a>
+    </div>
+  </form>
+</div>
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">评论管理</div>
+
+  <!-- Table -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th><a href="member.html?orderby=orderDate">订单日期</a></th>
+        <th><a href="member.html?orderby=orderTime">订单时间</a></th>
+        <th><a href="member.html?orderby=commentUser">评论人</a></th>
+        <th><a href="member.html?orderby=commentCorp">评论机构</a></th>
+        <th><a href="member.html?orderby=commentFor">评论对象</a></th>
+        <th><a href="member.html?orderby=coupon">态度评价</a></th>
+        <th><a href="member.html?orderby=grade">评论内容</a></th>
+        <th class="operation">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!--
+      tr*10>td{2014/5/$}+td{10:2$}+td{geasscc}+td{居优}+td{李存在}+td{非常满意}+td{你是我的小丫小苹果，怎么爱你都不嫌多...}+td.operation>a[href='javascript:void(0);'][class='tools del']{删除}
+      -->
+      <tr>
+        <td>2014/5/1</td>
+        <td>10:21</td>
+        <td>geasscc</td>
+        <td>居优</td>
+        <td>李存在</td>
+        <td>非常满意</td>
+        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
+        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
+      </tr>
+      <tr>
+        <td>2014/5/2</td>
+        <td>10:22</td>
+        <td>geasscc</td>
+        <td>居优</td>
+        <td>李存在</td>
+        <td>非常满意</td>
+        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
+        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
+      </tr>
+      <tr>
+        <td>2014/5/3</td>
+        <td>10:23</td>
+        <td>geasscc</td>
+        <td>居优</td>
+        <td>李存在</td>
+        <td>非常满意</td>
+        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
+        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
+      </tr>
+      <tr>
+        <td>2014/5/4</td>
+        <td>10:24</td>
+        <td>geasscc</td>
+        <td>居优</td>
+        <td>李存在</td>
+        <td>非常满意</td>
+        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
+        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
+      </tr>
+      <tr>
+        <td>2014/5/5</td>
+        <td>10:25</td>
+        <td>geasscc</td>
+        <td>居优</td>
+        <td>李存在</td>
+        <td>非常满意</td>
+        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
+        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
+      </tr>
+      <tr>
+        <td>2014/5/6</td>
+        <td>10:26</td>
+        <td>geasscc</td>
+        <td>居优</td>
+        <td>李存在</td>
+        <td>非常满意</td>
+        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
+        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
+      </tr>
+      <tr>
+        <td>2014/5/7</td>
+        <td>10:27</td>
+        <td>geasscc</td>
+        <td>居优</td>
+        <td>李存在</td>
+        <td>非常满意</td>
+        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
+        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
+      </tr>
+      <tr>
+        <td>2014/5/8</td>
+        <td>10:28</td>
+        <td>geasscc</td>
+        <td>居优</td>
+        <td>李存在</td>
+        <td>非常满意</td>
+        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
+        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
+      </tr>
+      <tr>
+        <td>2014/5/9</td>
+        <td>10:29</td>
+        <td>geasscc</td>
+        <td>居优</td>
+        <td>李存在</td>
+        <td>非常满意</td>
+        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
+        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
+      </tr>
+      <tr>
+        <td>2014/5/10</td>
+        <td>10:210</td>
+        <td>geasscc</td>
+        <td>居优</td>
+        <td>李存在</td>
+        <td>非常满意</td>
+        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
+        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="9">
+          <ul class="pagination">
+            <li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>
+            <li class="active"><a href="member.html?page=1">1</a></li>
+            <li><a href="member.html?page=2">2</a></li>
+            <li><a href="member.html?page=3">3</a></li>
+            <li><a href="member.html?page=4">4</a></li>
+            <li><a href="member.html?page=5">5</a></li>
+            <li class="disabled"><a href="#">...</a></li>
+            <li><a href="member.html?page=64">64</a></li>
+            <li><a href="member.html?page=2">&raquo;</a></li>
+          </ul>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

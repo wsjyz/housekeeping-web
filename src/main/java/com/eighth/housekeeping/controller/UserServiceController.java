@@ -1,10 +1,14 @@
 package com.eighth.housekeeping.controller;
 
+import com.eighth.housekeeping.domain.AuntInfo;
 import com.eighth.housekeeping.domain.MemberInfo;
 import com.eighth.housekeeping.domain.VerifyCode;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
+import com.eighth.housekeeping.proxy.service.AuntService;
 import com.eighth.housekeeping.proxy.service.UserService;
+import com.eighth.housekeeping.utils.JsonStatus;
 import com.eighth.housekeeping.web.FastJson;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +22,8 @@ public class UserServiceController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    AuntService auntService;
     @ResponseBody
     @RequestMapping(value = "/add")
     public MemberInfo add(@FastJson MemberInfo userInfo) {
@@ -85,4 +91,41 @@ public class UserServiceController {
         }
         return null;
     }
+    @RequestMapping(value = "/toLogin")
+    public String toLogin(){
+    	return "login";
+    }
+    @ResponseBody
+    @RequestMapping(value = "/loginIng")
+    public JsonStatus loginIng(@RequestParam String mobile,@RequestParam String password){
+    	JsonStatus jsonStatus=new JsonStatus();
+    	if("ADMIN".equals(mobile) && "hw".equals(password)){
+    		jsonStatus.setSeccuss(true);
+    		jsonStatus.setUrl("${request.contextPath}/UserService/toIndex");
+    	}else{
+    		AuntInfo auntInfo=new AuntInfo();  
+    		 try {
+    			 auntInfo = auntService.login(mobile, password);
+             } catch (RemoteInvokeException e) {
+                 e.printStackTrace();
+             }
+			jsonStatus.setSeccuss(false);
+    		jsonStatus.setUrl("${request.contextPath}/UserService/toLogin");
+    	}
+    	return jsonStatus;
+    }
+    
+    @RequestMapping(value = "/toIndex")
+    public String toIndex(){
+    	return "index";
+    }
+    @RequestMapping(value = "/toInstitution")
+	public String toInstitution()  throws RemoteInvokeException{
+		return "institution/institution";
+	}
+    @RequestMapping(value = "/toMember")
+   	public String toMember()  throws RemoteInvokeException{
+   		return "member/member";
+   	}
+   	
 }

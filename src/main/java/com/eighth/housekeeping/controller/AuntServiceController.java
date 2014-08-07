@@ -45,10 +45,10 @@ public class AuntServiceController {
 
     @ResponseBody
     @RequestMapping(value = "/findAuntByIdForMember")
-    public AuntInfo findAuntByIdForMember(@RequestParam String auntId,@RequestParam String memberId) {
+    public AuntInfo findAuntByIdForMember(@RequestParam String auntId) {
         AuntInfo auntInfo = null;
         try {
-            auntInfo = auntService.findAuntByIdForMember(auntId,memberId);
+            auntInfo = auntService.findAuntByIdForMember(auntId);
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }
@@ -90,4 +90,9 @@ public class AuntServiceController {
         }
         return string;
     }
+    
+    @RequestMapping(value = "/toAunt")
+   	public String toAunt()  throws RemoteInvokeException{
+   		return "aunt/aunt";
+   	}
 }

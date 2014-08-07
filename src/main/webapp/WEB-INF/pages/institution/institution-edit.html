@@ -1,0 +1,81 @@
+<div class="content-tools clearfix">
+
+  <div class="btns-right">
+    <a href="institution-add.html" class="btn btn-primary">
+      <span class="glyphicon glyphicon-plus"></span> 继续添加
+    </a>
+    <a href="institution.html" class="btn btn-primary">
+      <span class="glyphicon glyphicon-arrow-left"></span> 返回
+    </a>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">添加机构</div>
+  <form action="" method="post">
+    <div class="form-panel panel-body">
+
+      <!--error alert-->
+      <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <strong>保存失败</strong>XXX不能为空。
+      </div>
+
+      <!-- success alert -->
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <strong>保存成功!</strong>
+      </div>
+
+      <div class="row">
+        <div class="col col-lg-4 col-md-5 col-sm-6 col-xs-12">
+          <div class="input-group">
+            <span class="input-group-addon">
+              机构名称
+            </span>
+            <input type="text" class="form-control" value="上海八荒信息技术有限公司">
+          </div><!-- /input-group -->
+
+          <div class="input-group">
+            <span class="input-group-addon">
+              机构简称
+            </span>
+            <input type="text" class="form-control" value="八荒">
+          </div><!-- /input-group -->
+
+          <div class="input-group">
+            <span class="input-group-addon">
+              机构帐号
+            </span>
+            <input type="text" class="form-control" value="geasscc">
+          </div><!-- /input-group -->
+
+          <div class="input-group">
+            <span class="input-group-addon">
+              机构密码
+            </span>
+            <input type="text" class="form-control" value="xxxpwdxxx">
+          </div><!-- /input-group -->
+
+          <div class="input-group">
+            <span class="input-group-addon">
+              备注
+            </span>
+            <textarea class="form-control" name="description" id="description" cols="30" rows="4">
+              南泉北路1515号707室\n
+              电话：15510000963
+            </textarea>
+          </div><!-- /input-group -->
+
+        </div><!-- /.col-lg-6 -->
+      </div><!-- /.row -->
+    </div>
+    <div class="panel-footer"><button class="btn btn-lg btn-primary" type="submit">&nbsp;保存&nbsp;</button></div>
+  </form>
+</div>
