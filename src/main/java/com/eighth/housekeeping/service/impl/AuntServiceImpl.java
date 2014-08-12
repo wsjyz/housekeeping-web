@@ -26,6 +26,11 @@ public class AuntServiceImpl implements AuntService {
     private ReviewDAO reviewDAO;
 
     @Override
+    public OpenPage<AuntInfo> searchAuntByCondition(AuntInfo auntInfo, OpenPage<AuntInfo> page) throws RemoteInvokeException {
+        return auntDAO.searchAuntByCondition(auntInfo,page);
+    }
+
+    @Override
     public AuntInfo login(String mobile, String password) throws RemoteInvokeException {
         String md5Psw = CommonStringUtils.getMD5(password.getBytes());
         return auntDAO.findAuntByMobileAndPsw(mobile,md5Psw);
@@ -54,5 +59,11 @@ public class AuntServiceImpl implements AuntService {
     @Override
     public String resetPassword(String auntId, String oldPassword, String newPassword) throws RemoteInvokeException {
         return null;
+    }
+
+    @Override
+    public String modifyAuntGeo(String auntId, double longitude, double latitude) {
+        auntDAO.modifyAuntGeo(auntId,longitude,latitude);
+        return "SUCCESS";
     }
 }

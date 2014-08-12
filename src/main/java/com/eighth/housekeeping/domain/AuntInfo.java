@@ -26,7 +26,7 @@ public class AuntInfo extends BaseDomain {
     @Column(name="sex",comment = "MALE|FAMALE",length = 6)
     private String sex;
     @Column(name="age",comment = "年龄",length = 3)
-    private String age;
+    private int age;
     @Column(name="address",comment = "居住地址",length = 50)
     private String address;
     @Column(name="price",comment = "单价",length = 10,decimal = 2)
@@ -55,6 +55,10 @@ public class AuntInfo extends BaseDomain {
     private String workType;
     @Column(name="start",comment = "星级",length = 1)
     private String start;
+    @Column(name="longitude",comment = "经度")
+    private double longitude;
+    @Column(name="latitude",comment = "纬度")
+    private double latitude;
 
     //以下是统计信息
     @Column(name="year_of_income",comment = "年度金额",length = 10,decimal = 2)
@@ -75,6 +79,42 @@ public class AuntInfo extends BaseDomain {
     private int monthOfSignCounts;//本月签到天数
 
     private String loginResult;//登录结果，传值用 UCCESS成功|ACOUNT_NOT_CORRECT用户名或密码错
+    private String headPic;//头像地址
+    private int distanceMeter;//距离单位米
+
+    public int getDistanceMeter() {
+        return distanceMeter;
+    }
+
+    public void setDistanceMeter(int distanceMeter) {
+        this.distanceMeter = distanceMeter;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getHeadPic() {
+        return headPic;
+    }
+
+    public void setHeadPic(String headPic) {
+        this.headPic = headPic;
+    }
+
+
 
     public String getLoginResult() {
         return loginResult;
@@ -154,11 +194,11 @@ public class AuntInfo extends BaseDomain {
         this.sex = sex;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 

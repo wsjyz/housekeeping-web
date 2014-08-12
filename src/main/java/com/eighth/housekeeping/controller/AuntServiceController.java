@@ -1,5 +1,6 @@
 package com.eighth.housekeeping.controller;
 
+
 import com.eighth.housekeeping.domain.AuntInfo;
 import com.eighth.housekeeping.domain.AuntWorkCase;
 import com.eighth.housekeeping.domain.OpenPage;
@@ -45,10 +46,10 @@ public class AuntServiceController {
 
     @ResponseBody
     @RequestMapping(value = "/findAuntByIdForMember")
-    public AuntInfo findAuntByIdForMember(@RequestParam String auntId) {
+    public AuntInfo findAuntByIdForMember(@RequestParam String auntId,@RequestParam String memberId) {
         AuntInfo auntInfo = null;
         try {
-            auntInfo = auntService.findAuntByIdForMember(auntId);
+            auntInfo = auntService.findAuntByIdForMember(auntId,memberId);
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }
@@ -89,6 +90,28 @@ public class AuntServiceController {
             e.printStackTrace();
         }
         return string;
+    }
+    @ResponseBody
+    @RequestMapping(value = "/searchAuntByCondition")
+    public OpenPage<AuntInfo> searchAuntByCondition(@FastJson AuntInfo auntInfo,@FastJson OpenPage<AuntInfo> page){
+        OpenPage<AuntInfo> auntPage = new OpenPage<AuntInfo>();
+        try {
+            page = auntService.searchAuntByCondition(auntInfo,page);
+        } catch (RemoteInvokeException e) {
+            e.printStackTrace();
+        }
+        return page;
+    }
+    @ResponseBody
+    @RequestMapping(value = "/modifyAuntGeo")
+    public String modifyAuntGeo(String auntId,double longitude,double latitude){
+        String result = null;
+        try {
+            result = auntService.modifyAuntGeo(auntId,longitude,latitude);
+        } catch (RemoteInvokeException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
     
     @RequestMapping(value = "/toAunt")

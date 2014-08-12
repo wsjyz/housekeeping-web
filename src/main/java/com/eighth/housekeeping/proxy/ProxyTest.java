@@ -61,8 +61,8 @@ public class ProxyTest {
 //            signInfo.setSignGeographic("xxx");
 //            SignInfo a = signInfoService.sign(signInfo);
 
-            APKVersion version = systemService.updateAPK("1.0.0");
-            AuntInfo auntInfo = auntService.findAuntByIdForMember(auntId,memberId);
+//            APKVersion version = systemService.updateAPK("1.0.0");
+//            AuntInfo auntInfo = auntService.findAuntByIdForMember(auntId,memberId);
 //            SignInfo signInfo = signInfoService.findSignDetail(auntId);
           //  AuntWorkCase workCase = auntService.findCaseById("1");
            // SystemManage systemManage = systemService.findSystemManage();
@@ -77,7 +77,17 @@ public class ProxyTest {
 
 //            int orderCounts = orderService.findOrderCountsByMemberIdAndType("u1","ONLINE_PAYED");
 //            System.out.println(orderCounts);
-            System.out.println(JSON.toJSONString(auntInfo));
+//            AuntInfo params = new AuntInfo();
+//            params.setAge(10);
+//            params.setLatitude(116.403859);
+//            params.setLongitude(39.915290);
+//            OpenPage<AuntInfo> page = new OpenPage<AuntInfo>();
+//            page.setPageNo(0);
+//            page.setPageSize(10);
+//            OpenPage<AuntInfo> auntInfoOpenPage = auntService.searchAuntByCondition(params,page);
+
+            auntService.modifyAuntGeo(auntId,39.985290,116.403850);
+            //System.out.println(JSON.toJSONString(auntInfoOpenPage));
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }

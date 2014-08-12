@@ -16,6 +16,16 @@ import java.util.List;
 public interface AuntService {
 
     /**
+     * 根据条件查询阿姨列表
+     * @param auntInfo
+     * @param page
+     * @return
+     * @throws RemoteInvokeException
+     */
+    @RemoteMethod(methodVarNames={ "auntInfo","page" })
+    OpenPage<AuntInfo> searchAuntByCondition(AuntInfo auntInfo,OpenPage<AuntInfo> page)throws RemoteInvokeException;
+
+    /**
      * 阿姨登录
      * @param mobile 手机号
      * @param password 密码
@@ -67,4 +77,14 @@ public interface AuntService {
      */
     @RemoteMethod(methodVarNames={ "auntId","oldPassword","newPassword" })
     String resetPassword(String auntId,String oldPassword,String newPassword)throws RemoteInvokeException;
+
+    /**
+     * 修改阿姨的经纬度
+     * @param auntId
+     * @param longitude
+     * @param latitude
+     * @return SUCCESS成功|FAIL失败
+     */
+    @RemoteMethod(methodVarNames={ "auntId","longitude","latitude" })
+    String modifyAuntGeo(String auntId,double longitude,double latitude)throws RemoteInvokeException;
 }
