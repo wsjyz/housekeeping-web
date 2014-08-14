@@ -40,6 +40,16 @@ public interface OrderService {
     OpenPage<AuntOrder> findOrderList(String memberId,String orderType,OpenPage<AuntOrder> page)throws RemoteInvokeException;
 
     /**
+     * 获取用户订单列表(阿姨端)
+     * @param auntId
+     * @param orderType PAYED已支付|UNPAY未支付|ALL全部
+     * @return
+     * @throws RemoteInvokeException
+     */
+    @RemoteMethod(methodVarNames={ "auntId","orderType","page" })
+    OpenPage<AuntOrder> findAuntOrderList(String auntId,String orderType,OpenPage<AuntOrder> page)throws RemoteInvokeException;
+
+    /**
      * 获取订单详情
      * @param orderId
      * @return

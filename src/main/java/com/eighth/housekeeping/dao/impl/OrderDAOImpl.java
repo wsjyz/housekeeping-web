@@ -80,6 +80,30 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
     }
 
     @Override
+    public OpenPage<AuntOrder> findAuntOrderList(String auntId, String orderType, OpenPage<AuntOrder> page) {
+        List<Object> params = new ArrayList<Object>();
+        params.add(auntId);
+        StringBuilder sql = new StringBuilder("select * from t_aunt_order where aunt_id = ?");
+        StringBuilder countSql = new StringBuilder("select count(*) from t_aunt_order where aunt_id = ? ");
+        if(!orderType.equals("ALL")){
+            countSql.append("and order_status =?");
+            sql.append("and order_status =?");
+            params.add(orderType);
+        }
+        sql.append("limit ?,?");
+        countSql.append("limit ?,?");
+        params.add(page.getPageSize() * (page.getPageNo() - 1));
+        params.add(page.getPageSize());
+
+        List<AuntOrder> orderList = getJdbcTemplate().query(sql.toString(), params.toArray(),new AuntOrderRowMapper());
+        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),params.toArray(),Integer.class);
+        OpenPage<AuntOrder> orderOpenPage = new OpenPage<AuntOrder>();
+        orderOpenPage.setTotal(count);
+        orderOpenPage.setRows(orderList);
+        return orderOpenPage;
+    }
+
+    @Override
     public AuntOrder findOrderById(String orderId) {
         StringBuilder sql = new StringBuilder("");
         sql.append("select * from t_aunt_order where order_id = ?");

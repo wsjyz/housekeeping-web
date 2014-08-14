@@ -52,6 +52,17 @@ public class OrderServiceController {
         }
         return openPage;
     }
+    @ResponseBody
+    @RequestMapping(value = "/findAuntOrderList")
+    OpenPage<AuntOrder> findAuntOrderList(@RequestParam String auntId,@RequestParam String orderType,@FastJson OpenPage<AuntOrder> page){
+        OpenPage<AuntOrder> openPage = null;
+        try {
+            openPage = orderService.findAuntOrderList(auntId, orderType,page);
+        } catch (RemoteInvokeException e) {
+            e.printStackTrace();
+        }
+        return openPage;
+    }
 
     @ResponseBody
     @RequestMapping(value = "/findOrderById")

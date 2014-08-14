@@ -45,7 +45,7 @@ public class ProxyTest {
 //            proxy.modifyMemberInfo(info);
 //            MemberInfo info1 = proxy.findMemberByMemberId(result);
 //            System.out.println(info1.getUserName());
-           // OpenPage<AuntOrder> orderOpenPage = orderService.findOrderList(memberId, "ALL",new OpenPage<AuntOrder>());
+           //OpenPage<AuntOrder> orderOpenPage = orderService.findOrderList(memberId, "ALL",new OpenPage<AuntOrder>());
             //AuntOrder order = orderService.findOrderById("o1");
 //            orderService.saveUserOrder(order);
             //orderService.deleteOrder(memberId,"dd3f1bfdbc414c17b8c5efa0022da539");
@@ -86,8 +86,9 @@ public class ProxyTest {
 //            page.setPageSize(10);
 //            OpenPage<AuntInfo> auntInfoOpenPage = auntService.searchAuntByCondition(params,page);
 
-            auntService.modifyAuntGeo(auntId,39.985290,116.403850);
-            //System.out.println(JSON.toJSONString(auntInfoOpenPage));
+            OpenPage<AuntOrder> orderOpenPage = orderService.findAuntOrderList(auntId, "ALL",new OpenPage<AuntOrder>());
+
+            System.out.println(JSON.toJSONString(orderOpenPage));
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }

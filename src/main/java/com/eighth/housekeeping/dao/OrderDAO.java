@@ -12,6 +12,8 @@ public interface OrderDAO {
 
     OpenPage<AuntOrder> findOrderList(String memberId, String orderType,OpenPage<AuntOrder> page);
 
+    OpenPage<AuntOrder> findAuntOrderList(String auntId, String orderType, OpenPage<AuntOrder> page);
+
     AuntOrder findOrderById(String orderId);
 
     void deleteOrder(String memberId, String orderId);
