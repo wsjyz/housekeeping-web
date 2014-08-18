@@ -59,7 +59,8 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
     public OpenPage<AuntOrder> findOrderList(String memberId, String orderType,OpenPage<AuntOrder> page) {
         List<Object> params = new ArrayList<Object>();
         params.add(memberId);
-        StringBuilder sql = new StringBuilder("select * from t_aunt_order where user_id = ?");
+        StringBuilder sql = new StringBuilder("select tao.*,tmi.nick_name from t_aunt_order tao,t_member_info tmi " +
+                " where tmi.user_id = tao.user_id and tao.user_id = ?");
         StringBuilder countSql = new StringBuilder("select count(*) from t_aunt_order where user_id = ? ");
         if(!orderType.equals("ALL")){
             countSql.append("and order_status =?");
@@ -83,7 +84,8 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
     public OpenPage<AuntOrder> findAuntOrderList(String auntId, String orderType, OpenPage<AuntOrder> page) {
         List<Object> params = new ArrayList<Object>();
         params.add(auntId);
-        StringBuilder sql = new StringBuilder("select * from t_aunt_order where aunt_id = ?");
+        StringBuilder sql = new StringBuilder("select tao.*,tmi.nick_name from t_aunt_order tao,t_member_info tmi " +
+                " where tmi.user_id = tao.user_id and tao.aunt_id = ?");
         StringBuilder countSql = new StringBuilder("select count(*) from t_aunt_order where aunt_id = ? ");
         if(!orderType.equals("ALL")){
             countSql.append("and order_status =?");
@@ -106,7 +108,8 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
     @Override
     public AuntOrder findOrderById(String orderId) {
         StringBuilder sql = new StringBuilder("");
-        sql.append("select * from t_aunt_order where order_id = ?");
+        sql.append("select tao.*,tmi.nick_name from t_aunt_order tao,t_member_info tmi where tmi.user_id = tao.user_id " +
+                "and tao.order_id = ?");
         List<AuntOrder> orderInfoList = getJdbcTemplate().query(sql.toString(),new String[]{orderId},new AuntOrderRowMapper());
         if(!CollectionUtils.isEmpty(orderInfoList) ){
             AuntOrder auntInfo = orderInfoList.get(0);
@@ -171,6 +174,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             order.setWorkLength(rs.getInt("work_length"));
             order.setWorkTime(rs.getString("work_time"));
             order.setCorpId(rs.getString("corp_id"));
+            order.setUserName(rs.getString("nick_name"));
             return order;
         }
     }
