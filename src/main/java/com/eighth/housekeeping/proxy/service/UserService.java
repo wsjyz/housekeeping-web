@@ -1,7 +1,9 @@
 package com.eighth.housekeeping.proxy.service;
 
 
+import com.eighth.housekeeping.domain.Corp;
 import com.eighth.housekeeping.domain.MemberInfo;
+import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.VerifyCode;
 import com.eighth.housekeeping.proxy.annotation.RemoteMethod;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
@@ -67,5 +69,23 @@ public interface UserService {
      */
     @RemoteMethod(methodVarNames={ "memberId"})
     MemberInfo findMemberByMemberId(String memberId)throws RemoteInvokeException;
+
+    /**
+     * 删除某个会员信息
+     */
+    @RemoteMethod(methodVarNames={"memberId"})
+    String deleteByMemberId(String memberId) throws RemoteInvokeException;
+
+    /**
+     * 获取会员信息
+     * @param memberId
+     * @return
+     * @throws RemoteInvokeException
+     */
+    @RemoteMethod(methodVarNames={ "memberId"})
+    MemberInfo findMemberByMemberIdWeb(String memberId)throws RemoteInvokeException;
+    
+    
+	OpenPage<MemberInfo> findUserPage(String mobile, String nickName, OpenPage page) throws RemoteInvokeException;
 
 }

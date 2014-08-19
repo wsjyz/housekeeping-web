@@ -1,0 +1,37 @@
+<div class="content-tools clearfix">
+
+  <div class="btns-right">
+    <a href="${request.contextPath}/AuntService/toAuntView?auntId=${auntId}" class="btn btn-primary">
+      <span class="glyphicon glyphicon-arrow-left"></span> 返回
+    </a>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">案例-清洁</div>
+  <form action="" method="post">
+    <div class="form-panel panel-body">
+      <div class="row">
+        <div class="col col-lg-4 col-md-5 col-sm-6 col-xs-12">
+          <span href="#" class="thumbnail">
+            <img src="./img/case-1.jpg" alt="...">
+          </span>
+        </div><!-- /.col-lg-6 -->
+
+        <div class="col col-lg-4 col-md-5 col-sm-6 col-xs-12">
+          <span href="#" class="thumbnail">
+            <img src="./img/case-2.jpg" alt="...">
+          </span>
+        </div><!-- /.col-lg-6 -->
+      </div><!-- /.row -->
+      <div class="row">
+          <div class="col col-lg-8 col-md-10 col-sm-12 col-xs-12">
+            <p>2010年，摄于北京海淀上任房主家里，内容为已打扫好的房间的样式，也是我工作时候的样子，为使大家更方便的了解我，我也把自己的个人实力展现出来，这样总可以了吧，喵～</p>
+          </div>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <a class="btn btn-lg btn-primary" href="${request.contextPath}/AuntService/toCaseEdit?auntId=${auntWorkCase.caseId}&caseId=${auntWorkCase.caseId}">&nbsp;修改&nbsp;</a>
+    </div>
+  </form>
+</div>

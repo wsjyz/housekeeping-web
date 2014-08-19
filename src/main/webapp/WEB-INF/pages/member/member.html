@@ -2,11 +2,11 @@
   <form action="member.html" method="get" accept-charset="utf-8">
     <div class="input-group">
       <span class="input-group-addon">手机号</span>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" id="mobile">
     </div>
     <div class="input-group">
       <span class="input-group-addon">昵称</span>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" id="nickName">
     </div>
 
     <div class="btns">
@@ -15,10 +15,10 @@
     </div>
 
     <div class="btns-right">
-      <a href="member-add.html" class="btn btn-primary">
+      <a href="${request.contextPath}/UserService/toMemberAdd" class="btn btn-primary">
         <span class="glyphicon glyphicon-plus"></span> 新增
       </a>
-      <a href="member-comments.html" class="btn btn-primary">
+      <a href="${request.contextPath}/UserService/toMemberComments" class="btn btn-primary">
         <span class="glyphicon glyphicon-comment"></span> 评论管理
       </a>
     </div>
@@ -28,193 +28,102 @@
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">会员管理</div>
-
-  <!-- Table -->
-  <table class="table">
-    <thead>
-      <tr>
-        <th>序号</th>
-        <th><a href="member.html?orderby=mobileNo">手机号</a></th>
-        <th><a href="member.html?orderby=nickname">昵称</a></th>
-        <th><a href="member.html?orderby=username">姓名</a></th>
-        <th><a href="member.html?orderby=yearSpending">年度消费</a></th>
-        <th><a href="member.html?orderby=monthSpending">月度消费</a></th>
-        <th><a href="member.html?orderby=coupon">优惠券<br>剩余数量</a></th>
-        <th><a href="member.html?orderby=grade">权限</a></th>
-        <th class="operation">操作</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!--
-      tr*10>th{$}+td{13867896668}+td{geasscc}+td{张三丰}+td{￥2078}+td{￥650}+td{12}+td{金卡}+td.operation>a[href='member-view.html'][class='tools view']{查看}+a[href='javascript:void(0);'][class='tools disable']{禁用}+a[href='javascript:void(0);'][class='tools del']{删除}
-      -->
-      <tr>
-        <th>1</th>
-        <td>13867896668</td>
-        <td>geasscc</td>
-        <td>张三丰</td>
-        <td>￥2078</td>
-        <td>￥650</td>
-        <td>12</td>
-        <td>金卡</td>
-        <td class="operation">
-          <a href="member-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>2</th>
-        <td>13867896668</td>
-        <td>geasscc</td>
-        <td>张三丰</td>
-        <td>￥2078</td>
-        <td>￥650</td>
-        <td>12</td>
-        <td>金卡</td>
-        <td class="operation">
-          <a href="member-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>3</th>
-        <td>13867896668</td>
-        <td>geasscc</td>
-        <td>张三丰</td>
-        <td>￥2078</td>
-        <td>￥650</td>
-        <td>12</td>
-        <td>金卡</td>
-        <td class="operation">
-          <a href="member-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>4</th>
-        <td>13867896668</td>
-        <td>geasscc</td>
-        <td>张三丰</td>
-        <td>￥2078</td>
-        <td>￥650</td>
-        <td>12</td>
-        <td>金卡</td>
-        <td class="operation">
-          <a href="member-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>5</th>
-        <td>13867896668</td>
-        <td>geasscc</td>
-        <td>张三丰</td>
-        <td>￥2078</td>
-        <td>￥650</td>
-        <td>12</td>
-        <td>金卡</td>
-        <td class="operation">
-          <a href="member-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>6</th>
-        <td>13867896668</td>
-        <td>geasscc</td>
-        <td>张三丰</td>
-        <td>￥2078</td>
-        <td>￥650</td>
-        <td>12</td>
-        <td>金卡</td>
-        <td class="operation">
-          <a href="member-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>7</th>
-        <td>13867896668</td>
-        <td>geasscc</td>
-        <td>张三丰</td>
-        <td>￥2078</td>
-        <td>￥650</td>
-        <td>12</td>
-        <td>金卡</td>
-        <td class="operation">
-          <a href="member-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>8</th>
-        <td>13867896668</td>
-        <td>geasscc</td>
-        <td>张三丰</td>
-        <td>￥2078</td>
-        <td>￥650</td>
-        <td>12</td>
-        <td>金卡</td>
-        <td class="operation">
-          <a href="member-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>9</th>
-        <td>13867896668</td>
-        <td>geasscc</td>
-        <td>张三丰</td>
-        <td>￥2078</td>
-        <td>￥650</td>
-        <td>12</td>
-        <td>金卡</td>
-        <td class="operation">
-          <a href="member-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>10</th>
-        <td>13867896668</td>
-        <td>geasscc</td>
-        <td>张三丰</td>
-        <td>￥2078</td>
-        <td>￥650</td>
-        <td>12</td>
-        <td>金卡</td>
-        <td class="operation">
-          <a href="member-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="9">
-          <ul class="pagination">
-            <li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>
-            <li class="active"><a href="member.html?page=1">1</a></li>
-            <li><a href="member.html?page=2">2</a></li>
-            <li><a href="member.html?page=3">3</a></li>
-            <li><a href="member.html?page=4">4</a></li>
-            <li><a href="member.html?page=5">5</a></li>
-            <li class="disabled"><a href="#">...</a></li>
-            <li><a href="member.html?page=64">64</a></li>
-            <li><a href="member.html?page=2">&raquo;</a></li>
-          </ul>
-        </td>
-      </tr>
-    </tfoot>
-  </table>
+  <div class="memberGrid"></div>
 </div>
+<script>
+    jQuery(function() {
+        $('.memberGrid').grid({
+            url          : "${request.contextPath}/UserService/findUserPage",
+            checkbox     : true,
+            cssClass     : 'aunt-list',
+            numberColumn : true,
+            hoverCols    : false,
+            zebraCols    : false, // 斑马线
+            zebraRows    : false, // 斑马线
+            params       : {mobile:function(){
+            	return $("#mobile").val();
+            },nickName:function(){
+            	return $("#nickName").val();
+            }},
+            columns: [{
+                    field     : 'mobile', // 必需
+                    text      : '手机号',
+                    width     : 120,
+                    align     : 'center',
+                    sortable  : false
+                }, {
+                    field     : 'nickName',
+                    text      : '昵称',
+                    width     : 120,
+                    sortable  : false
+                }, {
+                    field     : 'userName',
+                    text      : '姓名',
+                    width     : 160,
+                    sortable  : false,
+                    formatter : function (index, value, data) {
+                        return '<a href="${request.contextPath}/UserService/toMemberView?memberId='+ data.userId +'"><i class="fa fa-user"></i> '+ value +'</a>';
+                     }
+                }, {
+                    field     : 'yearMoney',
+                    text      : '年度消费',
+                    width     : 80,
+                    sortable  : false
+                }, {
+                    field     : 'monthMoney',
+                    text      : '月度消费',
+                    width     : 80,
+                    sortable  : false
+                }, {
+                    field     : 'couponCounts',
+                    text      : '优惠券剩余数量',
+                    width     : 150,
+                    sortable  : false
+                }, {
+                    field     : 'card',
+                    text      : '权限',
+                    width     : 120,
+                    sortable  : false,
+                    formatter : function (index, value, data) {
+                    	if(value=="COMMON"){
+                    		return "普通卡";
+                    	}else if(value=="GOLD"){
+                    		return "金卡";
+                    	}else if(value=="WHITE_GOLD"){
+                    		return "白金卡";
+                    	}else if(value=="DIAMOND"){
+                    		return "钻石卡";
+                    	}
+                     }
+                }
+            ],
+            tools: [
+                {
+                    text : "查看",
+                    icon : 'fa-eye',
+                    action : function(data, row, grid) {
+                        var url = "${request.contextPath}/UserService/toMemberView?memberId=" + data.userId;
+                        loadPage(url);
+                    }
+                }, {
+                    text : "禁用",
+                    icon : 'fa-pencil',
+                    action : function(data, row, grid) {
+                        var url = "${request.contextPath}/UserService/disableMember?memberId=" + data.userId;
+                        loadPage(url);
+                    }
+                }, {
+                    text : "删除",
+                    icon : 'fa-times',
+                    action : function(data, row, grid) {
+                    	var url = "${request.contextPath}/UserService/deleteMemberWeb";
+                        row.remove();
+                        $.post(url, {"memberId": data.userId}, function(json) {
+                            row.remove();
+                        });
+                    }
+                }
+            ]
+        });
+    });
+</script>

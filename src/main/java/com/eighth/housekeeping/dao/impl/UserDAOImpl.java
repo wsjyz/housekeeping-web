@@ -1,19 +1,20 @@
 package com.eighth.housekeeping.dao.impl;
 
-import com.eighth.housekeeping.dao.BaseDAO;
-import com.eighth.housekeeping.dao.UserDAO;
-import com.eighth.housekeeping.domain.MemberInfo;
-import com.eighth.housekeeping.domain.VerifyCode;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.lang.reflect.Member;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
+import com.eighth.housekeeping.dao.BaseDAO;
+import com.eighth.housekeeping.dao.UserDAO;
+import com.eighth.housekeeping.domain.MemberInfo;
+import com.eighth.housekeeping.domain.OpenPage;
+import com.eighth.housekeeping.domain.VerifyCode;
 
 /**
  * Created by dam on 2014/7/24.
@@ -108,6 +109,14 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
         if(userInfo.getPushAuntInfo() != 0){
             sql.append("push_aunt_info='"+userInfo.getPushAuntInfo()+"',");
         }
+        if(StringUtils.isNotEmpty(userInfo.getCouponCounts())){
+            sql.append("coupon_counts='"+userInfo.getCouponCounts()+"',");
+
+        }
+        if(StringUtils.isNotEmpty(userInfo.getCouponEndTime())){
+            sql.append("coupon_end_time='"+userInfo.getCouponEndTime()+"',");
+
+        }
         if(sql.lastIndexOf(",") + 1 == sql.length()){
             sql.delete(sql.lastIndexOf(","),sql.length());
         }
@@ -160,4 +169,47 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             return info;
         }
     }
+
+	@Override
+	public String deleteByMemberId(String memberId) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("delete from t_member_info where userId='"
+				+ memberId + "'");
+		int update = getJdbcTemplate().update(sql.toString());
+		if (update > 0) {
+			return "SUCCESS";
+		} else {
+			return "FAIL";
+		}
+	}
+
+	@Override
+	public OpenPage<MemberInfo> findUserPage(String mobile, String nickName,
+			OpenPage page) {
+		   StringBuilder reviewSql = new StringBuilder("");
+		   reviewSql.append("select * from t_member_info where 1=1");
+		   if (StringUtils.isNotEmpty(mobile)) {
+			   reviewSql.append("mobile like '%"+mobile+"%' ");
+		   }
+		   if (StringUtils.isNotEmpty(nickName)) {
+			   reviewSql.append("  and nick_name  like '%"+nickName+"%' ");
+		   }
+		   reviewSql.append(" limit ?,?");
+		   List<MemberInfo> reviewList = getJdbcTemplate().query(reviewSql.toString(),
+	                new Object[]{page.getPageSize() * (page.getPageNo()-1),page.getPageSize()},new MemberInfoRowMapper());
+
+		   StringBuilder countSql = new StringBuilder("");
+		   countSql.append("select count(*) from t_member_info where 1=1");
+		   if (StringUtils.isNotEmpty(mobile)) {
+			   countSql.append("mobile like '%"+mobile+"%' ");
+		   }
+		   if (StringUtils.isNotEmpty(nickName)) {
+			   countSql.append("  and nick_name  like '%"+nickName+"%' ");
+		   }
+	        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),Integer.class);
+	        OpenPage<MemberInfo> reviewOpenPage = new OpenPage<MemberInfo>();
+	        reviewOpenPage.setTotal(count);
+	        reviewOpenPage.setRows(reviewList);
+	        return reviewOpenPage;
+	}
 }

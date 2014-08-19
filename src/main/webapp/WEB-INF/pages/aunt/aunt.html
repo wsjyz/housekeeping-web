@@ -1,506 +1,304 @@
 <div class="content-tools clearfix">
-  <form action="aunt.html" method="get" accept-charset="utf-8">
-    <div class="input-group">
-      <span class="input-group-addon">手机号</span>
-      <input type="text" class="form-control">
-    </div>
-    <div class="input-group">
-      <span class="input-group-addon">姓名</span>
-      <input type="text" class="form-control">
-    </div>
+	<form action="aunt.html" method="get" accept-charset="utf-8">
+		<div class="input-group">
+			<span class="input-group-addon">手机号</span> <input type="text" id="mobile"
+				class="form-control">
+		</div>
+		<div class="input-group">
+			<span class="input-group-addon">姓名</span> <input type="text" id="userName"
+				class="form-control">
+		</div>
 
-    <div class="btns">
-      <button type="button" class="btn btn-default">查找</button>
-      <button type="reset" class="btn btn-default">重置</button>
-    </div>
+		<div class="btns">
+			<button type="button" class="btn btn-default">查找</button>
+			<button type="reset" class="btn btn-default">重置</button>
+		</div>
 
-    <div class="btns-right">
-      <a href="aunt-add.html" class="btn btn-primary">
-        <span class="glyphicon glyphicon-plus"></span> 新增
-      </a>
-      <a href="aunt-attendance.html" class="btn btn-primary">
-        <span class="glyphicon glyphicon-log-in"></span> 签到管理
-      </a>
-    </div>
-  </form>
+		<div class="btns-right">
+			<a href="${request.contextPath}/AuntService/toAuntAdd"
+				class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
+				新增
+			</a> <a href="${request.contextPath}/AuntService/toAuntAttendance"
+				class="btn btn-primary"> <span
+				class="glyphicon glyphicon-log-in"></span> 签到管理
+			</a>
+		</div>
+	</form>
 </div>
 
 <div class="panel panel-default">
-  <!-- Default panel contents -->
-  <div class="panel-heading">阿姨管理</div>
-
-  <!-- Table -->
-  <table class="table">
-    <thead>
-      <tr>
-        <th>序号</th>
-        <th><a href="aunt.html?orderby=mobileNo">机构</a></th>
-        <th><a href="aunt.html?orderby=nickname">姓名</a></th>
-        <th><a href="aunt.html?orderby=username">手机号</a></th>
-        <th><a href="aunt.html?orderby=yearSpending">电话</a></th>
-        <th><a href="aunt.html?orderby=monthSpending">实名认证</a></th>
-        <th><a href="aunt.html?orderby=coupon">诚信认证</a></th>
-        <th><a href="aunt.html?orderby=grade">星级</a></th>
-        <th><a href="aunt.html?orderby=grade">本月金额</a></th>
-        <th><a href="aunt.html?orderby=grade">年度金额</a></th>
-        <th><a href="aunt.html?orderby=grade">总金额</a></th>
-        <th><a href="aunt.html?orderby=grade">本月签到</a></th>
-        <th><a href="aunt.html?orderby=grade">总分</a></th>
-        <th><a href="aunt.html?orderby=grade">单价</a></th>
-        <th><a href="aunt.html?orderby=grade">本月订单数</a></th>
-        <th><a href="aunt.html?orderby=grade">本月已支付订单数</a></th>
-        <th><a href="aunt.html?orderby=grade">在线状态</a></th>
-        <th><a href="aunt.html?orderby=grade">实时定位</a></th>
-        <th><a href="aunt.html?orderby=grade">年龄</a></th>
-        <th><a href="aunt.html?orderby=grade">工作经验</a></th>
-        <th><a href="aunt.html?orderby=grade">能力分值</a></th>
-        <th><a href="aunt.html?orderby=grade">血型</a></th>
-        <th><a href="aunt.html?orderby=grade">星座</a></th>
-        <th><a href="aunt.html?orderby=grade">关注数</a></th>
-        <th><a href="aunt.html?orderby=grade">评论数</a></th>
-        <th><a href="aunt.html?orderby=grade">非常满意</a></th>
-        <th><a href="aunt.html?orderby=grade">满意</a></th>
-        <th><a href="aunt.html?orderby=grade">不满意</a></th>
-        <th><a href="aunt.html?orderby=grade">分类</a></th>
-        <th><a href="aunt.html?orderby=grade">子分类1</a></th>
-        <th><a href="aunt.html?orderby=grade">子分类2</a></th>
-        <th><a href="aunt.html?orderby=grade">子分类3</a></th>
-        <th><a href="aunt.html?orderby=grade">籍贯</a></th>
-        <th><a href="aunt.html?orderby=grade">地址</a></th>
-        <th class="operation">操作</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!--
-      tr*10>th{$}+td{居优}+td{李存在}+td{13802188881}+td{021-12345678}+td{Y}+td{N}+td{5}+td{￥20000}+td{￥15000}+td{￥200000}+td{10}+td{10}+td{10}+td{10}+td{10}+td{Y}+td{Y}+td{20}+td{3}+td{94}+td{A}+td{射手座}+td{1000}+td{10}+td{10}+td{10}+td{10}+td{小时工}+td{保洁}+td{洗熨}+td{做饭}+td{陕西省}+td{上海市浦东新区南泉北路1015号707室}+td.operation>a[href='aunt-view.html'][class='tools view']{查看}+a[href='javascript:void(0);'][class='tools disable']{禁用}+a[href='javascript:void(0);'][class='tools del']{删除}
-      -->
-      <tr>
-        <th>1</th>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>13802188881</td>
-        <td>021-12345678</td>
-        <td>Y</td>
-        <td>N</td>
-        <td>5</td>
-        <td>￥20000</td>
-        <td>￥15000</td>
-        <td>￥200000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>Y</td>
-        <td>Y</td>
-        <td>20</td>
-        <td>3</td>
-        <td>94</td>
-        <td>A</td>
-        <td>射手座</td>
-        <td>1000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>小时工</td>
-        <td>保洁</td>
-        <td>洗熨</td>
-        <td>做饭</td>
-        <td>陕西省</td>
-        <td>上海市浦东新区南泉北路1015号707室</td>
-        <td class="operation">
-          <a href="aunt-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>2</th>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>13802188881</td>
-        <td>021-12345678</td>
-        <td>Y</td>
-        <td>N</td>
-        <td>5</td>
-        <td>￥20000</td>
-        <td>￥15000</td>
-        <td>￥200000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>Y</td>
-        <td>Y</td>
-        <td>20</td>
-        <td>3</td>
-        <td>94</td>
-        <td>A</td>
-        <td>射手座</td>
-        <td>1000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>小时工</td>
-        <td>保洁</td>
-        <td>洗熨</td>
-        <td>做饭</td>
-        <td>陕西省</td>
-        <td>上海市浦东新区南泉北路1015号707室</td>
-        <td class="operation">
-          <a href="aunt-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>3</th>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>13802188881</td>
-        <td>021-12345678</td>
-        <td>Y</td>
-        <td>N</td>
-        <td>5</td>
-        <td>￥20000</td>
-        <td>￥15000</td>
-        <td>￥200000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>Y</td>
-        <td>Y</td>
-        <td>20</td>
-        <td>3</td>
-        <td>94</td>
-        <td>A</td>
-        <td>射手座</td>
-        <td>1000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>小时工</td>
-        <td>保洁</td>
-        <td>洗熨</td>
-        <td>做饭</td>
-        <td>陕西省</td>
-        <td>上海市浦东新区南泉北路1015号707室</td>
-        <td class="operation">
-          <a href="aunt-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>4</th>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>13802188881</td>
-        <td>021-12345678</td>
-        <td>Y</td>
-        <td>N</td>
-        <td>5</td>
-        <td>￥20000</td>
-        <td>￥15000</td>
-        <td>￥200000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>Y</td>
-        <td>Y</td>
-        <td>20</td>
-        <td>3</td>
-        <td>94</td>
-        <td>A</td>
-        <td>射手座</td>
-        <td>1000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>小时工</td>
-        <td>保洁</td>
-        <td>洗熨</td>
-        <td>做饭</td>
-        <td>陕西省</td>
-        <td>上海市浦东新区南泉北路1015号707室</td>
-        <td class="operation">
-          <a href="aunt-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>5</th>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>13802188881</td>
-        <td>021-12345678</td>
-        <td>Y</td>
-        <td>N</td>
-        <td>5</td>
-        <td>￥20000</td>
-        <td>￥15000</td>
-        <td>￥200000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>Y</td>
-        <td>Y</td>
-        <td>20</td>
-        <td>3</td>
-        <td>94</td>
-        <td>A</td>
-        <td>射手座</td>
-        <td>1000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>小时工</td>
-        <td>保洁</td>
-        <td>洗熨</td>
-        <td>做饭</td>
-        <td>陕西省</td>
-        <td>上海市浦东新区南泉北路1015号707室</td>
-        <td class="operation">
-          <a href="aunt-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>6</th>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>13802188881</td>
-        <td>021-12345678</td>
-        <td>Y</td>
-        <td>N</td>
-        <td>5</td>
-        <td>￥20000</td>
-        <td>￥15000</td>
-        <td>￥200000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>Y</td>
-        <td>Y</td>
-        <td>20</td>
-        <td>3</td>
-        <td>94</td>
-        <td>A</td>
-        <td>射手座</td>
-        <td>1000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>小时工</td>
-        <td>保洁</td>
-        <td>洗熨</td>
-        <td>做饭</td>
-        <td>陕西省</td>
-        <td>上海市浦东新区南泉北路1015号707室</td>
-        <td class="operation">
-          <a href="aunt-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>7</th>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>13802188881</td>
-        <td>021-12345678</td>
-        <td>Y</td>
-        <td>N</td>
-        <td>5</td>
-        <td>￥20000</td>
-        <td>￥15000</td>
-        <td>￥200000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>Y</td>
-        <td>Y</td>
-        <td>20</td>
-        <td>3</td>
-        <td>94</td>
-        <td>A</td>
-        <td>射手座</td>
-        <td>1000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>小时工</td>
-        <td>保洁</td>
-        <td>洗熨</td>
-        <td>做饭</td>
-        <td>陕西省</td>
-        <td>上海市浦东新区南泉北路1015号707室</td>
-        <td class="operation">
-          <a href="aunt-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>8</th>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>13802188881</td>
-        <td>021-12345678</td>
-        <td>Y</td>
-        <td>N</td>
-        <td>5</td>
-        <td>￥20000</td>
-        <td>￥15000</td>
-        <td>￥200000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>Y</td>
-        <td>Y</td>
-        <td>20</td>
-        <td>3</td>
-        <td>94</td>
-        <td>A</td>
-        <td>射手座</td>
-        <td>1000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>小时工</td>
-        <td>保洁</td>
-        <td>洗熨</td>
-        <td>做饭</td>
-        <td>陕西省</td>
-        <td>上海市浦东新区南泉北路1015号707室</td>
-        <td class="operation">
-          <a href="aunt-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>9</th>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>13802188881</td>
-        <td>021-12345678</td>
-        <td>Y</td>
-        <td>N</td>
-        <td>5</td>
-        <td>￥20000</td>
-        <td>￥15000</td>
-        <td>￥200000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>Y</td>
-        <td>Y</td>
-        <td>20</td>
-        <td>3</td>
-        <td>94</td>
-        <td>A</td>
-        <td>射手座</td>
-        <td>1000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>小时工</td>
-        <td>保洁</td>
-        <td>洗熨</td>
-        <td>做饭</td>
-        <td>陕西省</td>
-        <td>上海市浦东新区南泉北路1015号707室</td>
-        <td class="operation">
-          <a href="aunt-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>10</th>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>13802188881</td>
-        <td>021-12345678</td>
-        <td>Y</td>
-        <td>N</td>
-        <td>5</td>
-        <td>￥20000</td>
-        <td>￥15000</td>
-        <td>￥200000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>Y</td>
-        <td>Y</td>
-        <td>20</td>
-        <td>3</td>
-        <td>94</td>
-        <td>A</td>
-        <td>射手座</td>
-        <td>1000</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>10</td>
-        <td>小时工</td>
-        <td>保洁</td>
-        <td>洗熨</td>
-        <td>做饭</td>
-        <td>陕西省</td>
-        <td>上海市浦东新区南泉北路1015号707室</td>
-        <td class="operation">
-          <a href="aunt-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="9">
-          <ul class="pagination">
-            <li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>
-            <li class="active"><a href="aunt.html?page=1">1</a></li>
-            <li><a href="aunt.html?page=2">2</a></li>
-            <li><a href="aunt.html?page=3">3</a></li>
-            <li><a href="aunt.html?page=4">4</a></li>
-            <li><a href="aunt.html?page=5">5</a></li>
-            <li class="disabled"><a href="#">...</a></li>
-            <li><a href="aunt.html?page=64">64</a></li>
-            <li><a href="aunt.html?page=2">&raquo;</a></li>
-          </ul>
-        </td>
-      </tr>
-    </tfoot>
-  </table>
+	<!-- Default panel contents -->
+	<div class="panel-heading">阿姨管理</div>
+	<div class="auntGrid"></div>
 </div>
+
+<script>
+	jQuery(function() {
+		$('.auntGrid')
+				.grid(
+						{
+							url : "${request.contextPath}/AuntService/searchAuntByWeb",
+							checkbox : true,
+							cssClass : 'aunt-list',
+							numberColumn : true,
+							hoverCols : false,
+							zebraCols : false, // 斑马线
+							zebraRows : false, // 斑马线
+							params : {
+								userName:function(){
+									return $("#userName").val();
+								},
+								mobile:function(){
+				            	    return $("#mobile").val();
+				            }},
+							columns : [
+
+									{
+										field : 'corpName', // 必需
+										text : '机构',
+										width : 100,
+										align : 'center',
+										sortable : false
+									}, {
+										field : 'userName',
+										text : '姓名',
+										width : 100,
+										sortable : false,
+										formatter : function(index, value, data) {
+											return '<a href="${request.contextPath}/AuntService/toAuntView?auntId='
+													+ data.auntId
+													+ '"><i class="fa fa-user"></i> '
+													+ value + '</a>';
+										}
+									}, {
+										field : 'mobile',
+										text : '手机号',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'telephone',
+										text : '电话',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'identityCard',
+										text : '实名认证',
+										width : 100,
+										sortable : false,
+										formatter : function(index, value, data) {
+											if(value!=""){
+												 return"是";
+											}else{
+												return"否";
+											}
+											
+										}
+									}, {
+										field : 'integrityAuth',
+										text : '诚信认证',
+										width : 100,
+										sortable : false,
+										formatter : function(index, value, data) {
+											if(value){
+												 return"是";
+											}else{
+												return"否";
+											}
+											
+										}
+									}, {
+										field : 'start',
+										text : '星级',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'mothOfIncome',
+										text : '本月金额',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'yearOfIncome',
+										text : '年度金额',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'sumMoney',
+										text : '总金额',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'monthOfSignCounts',
+										text : '本月签到',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'price',
+										text : '单价',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'monthOfOrderCounts',
+										text : '本月订单数',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'payOrderCount',
+										text : '本月已支付订单数',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'status',
+										text : '在线状态',
+										width : 100,
+										sortable : false,
+										formatter : function(index, value, data) {
+											if(value=="ACTIVE"){
+												 return"是";
+											}else{
+												return"否";
+											}
+											
+										}
+									}, {
+										field : 'age',
+										text : '年龄',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'workYear',
+										text : '工作经验',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'abilityScore',
+										text : '能力分值',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'bloodType',
+										text : '血型',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'constellation',
+										text : '星座',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'discussCount',
+										text : '评论数',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'verySatisfyCounts',
+										text : '非常满意',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'satisfyCounts',
+										text : '满意',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'notSatisfyCounts',
+										text : '不满意',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'workType',
+										text : '分类',
+										width : 100,
+										sortable : false,
+										formatter : function(index, value, data) {
+											if(value=="HOUR_WORK"){
+												 return"小时工";
+											}else{
+												return"全职";
+											}
+											
+										}
+									}, {
+										field : 'workCleanKeeping',
+										text : '子分类1',
+										width : 100,
+										sortable : false,
+										formatter : function(index, value, data) {
+											if(value){
+												 return"是";
+											}else{
+												return"否";
+											}
+											
+										}
+									}, {
+										field : 'workLaundry',
+										text : '子分类2',
+										width : 100,
+										sortable : false,
+										formatter : function(index, value, data) {
+											if(value){
+												 return"是";
+											}else{
+												return"否";
+											}
+											
+										}
+									}, {
+										field : 'workCook',
+										text : '子分类3',
+										width : 100,
+										sortable : false,
+										formatter : function(index, value, data) {
+											if(value){
+												 return"是";
+											}else{
+												return"否";
+											}
+											
+										}
+									}, {
+										field : 'nativePlace',
+										text : '籍贯',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'address',
+										text : '地址',
+										width : 100,
+										sortable : false
+									} ],
+							tools : [
+									{
+										text : "查看",
+										icon : 'fa-eye',
+										action : function(data, row, grid) {
+											var url = "${request.contextPath}/AuntService/toAuntView?auntId="
+													+ data.auntId;
+											loadPage(url);
+										}
+									},
+									{
+										text : "禁用",
+										icon : 'fa-pencil',
+										action : function(data, row, grid) {
+											var url = "${request.contextPath}/AuntService/disableAunt?auntId="
+													+ data.auntId;
+											loadPage(url);
+										}
+									},
+									{
+										text : "删除",
+										icon : 'fa-times',
+										action : function(data, row, grid) {
+											var url = "${request.contextPath}/AuntService/deleteAuntWeb";
+											row.remove();
+											$.post(url, {
+												"auntId" : data.auntId
+											}, function(json) {
+												row.remove();
+											});
+										}
+									} ]
+						});
+	});
+</script>

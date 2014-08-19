@@ -12,4 +12,8 @@ public interface AuntWorkCaseDAO {
     List<AuntWorkCase> findCaseByAuntId(String auntId);
 
     AuntWorkCase findCaseById(String caseId);
+    
+    
+    void addWorkCase(AuntWorkCase auntWorkCase);
+    String updateWorkCase(AuntWorkCase auntWorkCase);
 }

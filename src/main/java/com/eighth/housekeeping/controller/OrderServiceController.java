@@ -108,4 +108,26 @@ public class OrderServiceController {
         }
         return 0;
     }
+    
+    
+    @ResponseBody
+    @RequestMapping(value = "/findAuntOrderListByWeb")
+    OpenPage<AuntOrder> findAuntOrderListByWeb(@RequestParam String auntId,@RequestParam String contactWay,@FastJson OpenPage<AuntOrder> page){
+        OpenPage<AuntOrder> openPage = null;
+        try {
+            openPage = orderService.findAuntOrderListByWeb(auntId, contactWay,page);
+        } catch (RemoteInvokeException e) {
+            e.printStackTrace();
+        }
+        return openPage;
+    }
+    @ResponseBody
+    @RequestMapping(value = "/deleteOrderByOrderId")
+   public void deleteOrderByOrderId(@RequestParam String orderId){
+    	try {
+			orderService.deleteOrderByOrderId(orderId);
+		} catch (RemoteInvokeException e) {
+			e.printStackTrace();
+		}
+    }
 }

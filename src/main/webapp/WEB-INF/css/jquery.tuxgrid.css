@@ -1,0 +1,300 @@
+.tuxgrid {position: relative;overflow: hidden;;}
+.tuxgrid .sort-sign{ color: #888; font-size: 12px; float: right; margin-top: 5px; margin-left: 10px; }
+.tuxgrid .sorting .sort-sign{color: #000;}
+.tuxgrid .grid-header{overflow: hidden;background-color: #f8f8f8;position: relative;z-index: 1;box-shadow: -1px 2px 8px rgba(0,0,0,0.1); }
+.tuxgrid .grid-body{position: relative; overflow: auto; margin-top: -1px;}
+.tuxgrid .grid-fixed-colomn{position: absolute; top: 0; bottom: 0; left: auto; right: 0; background-color: #f8f8f8; overflow: hidden;;}
+.tuxgrid .grid-fixed-colomn.left{left:0; right: auto; border-right: 3px solid #ccc; box-shadow: 2px 0 8px rgba(0,0,0,0.1); }
+.tuxgrid .grid-fixed-colomn.right{left:auto; right: 0; border-left: 3px solid #ccc; box-shadow: -2px 0 8px rgba(0,0,0,0.1); }
+.tuxgrid .grid-footer{ overflow: hidden; position: relative; z-index: 1; background: #F4F4F4; border-top: 1px solid #ccc; }
+.tuxgrid .grid-pagebar{background-color: #fff;z-index: 1;position: relative; }
+.tuxgrid .grid-pagebar .pagination{ margin:10px;}
+
+.tuxgrid table{margin:0; }
+.tuxgrid table th, .tuxgrid table td {cursor: default; }
+.tuxgrid thead{ text-shadow: 0 -1px 1px rgba(0, 0, 0,0.2), 0 1px 0px rgba(255,255,255,0.3); background-color: #fff;
+}
+.tuxgrid .grid-body table{ margin:0;}
+.tuxgrid .grid-body table,
+.tuxgrid .grid-header table{min-width: 100%; table-layout: fixed !important; }
+
+.tuxgrid .grid-body table,
+.tuxgrid .grid-fixed-colomn table{margin-bottom: 24px;}
+
+.tuxgrid .grid-header td,
+.tuxgrid .grid-header th,
+.tuxgrid .grid-body td,
+.tuxgrid .grid-body th{padding-left: 8px; padding-right: 8px; border-right: 1px solid #E7EFED; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; word-break: break-all; }
+
+.tuxgrid .operation {
+    background-color: #eee;
+    text-align: center;
+    white-space: nowrap;
+    width: 64px;
+    word-break: keep-all;
+}
+.tuxgrid .operation,
+.tuxgrid .number-column,
+.tuxgrid .checkbox-column{
+    vertical-align: middle;
+}
+
+
+.tuxgrid .operation a {
+      transition: .3s;
+      display: inline-block;
+      padding: 0 8px;
+      border-radius: 3px;
+    }
+
+.tuxgrid .operation a.hover,
+.tuxgrid .operation a:hover {
+    background-color: #fc9;
+}
+
+.tuxgrid thead th {
+    white-space: nowrap;
+    word-break: keep-all;
+}
+
+.tuxgrid tbody tr>th {
+    text-align: center;
+    width: 24px;
+    padding: 3px;
+}
+
+.tuxgrid tbody tr>td {
+    padding: 3px;
+    white-space: nowrap;
+    word-break: keep-all;
+}
+
+.tuxgrid tfoot {
+    text-align: center;
+}
+
+.tuxgrid th.number-column,
+.tuxgrid td.number-column{ background-color: rgba(0,0,0,0.07); border-left: 1px solid #E0E0E0; box-shadow: inset 0px 0px 4px rgba(255,255,255,0.5); }
+
+
+.tuxgrid .row-odd{background-color: rgba(0,0,0,0);}
+.tuxgrid .row-even{background-color: rgba(0,0,0,0.05);}
+.tuxgrid .col-odd{background-color: rgba(0,0,0,0);}
+.tuxgrid .col-even{background-color: rgba(0,0,0,0.05);}
+
+.tuxgrid .hover-col-1 .col-1,
+.tuxgrid .hover-col-2 .col-2,
+.tuxgrid .hover-col-3 .col-3,
+.tuxgrid .hover-col-4 .col-4,
+.tuxgrid .hover-col-5 .col-5,
+.tuxgrid .hover-col-6 .col-6,
+.tuxgrid .hover-col-7 .col-7,
+.tuxgrid .hover-col-8 .col-8,
+.tuxgrid .hover-col-9 .col-9,
+.tuxgrid .hover-col-10 .col-10,
+.tuxgrid .hover-col-11 .col-11,
+.tuxgrid .hover-col-12 .col-12,
+.tuxgrid .hover-col-13 .col-13,
+.tuxgrid .hover-col-14 .col-14,
+.tuxgrid .hover-col-15 .col-15,
+.tuxgrid .hover-col-16 .col-16,
+.tuxgrid .hover-col-17 .col-17,
+.tuxgrid .hover-col-18 .col-18,
+.tuxgrid .hover-col-19 .col-19,
+.tuxgrid .hover-col-20 .col-20,
+.tuxgrid .hover-col-21 .col-21,
+.tuxgrid .hover-col-22 .col-22,
+.tuxgrid .hover-col-23 .col-23,
+.tuxgrid .hover-col-24 .col-24,
+.tuxgrid .hover-col-25 .col-25,
+.tuxgrid .hover-col-26 .col-26,
+.tuxgrid .hover-col-27 .col-27,
+.tuxgrid .hover-col-28 .col-28,
+.tuxgrid .hover-col-29 .col-29,
+.tuxgrid .hover-col-30 .col-30,
+.tuxgrid .hover-col-31 .col-31,
+.tuxgrid .hover-col-32 .col-32,
+.tuxgrid .hover-col-33 .col-33,
+.tuxgrid .hover-col-34 .col-34,
+.tuxgrid .hover-col-35 .col-35,
+.tuxgrid .hover-col-36 .col-36,
+.tuxgrid .hover-col-37 .col-37,
+.tuxgrid .hover-col-38 .col-38,
+.tuxgrid .hover-col-39 .col-39,
+.tuxgrid .hover-col-40 .col-40,
+.tuxgrid .hover-col-41 .col-41,
+.tuxgrid .hover-col-42 .col-42,
+.tuxgrid .hover-col-43 .col-43,
+.tuxgrid .hover-col-44 .col-44,
+.tuxgrid .hover-col-45 .col-45,
+.tuxgrid .hover-col-46 .col-46,
+.tuxgrid .hover-col-47 .col-47,
+.tuxgrid .hover-col-48 .col-48,
+.tuxgrid .hover-col-49 .col-49,
+.tuxgrid .hover-col-50 .col-50,
+.tuxgrid .hover-col-51 .col-51,
+.tuxgrid .hover-col-52 .col-52,
+.tuxgrid .hover-col-53 .col-53,
+.tuxgrid .hover-col-54 .col-54,
+.tuxgrid .hover-col-55 .col-55,
+.tuxgrid .hover-col-56 .col-56,
+.tuxgrid .hover-col-57 .col-57,
+.tuxgrid .hover-col-58 .col-58,
+.tuxgrid .hover-col-59 .col-59,
+.tuxgrid .hover-col-60 .col-60,
+.tuxgrid .hover-col-61 .col-61,
+.tuxgrid .hover-col-62 .col-62,
+.tuxgrid .hover-col-63 .col-63,
+.tuxgrid .hover-col-64 .col-64,
+.tuxgrid .hover-col-65 .col-65,
+.tuxgrid .hover-col-66 .col-66,
+.tuxgrid .hover-col-67 .col-67,
+.tuxgrid .hover-col-68 .col-68,
+.tuxgrid .hover-col-69 .col-69,
+.tuxgrid .hover-col-70 .col-70,
+.tuxgrid .hover-col-71 .col-71,
+.tuxgrid .hover-col-72 .col-72,
+.tuxgrid .hover-col-73 .col-73,
+.tuxgrid .hover-col-74 .col-74,
+.tuxgrid .hover-col-75 .col-75,
+.tuxgrid .hover-col-76 .col-76,
+.tuxgrid .hover-col-77 .col-77,
+.tuxgrid .hover-col-78 .col-78,
+.tuxgrid .hover-col-79 .col-79,
+.tuxgrid .hover-col-80 .col-80,
+.tuxgrid .hover-col-81 .col-81,
+.tuxgrid .hover-col-82 .col-82,
+.tuxgrid .hover-col-83 .col-83,
+.tuxgrid .hover-col-84 .col-84,
+.tuxgrid .hover-col-85 .col-85,
+.tuxgrid .hover-col-86 .col-86,
+.tuxgrid .hover-col-87 .col-87,
+.tuxgrid .hover-col-88 .col-88,
+.tuxgrid .hover-col-89 .col-89,
+.tuxgrid .hover-col-90 .col-90,
+.tuxgrid .hover-col-91 .col-91,
+.tuxgrid .hover-col-92 .col-92,
+.tuxgrid .hover-col-93 .col-93,
+.tuxgrid .hover-col-94 .col-94,
+.tuxgrid .hover-col-95 .col-95,
+.tuxgrid .hover-col-96 .col-96,
+.tuxgrid .hover-col-97 .col-97,
+.tuxgrid .hover-col-98 .col-98,
+.tuxgrid .hover-col-99 .col-99,
+.tuxgrid .hover-col-100 .col-100,
+.tuxgrid .hover-col-101 .col-101,
+.tuxgrid .hover-col-102 .col-102,
+.tuxgrid .hover-col-103 .col-103,
+.tuxgrid .hover-col-104 .col-104,
+.tuxgrid .hover-col-105 .col-105,
+.tuxgrid .hover-col-106 .col-106,
+.tuxgrid .hover-col-107 .col-107,
+.tuxgrid .hover-col-108 .col-108,
+.tuxgrid .hover-col-109 .col-109,
+.tuxgrid .hover-col-110 .col-110,
+.tuxgrid .hover-col-111 .col-111,
+.tuxgrid .hover-col-112 .col-112,
+.tuxgrid .hover-col-113 .col-113,
+.tuxgrid .hover-col-114 .col-114,
+.tuxgrid .hover-col-115 .col-115,
+.tuxgrid .hover-col-116 .col-116,
+.tuxgrid .hover-col-117 .col-117,
+.tuxgrid .hover-col-118 .col-118,
+.tuxgrid .hover-col-119 .col-119,
+.tuxgrid .hover-col-120 .col-120,
+.tuxgrid .hover-col-121 .col-121,
+.tuxgrid .hover-col-122 .col-122,
+.tuxgrid .hover-col-123 .col-123,
+.tuxgrid .hover-col-124 .col-124,
+.tuxgrid .hover-col-125 .col-125,
+.tuxgrid .hover-col-126 .col-126,
+.tuxgrid .hover-col-127 .col-127,
+.tuxgrid .hover-col-128 .col-128,
+.tuxgrid .hover-col-129 .col-129,
+.tuxgrid .hover-col-130 .col-130,
+.tuxgrid .hover-col-131 .col-131,
+.tuxgrid .hover-col-132 .col-132,
+.tuxgrid .hover-col-133 .col-133,
+.tuxgrid .hover-col-134 .col-134,
+.tuxgrid .hover-col-135 .col-135,
+.tuxgrid .hover-col-136 .col-136,
+.tuxgrid .hover-col-137 .col-137,
+.tuxgrid .hover-col-138 .col-138,
+.tuxgrid .hover-col-139 .col-139,
+.tuxgrid .hover-col-140 .col-140,
+.tuxgrid .hover-col-141 .col-141,
+.tuxgrid .hover-col-142 .col-142,
+.tuxgrid .hover-col-143 .col-143,
+.tuxgrid .hover-col-144 .col-144,
+.tuxgrid .hover-col-145 .col-145,
+.tuxgrid .hover-col-146 .col-146,
+.tuxgrid .hover-col-147 .col-147,
+.tuxgrid .hover-col-148 .col-148,
+.tuxgrid .hover-col-149 .col-149,
+.tuxgrid .hover-col-150 .col-150,
+.tuxgrid .hover-col-151 .col-151,
+.tuxgrid .hover-col-152 .col-152,
+.tuxgrid .hover-col-153 .col-153,
+.tuxgrid .hover-col-154 .col-154,
+.tuxgrid .hover-col-155 .col-155,
+.tuxgrid .hover-col-156 .col-156,
+.tuxgrid .hover-col-157 .col-157,
+.tuxgrid .hover-col-158 .col-158,
+.tuxgrid .hover-col-159 .col-159,
+.tuxgrid .hover-col-160 .col-160,
+.tuxgrid .hover-col-161 .col-161,
+.tuxgrid .hover-col-162 .col-162,
+.tuxgrid .hover-col-163 .col-163,
+.tuxgrid .hover-col-164 .col-164,
+.tuxgrid .hover-col-165 .col-165,
+.tuxgrid .hover-col-166 .col-166,
+.tuxgrid .hover-col-167 .col-167,
+.tuxgrid .hover-col-168 .col-168,
+.tuxgrid .hover-col-169 .col-169,
+.tuxgrid .hover-col-170 .col-170,
+.tuxgrid .hover-col-171 .col-171,
+.tuxgrid .hover-col-172 .col-172,
+.tuxgrid .hover-col-173 .col-173,
+.tuxgrid .hover-col-174 .col-174,
+.tuxgrid .hover-col-175 .col-175,
+.tuxgrid .hover-col-176 .col-176,
+.tuxgrid .hover-col-177 .col-177,
+.tuxgrid .hover-col-178 .col-178,
+.tuxgrid .hover-col-179 .col-179,
+.tuxgrid .hover-col-180 .col-180,
+.tuxgrid .hover-col-181 .col-181,
+.tuxgrid .hover-col-182 .col-182,
+.tuxgrid .hover-col-183 .col-183,
+.tuxgrid .hover-col-184 .col-184,
+.tuxgrid .hover-col-185 .col-185,
+.tuxgrid .hover-col-186 .col-186,
+.tuxgrid .hover-col-187 .col-187,
+.tuxgrid .hover-col-188 .col-188,
+.tuxgrid .hover-col-189 .col-189,
+.tuxgrid .hover-col-190 .col-190,
+.tuxgrid .hover-col-191 .col-191,
+.tuxgrid .hover-col-192 .col-192,
+.tuxgrid .hover-col-193 .col-193,
+.tuxgrid .hover-col-194 .col-194,
+.tuxgrid .hover-col-195 .col-195,
+.tuxgrid .hover-col-196 .col-196,
+.tuxgrid .hover-col-197 .col-197,
+.tuxgrid .hover-col-198 .col-198,
+.tuxgrid .hover-col-199 .col-199,
+.tuxgrid .hover-col-200 .col-200{
+    background-color: #FFFBBE;
+}
+
+.tuxgrid tbody tr.hover,
+.tuxgrid tbody tr:hover {
+    background-color: #FFFBBE;
+    transition: .3s;
+}
+
+.tuxgrid tbody tr.selected {
+    background-color: #FF911C;
+    color: #fff !important;
+}
+.tuxgrid tbody tr.selected td{
+    border:0px;
+}

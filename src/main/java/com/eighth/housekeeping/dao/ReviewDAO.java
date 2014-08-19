@@ -1,5 +1,7 @@
 package com.eighth.housekeeping.dao;
 
+import java.util.List;
+
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.Review;
 
@@ -12,5 +14,5 @@ public interface ReviewDAO {
 
     void saveReview(Review review);
 
-
+    List<Review> getReviewByAuntId(String auntId);
 }

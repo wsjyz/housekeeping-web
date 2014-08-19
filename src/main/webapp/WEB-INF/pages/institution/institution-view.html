@@ -1,40 +1,40 @@
 <div class="content-tools clearfix">
 
   <div class="btns-right">
-    <a href="institution-add.html" class="btn btn-primary">
+    <a href="${request.contextPath}/CorpService/toInstitutionAdd" class="btn btn-primary">
       <span class="glyphicon glyphicon-plus"></span> 继续添加
     </a>
-    <a href="institution.html" class="btn btn-primary">
+    <a href="${request.contextPath}/UserService/toInstitution" class="btn btn-primary">
       <span class="glyphicon glyphicon-arrow-left"></span> 返回
     </a>
   </div>
 </div>
 
 <div class="panel panel-default">
-  <div class="panel-heading">添加机构</div>
+  <div class="panel-heading">查看机构</div>
   <form action="" method="post">
     <div class="form-panel readonly panel-body">
       <div class="row">
         <span class="label">机构名称</span>
-        <span class="text">上海八荒信息技术有限公司
+        <span class="text">${corp.corpName!}
       </span></div>
       <div class="row">
         <span class="label">机构简称</span>
-        <span class="text">八荒
+        <span class="text">${corp.corpSimpleName!}
       </span></div>
       <div class="row">
         <span class="label">机构帐号</span>
-        <span class="text">geasscc
+        <span class="text">${corp.loginName!}
       </span></div>
       <div class="row">
         <span class="label">机构密码</span>
-        <span class="text">xxxpwdxxx
+        <span class="text">${corp.password!}
       </span></div>
       <div class="row">
         <span class="label">备注</span>
-        <span class="text">上海八荒信息技术有限公司</span>
+        <span class="text">${corp.description!}</span>
       </div>
     </div>
-    <div class="panel-footer"><a class="btn btn-lg btn-primary" href="institution-edit.html">&nbsp;修改&nbsp;</a></div>
+    <div class="panel-footer"><a class="btn btn-lg btn-primary" href="${request.contextPath}/CorpService/toInstitutionEdit?corpId=${corp.corpId!}">&nbsp;修改&nbsp;</a></div>
   </form>
 </div>

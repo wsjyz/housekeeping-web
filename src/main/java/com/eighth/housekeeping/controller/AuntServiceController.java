@@ -1,24 +1,32 @@
 package com.eighth.housekeeping.controller;
 
 
+import java.util.Map;
+
 import com.eighth.housekeeping.domain.AuntInfo;
 import com.eighth.housekeeping.domain.AuntWorkCase;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.Review;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.AuntService;
+import com.eighth.housekeeping.proxy.service.AuntWorkCaseService;
 import com.eighth.housekeeping.web.FastJson;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/AuntService")
 public class AuntServiceController {
     @Autowired
     AuntService auntService;
+    @Autowired
+    AuntWorkCaseService auntWorkCaseService;
 
     @ResponseBody
     @RequestMapping(value = "/login")
@@ -49,7 +57,7 @@ public class AuntServiceController {
     public AuntInfo findAuntByIdForMember(@RequestParam String auntId,@RequestParam String memberId) {
         AuntInfo auntInfo = null;
         try {
-            auntInfo = auntService.findAuntByIdForMember(auntId,memberId);
+            auntInfo = auntService.findAuntByIdForMember(auntId);
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }
@@ -115,7 +123,128 @@ public class AuntServiceController {
     }
     
     @RequestMapping(value = "/toAunt")
-   	public String toAunt()  throws RemoteInvokeException{
+   	public String toAunt(@RequestParam  String auntId)  throws RemoteInvokeException{
+    	if(StringUtils.isNotEmpty(auntId)){
+   		 	auntService.deleteAunt(auntId);
+    	}
    		return "aunt/aunt";
    	}
+    @RequestMapping(value = "/toAuntAdd")
+   	public ModelAndView toAuntAdd()  throws RemoteInvokeException{
+    	AuntInfo auntInfo=new AuntInfo();
+   		String info = auntService.addAuntInfo(auntInfo);
+   		ModelAndView view = new ModelAndView();
+		view.setViewName("aunt/aunt-add");
+		Map<String, Object> model = view.getModel();
+		model.put("auntId",info);
+		return view;
+   	}
+	@RequestMapping(value = "/toAuntView")
+	public ModelAndView toAuntView(@RequestParam  String auntId)  throws RemoteInvokeException{
+		  AuntInfo auntInfo = auntService.findAuntByIdByWeb(auntId);
+	    ModelAndView view = new ModelAndView();
+        view.setViewName("aunt/aunt-view");
+        Map<String, Object> model = view.getModel();
+        model.put("auntInfo",auntInfo);
+		return view;
+	}
+	@RequestMapping(value = "/toAuntEdit")
+	public ModelAndView toAuntEdit(@RequestParam  String auntId)  throws RemoteInvokeException{
+		AuntInfo auntInfo = auntService.findAuntByIdForMember(auntId);
+		ModelAndView view = new ModelAndView();
+		view.setViewName("aunt/aunt-modify");
+		Map<String, Object> model = view.getModel();
+		model.put("auntInfo",auntInfo);
+		return view;
+	}
+    @ResponseBody
+    @RequestMapping(value = "/saveAunt")
+    public void saveAunt(@FastJson AuntInfo auntInfo) throws RemoteInvokeException{
+   		if(StringUtils.isEmpty(auntInfo.getAuntId())){
+   			auntService.addAuntInfo(auntInfo);
+   		}else{
+   			auntService.updateAuntInfo(auntInfo);
+   		}
+   	}
+    @RequestMapping(value = "/toAuntAttendance")
+   	public String toAuntAttendance()  throws RemoteInvokeException{
+   		return "aunt/aunt-attendance";
+   	}
+		@ResponseBody
+	@RequestMapping(value = "/deleteAuntWeb")
+	public void deleteAuntWeb(@RequestParam  String auntId)  throws RemoteInvokeException{
+		 auntService.deleteAunt(auntId);
+	}
+	@ResponseBody
+	@RequestMapping(value = "/disableAunt")
+	public void disableAunt(@RequestParam  String auntId)  throws RemoteInvokeException{
+		AuntInfo auntInfo = auntService.findAuntByIdForMember(auntId);
+		auntInfo.setStatus("NOT_ACTIVE");
+		auntService.updateAuntInfo(auntInfo);
+	}
+	@RequestMapping(value = "/toCaseView")
+	public ModelAndView toCaseView(@RequestParam  String caseId)  throws RemoteInvokeException{
+		AuntWorkCase auntWorkCase = auntWorkCaseService.findCaseById(caseId);
+		ModelAndView view = new ModelAndView();
+		view.setViewName("aunt/case-cleaning-view");
+		Map<String, Object> model = view.getModel();
+		model.put("auntWorkCase",auntWorkCase);
+		return view;
+	}
+	@RequestMapping(value = "/toCaseEdit")
+	public ModelAndView toCaseEdit(@RequestParam  String caseId,@RequestParam  String auntId)  throws RemoteInvokeException{
+		AuntWorkCase auntWorkCase =new AuntWorkCase();
+		ModelAndView view = new ModelAndView();
+		if (StringUtils.isNotEmpty(caseId)) {
+			auntWorkCase= auntWorkCaseService.findCaseById(caseId);
+		}else{
+			auntWorkCase.setAuntId(auntId);
+		}
+		Map<String, Object> model = view.getModel();
+		model.put("auntWorkCase",auntWorkCase);
+		view.setViewName("aunt/case-cleaning-modify");
+		return view;
+	}
+	  @ResponseBody
+    @RequestMapping(value = "/searchAuntByWeb")
+    public OpenPage<AuntInfo> searchAuntByWeb(@RequestParam String userName,@RequestParam String mobile, @FastJson OpenPage<AuntInfo> page){
+        OpenPage<AuntInfo> auntPage = new OpenPage<AuntInfo>();
+        try {
+        	auntPage = auntService.searchAuntByWeb(userName,mobile,page);
+        } catch (RemoteInvokeException e) {
+            e.printStackTrace();
+        }
+        return auntPage;
+    }
+	  
+	@ResponseBody
+    @RequestMapping(value = "/addCase")
+    public void addCase(@FastJson AuntWorkCase auntWorkCase) throws RemoteInvokeException{
+   		auntWorkCaseService.addWorkCase(auntWorkCase);
+   	}
+	
+	@RequestMapping(value = "/toOrder")
+	public ModelAndView toOrder(@RequestParam  String auntId)  throws RemoteInvokeException{
+		ModelAndView view =new ModelAndView();
+		Map<String, Object> model = view.getModel();
+		model.put("auntId",auntId);
+		view.setViewName("aunt/aunt-bill-record");
+		return view;
+	}
+	@RequestMapping(value = "/toDiscuss")
+	public ModelAndView toDiscuss(@RequestParam  String auntId)  throws RemoteInvokeException{
+		ModelAndView view =new ModelAndView();
+		Map<String, Object> model = view.getModel();
+		model.put("auntId",auntId);
+		view.setViewName("aunt/aunt-comments");
+		return view;
+	}
+	@RequestMapping(value = "/toSignManagement")
+	public ModelAndView toSignManagement(@RequestParam  String auntId)  throws RemoteInvokeException{
+		ModelAndView view =new ModelAndView();
+		Map<String, Object> model = view.getModel();
+		model.put("auntId",auntId);
+		view.setViewName("aunt/aunt-registration");
+		return view;
+	}
 }

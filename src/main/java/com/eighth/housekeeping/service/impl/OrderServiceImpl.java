@@ -6,6 +6,7 @@ import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.OrderService;
 import com.eighth.housekeeping.utils.CommonStringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,4 +65,17 @@ public class OrderServiceImpl implements OrderService {
     public int findOrderCountsByMemberIdAndType(String memberId,String orderType)throws RemoteInvokeException {
         return orderDAO.findOrderCountsByMemberIdAndType(memberId,orderType);
     }
+
+	@Override
+	public OpenPage<AuntOrder> findAuntOrderListByWeb(String auntId,
+			String contactWay, OpenPage<AuntOrder> page)
+			throws RemoteInvokeException {
+		return orderDAO.findAuntOrderListByWeb(auntId, contactWay, page);
+	}
+
+	@Override
+	public void deleteOrderByOrderId(String orderId) throws RemoteInvokeException {
+	
+		 orderDAO.deleteOrderByOrderId(orderId);
+	}
 }

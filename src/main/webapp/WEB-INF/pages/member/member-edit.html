@@ -1,10 +1,10 @@
 <div class="content-tools clearfix">
 
   <div class="btns-right">
-    <a href="member-add.html" class="btn btn-primary">
+    <a href="${request.contextPath}/UserService/toMemberAdd" class="btn btn-primary">
       <span class="glyphicon glyphicon-plus"></span> 继续添加
     </a>
-    <a href="member.html" class="btn btn-primary">
+    <a href="${request.contextPath}/UserService/toMember" class="btn btn-primary">
       <span class="glyphicon glyphicon-arrow-left"></span> 返回
     </a>
   </div>
@@ -12,70 +12,67 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">添加会员</div>
-  <form action="" method="post">
+  <form id="memberEditForm" name="memberEditForm"  action="" method="post" class="form-horizontal">
     <div class="form-panel panel-body">
       <div class="row">
-        <div class="col col-lg-4 col-md-5 col-sm-6 col-xs-12">
-          <div class="input-group">
-            <span class="input-group-addon">
-              头像
-            </span>
+        <div class="col col-lg-6 col-md-8 col-sm-10 col-xs-12">
+         	<div class="form-group">
+            <label class="col-lg-3 control-label">头像 </label>
+             <div class="col-lg-8">
             <input type="button" class="btn btn-primary avatar-uploader" value="Upload">
-          </div><!-- /input-group -->
+            </div>
+          </div>
+         <div class="form-group">
+         	  <input type="hidden" class="form-control" name="userId"  value="${memberInfo.userId!}">
+	               <label class="col-lg-3 control-label">手机号: </label>
+	               <div class="col-lg-8">
+	                 <input type="text" class="form-control" name="mobile" required value="${memberInfo.mobile!}">
+	               </div>
+             </div>
+       <div class="form-group">
+	               <label class="col-lg-3 control-label">昵称: </label>
+	               <div class="col-lg-8">
+	                 <input type="text" class="form-control" name="nickName" required value="${memberInfo.nickName!}" >
+	               </div>
+             </div>
+         <div class="form-group">
+	               <label class="col-lg-3 control-label">姓名: </label>
+	               <div class="col-lg-8">
+	                 <input type="text" class="form-control" name="userName" required value="${memberInfo.userName!}">
+	               </div>
+             </div>
 
-          <div class="input-group">
-            <span class="input-group-addon">
-              手机号
-            </span>
-            <input type="text" class="form-control">
-          </div><!-- /input-group -->
+        <div class="form-group">
+	               <label class="col-lg-3 control-label">住址: </label>
+	               <div class="col-lg-8">
+	                 <input type="text" class="form-control" name="address" required value="${memberInfo.address!}">
+	               </div>
+             </div>
 
-          <div class="input-group">
-            <span class="input-group-addon">
-              昵称
-            </span>
-            <input type="text" class="form-control">
-          </div><!-- /input-group -->
-
-          <div class="input-group">
-            <span class="input-group-addon">
-              姓名
-            </span>
-            <input type="text" class="form-control">
-          </div><!-- /input-group -->
-
-          <div class="input-group">
-            <span class="input-group-addon">
-              住址
-            </span>
-            <input type="text" class="form-control">
-          </div><!-- /input-group -->
-
-          <div class="input-group">
-            <span class="input-group-addon">
-              权限
-            </span>
-            <select class="form-control" name="description" id="description">
-                <option value="1">普通</option>
-                <option value="2">白金卡</option>
-                <option value="3">金卡</option>
-                <option value="4">钻石卡</option>
-            </select>
-          </div><!-- /input-group -->
-
-          <div class="input-group">
-            <span class="input-group-addon">
-              优惠券剩余数量
-            </span>
-            <input type="text" class="form-control">
+           <div class="form-group">
+	               <label class="col-lg-3 control-label">权限: </label>
+	               <div class="col-lg-8">
+			            <select class="form-control" name="card" id="description">
+			                <option <#if memberInfo.card?? && memberInfo.card=="COMMON">selected="selected"</#if> value="COMMON">普通卡</option>
+			                <option <#if memberInfo.card?? && memberInfo.card=="GOLD">selected="selected"</#if> value="GOLD">金卡</option>
+			                <option <#if memberInfo.card?? && memberInfo.card=="WHITE_GOLD">selected="selected"</#if> value="WHITE_GOLD">白金卡</option>
+			                <option  <#if memberInfo.card?? && memberInfo.card=="DIAMOND">selected="selected"</#if> value="DIAMOND">钻石卡</option>
+			            </select>
+			          </div>
+        </div>
+         <div class="form-group">
+           <label class="col-lg-3 control-label">优惠券剩余数量 </label>
+	        <div class="col-lg-8">
+            	<input type="text" class="form-control" name="couponCounts" value="${memberInfo.couponCounts!}">
             <span>张</span>
-          </div><!-- /input-group -->
+          	</div>
+         </div>
 
-          <div class="input-group">
-            <span class="input-group-addon">
-              优惠券有效期
-            </span>
-            <input type="text" class="form-control">
+         <div class="form-group">
+            <label class="col-lg-3 control-label">优惠券有效期</label>
+	        <div class="col-lg-8">
+            <input type="text" class="form-control" name="couponEndTime" value="${memberInfo.couponEndTime!}">
+            </div>
           </div><!-- /input-group -->
 
         </div><!-- /.col-lg-6 -->
@@ -84,3 +81,71 @@
     <div class="panel-footer"><button class="btn btn-lg btn-primary" type="submit">&nbsp;确认&nbsp;</button></div>
   </form>
 </div>
+<script>
+jQuery(function($){
+	$('#memberEditForm').bootstrapValidator({
+        message       : '请检查输入项。',
+        //submitButtons : 'button[type="submit"]',
+        feedbackIcons : {
+            valid      : 'fa fa-check-square',
+            invalid    : 'fa fa-warning',
+            validating : 'fa fa-spinner fa-spin'
+        },
+        fields: {
+        	mobile: {
+                message: '请输入手机号',
+                validators: {
+                	 stringLength: {
+                         min: 11,
+                         max: 11,
+                         message: '长度必须是11位'
+                     },
+                     regexp: {
+                         regexp: /^1[3|4|5|8][0-9]\d{4,8}$/,
+                         message: '手机号码不正确'
+                     }
+                }
+            },
+            nickName: {
+                message: '请输入昵称',
+                validators: {
+                	 stringLength: {
+                         min: 2,
+                         max: 30,
+                         message: '长度必须大于2小于30'
+                     }
+                }
+            },
+            userName: {
+                message: '请输入姓名',
+                validators: {
+                    stringLength: {
+                        min: 2,
+                        max: 30,
+                        message: '长度必须大于2小于30'
+                    }
+                }
+            },
+            address: {
+                message: '请输入地址',
+                validators: {
+                    stringLength: {
+                        min: 2,
+                        max: 30,
+                        message: '长度必须大于2小于30'
+                    }
+                }
+            }
+        }
+    }).submit(function(event) {
+		event.preventDefault();
+		var form = $(this);
+		var url  = "${request.contextPath}/UserService/saveUserInfo"
+		var json = form.formToJson();
+		
+		$.post(url, {"userInfo": json}, function() {
+			alert("保存成功!");
+		});
+	});
+
+});

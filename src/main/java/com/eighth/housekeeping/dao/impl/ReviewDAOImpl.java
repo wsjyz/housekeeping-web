@@ -5,6 +5,7 @@ import com.eighth.housekeeping.dao.ReviewDAO;
 import com.eighth.housekeeping.domain.ImageObj;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.Review;
+
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,28 +23,12 @@ public class ReviewDAOImpl extends BaseDAO implements ReviewDAO {
     @Override
     public OpenPage<Review> findReviewByAuntId(String reviewTag, String auntId, OpenPage page) {
         StringBuilder reviewSql = new StringBuilder("");
-        reviewSql.append("select tr.*,tmi.nick_name from t_review tr,t_member_info tmi" +
-                " where tr.create_user_id = tmi.user_id  and tr.aunt_id =? ");
-        StringBuilder countSql = new StringBuilder("select count(*) from t_review where aunt_id =?");
-        List<Object> params = new ArrayList<Object>();
-        List<Object> countParams = new ArrayList<Object>();
-        if(!reviewTag.equals("ALL")){
-            reviewSql.append(" and tr.review_tag = ? ");
-            countSql.append(" and tr.review_tag = ? ");
-            params.add(reviewTag);
-            countParams.add(reviewTag);
-        }
-        reviewSql.append(" limit ?,? ");
-        params.add(auntId);
-        params.add(page.getPageSize() * (page.getPageNo()-1));
-        params.add(page.getPageSize());
-
-
+        reviewSql.append("select * from t_review where review_tag = ? and aunt_id =? limit ?,?");
         List<Review> reviewList = getJdbcTemplate().query(reviewSql.toString(),
-                params.toArray(),new ReviewMapper());
+                new Object[]{reviewTag,auntId,page.getPageSize() * (page.getPageNo()-1),page.getPageSize()},new ReviewMapper());
 
-        countParams.add(auntId);
-        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),countParams.toArray(),Integer.class);
+        StringBuilder countSql = new StringBuilder("select count(*) from t_review where review_tag = ? and aunt_id =?");
+        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),new String[]{reviewTag,auntId},Integer.class);
         OpenPage<Review> reviewOpenPage = new OpenPage<Review>();
         reviewOpenPage.setTotal(count);
         reviewOpenPage.setRows(reviewList);
@@ -82,8 +66,16 @@ public class ReviewDAOImpl extends BaseDAO implements ReviewDAO {
             review.setReviewId(rs.getString("review_id"));
             review.setReviewTag(rs.getString("review_tag"));
             review.setOptTime(rs.getString("opt_time"));
-            review.setCreateUserName(rs.getString("nick_name"));
             return review;
         }
     }
+
+	@Override
+	public List<Review> getReviewByAuntId(String auntId) {
+		   StringBuilder reviewSql = new StringBuilder("");
+	        reviewSql.append("select * from t_review where aunt_id =?");
+	        List<Review> reviewList = getJdbcTemplate().query(reviewSql.toString(),
+	                new Object[]{auntId},new ReviewMapper());
+	        return reviewList;
+	}
 }
