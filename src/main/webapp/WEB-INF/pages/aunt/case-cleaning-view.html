@@ -1,7 +1,7 @@
 <div class="content-tools clearfix">
 
   <div class="btns-right">
-    <a href="aunt-view.html?auntID=xxxx-xxxx" class="btn btn-primary">
+    <a href="${request.contextPath}/AuntService/toAuntView?auntId=${auntId}" class="btn btn-primary">
       <span class="glyphicon glyphicon-arrow-left"></span> 返回
     </a>
   </div>
@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="panel-footer">
-      <a class="btn btn-lg btn-primary" href="case-cleaning-modify.html">&nbsp;修改&nbsp;</a>
+      <a class="btn btn-lg btn-primary" href="${request.contextPath}/AuntService/toCaseEdit?auntId=${auntWorkCase.caseId}&caseId=${auntWorkCase.caseId}">&nbsp;修改&nbsp;</a>
     </div>
   </form>
 </div>

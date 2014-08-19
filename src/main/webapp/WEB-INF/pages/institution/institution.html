@@ -1,12 +1,13 @@
+
 <div class="content-tools clearfix">
   <form action="${request.contextPath}/CorpService/findCorpPage" method="post" accept-charset="utf-8">
     <div class="input-group">
       <span class="input-group-addon">机构名称</span>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" id="corpName">
     </div>
     <div class="input-group">
       <span class="input-group-addon">机构帐号</span>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" id="loginName">
     </div>
 
     <div class="btns">
@@ -15,7 +16,7 @@
     </div>
 
     <div class="btns-right">
-      <a href="institution-add.html" class="btn btn-primary">
+      <a href="${request.contextPath}/CorpService/toInstitutionAdd" class="btn btn-primary">
         <span class="glyphicon glyphicon-plus"></span> 新增
       </a>
     </div>
@@ -25,146 +26,71 @@
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">机构管理</div>
-
-  <!-- Table -->
-  <table class="table">
-    <thead>
-      <tr>
-        <th>序号</th>
-        <th><a href="inititution.html?orderby=referred">简称</a></th>
-        <th><a href="inititution.html?orderby=instName">机构名称</a></th>
-        <th><a href="inititution.html?orderby=account">机构帐号</a></th>
-        <th colspans="3" class="operation">操作</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th>1</th>
-        <td>八荒</td>
-        <td>上海八荒信息技术有限公司</td>
-        <td>geasscc</td>
-        <td class="operation">
-          <a href="institution-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>2</th>
-        <td>八荒</td>
-        <td>上海八荒信息技术有限公司</td>
-        <td>geasscc</td>
-        <td class="operation">
-          <a href="institution-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>3</th>
-        <td>八荒</td>
-        <td>上海八荒信息技术有限公司</td>
-        <td>geasscc</td>
-        <td class="operation">
-          <a href="institution-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>4</th>
-        <td>八荒</td>
-        <td>上海八荒信息技术有限公司</td>
-        <td>geasscc</td>
-        <td class="operation">
-          <a href="institution-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>5</th>
-        <td>八荒</td>
-        <td>上海八荒信息技术有限公司</td>
-        <td>geasscc</td>
-        <td class="operation">
-          <a href="institution-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>6</th>
-        <td>八荒</td>
-        <td>上海八荒信息技术有限公司</td>
-        <td>geasscc</td>
-        <td class="operation">
-          <a href="institution-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>7</th>
-        <td>八荒</td>
-        <td>上海八荒信息技术有限公司</td>
-        <td>geasscc</td>
-        <td class="operation">
-          <a href="institution-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>8</th>
-        <td>八荒</td>
-        <td>上海八荒信息技术有限公司</td>
-        <td>geasscc</td>
-        <td class="operation">
-          <a href="institution-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>9</th>
-        <td>八荒</td>
-        <td>上海八荒信息技术有限公司</td>
-        <td>geasscc</td>
-        <td class="operation">
-          <a href="institution-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </tr>
-      <tr>
-        <th>10
-        <td>八荒</td>
-        <td>上海八荒信息技术有限公司</td>
-        <td>geasscc</td>
-        <td class="operation">
-          <a href="institution-view.html" class="tools view">查看</a>
-          <a href="javascript:void(0);" class="tools disable">禁用</a>
-          <a href="javascript:void(0);" class="tools del">删除</a>
-        </td>
-      </th></tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="5">
-          <ul class="pagination">
-            <li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>
-            <li class="active"><a href="institution.html?page=1">1</a></li>
-            <li><a href="institution.html?page=2">2</a></li>
-            <li><a href="institution.html?page=3">3</a></li>
-            <li><a href="institution.html?page=4">4</a></li>
-            <li><a href="institution.html?page=5">5</a></li>
-            <li class="disabled"><a href="#">...</a></li>
-            <li><a href="institution.html?page=64">64</a></li>
-            <li><a href="institution.html?page=2">&raquo;</a></li>
-          </ul>
-        </td>
-      </tr>
-    </tfoot>
-  </table>
+  <div class="institutionGrid"></div>
 </div>
+<script>
+    jQuery(function() {
+        $('.institutionGrid').grid({
+            url          : "${request.contextPath}/CorpService/findCorpPage",
+            checkbox     : true,
+            cssClass     : 'aunt-list',
+            numberColumn : true,
+            hoverCols    : false,
+            zebraCols    : false, // 斑马线
+            zebraRows    : false, // 斑马线
+            params       : {corpName:function(){
+            	return $("#corpName").val();
+            }, loginName:function(){
+            	return $("#loginName").val();
+            }},
+            columns: [{
+                    field     : 'corpSimpleName', // 必需
+                    text      : '简称',
+                    width     : 200,
+                    align     : 'center',
+                    sortable  : false,
+                    formatter : function (index, value, data) {
+                       return '<a href="${request.contextPath}/CorpService/toInstitutionView?corpId='+ data.userId +'">'+ value +'</a>';
+                    }
+                }, {
+                    field     : 'corpName',
+                    text      : '机构名称',
+                    width     : 400,
+                    sortable  : false
+                }, {
+                    field     : 'loginName',
+                    text      : '机构帐号',
+                    width     : 258,
+                    sortable  : false
+                }
+            ],
+            tools: [
+                {
+                    text : "查看",
+                    icon : 'fa-eye',
+                    action : function(data, row, grid) {
+                        var url = "${request.contextPath}/CorpService/toInstitutionView?corpId=" + data.corpId;
+                        loadPage(url);
+                    }
+                }, {
+                    text : "禁用",
+                    icon : 'fa-pencil',
+                    action : function(data, row, grid) {
+                        var url = "${request.contextPath}/CorpService/disableCorp?corpId=" + data.corpId;
+                        loadPage(url);
+                    }
+                }, {
+                    text : "删除",
+                    icon : 'fa-times',
+                    action : function(data, row, grid) {
+                    	var url = "${request.contextPath}/CorpService/deleteCorpWeb";
+                        row.remove();
+                        $.post(url, {"corpId": data.corpId}, function(json) {
+                            row.remove();
+                        });
+                    }
+                }
+            ]
+        });
+    });
+</script>

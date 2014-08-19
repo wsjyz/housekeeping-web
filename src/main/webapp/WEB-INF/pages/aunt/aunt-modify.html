@@ -1,243 +1,326 @@
 <div class="content-tools clearfix">
 
-  <div class="btns-right">
-    <a href="aunt-add.html" class="btn btn-primary">
-      <span class="glyphicon glyphicon-plus"></span> 继续添加
-    </a>
-    <a href="aunt.html" class="btn btn-primary">
-      <span class="glyphicon glyphicon-arrow-left"></span> 返回
-    </a>
-  </div>
+	<div class="btns-right">
+		<a href="${request.contextPath}/AuntService/toAuntAdd"
+			class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
+			继续添加
+		</a> <a href="${request.contextPath}/AuntService/toAunt?auntId="
+			class="btn btn-primary"> <span
+			class="glyphicon glyphicon-arrow-left"></span> 返回
+		</a>
+	</div>
 </div>
 
 <div class="panel panel-default">
-  <div class="panel-heading">修改阿姨资料</div>
-  <form class="form-horizontal" role="form" action="" method="post">
-    <div class="form-panel panel-body">
-      <div class="row">
-        <div class="col col-lg-4 col-md-5 col-sm-6 col-xs-12">
+	<div class="panel-heading">修改阿姨资料</div>
+	<form id="auntEditForm" name="auntEditForm" action="" method="post"
+		class="form-horizontal">
+				<input type="hidden" name="auntId" value="${auntInfo.auntId}"/>
+		<div class="form-panel panel-body">
+			<div class="row">
+				<div class="col col-lg-6 col-md-8 col-sm-10 col-xs-12">
+					<div class="form-group">
+						<label class="col-lg-3 control-label"> 姓名 </label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" name="userName" value="${auntInfo.userName}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">手机号 </label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" name="mobile" value="${auntInfo.mobile}">
+						</div>
+					</div>
 
+					<div class="form-group">
+						<label class="col-lg-3 control-label">电话 </label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" name="telephone" value="${auntInfo.telephone}">
+						</div>
+					</div>
+					<!-- /input-group -->
 
-          <div class="form-group">
-            <label class="col-sm-3 control-label">
-              姓名
-            </label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control">
-            </div>
-          </div><!-- /form-group -->
+					<div class="form-group">
+						<label class="col-lg-3 control-label">身份证号</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" name="identityCard" value="${auntInfo.identityCard}">
+						</div>
+					</div>
+					<!-- /input-group -->
 
-          <div class="form-group">
-            <label class="col-sm-3 control-label">
-              手机号
-            </label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control">
-            </div>
-          </div><!-- /form-group -->
+					<div class="form-group">
+						<label class="col-lg-3 control-label">诚信认证 </label>
+						<div class="col-lg-8">
+							<select class="form-control" name="integrityAuth" id="integrityAuth">
+								<option value="是" <#if auntInfo.integrityAuth>selected="selected"</#if>>是</option>
+								<option value="否" <#if !auntInfo.integrityAuth>selected="selected"</#if>>否</option>
+							</select>
+						</div>
+					</div>
 
-          <div class="form-group">
-            <label class="col-sm-3 control-label">
-              电话
-            </label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control">
-            </div>
-          </div><!-- /form-group -->
+					<div class="form-group">
+						<label class="col-lg-3 control-label">籍贯 </label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" name="nativePlace" value="${auntInfo.nativePlace}">
+						</div>
+					</div>
+					<!-- /input-group -->
 
-          <div class="form-group">
-            <label class="col-sm-3 control-label">
-              身份证号
-            </label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control">
-            </div>
-          </div><!-- /form-group -->
+					<div class="form-group">
+						<label class="col-lg-3 control-label">地址</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" name="address" value="${auntInfo.address}">
+						</div>
+					</div>
+					<!-- /input-group -->
 
-          <div class="form-group">
-            <label class="col-sm-3 control-label">
-              诚信认证
-            </label>
-            <div class="col-sm-9">
-              <select class="form-control" name="description" id="description">
-                <option value="1">是</option>
-                <option value="2">否</option>
-              </select>
-            </div>
-          </div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">自我评价 </label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" name="selfEvaluate" value="${auntInfo.selfEvaluate}">
+						</div>
+					</div>
+					<!-- /input-group -->
 
+					<div class="form-group">
+						<label class="col-lg-3 control-label">密码 </label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" name="password" value="${auntInfo.password}">
+						</div>
+					</div>
+					<!-- /input-group -->
 
-          <div class="form-group">
-            <label class="col-sm-3 control-label">
-              籍贯
-            </label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control">
-            </div>
-          </div><!-- /form-group -->
+					<div class="form-group">
+						<label class="col-lg-3 control-label">分类</label>
+						<div class="col-lg-8">
+							<select class="form-control" name="workType" id="workType" >
+								<option value="小时工"  <#if auntInfo.workType=="HOUR_WORK">selected="selected"</#if>>小时工</option>
+								<option value="全职"   <#if auntInfo.workType=="ALL">selected="selected"</#if>>全职</option>
+							</select>
+							<div class="form-group">
+								<label for=""> <input type="checkbox"  <#if auntInfo.workCleanKeeping?? &&auntInfo.workCleanKeeping> checked="checked"</#if> name="workCleanKeeping"  id="">
+									保洁
+								</label> <label for=""> <input type="checkbox"  <#if auntInfo.workLaundry?? &&auntInfo.workLaundry> checked="checked"</#if> name="workLaundry" id="">
+									洗熨
+								</label> <label for=""> <input type="checkbox"  <#if auntInfo.workCook?? &&auntInfo.workCook> checked="checked"</#if> name="workCook" id="">
+									做饭
+								</label>
+							</div>
+						</div>
+					</div>
+					<!-- /input-group -->
 
-          <div class="form-group">
-            <label class="col-sm-3 control-label">
-              地址
-            </label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control">
-            </div>
-          </div><!-- /form-group -->
+					<div class="form-group">
+						<label class="col-lg-3 control-label"> 星级 </label>
+						<div class="col-lg-8">
+							<select class="form-control" name="start" id="start">
+								<option value="五星" <#if auntInfo.start=="五星">selected="selected"</#if>>五星</option>
+								<option value="四星" <#if auntInfo.start=="四星">selected="selected"</#if>>四星</option>
+								<option value="三星" <#if auntInfo.start=="三星">selected="selected"</#if>>三星</option>
+								<option value="二星" <#if auntInfo.start=="二星">selected="selected"</#if>>二星</option>
+								<option value="一星" <#if auntInfo.start=="一星">selected="selected"</#if>>一星</option>
+							</select>
+						</div>
+					</div>
+					<!-- /input-group -->
 
-          <div class="form-group">
-            <label class="col-sm-3 control-label">
-              自我评价
-            </label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control">
-            </div>
-          </div><!-- /form-group -->
+				</div>
+				<!-- /.col-lg-6 -->
 
-          <div class="form-group">
-            <label class="col-sm-3 control-label">
-              密码
-            </label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control">
-            </div>
-          </div><!-- /form-group -->
+				<div class="col col-lg-4 col-md-5 col-sm-6 col-xs-12">
 
-          <div class="form-group">
-            <label class="col-sm-3 control-label">
-              分类
-            </label>
-            <div class="col-sm-9">
-              <select class="form-control" name="" id="">
-                <option value="">小时工</option>
-                <option value="">全职</option>
-              </select>
-              <div>
-                <label for="">
-                  <input type="checkbox" name="" id="">
-                  保洁
-                </label>
-                <label for="">
-                  <input type="checkbox" name="" id="">
-                  洗熨
-                </label>
-                <label for="">
-                  <input type="checkbox" name="" id="">
-                  做饭
-                </label>
-              </div>
-            </div>
-          </div><!-- /form-group -->
+					<div class="input-group">
+						<span class="avatar-view"> <span
+							class="glyphicon glyphicon-user"></span>
+						</span>
+						<button class="btn btn-default" type="button">上传照片</button>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">年龄</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" name="age" value="${auntInfo.age}">
+						</div>
+						<div style="float: left;">岁</div>
+					</div>
+					<!-- /input-group -->
 
-          <div class="form-group">
-            <label class="col-sm-3 control-label">
-              星级
-            </label>
-            <div class="col-sm-9">
-              <select class="form-control" name="" id="">
-                <option value="">五星</option>
-                <option value="">四星</option>
-                <option value="">三星</option>
-                <option value="">二星</option>
-                <option value="">一星</option>
-              </select>
-            </div>
-          </div><!-- /form-group -->
+					<div class="form-group">
+						<label class="col-lg-3 control-label">单价 </label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" name="price" value="${auntInfo.price}">
+						</div>
+						<div style="float: left;">元</div>
+					</div>
+					<!-- /input-group -->
 
-        </div><!-- /.col-lg-6 -->
+					<div class="form-group">
+						<label class="col-lg-3 control-label">工作经验</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" name="workYear" value="${auntInfo.workYear}">
+						</div>
+							<div style="float: left;">年</div>
+					</div>
+					<!-- /input-group -->
 
-        <div class="col col-lg-4 col-md-5 col-sm-6 col-xs-12">
+					<div class="form-group">
+						<label class="col-lg-3 control-label">能力分值</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" name="abilityScore" value="${auntInfo.abilityScore}">
+						</div>
+							<div style="float: left;">分</div>
+					</div>
+					<!-- /input-group -->
 
-          <div class="form-group" style="margin-left: 120px">
-            <span class="avatar-view">
-              <img src="img/avatar.jpg" alt="">
-            </span>
-            <button class="btn btn-default" type="button">修改照片</button>
-          </div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">简评</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" name="description" value="${auntInfo.description}">
+						</div>
+					</div>
+					<!-- /input-group -->
 
-          <div class="form-group">
-            <label class="col-sm-3 control-label">年龄</label>
-            <div class="col-sm-9 input-group">
-              <input type="text" class="form-control">
-              <label class="input-group-addon">岁</label>
-            </div>
-          </div><!-- /form-group -->
+					<div class="form-group">
+						<label class="col-lg-3 control-label">业务</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" name="busiDesc" value="${auntInfo.busiDesc}">
+						</div>
+					</div>
+					<!-- /input-group -->
 
-          <div class="form-group">
-            <label class="col-sm-3 control-label">单价</label>
-            <div class="col-sm-9 input-group">
-              <input type="text" class="form-control" value="30">
-              <label class="input-group-addon">元</label>
-            </div>
-          </div><!-- /form-group -->
+					<div class="form-group">
+						<label class="col-lg-3 control-label">血型 </label>
+						<div class="col-lg-8">
+							<select class="form-control" name="bloodType" id="bloodType">
+								<option value="A" <#if auntInfo.bloodType=="A">selected="selected"</#if>>A型</option>
+								<option value="B" <#if auntInfo.bloodType=="B">selected="selected"</#if>>B型</option>
+								<option value="O" <#if auntInfo.bloodType=="O">selected="selected"</#if>>O型</option>
+								<option value="AB" <#if auntInfo.bloodType=="AB">selected="selected"</#if>>AB型</option>
+							</select>
+						</div>
+					</div>
+					<!-- /input-group -->
 
-          <div class="form-group">
-            <label class="col-sm-3 control-label">工作经验</label>
-            <div class="col-sm-9 input-group">
-              <input type="text" class="form-control">
-              <label class="input-group-addon">年</label>
-            </div>
-          </div><!-- /form-group -->
+					<div class="form-group">
+						<label class="col-lg-3 control-label">星座 </label>
+						<div class="col-lg-8">
+							<select class="form-control" name="constellation" id="constellation">
+								<option value="">不知道</option>
+								<option value="白羊座" <#if auntInfo.bloodType=="白羊座">selected="selected"</#if>>白羊座</option>
+								<option value="金牛座" <#if auntInfo.bloodType=="金牛座">selected="selected"</#if>>金牛座</option>
+								<option value="双子座" <#if auntInfo.bloodType=="双子座">selected="selected"</#if>>双子座</option>
+								<option value="巨蟹座" <#if auntInfo.bloodType=="巨蟹座">selected="selected"</#if>>巨蟹座</option>
+								<option value="狮子座" <#if auntInfo.bloodType=="狮子座">selected="selected"</#if>>狮子座</option>
+								<option value="双鱼座" <#if auntInfo.bloodType=="双鱼座">selected="selected"</#if>>双鱼座</option>
+								<option value="处女座" <#if auntInfo.bloodType=="处女座">selected="selected"</#if>>处女座</option>
+								<option value="天秤座" <#if auntInfo.bloodType=="天秤座">selected="selected"</#if>>天秤座</option>
+								<option value="天蝎座" <#if auntInfo.bloodType=="天蝎座">selected="selected"</#if>>天蝎座</option>
+								<option value="射手座" <#if auntInfo.bloodType=="射手座">selected="selected"</#if>>射手座</option>
+								<option value="摩羯座" <#if auntInfo.bloodType=="摩羯座">selected="selected"</#if>>摩羯座</option>
+								<option value="水瓶座" <#if auntInfo.bloodType=="水瓶座">selected="selected"</#if>>水瓶座</option>
+							</select>
+						</div>
+					</div>
+					<!-- /input-group -->
 
-          <div class="form-group">
-            <label class="col-sm-3 control-label">能力分值</label>
-            <div class="col-sm-9 input-group">
-              <input type="text" class="form-control">
-              <label class="input-group-addon">分</label>
-            </div>
-          </div><!-- /form-group -->
+					 <#if auntInfo.caseList?exists>
+						<#list auntInfo.caseList as case>
+		            	<a href="${request.contextPath}/AuntService/toCaseView?caseId=${case.caseId}&auntId=${auntInfo.auntId}" class="btn btn-default">${case.caseName!}</a>
+		            </#list>
+		           </#if>
 
-          <div class="form-group">
-            <label class="col-sm-3 control-label">简评</label>
-            <div class="col-sm-9 input-group">
-              <input type="text" class="form-control">
-            </div>
-          </div><!-- /form-group -->
-
-          <div class="form-group">
-            <label class="col-sm-3 control-label">业务</label>
-            <div class="col-sm-9 input-group">
-              <input type="text" class="form-control">
-            </div>
-          </div><!-- /form-group -->
-
-          <div class="form-group">
-            <label class="col-sm-3 control-label">
-              血型
-            </label>
-            <div class="col-sm-9 input-group">
-              <select class="form-control" name="description" id="description">
-                <option value="1">A</option>
-                <option value="2">B</option>
-                <option value="3">O</option>
-                <option value="4">AB</option>
-              </select>
-            </div>
-          </div><!-- /form-group -->
-
-          <div class="form-group">
-            <label class="col-sm-3 control-label">
-              星座
-            </label>
-            <div class="col-sm-9 input-group">
-              <select class="form-control" name="description" id="description">
-                <option value="1">白羊座</option>
-                <option value="2">巨蟹座</option>
-                <option value="3">狮子座</option>
-                <option value="4">处女座</option>
-              </select>
-            </div>
-          </div><!-- /form-group -->
-
-          <div class="form-group">
-            <button class="btn btn-default">案例-保洁</button>
-            <button class="btn btn-default">案例-洗熨</button>
-            <button class="btn btn-default">案例-做饭</button>
-          </div>
-
-        </div><!-- /.col-lg-6 -->
-      </div><!-- /.row -->
-    </div>
-    <div class="panel-footer"><button class="btn btn-lg btn-primary" type="submit">&nbsp;保存&nbsp;</button></div>
-  </form>
+				</div>
+				<!-- /.col-lg-6 -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<div class="panel-footer">
+			<button class="btn btn-lg btn-primary" type="submit">&nbsp;确认&nbsp;</button>
+		</div>
+	</form>
 </div>
+
+<script>
+	jQuery(function($) {
+		$('#auntEditForm').bootstrapValidator({
+			message : '请检查输入项。',
+			//submitButtons : 'button[type="submit"]',
+			feedbackIcons : {
+				valid : 'fa fa-check-square',
+				invalid : 'fa fa-warning',
+				validating : 'fa fa-spinner fa-spin'
+			},
+			fields : {
+				mobile : {
+					message : '请输入手机号',
+					validators : {
+						stringLength : {
+							min : 11,
+							max : 11,
+							message : '长度必须是11位'
+						},
+						regexp : {
+							regexp : /^1[3|4|5|8][0-9]\d{4,8}$/,
+							message : '手机号码不正确'
+						}
+					}
+				},
+				identityCard : {
+					message : '请输入身份证号',
+					validators : {
+						stringLength : {
+							min : 18,
+							max : 18,
+							message : '长度必须是18位'
+						},
+						regexp : {
+							regexp : /^[0-9]{0,17}[0-9xX]{1}$/,
+							message : '身份证号码不正确'
+						}
+					}
+				},
+				userName : {
+					message : '请输入姓名',
+					validators : {
+						stringLength : {
+							min : 2,
+							max : 30,
+							message : '长度必须大于2小于30'
+						}
+					}
+				},
+				password : {
+					message : '请输入密码',
+					validators : {
+						stringLength : {
+							min : 6,
+							max : 30,
+							message : '长度必须大于6小于30'
+						}
+					}
+				},
+				address : {
+					message : '请输入地址',
+					validators : {
+						stringLength : {
+							min : 2,
+							max : 50,
+							message : '长度必须大于2小于50'
+						}
+					}
+				}
+			}
+		}).submit(function(event) {
+			event.preventDefault();
+			var form = $(this);
+			var url = "${request.contextPath}/AuntService/saveAunt"
+			var json = form.formToJson();
+
+			$.post(url, {
+				"auntInfo" : json
+			}, function() {
+				alert("保存成功!");
+			});
+		});
+
+	});
+</script>

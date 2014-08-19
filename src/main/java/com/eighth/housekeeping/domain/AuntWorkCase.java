@@ -8,46 +8,56 @@ import java.util.List;
 /**
  * Created by dam on 2014/7/3.
  */
-@Table(name="t_aunt_work_case",comment = "阿姨|小时工案例")
+@Table(name = "t_aunt_work_case", comment = "阿姨|小时工案例")
 public class AuntWorkCase extends BaseDomain {
-    @Column(name="case_id",pk=true,length = 32)
-    private String caseId;
-    @Column(name="description",length = 100,comment = "简介")
-    private String description;
-    @Column(name="aunt_id",length = 32)
-    private String auntId;
+	@Column(name = "case_id", pk = true, length = 32)
+	private String caseId;
+	@Column(name = "description", length = 100, comment = "简介")
+	private String description;
+	@Column(name = "aunt_id", length = 32)
+	private String auntId;
 
-    private List<ImageObj> images;
+	private List<ImageObj> images;
 
-    public String getAuntId() {
-        return auntId;
-    }
+	private String caseName;
 
-    public void setAuntId(String auntId) {
-        this.auntId = auntId;
-    }
+	public void setCaseName(String caseName) {
+		this.caseName = caseName;
+	}
 
-    public String getCaseId() {
-        return caseId;
-    }
+	public String getCaseName() {
+		return caseName;
+	}
 
-    public void setCaseId(String caseId) {
-        this.caseId = caseId;
-    }
+	public String getAuntId() {
+		return auntId;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setAuntId(String auntId) {
+		this.auntId = auntId;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getCaseId() {
+		return caseId;
+	}
 
-    public List<ImageObj> getImages() {
-        return images;
-    }
+	public void setCaseId(String caseId) {
+		this.caseId = caseId;
+	}
 
-    public void setImages(List<ImageObj> images) {
-        this.images = images;
-    }
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<ImageObj> getImages() {
+		return images;
+	}
+
+	public void setImages(List<ImageObj> images) {
+		this.images = images;
+	}
 }

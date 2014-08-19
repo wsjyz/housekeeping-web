@@ -16,16 +16,6 @@ import java.util.List;
 public interface AuntService {
 
     /**
-     * 根据条件查询阿姨列表
-     * @param auntInfo
-     * @param page
-     * @return
-     * @throws RemoteInvokeException
-     */
-    @RemoteMethod(methodVarNames={ "auntInfo","page" })
-    OpenPage<AuntInfo> searchAuntByCondition(AuntInfo auntInfo,OpenPage<AuntInfo> page)throws RemoteInvokeException;
-
-    /**
      * 阿姨登录
      * @param mobile 手机号
      * @param password 密码
@@ -45,13 +35,11 @@ public interface AuntService {
 
     /**
      * 阿姨详情 需要加载案例（会员端）
-     * 注意：以userCollected字段标识是否收藏过
      * @param auntId
-     * @param memberId
      * @return
      */
-    @RemoteMethod(methodVarNames={ "auntId","memberId" })
-    AuntInfo findAuntByIdForMember(String auntId,String memberId)throws RemoteInvokeException;
+    @RemoteMethod(methodVarNames={ "auntId" })
+    AuntInfo findAuntByIdForMember(String auntId)throws RemoteInvokeException;
 
     /**
      * 工作效果详情
@@ -77,6 +65,10 @@ public interface AuntService {
      */
     @RemoteMethod(methodVarNames={ "auntId","oldPassword","newPassword" })
     String resetPassword(String auntId,String oldPassword,String newPassword)throws RemoteInvokeException;
+    
+    String addAuntInfo(AuntInfo auntInfo);
+	String updateAuntInfo(AuntInfo auntInfo);
+	String deleteAunt(String auntId);
 
     /**
      * 修改阿姨的经纬度
@@ -87,4 +79,26 @@ public interface AuntService {
      */
     @RemoteMethod(methodVarNames={ "auntId","longitude","latitude" })
     String modifyAuntGeo(String auntId,double longitude,double latitude)throws RemoteInvokeException;
+
+    /**
+     * 根据条件查询阿姨列表
+     * @param auntInfo
+     * @param page
+     * @return
+     * @throws RemoteInvokeException
+     */
+    @RemoteMethod(methodVarNames={ "auntInfo","page" })
+    OpenPage<AuntInfo> searchAuntByCondition(AuntInfo auntInfo,OpenPage<AuntInfo> page)throws RemoteInvokeException;
+    
+    
+    /**
+     * 阿姨详情 需要加载案例（平台端）
+     * @param auntId
+     * @return
+     */
+    @RemoteMethod(methodVarNames={ "auntId" })
+    AuntInfo findAuntByIdByWeb(String auntId)throws RemoteInvokeException;
+    
+    OpenPage<AuntInfo> searchAuntByWeb(String userName,String mobile,OpenPage<AuntInfo> page)throws RemoteInvokeException;
+
 }

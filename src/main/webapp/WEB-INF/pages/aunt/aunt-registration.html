@@ -1,0 +1,72 @@
+<script>
+    jQuery(function() {
+
+        var columns = [{
+            field     : 'month',
+            text      : '月份\\日期',
+            width     : 100,
+            align     : 'center',
+            fixedTo   : 'left',
+            sortable  : true
+        }];
+
+        for (var i=1; i<=31; i++) {
+            columns.push({
+                field     : i + '',
+                text      : i + '',
+                width     : 64,
+                align     : 'center',
+                sortable  : true,
+                css       : {
+                    'white-space': 'nowrap',
+                    'word-break' : 'keep-all'
+                },
+                formatter : function(index, value, data) {
+
+                    return value===1 ? '<i style="color:#6BC332;">Y</i>' : '&nbsp;';
+                }
+            });
+        }
+
+        $('#bill-grid').grid({
+            url          : "/data/aunt-registration.json",
+            checkbox     : true,
+            cssClass     : 'bill-list',
+            numberColumn : true,
+            requestType  : 'post',
+            hoverCols    : true,
+            zebraCols    : true, // 斑马线
+            zebraRows    : false, // 斑马线
+            params       : {},
+            columns      : columns
+        });
+    });
+</script>
+
+<div class="content-tools clearfix">
+  <form action="aunt.html" method="get" accept-charset="utf-8">
+    <div class="input-group">
+      <span class="input-group-addon">评论人</span>
+      <input type="text" class="form-control">
+    </div>
+
+    <div class="btns">
+      <button type="button" class="btn btn-default">查找</button>
+      <button type="reset" class="btn btn-default">重置</button>
+    </div>
+
+    <div class="btns-right">
+      <a href="aunt-add.html" class="btn btn-primary">
+        <span class="glyphicon glyphicon-plus"></span> 返回
+      </a>
+    </div>
+  </form>
+</div>
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">用户管理</div>
+
+  <!-- Table -->
+  <div id="bill-grid"></div>
+</div>
