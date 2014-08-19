@@ -204,5 +204,10 @@ public class UserServiceImpl implements UserService {
 		return pageNew;
 	}
 
+	@Override
+	public String saveImageObj(ImageObj imageObj) {
+		return imageObjDAO.saveImageObj(imageObj);
+	}
+
 
 }

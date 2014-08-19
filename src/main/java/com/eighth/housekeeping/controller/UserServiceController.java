@@ -1,6 +1,12 @@
 package com.eighth.housekeeping.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import com.eighth.housekeeping.domain.AuntInfo;
 import com.eighth.housekeeping.domain.Corp;
@@ -10,7 +16,9 @@ import com.eighth.housekeeping.domain.VerifyCode;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.AuntService;
 import com.eighth.housekeeping.proxy.service.UserService;
+import com.eighth.housekeeping.utils.CommonStringUtils;
 import com.eighth.housekeeping.utils.JsonStatus;
+import com.eighth.housekeeping.utils.Phone;
 import com.eighth.housekeeping.web.FastJson;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +27,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -29,7 +39,6 @@ public class UserServiceController {
 
     @Autowired
     AuntService auntService;
-    
     @ResponseBody
     @RequestMapping(value = "/findUserPage")
 	public OpenPage<MemberInfo> findUserPage(@RequestParam String mobile,@RequestParam String nickName,
@@ -190,5 +199,25 @@ public class UserServiceController {
 		MemberInfo userInfo = userService.findMemberByMemberId(memberId);
 		userInfo.setStatus("NOT_ACTIVE");
 		userService.modifyMemberInfo(userInfo);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/saveImageObj")
+	public String saveImageObj(MultipartHttpServletRequest request,HttpServletResponse response)  throws RemoteInvokeException{
+		String name = CommonStringUtils.genPK();
+		String path = request.getSession().getServletContext().getRealPath("/WEB-INF/images/portrait");
+		String fileName=name+".jpg";
+	        MultipartFile file = request.getFile("file");
+	        File targetFile = new File(path, fileName);
+	        if(!targetFile.exists()){
+	            targetFile.mkdirs();
+	        }
+	        try {
+	            file.transferTo(targetFile);
+	            
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+		return fileName;
 	}
 }

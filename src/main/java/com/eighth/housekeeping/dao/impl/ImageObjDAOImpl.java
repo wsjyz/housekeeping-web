@@ -3,11 +3,17 @@ package com.eighth.housekeeping.dao.impl;
 import com.eighth.housekeeping.dao.BaseDAO;
 import com.eighth.housekeeping.dao.ImageObjDAO;
 import com.eighth.housekeeping.domain.ImageObj;
+import com.eighth.housekeeping.utils.CommonStringUtils;
+
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,4 +41,22 @@ public class ImageObjDAOImpl extends BaseDAO implements ImageObjDAO {
             return obj;
         }
     }
+	@Override
+	public String saveImageObj(final ImageObj imageObj) {
+		  StringBuilder sql = new StringBuilder("insert into t_img_obj " +
+	                "(image_id,image_type,obj_id,corp_id,opt_time)");
+	        sql.append("values(?,?,?,?,?)");
+	       final SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	        getJdbcTemplate().update(sql.toString(),new PreparedStatementSetter() {
+	            @Override
+	            public void setValues(PreparedStatement ps) throws SQLException {
+	                ps.setString(1,imageObj.getImageId());
+	                ps.setString(2,imageObj.getImageType());
+	                ps.setString(3,imageObj.getObjId());
+	                ps.setString(4,imageObj.getCorpId());
+	                ps.setString(5,sdf.format(new Date()));
+	            }
+	        });
+	        return imageObj.getImageId();
+	}
 }

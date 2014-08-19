@@ -2,6 +2,7 @@ package com.eighth.housekeeping.proxy.service;
 
 
 import com.eighth.housekeeping.domain.Corp;
+import com.eighth.housekeeping.domain.ImageObj;
 import com.eighth.housekeeping.domain.MemberInfo;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.VerifyCode;
@@ -87,5 +88,5 @@ public interface UserService {
     
     
 	OpenPage<MemberInfo> findUserPage(String mobile, String nickName, OpenPage page) throws RemoteInvokeException;
-
+	String saveImageObj(ImageObj imageObj);
 }

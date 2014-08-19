@@ -149,6 +149,7 @@
                     var tipsTemp = $('#tips-template');
 
                     $('[type="submit"] .fa-spin').remove();
+                    alert(json.success);
                     if (json && json.success) {
                         $('body').fadeOut();
                         window.location =""+ json.url;

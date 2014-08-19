@@ -10,4 +10,5 @@ import java.util.List;
 public interface ImageObjDAO {
 
     List<ImageObj> findImageObjByObjIdAndType(String objId,String imageType );
+    String saveImageObj(ImageObj imageObj);
 }

@@ -19,7 +19,8 @@
          	<div class="form-group">
             <label class="col-lg-3 control-label">头像 </label>
              <div class="col-lg-8">
-            <input type="button" class="btn btn-primary avatar-uploader" value="Upload">
+            	<input type="button" class="btn btn-primary avatar-uploader" id="upload" name="upload"value="upload">
+            	<div class="avatar-view"><img id="avatar-img" src="" width="80" height="80" /></div>
             </div>
           </div>
          <div class="form-group">
@@ -83,6 +84,20 @@
 </div>
 <script>
 jQuery(function($){
+	
+	 $("#upload").uploadify({
+	        height        : 30,
+	        swf           : '${request.contextPath}/components/uploadify/uploadify.swf',
+	        uploader      : '${request.contextPath}/UserService/saveImageObj',
+	        width         : 120,
+	        'fileObjName' : 'file',
+	        'buttonClass' : 'btn btn-primary avatar-uploader',
+	        'onUploadSuccess' : function(file, data, response) {
+	        	$("#avatar-img").attr('src', "${request.contextPath}/images/portrait/"+data);
+	        }
+	    });
+	
+
 	$('#memberEditForm').bootstrapValidator({
         message       : '请检查输入项。',
         //submitButtons : 'button[type="submit"]',
