@@ -15,7 +15,7 @@
 	<div class="panel-heading">添加阿姨</div>
 	<form id="auntAddForm" name="auntAddForm" action="" method="post"
 		class="form-horizontal">
-		<input type="hidden" name="auntId" value="${auntId!}"/>
+		<input type="hidden" name="auntId" value="${auntId!}" />
 		<div class="form-panel panel-body">
 			<div class="row">
 				<div class="col col-lg-6 col-md-8 col-sm-10 col-xs-12">
@@ -51,7 +51,8 @@
 					<div class="form-group">
 						<label class="col-lg-3 control-label">诚信认证 </label>
 						<div class="col-lg-8">
-							<select class="form-control" name="integrityAuth" id="integrityAuth">
+							<select class="form-control" name="integrityAuth"
+								id="integrityAuth">
 								<option value="true">是</option>
 								<option value="false">否</option>
 							</select>
@@ -98,12 +99,12 @@
 								<option value="ALL">全职</option>
 							</select>
 							<div class="form-group">
-								<label for=""> <input type="checkbox" name="workCleanKeeping" id="">
-									保洁
-								</label> <label for=""> <input type="checkbox" name="workLaundry" id="">
-									洗熨
-								</label> <label for=""> <input type="checkbox" name="workCook" id="">
-									做饭
+								<label for=""> <input type="checkbox"
+									name="workCleanKeeping" id=""> 保洁
+								</label> <label for=""> <input type="checkbox"
+									name="workLaundry" id=""> 洗熨
+								</label> <label for=""> <input type="checkbox" name="workCook"
+									id=""> 做饭
 								</label>
 							</div>
 						</div>
@@ -130,10 +131,13 @@
 				<div class="col col-lg-4 col-md-5 col-sm-6 col-xs-12">
 
 					<div class="input-group">
-						<span class="avatar-view"> <span
-							class="glyphicon glyphicon-user"></span>
-						</span>
-						<button class="btn btn-default" type="button">上传照片</button>
+						<div class="avatar-view">
+							<img id="avatar-img"
+								src="${request.contextPath}/images/avatar.jpg" width="80"
+								height="80" />
+						</div>
+						<button class="btn btn-default" type="button" id="upload"
+							name="upload" value="upload">上传照片</button>
 					</div>
 					<div class="form-group">
 						<label class="col-lg-3 control-label">年龄</label>
@@ -158,7 +162,7 @@
 						<div class="col-lg-8">
 							<input type="text" class="form-control" name="workYear">
 						</div>
-							<div style="float: left;">年</div>
+						<div style="float: left;">年</div>
 					</div>
 					<!-- /input-group -->
 
@@ -167,7 +171,7 @@
 						<div class="col-lg-8">
 							<input type="text" class="form-control" name="abilityScore">
 						</div>
-							<div style="float: left;">分</div>
+						<div style="float: left;">分</div>
 					</div>
 					<!-- /input-group -->
 
@@ -203,7 +207,8 @@
 					<div class="form-group">
 						<label class="col-lg-3 control-label">星座 </label>
 						<div class="col-lg-8">
-							<select class="form-control" name="constellation" id="constellation">
+							<select class="form-control" name="constellation"
+								id="constellation">
 								<option value="">不知道</option>
 								<option value="白羊座">白羊座</option>
 								<option value="金牛座">金牛座</option>
@@ -222,9 +227,19 @@
 					</div>
 
 					<div class="form-group">
-						<a href="${request.contextPath}/AuntService/toCaseEdit?auntId=${auntId}&caseId=" class="btn btn-default"> <span class="glyphicon glyphicon-plus"></span>案例-保洁</a>
-						<a href="${request.contextPath}/AuntService/toCaseEdit?auntId=${auntId}&caseId=" class="btn btn-default"> <span class="glyphicon glyphicon-plus"></span>案例-洗熨</a>
-						<a href="${request.contextPath}/AuntService/toCaseEdit?auntId=${auntId}&caseId=" class="btn btn-default"> <span class="glyphicon glyphicon-plus"></span>案例-做饭</a>
+						<a
+							href="${request.contextPath}/AuntService/toCaseEdit?auntId=${auntId}&caseId="
+							class="btn btn-default"> <span
+							class="glyphicon glyphicon-plus"></span>案例-保洁
+						</a> <a
+							href="${request.contextPath}/AuntService/toCaseEdit?auntId=${auntId}&caseId="
+							class="btn btn-default"> <span
+							class="glyphicon glyphicon-plus"></span>案例-洗熨
+						</a> <a
+							href="${request.contextPath}/AuntService/toCaseEdit?auntId=${auntId}&caseId="
+							class="btn btn-default"> <span
+							class="glyphicon glyphicon-plus"></span>案例-做饭
+						</a>
 					</div>
 
 				</div>
@@ -238,6 +253,24 @@
 
 <script>
 	jQuery(function($) {
+
+		$("#upload")
+				.uploadify(
+						{
+							height : 30,
+							swf : '${request.contextPath}/components/uploadify/uploadify.swf',
+							uploader : '${request.contextPath}/UserService/saveImageObj?objId=${auntId!}',
+							width : 120,
+							'fileObjName' : 'file',
+							'buttonClass' : 'btn btn-primary avatar-uploader',
+							'onUploadSuccess' : function(file, data, response) {
+								$("#avatar-img").attr(
+										'src',
+										"${request.contextPath}/images/portrait/"
+												+ data);
+							}
+						});
+
 		$('#auntAddForm').bootstrapValidator({
 			message : '请检查输入项。',
 			//submitButtons : 'button[type="submit"]',

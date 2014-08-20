@@ -17,7 +17,11 @@
 
       <div class="profile fixed-top">
         <div class="avatar">
-          <img src="${request.contextPath}/images/avatar.jpg" alt="">
+          	<#if auntInfo.imageObj?? && auntInfo.imageObj.imageUrl??>
+	        <img src="${request.contextPath}/images/portrait/${auntInfo.imageObj.imageUrl!}" alt="">
+	      <#else>
+        	<img src="${request.contextPath}/images/avatar.jpg" alt="">
+	      </#if>
         </div>
 
         <div class="coupons row">

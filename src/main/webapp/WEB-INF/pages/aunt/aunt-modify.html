@@ -52,8 +52,8 @@
 						<label class="col-lg-3 control-label">诚信认证 </label>
 						<div class="col-lg-8">
 							<select class="form-control" name="integrityAuth" id="integrityAuth">
-								<option value="是" <#if auntInfo.integrityAuth>selected="selected"</#if>>是</option>
-								<option value="否" <#if !auntInfo.integrityAuth>selected="selected"</#if>>否</option>
+								<option value="true" <#if auntInfo.integrityAuth>selected="selected"</#if>>是</option>
+								<option value="false" <#if !auntInfo.integrityAuth>selected="selected"</#if>>否</option>
 							</select>
 						</div>
 					</div>
@@ -130,10 +130,15 @@
 				<div class="col col-lg-4 col-md-5 col-sm-6 col-xs-12">
 
 					<div class="input-group">
-						<span class="avatar-view"> <span
-							class="glyphicon glyphicon-user"></span>
-						</span>
-						<button class="btn btn-default" type="button">上传照片</button>
+						<div class="avatar-view">
+								
+	            	   <#if auntInfo.imageObj?? && auntInfo.imageObj.imageUrl??>
+				          <img id="avatar-img" src="${request.contextPath}/images/portrait/${auntInfo.imageObj.imageUrl!}" width="80" height="80" />
+				      <#else>
+				      <img id="avatar-img" src="${request.contextPath}/images/avatar.jpg" width="80" height="80" />
+				      </#if>
+						</div>
+						<button class="btn btn-default" type="button" id="upload" name="upload" value="upload">上传照片</button>
 					</div>
 					<div class="form-group">
 						<label class="col-lg-3 control-label">年龄</label>
@@ -241,6 +246,20 @@
 
 <script>
 	jQuery(function($) {
+		$("#upload").uploadify({
+			height : 30,
+			swf : '${request.contextPath}/components/uploadify/uploadify.swf',
+			uploader : '${request.contextPath}/UserService/saveImageObj?objId=${auntInfo.auntId!}',
+			width : 120,
+			'fileObjName' : 'file',
+			'buttonClass' : 'btn btn-primary avatar-uploader',
+			'onUploadSuccess' : function(file, data, response) {
+				$("#avatar-img").attr(
+						'src',
+						"${request.contextPath}/images/portrait/"
+								+ data);
+			}
+		});
 		$('#auntEditForm').bootstrapValidator({
 			message : '请检查输入项。',
 			//submitButtons : 'button[type="submit"]',

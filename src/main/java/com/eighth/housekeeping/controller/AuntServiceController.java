@@ -150,7 +150,7 @@ public class AuntServiceController {
 	}
 	@RequestMapping(value = "/toAuntEdit")
 	public ModelAndView toAuntEdit(@RequestParam  String auntId)  throws RemoteInvokeException{
-		AuntInfo auntInfo = auntService.findAuntByIdForMember(auntId);
+		AuntInfo auntInfo = auntService.findAuntByIdByWeb(auntId);
 		ModelAndView view = new ModelAndView();
 		view.setViewName("aunt/aunt-modify");
 		Map<String, Object> model = view.getModel();

@@ -31,63 +31,74 @@ import org.springframework.util.CollectionUtils;
  */
 @Service("AuntService")
 public class AuntServiceImpl implements AuntService {
-    @Autowired
-    private AuntDAO auntDAO;
-    @Autowired
-    private AuntWorkCaseDAO auntWorkCaseDAO;
-    @Autowired
-    private ReviewDAO reviewDAO;
-    @Autowired
-    ImageObjDAO imageObjDAO; 
-    @Autowired
-    OrderDAO orderDAO;
+	@Autowired
+	private AuntDAO auntDAO;
+	@Autowired
+	private AuntWorkCaseDAO auntWorkCaseDAO;
+	@Autowired
+	private ReviewDAO reviewDAO;
+	@Autowired
+	ImageObjDAO imageObjDAO;
+	@Autowired
+	OrderDAO orderDAO;
 
-    @Override
-    public AuntInfo login(String mobile, String password) throws RemoteInvokeException {
-        String md5Psw = CommonStringUtils.getMD5(password.getBytes());
-        return auntDAO.findAuntByMobileAndPsw(mobile,md5Psw);
-    }
+	@Override
+	public AuntInfo login(String mobile, String password)
+			throws RemoteInvokeException {
+		String md5Psw = CommonStringUtils.getMD5(password.getBytes());
+		return auntDAO.findAuntByMobileAndPsw(mobile, md5Psw);
+	}
 
-    @Override
-    public AuntInfo findAuntByIdForAunt(String auntId) throws RemoteInvokeException {
-        return auntDAO.findAuntByIdForAunt(auntId);
-    }
+	@Override
+	public AuntInfo findAuntByIdForAunt(String auntId)
+			throws RemoteInvokeException {
+		return auntDAO.findAuntByIdForAunt(auntId);
+	}
 
-    @Override
-    public AuntInfo findAuntByIdForMember(String auntId) throws RemoteInvokeException {
-        return auntDAO.findAuntByIdForMember(auntId);
-    }
+	@Override
+	public AuntInfo findAuntByIdForMember(String auntId)
+			throws RemoteInvokeException {
+		return auntDAO.findAuntByIdForMember(auntId);
+	}
 
-    @Override
-    public AuntWorkCase findCaseById(String caseId) throws RemoteInvokeException {
-        return auntWorkCaseDAO.findCaseById(caseId);
-    }
+	@Override
+	public AuntWorkCase findCaseById(String caseId)
+			throws RemoteInvokeException {
+		return auntWorkCaseDAO.findCaseById(caseId);
+	}
 
-    @Override
-    public OpenPage<Review> findReviewByAuntId(String reviewTag, String auntId, OpenPage page) throws RemoteInvokeException {
-        return reviewDAO.findReviewByAuntId(reviewTag,auntId,page);
-    }
+	@Override
+	public OpenPage<Review> findReviewByAuntId(String reviewTag, String auntId,
+			OpenPage page) throws RemoteInvokeException {
+		return reviewDAO.findReviewByAuntId(reviewTag, auntId, page);
+	}
 
-    @Override
-    public String resetPassword(String auntId, String oldPassword, String newPassword) throws RemoteInvokeException {
-        return null;
-    }
-    @Override
-    public String modifyAuntGeo(String auntId, double longitude, double latitude) {
-        auntDAO.modifyAuntGeo(auntId,longitude,latitude);
-        return "SUCCESS";
-    }
+	@Override
+	public String resetPassword(String auntId, String oldPassword,
+			String newPassword) throws RemoteInvokeException {
+		return null;
+	}
+
+	@Override
+	public String modifyAuntGeo(String auntId, double longitude, double latitude) {
+		auntDAO.modifyAuntGeo(auntId, longitude, latitude);
+		return "SUCCESS";
+	}
+
 	@Override
 	public String addAuntInfo(AuntInfo auntInfo) {
 		return auntDAO.addAuntInfo(auntInfo);
 	}
+
 	@Override
-	public	String updateAuntInfo(AuntInfo auntInfo){
-			return auntDAO.updateAuntInfo(auntInfo);
+	public String updateAuntInfo(AuntInfo auntInfo) {
+		return auntDAO.updateAuntInfo(auntInfo);
 	}
+
 	@Override
-	public String deleteAunt(String auntId){
-			return auntDAO.deleteAunt(auntId);
+	public String deleteAunt(String auntId) {
+		imageObjDAO.deleteImageObj(auntId, Constants.PORTRAIT);
+		return auntDAO.deleteAunt(auntId);
 	}
 
 	@Override
@@ -99,62 +110,74 @@ public class AuntServiceImpl implements AuntService {
 	@Override
 	public AuntInfo findAuntByIdByWeb(String auntId)
 			throws RemoteInvokeException {
-		    AuntInfo auntInfo = auntDAO.findAuntByIdForMember(auntId);
-		    List<ImageObj> imageList = imageObjDAO.findImageObjByObjIdAndType(auntId, Constants.PORTRAIT);
-			if (!CollectionUtils.isEmpty(imageList)) {
-				ImageObj imageObj=imageList.get(0);
-				auntInfo.setImageObj(imageObj);
-			}
-			setMoneyByAuntInfo(auntInfo);
-			return auntInfo;
+		AuntInfo auntInfo = auntDAO.findAuntByIdForMember(auntId);
+		List<ImageObj> imageList = imageObjDAO.findImageObjByObjIdAndType(
+				auntId, Constants.PORTRAIT);
+		if (!CollectionUtils.isEmpty(imageList)) {
+			ImageObj imageObj = imageList.get(0);
+			auntInfo.setImageObj(imageObj);
+		}
+		setMoneyByAuntInfo(auntInfo);
+		return auntInfo;
 	}
 
 	private void setMoneyByAuntInfo(AuntInfo auntInfo) {
-		String auntId=auntInfo.getAuntId();
-		List<AuntOrder> auntOrderList = orderDAO.getListByMemberId(null,auntId);
-		 BigDecimal mothOfIncome=new BigDecimal(0);// 本月收入
-		 BigDecimal yearOfIncome=new BigDecimal(0);// 年度金额
-		 BigDecimal sumMoney=new BigDecimal(0);//总金额
-		 int yearOfOrderCounts=0;//年度订单数
-		 int monthOfOrderCounts=0;// 月度订单数
-		 int totalOrderCounts = 0;// 总订单数
-		 int payOrderCount=0;
-		 int discussCount=0;
-		 List<Review> reviewByAuntId = reviewDAO.getReviewByAuntId(auntId);
-		 if (CollectionUtils.isEmpty(reviewByAuntId)) {
-			discussCount=reviewByAuntId.size();
+		String auntId = auntInfo.getAuntId();
+		List<AuntOrder> auntOrderList = orderDAO
+				.getListByMemberId(null, auntId);
+		BigDecimal mothOfIncome = new BigDecimal(0);// 本月收入
+		BigDecimal yearOfIncome = new BigDecimal(0);// 年度金额
+		BigDecimal sumMoney = new BigDecimal(0);// 总金额
+		int yearOfOrderCounts = 0;// 年度订单数
+		int monthOfOrderCounts = 0;// 月度订单数
+		int totalOrderCounts = 0;// 总订单数
+		int payOrderCount = 0;
+		int discussCount = 0;
+		List<Review> reviewByAuntId = reviewDAO.getReviewByAuntId(auntId);
+		if (CollectionUtils.isEmpty(reviewByAuntId)) {
+			discussCount = reviewByAuntId.size();
 		}
 		if (!CollectionUtils.isEmpty(auntOrderList)) {
-			Calendar cal=Calendar.getInstance();
-			String year=cal.get(Calendar.YEAR)+"";
-			String month=cal.get(Calendar.MONTH)+"";
+			Calendar cal = Calendar.getInstance();
+			String year = cal.get(Calendar.YEAR) + "";
+			String month = cal.get(Calendar.MONTH) + "";
 			for (AuntOrder auntOrder : auntOrderList) {
 				totalOrderCounts++;
 				if (auntOrder.getOrderStatus().equals(Constants.ONLINE_PAYED)) {
 					payOrderCount++;
-					sumMoney=sumMoney.add(auntOrder.getActualPrice()==null?new BigDecimal(0):auntOrder.getActualPrice());
-					if (StringUtils.isNotEmpty(auntOrder.getOptTime()) && auntOrder.getOptTime().contains("-")) {
-						String[] time=auntOrder.getOptTime().split("-");
-						String yearStr=time[0];
-						String monthStr=time[1];
+					sumMoney = sumMoney
+							.add(auntOrder.getActualPrice() == null ? new BigDecimal(
+									0) : auntOrder.getActualPrice());
+					if (StringUtils.isNotEmpty(auntOrder.getOptTime())
+							&& auntOrder.getOptTime().contains("-")) {
+						String[] time = auntOrder.getOptTime().split("-");
+						String yearStr = time[0];
+						String monthStr = time[1];
 						if (yearStr.equals(year)) {
-							yearOfIncome=yearOfIncome.add(auntOrder.getActualPrice()==null?new BigDecimal(0):auntOrder.getActualPrice());
+							yearOfIncome = yearOfIncome.add(auntOrder
+									.getActualPrice() == null ? new BigDecimal(
+									0) : auntOrder.getActualPrice());
 						}
 						if (monthStr.equals(month)) {
-							mothOfIncome=mothOfIncome.add(auntOrder.getActualPrice()==null?new BigDecimal(0):auntOrder.getActualPrice());
+							mothOfIncome = mothOfIncome.add(auntOrder
+									.getActualPrice() == null ? new BigDecimal(
+									0) : auntOrder.getActualPrice());
 						}
 					}
 				}
-				if (StringUtils.isNotEmpty(auntOrder.getOptTime()) && auntOrder.getOptTime().contains("-")) {
-					String[] time=auntOrder.getOptTime().split("-");
-					String yearStr=time[0];
-					String monthStr=time[1];
+				if (StringUtils.isNotEmpty(auntOrder.getOptTime())
+						&& auntOrder.getOptTime().contains("-")) {
+					String[] time = auntOrder.getOptTime().split("-");
+					String yearStr = time[0];
+					String monthStr = time[1];
 					if (yearStr.equals(year)) {
 						yearOfOrderCounts++;
 					}
 					if (monthStr.equals(month)) {
 						monthOfOrderCounts++;
-						mothOfIncome=mothOfIncome.add(auntOrder.getActualPrice()==null?new BigDecimal(0):auntOrder.getActualPrice());
+						mothOfIncome = mothOfIncome.add(auntOrder
+								.getActualPrice() == null ? new BigDecimal(0)
+								: auntOrder.getActualPrice());
 					}
 				}
 			}
@@ -170,9 +193,9 @@ public class AuntServiceImpl implements AuntService {
 	}
 
 	@Override
-	public OpenPage<AuntInfo> searchAuntByWeb(String userName,String mobile,
+	public OpenPage<AuntInfo> searchAuntByWeb(String userName, String mobile,
 			OpenPage<AuntInfo> page) throws RemoteInvokeException {
-		page=auntDAO.searchAuntByWeb(userName,mobile, page);
+		page = auntDAO.searchAuntByWeb(userName, mobile, page);
 		if (!CollectionUtils.isEmpty(page.getRows())) {
 			for (AuntInfo auntInfo : page.getRows()) {
 				setMoneyByAuntInfo(auntInfo);

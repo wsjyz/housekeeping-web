@@ -4,7 +4,7 @@
     <a href="${request.contextPath}/UserService/toMemberAdd" class="btn btn-primary">
       <span class="glyphicon glyphicon-plus"></span> 继续添加
     </a>
-    <a href="${request.contextPath}/UserService/toMember" class="btn btn-primary">
+    <a href="${request.contextPath}/UserService/toMember" class="btn btn-primary" id="1">
       <span class="glyphicon glyphicon-arrow-left"></span> 返回
     </a>
   </div>
@@ -16,7 +16,11 @@
 
     <div class="profile fixed-top">
       <div class="avatar">
-        <img src="${request.contextPath}/images/avatar.jpg" alt="">
+       <#if memberInfo.imageObj?? && memberInfo.imageObj.imageUrl??>
+            <img src="${request.contextPath}/images/portrait/${memberInfo.imageObj.imageUrl!}" alt="">
+      <#else>
+              <img src="${request.contextPath}/images/avatar.jpg" alt="">
+      </#if>
       </div>
 
       <div class="coupons row">

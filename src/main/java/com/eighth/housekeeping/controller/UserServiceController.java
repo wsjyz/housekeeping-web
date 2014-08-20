@@ -4,12 +4,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
 import com.eighth.housekeeping.domain.AuntInfo;
 import com.eighth.housekeeping.domain.Corp;
+import com.eighth.housekeeping.domain.ImageObj;
 import com.eighth.housekeeping.domain.MemberInfo;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.VerifyCode;
@@ -17,6 +21,7 @@ import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.AuntService;
 import com.eighth.housekeeping.proxy.service.UserService;
 import com.eighth.housekeeping.utils.CommonStringUtils;
+import com.eighth.housekeeping.utils.Constants;
 import com.eighth.housekeeping.utils.JsonStatus;
 import com.eighth.housekeeping.utils.Phone;
 import com.eighth.housekeeping.web.FastJson;
@@ -177,7 +182,7 @@ public class UserServiceController {
 	}
     @RequestMapping(value = "/toMemberEdit")
 	public ModelAndView toMemberEdit(@RequestParam  String memberId)  throws RemoteInvokeException{
-    	MemberInfo userInfo = userService.findMemberByMemberId(memberId);
+    	MemberInfo userInfo = userService.findMemberByMemberIdWeb(memberId);
 	    ModelAndView view = new ModelAndView();
         view.setViewName("member/member-edit");
         Map<String, Object> model = view.getModel();
@@ -203,21 +208,31 @@ public class UserServiceController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/saveImageObj")
-	public String saveImageObj(MultipartHttpServletRequest request,HttpServletResponse response)  throws RemoteInvokeException{
+	public String saveImageObj(MultipartHttpServletRequest request,HttpServletResponse response,@RequestParam String objId)  throws RemoteInvokeException{
 		String name = CommonStringUtils.genPK();
 		String path = request.getSession().getServletContext().getRealPath("/WEB-INF/images/portrait");
+	    final SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    Calendar cal=Calendar.getInstance();
+	    Date time=cal.getTime();
+	    int month=cal.get(Calendar.MONTH);
 		String fileName=name+".jpg";
-	        MultipartFile file = request.getFile("file");
-	        File targetFile = new File(path, fileName);
-	        if(!targetFile.exists()){
-	            targetFile.mkdirs();
-	        }
-	        try {
-	            file.transferTo(targetFile);
-	            
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-		return fileName;
+		path+="/"+month;
+        MultipartFile file = request.getFile("file");
+        File targetFile = new File(path, fileName);
+        if(!targetFile.exists()){
+            targetFile.mkdirs();
+        }
+        try {
+            file.transferTo(targetFile);
+            ImageObj imageObj=new ImageObj();
+            imageObj.setImageId(name);
+            imageObj.setImageType(Constants.PORTRAIT);
+            imageObj.setObjId(objId);
+            imageObj.setOptTime(sdf.format(time));
+            userService.saveImageObj(imageObj);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		return "/"+month+"/"+fileName;
 	}
 }
