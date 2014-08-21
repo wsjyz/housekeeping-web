@@ -25,7 +25,7 @@ public class ReviewDAOImpl extends BaseDAO implements ReviewDAO {
         StringBuilder reviewSql = new StringBuilder("");
         reviewSql.append("select tr.*,tmi.nick_name from t_review tr,t_member_info tmi" +
                 " where tr.create_user_id = tmi.user_id  and tr.aunt_id =? ");
-        StringBuilder countSql = new StringBuilder("select count(*) from t_review where aunt_id =?");
+        StringBuilder countSql = new StringBuilder("select count(*) from t_review tr where aunt_id =?");
         List<Object> params = new ArrayList<Object>();
         List<Object> countParams = new ArrayList<Object>();
         if(!reviewTag.equals("ALL")){

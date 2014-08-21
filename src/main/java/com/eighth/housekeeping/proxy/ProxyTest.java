@@ -49,12 +49,12 @@ public class ProxyTest {
             //AuntOrder order = orderService.findOrderById("o1");
 //            orderService.saveUserOrder(order);
             //orderService.deleteOrder(memberId,"dd3f1bfdbc414c17b8c5efa0022da539");
-//            Review review = new Review();
-//            review.setReviewTag("VERY_SATISFY");
-//            review.setReviewContent("NB1");
-//            review.setCreateUserId(memberId);
-//            review.setAuntId(auntId);
-//            Review a = reviewService.addReview(review);
+            Review review = new Review();
+            review.setReviewTag("VERY_SATISFY");
+            review.setReviewContent("NB1");
+            review.setCreateUserId(memberId);
+            review.setAuntId(auntId);
+            Review a = reviewService.addReview(review);
 //            SignInfo signInfo = new SignInfo();
 //            signInfo.setAuntId(auntId);
 //            signInfo.setSignPlaceDesc("西直门地铁A出口");
@@ -87,8 +87,8 @@ public class ProxyTest {
 //            OpenPage<AuntInfo> auntInfoOpenPage = auntService.searchAuntByCondition(params,page);
 
             //OpenPage<AuntOrder> orderOpenPage = orderService.findAuntOrderList(auntId, "ALL",new OpenPage<AuntOrder>());
-            OpenPage openPage = auntService.findReviewByAuntId("ALL",auntId,new OpenPage<Review>());
-            System.out.println(JSON.toJSONString(openPage));
+//            OpenPage openPage = auntService.findReviewByAuntId("VERY_SATISFY",auntId,new OpenPage<Review>());
+            System.out.println(JSON.toJSONString(a));
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }
