@@ -100,10 +100,10 @@
 							</select>
 							<div class="form-group">
 								<label for=""> <input type="checkbox"
-									name="workCleanKeeping" id=""> 保洁
-								</label> <label for=""> <input type="checkbox"
+									name="workCleanKeeping" value="true" id=""> 保洁
+								</label> <label for=""> <input type="checkbox"value="true" 
 									name="workLaundry" id=""> 洗熨
-								</label> <label for=""> <input type="checkbox" name="workCook"
+								</label> <label for=""> <input type="checkbox" value="true" name="workCook"
 									id=""> 做饭
 								</label>
 							</div>
@@ -259,7 +259,7 @@
 						{
 							height : 30,
 							swf : '${request.contextPath}/components/uploadify/uploadify.swf',
-							uploader : '${request.contextPath}/UserService/saveImageObj?objId=${auntId!}',
+							uploader : '${request.contextPath}/UserService/saveImageObj?objId=${auntId!}&objType=PORTRAIT',
 							width : 120,
 							'fileObjName' : 'file',
 							'buttonClass' : 'btn btn-primary avatar-uploader',

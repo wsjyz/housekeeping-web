@@ -4,7 +4,7 @@
 		<a href="${request.contextPath}/AuntService/toAuntAdd"
 			class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
 			继续添加
-		</a> <a href="${request.contextPath}/AuntService/toAunt?auntId="
+		</a> <a href="${request.contextPath}/AuntService/toAunt?auntId=back"
 			class="btn btn-primary"> <span
 			class="glyphicon glyphicon-arrow-left"></span> 返回
 		</a>
@@ -133,7 +133,7 @@
 						<div class="avatar-view">
 								
 	            	   <#if auntInfo.imageObj?? && auntInfo.imageObj.imageUrl??>
-				          <img id="avatar-img" src="${request.contextPath}/images/portrait/${auntInfo.imageObj.imageUrl!}" width="80" height="80" />
+				          <img id="avatar-img" src="${request.contextPath}/images/${auntInfo.imageObj.imageUrl!}" width="80" height="80" />
 				      <#else>
 				      <img id="avatar-img" src="${request.contextPath}/images/avatar.jpg" width="80" height="80" />
 				      </#if>
@@ -249,7 +249,7 @@
 		$("#upload").uploadify({
 			height : 30,
 			swf : '${request.contextPath}/components/uploadify/uploadify.swf',
-			uploader : '${request.contextPath}/UserService/saveImageObj?objId=${auntInfo.auntId!}',
+			uploader : '${request.contextPath}/UserService/saveImageObj?objId=${auntInfo.auntId!}&objType=PORTRAIT',
 			width : 120,
 			'fileObjName' : 'file',
 			'buttonClass' : 'btn btn-primary avatar-uploader',

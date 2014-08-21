@@ -124,7 +124,7 @@ public class AuntServiceController {
     
     @RequestMapping(value = "/toAunt")
    	public String toAunt(@RequestParam  String auntId)  throws RemoteInvokeException{
-    	if(StringUtils.isNotEmpty(auntId)){
+    	if(StringUtils.isNotEmpty(auntId) && !"back".equals(auntId)){
    		 	auntService.deleteAunt(auntId);
     	}
    		return "aunt/aunt";
@@ -183,12 +183,13 @@ public class AuntServiceController {
 		auntService.updateAuntInfo(auntInfo);
 	}
 	@RequestMapping(value = "/toCaseView")
-	public ModelAndView toCaseView(@RequestParam  String caseId)  throws RemoteInvokeException{
+	public ModelAndView toCaseView(@RequestParam  String caseId,@RequestParam  String auntId)  throws RemoteInvokeException{
 		AuntWorkCase auntWorkCase = auntWorkCaseService.findCaseById(caseId);
 		ModelAndView view = new ModelAndView();
 		view.setViewName("aunt/case-cleaning-view");
 		Map<String, Object> model = view.getModel();
 		model.put("auntWorkCase",auntWorkCase);
+		model.put("auntId",auntId);
 		return view;
 	}
 	@RequestMapping(value = "/toCaseEdit")
@@ -220,7 +221,11 @@ public class AuntServiceController {
 	@ResponseBody
     @RequestMapping(value = "/addCase")
     public void addCase(@FastJson AuntWorkCase auntWorkCase) throws RemoteInvokeException{
-   		auntWorkCaseService.addWorkCase(auntWorkCase);
+		if(StringUtils.isEmpty(auntWorkCase.getCaseId())){
+			auntWorkCaseService.addWorkCase(auntWorkCase);
+		}else{
+			auntWorkCaseService.updateWorkCase(auntWorkCase);
+		}
    	}
 	
 	@RequestMapping(value = "/toOrder")

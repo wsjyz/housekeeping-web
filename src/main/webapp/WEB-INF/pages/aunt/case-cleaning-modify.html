@@ -1,8 +1,8 @@
 <div class="content-tools clearfix">
 
   <div class="btns-right">
-    <a href="${request.contextPath}/AuntService/toAunt?auntId=" class="btn btn-primary">
-      <span class="glyphicon glyphfa fa-arrow-left"></span> 返回
+    <a href="${request.contextPath}/AuntService/toAuntView?auntId=${auntId}" class="btn btn-primary">
+      <span class="glyphicon glyphfa fa-arrow-left"></span>返回
     </a>
   </div>
 </div>
@@ -11,30 +11,38 @@
   <div class="panel-heading">添加案例</div>
   <form action="" id="addCaseForm" name="addCaseForm" method="post" class="form-horizontal">
   	<input type="hidden" name="auntId" value="${auntWorkCase.auntId}" />
+  	<input type="hidden" name="caseId" value="${auntWorkCase.caseId}" />
     <div class="form-panel panel-body">
       <div class="row">
-
+ <#if auntWorkCase.images?exists && (auntWorkCase.images?size>0)>
+      <#list auntWorkCase.images as image>
         <div class="col col-lg-3 col-md-4 col-sm-5 col-xs-6">
           <span href="#" class="thumbnail">
-            <img src="${request.contextPath}/images/case-1.jpg" alt="...">
+          <#if image.imageUrl??>
+        	    <img src="${request.contextPath}/images/${image.imageUrl!}" id="avatar-img${image_index}" alt="...">
+        	</#if>
           </span>
-          <a class="btn btn-default" href="case-cleaning-modify.html">
-            <span class="glyphicon glyphicon-picture"></span> 修改图片
-          </a>
+        <button class="btn btn-default" type="button" id="upload${image_index}" name="upload${image_index}" >上传照片</button>
         </div><!-- /.col-lg-6 -->
-
+  </#list>
+        <#else>
         <div class="col col-lg-3 col-md-4 col-sm-5 col-xs-6">
           <span href="#" class="thumbnail">
-            <img src="${request.contextPath}/images/case-3.jpg" alt="...">
+            <img src="${request.contextPath}/images/case-1.jpg" id="avatar-img1"alt="...">
           </span>
-          <a class="btn btn-default" href="case-cleaning-modify.html">
-            <span class="glyphicon glyphicon-picture"></span> 修改图片
-          </a>
+           <button class="btn btn-default" type="button" id="upload0" name="upload0" >上传照片</button>
         </div><!-- /.col-lg-6 -->
+        <div class="col col-lg-3 col-md-4 col-sm-5 col-xs-6">
+          <span href="#" class="thumbnail">
+            <img src="${request.contextPath}/images/case-3.jpg" id="avatar-img2" alt="...">
+          </span>
+           <button class="btn btn-default" type="button" id="upload1" name="upload1" >上传照片</button>
+        </div><!-- /.col-lg-6 -->
+        </#if>
       </div><!-- /.row -->
       <div class="row">
         <div class="col col-lg-9 col-md-9 col-sm-12 col-xs-12">
-          <textarea class="editor" name="description" id="case-cleaning-summary" cols="30" rows="10" style="width:100%;height:300px">
+          <textarea class="editor" name="description" id="case-cleaning-summary" cols="30" rows="10" style="width:100%;height:300px">${auntWorkCase.description}
           </textarea>
         </div>
       </div>
@@ -50,6 +58,32 @@
   });
   
   jQuery(function($) {
+	  $("#upload0").uploadify({
+			height : 30,
+			swf : '${request.contextPath}/components/uploadify/uploadify.swf',
+			uploader : '${request.contextPath}/UserService/saveImageObj?objId=${auntWorkCase.caseId}&objType=WORKCASE',
+			width : 120,
+			'fileObjName' : 'file',
+			'buttonClass' : 'btn btn-primary avatar-uploader',
+			'onUploadSuccess' : function(file, data, response) {
+				$("#avatar-img1").attr('src',"${request.contextPath}/images/workcase"+ data);
+			}
+		});
+	  $("#upload1").uploadify({
+			height : 30,
+			swf : '${request.contextPath}/components/uploadify/uploadify.swf',
+			uploader : '${request.contextPath}/UserService/saveImageObj?objId=${auntWorkCase.caseId}&objType=WORKCASE',
+			width : 120,
+			'fileObjName' : 'file',
+			'buttonClass' : 'btn btn-primary avatar-uploader',
+			'onUploadSuccess' : function(file, data, response) {
+				$("#avatar-img2").attr(
+						'src',
+						"${request.contextPath}/images/workcase"
+								+ data);
+			}
+		});
+	  
 		$('#addCaseForm').bootstrapValidator({
 			message : '请检查输入项。',
 			//submitButtons : 'button[type="submit"]',

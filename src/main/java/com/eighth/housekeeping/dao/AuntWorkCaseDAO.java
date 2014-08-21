@@ -16,4 +16,6 @@ public interface AuntWorkCaseDAO {
     
     void addWorkCase(AuntWorkCase auntWorkCase);
     String updateWorkCase(AuntWorkCase auntWorkCase);
+    void deleteWorkCase(String auntId);
+    
 }

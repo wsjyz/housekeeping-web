@@ -47,8 +47,8 @@ public class ImageObjDAOImpl extends BaseDAO implements ImageObjDAO {
             int month=0;
             try {
 				cal.setTime(sdf.parse(obj.getOptTime()));
-				month=cal.get(Calendar.MONTH);
-				String url="/"+month+"/"+obj.getImageId()+".jpg";
+				month=cal.get(Calendar.MONTH)+1;
+				String url=obj.getImageType().toLowerCase()+"/"+month+"/"+obj.getImageId()+".jpg";
 				obj.setImageUrl(url);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
@@ -77,7 +77,7 @@ public class ImageObjDAOImpl extends BaseDAO implements ImageObjDAO {
 	@Override
 	public void deleteImageObj(String objId, String imageType) {
 		  StringBuilder imgSql = new StringBuilder("");
-	        imgSql.append("select * from t_img_obj where obj_id = '"+objId+"' and image_type ='"+Constants.PORTRAIT+"'");
+	        imgSql.append("delete from  t_img_obj where obj_id = '"+objId+"' and image_type ='"+Constants.PORTRAIT+"'");
 	    	getJdbcTemplate().update(imgSql.toString());
 	}
 }

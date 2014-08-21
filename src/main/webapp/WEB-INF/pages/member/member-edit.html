@@ -95,7 +95,7 @@ jQuery(function($){
 	 $("#upload").uploadify({
 	        height        : 30,
 	        swf           : '${request.contextPath}/components/uploadify/uploadify.swf',
-	        uploader      : '${request.contextPath}/UserService/saveImageObj?objId=${memberInfo.userId!}',
+	        uploader      : '${request.contextPath}/UserService/saveImageObj?objId=${memberInfo.userId!}&objType=PORTRAIT',
 	        width         : 120,
 	        'fileObjName' : 'file',
 	        'buttonClass' : 'btn btn-primary avatar-uploader',

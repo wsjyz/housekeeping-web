@@ -99,4 +99,12 @@ public class AuntWorkCaseDAOImpl extends BaseDAO implements AuntWorkCaseDAO {
 	        caseSql.append("where case_id='"+auntWorkCase.getCaseId()+"'");
 		return null;
 	}
+
+	@Override
+	public void deleteWorkCase(String auntId) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("delete from t_aunt_work_case where aunt_id='" + auntId + "'");
+		getJdbcTemplate().update(sql.toString());
+		
+	}
 }

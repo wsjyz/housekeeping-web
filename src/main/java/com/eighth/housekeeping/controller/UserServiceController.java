@@ -208,13 +208,13 @@ public class UserServiceController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/saveImageObj")
-	public String saveImageObj(MultipartHttpServletRequest request,HttpServletResponse response,@RequestParam String objId)  throws RemoteInvokeException{
+	public String saveImageObj(MultipartHttpServletRequest request,HttpServletResponse response,@RequestParam String objId,@RequestParam String objType)  throws RemoteInvokeException{
 		String name = CommonStringUtils.genPK();
-		String path = request.getSession().getServletContext().getRealPath("/WEB-INF/images/portrait");
+		String path = request.getSession().getServletContext().getRealPath("/WEB-INF/images/"+objType.toLowerCase());
 	    final SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    Calendar cal=Calendar.getInstance();
 	    Date time=cal.getTime();
-	    int month=cal.get(Calendar.MONTH);
+	    int month=cal.get(Calendar.MONTH)+1;
 		String fileName=name+".jpg";
 		path+="/"+month;
         MultipartFile file = request.getFile("file");
@@ -226,7 +226,7 @@ public class UserServiceController {
             file.transferTo(targetFile);
             ImageObj imageObj=new ImageObj();
             imageObj.setImageId(name);
-            imageObj.setImageType(Constants.PORTRAIT);
+            imageObj.setImageType(objType);
             imageObj.setObjId(objId);
             imageObj.setOptTime(sdf.format(time));
             userService.saveImageObj(imageObj);

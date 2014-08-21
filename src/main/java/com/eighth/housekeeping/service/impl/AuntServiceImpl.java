@@ -98,6 +98,7 @@ public class AuntServiceImpl implements AuntService {
 	@Override
 	public String deleteAunt(String auntId) {
 		imageObjDAO.deleteImageObj(auntId, Constants.PORTRAIT);
+		auntWorkCaseDAO.deleteWorkCase(auntId);
 		return auntDAO.deleteAunt(auntId);
 	}
 
