@@ -1,12 +1,29 @@
 package com.eighth.housekeeping.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+
 import com.eighth.housekeeping.domain.AuntInfo;
+import com.eighth.housekeeping.domain.Corp;
+import com.eighth.housekeeping.domain.ImageObj;
 import com.eighth.housekeeping.domain.MemberInfo;
+import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.VerifyCode;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.AuntService;
 import com.eighth.housekeeping.proxy.service.UserService;
+import com.eighth.housekeeping.utils.CommonStringUtils;
+import com.eighth.housekeeping.utils.Constants;
 import com.eighth.housekeeping.utils.JsonStatus;
+import com.eighth.housekeeping.utils.Phone;
 import com.eighth.housekeeping.web.FastJson;
 
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +32,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/UserService")
@@ -24,6 +44,12 @@ public class UserServiceController {
 
     @Autowired
     AuntService auntService;
+    @ResponseBody
+    @RequestMapping(value = "/findUserPage")
+	public OpenPage<MemberInfo> findUserPage(@RequestParam String mobile,@RequestParam String nickName,
+			@FastJson OpenPage page)  throws RemoteInvokeException{
+		return userService.findUserPage(mobile, nickName, page);
+	}
     @ResponseBody
     @RequestMapping(value = "/add")
     public MemberInfo add(@FastJson MemberInfo userInfo) {
@@ -99,9 +125,9 @@ public class UserServiceController {
     @RequestMapping(value = "/loginIng")
     public JsonStatus loginIng(@RequestParam String mobile,@RequestParam String password){
     	JsonStatus jsonStatus=new JsonStatus();
-    	if("ADMIN".equals(mobile) && "hw".equals(password)){
-    		jsonStatus.setSeccuss(true);
-    		jsonStatus.setUrl("${request.contextPath}/UserService/toIndex");
+    	if("ADMIN".equals(mobile) && "hw123456".equals(password)){
+    		jsonStatus.setSuccess(true);
+    		jsonStatus.setUrl("/hw/UserService/toIndex");
     	}else{
     		AuntInfo auntInfo=new AuntInfo();  
     		 try {
@@ -109,8 +135,8 @@ public class UserServiceController {
              } catch (RemoteInvokeException e) {
                  e.printStackTrace();
              }
-			jsonStatus.setSeccuss(false);
-    		jsonStatus.setUrl("${request.contextPath}/UserService/toLogin");
+			jsonStatus.setSuccess(false);
+    		jsonStatus.setUrl("/hw/UserService/toLogin");
     	}
     	return jsonStatus;
     }
@@ -127,5 +153,86 @@ public class UserServiceController {
    	public String toMember()  throws RemoteInvokeException{
    		return "member/member";
    	}
-   	
+    @RequestMapping(value = "/toMemberAdd")
+   	public String toMemberAdd()  throws RemoteInvokeException{
+   		return "member/member-add";
+   	}
+    @ResponseBody
+    @RequestMapping(value = "/saveUserInfo")
+    public void saveUserInfo(@FastJson MemberInfo userInfo) {
+        try {
+        	if(StringUtils.isEmpty(userInfo.getUserId())){
+        		userInfo.setStatus("ACTIVE");
+                userService.add(userInfo);
+        	}else{
+        		userService.modifyMemberInfo(userInfo);
+        	}
+        } catch (RemoteInvokeException e) {
+            e.printStackTrace();
+        }
+    }
+    @RequestMapping(value = "/toMemberView")
+	public ModelAndView toMemberView(@RequestParam  String memberId)  throws RemoteInvokeException{
+		MemberInfo userInfo = userService.findMemberByMemberIdWeb(memberId);
+	    ModelAndView view = new ModelAndView();
+        view.setViewName("member/member-view");
+        Map<String, Object> model = view.getModel();
+        model.put("memberInfo",userInfo);
+		return view;
+	}
+    @RequestMapping(value = "/toMemberEdit")
+	public ModelAndView toMemberEdit(@RequestParam  String memberId)  throws RemoteInvokeException{
+    	MemberInfo userInfo = userService.findMemberByMemberIdWeb(memberId);
+	    ModelAndView view = new ModelAndView();
+        view.setViewName("member/member-edit");
+        Map<String, Object> model = view.getModel();
+        model.put("memberInfo",userInfo);
+		return view;
+	}
+    @RequestMapping(value = "/toMemberComments")
+   	public String toMemberComments()  throws RemoteInvokeException{
+   		return "member/member-comments";
+   	}
+    @ResponseBody
+	@RequestMapping(value = "/deleteMemberWeb")
+	public void deleteMemberWeb(@RequestParam  String memberId)  throws RemoteInvokeException{
+    	userService.deleteByMemberId(memberId);
+	}
+	@ResponseBody
+	@RequestMapping(value = "/disableMember")
+	public void disableMember(@RequestParam  String memberId)  throws RemoteInvokeException{
+		MemberInfo userInfo = userService.findMemberByMemberId(memberId);
+		userInfo.setStatus("NOT_ACTIVE");
+		userService.modifyMemberInfo(userInfo);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/saveImageObj")
+	public String saveImageObj(MultipartHttpServletRequest request,HttpServletResponse response,@RequestParam String objId)  throws RemoteInvokeException{
+		String name = CommonStringUtils.genPK();
+		String path = request.getSession().getServletContext().getRealPath("/WEB-INF/images/portrait");
+	    final SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    Calendar cal=Calendar.getInstance();
+	    Date time=cal.getTime();
+	    int month=cal.get(Calendar.MONTH);
+		String fileName=name+".jpg";
+		path+="/"+month;
+        MultipartFile file = request.getFile("file");
+        File targetFile = new File(path, fileName);
+        if(!targetFile.exists()){
+            targetFile.mkdirs();
+        }
+        try {
+            file.transferTo(targetFile);
+            ImageObj imageObj=new ImageObj();
+            imageObj.setImageId(name);
+            imageObj.setImageType(Constants.PORTRAIT);
+            imageObj.setObjId(objId);
+            imageObj.setOptTime(sdf.format(time));
+            userService.saveImageObj(imageObj);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		return "/"+month+"/"+fileName;
+	}
 }

@@ -9,39 +9,72 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="${request.contextPath}/components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="${request.contextPath}/components/bootstrap/dist/css/bootstrap-theme.min.css">
+
+  <link rel="stylesheet" href="${request.contextPath}/components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${request.contextPath}/components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="${request.contextPath}/components/bootstrapValidator/dist/css/bootstrapValidator.min.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="${request.contextPath}/css/main.css">
 
-    <script src="${request.contextPath}/js/vendor/modernizr.js"></script>
+    <script src="${request.contextPath}/components/modernizr/modernizr.js"></script>
+    <script src="${request.contextPath}/components/jquery/dist/jquery.min.js"></script>
+    <script src="${request.contextPath}/components/underscore/underscore.js"></script>
+    <script src="${request.contextPath}/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="${request.contextPath}/components/bootstrapValidator/dist/js/bootstrapValidator.min.js"></script>
+    <script src="${request.contextPath}/components/jquery-form/jquery.form.js"></script>
+    <script src="${request.contextPath}/components/bootstrapValidator/dist/js/language/zh_CN.js"></script>
+     <script>
+        var DEFAULT_PAGE = 'toInstitution';
+    </script>
   </head>
   <body>
     <div class="login-box">
       <h1>居优家政后台管理系统</h1>
       <div class="login-border">
-
-        <div class="alert alert-danger alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert">
-            <span aria-hidden="false">&times;</span>
-            <span class="sr-only">Close</span>
-          </button>
-          <strong>登录失败！</strong>账户和密码不匹配。
-        </div>
+         <script id="tips-template" type="text/template">
+          <div class="tips alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+              <span aria-hidden="true">&times;</span>
+              <span class="sr-only">Close</span>
+            </button>
+            <p class="content"><%=message%></p>
+          </div>
+        </script>
 
         <div class="panel panel-default">
           <div class="panel-body">
-            <form action="${request.contextPath}/UserService/loginIng" >
-              <div class="input-group input-group-lg">
-                <span class="input-group-addon">帐号: </span>
-                <input type="text" class="form-control" placeholder="手机号码" name="mobile">
+<!--             <form id="loginForm" action="${request.contextPath}/UserService/loginIng" class="form-horizontal"> -->
+<!--               <div class="input-group input-group-lg"> -->
+<!--                 <span class="input-group-addon">帐号: </span> -->
+<!--                 <input type="text" class="form-control" placeholder="手机号码" name="mobile" required="required"> -->
+<!--               </div> -->
+<!--               <div class="input-group input-group-lg"> -->
+<!--                 <span class="input-group-addon">密码: </span> -->
+<!--                 <input type="text" class="form-control" placeholder="密码" required="required" name="password"> -->
+<!--               </div> -->
+
+<!--               <div class="login-footer"> -->
+<!--                 <button type="submit"  class="btn btn-lg" role="button">登 录</button> -->
+<!--               </div> -->
+<!--             </form> -->
+            <form id="loginForm" action="${request.contextPath}/UserService/loginIng" method="post" class="form-horizontal">
+
+              <div class="form-group">
+                <label class="col-lg-3 control-label">帐号: </label>
+                <div class="col-lg-8">
+                  <input type="text" required="" class="form-control input-lg" placeholder="手机号码" name="mobile">
+                </div>
               </div>
-              <div class="input-group input-group-lg">
-                <span class="input-group-addon">密码: </span>
-                <input type="text" class="form-control" placeholder="密码" name="password">
+
+              <div class="form-group">
+                <label class="col-lg-3 control-label">密码: </label>
+                <div class="col-lg-8">
+                  <input type="password"  class="form-control input-lg"placeholder="密码"  name="password" >
+                </div>
               </div>
 
               <div class="login-footer">
-                <button type="submit"  class="btn btn-lg" role="button">登 录</button>
+                <button type="submit" class="btn btn-lg btn-primary" role="button">登 录</button>
               </div>
             </form>
           </div>
@@ -67,9 +100,76 @@
       r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
       ga('create','UA-XXXXX-X');ga('send','pageview');
     </script>
+           <script src="${request.contextPath}/js/main.js"></script>
+    
 <script type="text/javascript">
+        jQuery(function($) {
+            'use strict';
+            $('#loginForm').bootstrapValidator({
+                message       : 'This value is not valid',
+                //submitButtons : 'button[type="submit"]',
+                feedbackIcons : {
+                    valid      : 'fa fa-check-square',
+                    invalid    : 'fa fa-warning',
+                    validating : 'fa fa-spinner fa-spin'
+                },
+                fields: {
+                    username: {
+                        message: '请输入账户名',
+                        validators: {
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9_]+$/,
+                                message: '只能包含这些字符：[a-zA-Z0-9_]'
+                            }
+                        }
+                    },
+                    password: {
+                        message: '请输入密码',
+                        validators: {
+                            stringLength: {
+                                min: 6,
+                                max: 30,
+                                message: '长度必须大于6小于30'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9_]+$/,
+                                message: '[a-zA-Z0-9_]'
+                            }
+                        }
+                    }
+                }
+            })
+            .ajaxForm({
+                dataType     : 'json',
+                beforeSubmit : function(arr, $form, options) {
+                    $('.tips').remove();
+                    $('[type="submit"]').prepend('<span class="fa fa-spinner fa-spin"></span>');
+                },
+                success: function(json) {
+                    var tipsTemp = $('#tips-template');
 
-</script>
-       <script src="${request.contextPath}/js/main.js"></script>
+                    $('[type="submit"] .fa-spin').remove();
+                    alert(json.success);
+                    if (json && json.success) {
+                        $('body').fadeOut();
+                        window.location =""+ json.url;
+                    } else {
+                        $(_.template(tipsTemp.html(), {
+                            message: json.message||"登录失败，请输入正确的账户和密码。"
+                        })).insertAfter(tipsTemp);
+                    }
+                },
+                error: function() {
+                    var tipsTemp = $('#tips-template');
+                    $('[type="submit"]').removeAttr('disabled').find('.fa-spin').remove();
+
+                    $(_.template(tipsTemp.html(), {
+                        message: '网络拥堵或服务器繁忙。'
+                    })).insertAfter(tipsTemp);
+                }
+            });
+
+        });
+    </script>
 </body>
 </html>

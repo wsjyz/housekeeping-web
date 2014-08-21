@@ -11,7 +11,7 @@ import com.eighth.housekeeping.domain.annotation.Table;
 public class Corp extends BaseDomain {
     @Column(name="corp_id",pk=true,length = 32)
     private String corpId;
-    @Column(name="corp_simple_name",comment = "密码",length = 20)
+    @Column(name="corp_simple_name",comment = "机构简称",length = 20)
     private String corpSimpleName;//机构简称
     @Column(name="corp_name",comment = "全称",length = 50)
     private String corpName;//全称

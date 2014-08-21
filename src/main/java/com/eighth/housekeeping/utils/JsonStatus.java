@@ -1,12 +1,8 @@
 package com.eighth.housekeeping.utils;
 
 public class JsonStatus {
-	private boolean seccuss=true;
+	private boolean success = true;
 	private String url;
-
-	public void setSeccuss(boolean seccuss) {
-		this.seccuss = seccuss;
-	}
 
 	public String getUrl() {
 		return url;
@@ -16,8 +12,12 @@ public class JsonStatus {
 		this.url = url;
 	}
 
-	public boolean isSeccuss() {
-		return seccuss;
+	public boolean isSuccess() {
+		return success;
+	}
+
+	public void setSuccess(boolean success) {
+		this.success = success;
 	}
 
 }

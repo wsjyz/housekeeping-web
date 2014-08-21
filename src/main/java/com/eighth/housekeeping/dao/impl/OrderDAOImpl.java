@@ -4,7 +4,9 @@ import com.eighth.housekeeping.dao.BaseDAO;
 import com.eighth.housekeeping.dao.OrderDAO;
 import com.eighth.housekeeping.domain.AuntOrder;
 import com.eighth.housekeeping.domain.OpenPage;
-import com.eighth.housekeeping.domain.Review;
+import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
@@ -59,8 +61,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
     public OpenPage<AuntOrder> findOrderList(String memberId, String orderType,OpenPage<AuntOrder> page) {
         List<Object> params = new ArrayList<Object>();
         params.add(memberId);
-        StringBuilder sql = new StringBuilder("select tao.*,tmi.nick_name from t_aunt_order tao,t_member_info tmi " +
-                " where tmi.user_id = tao.user_id and tao.user_id = ?");
+        StringBuilder sql = new StringBuilder("select * from t_aunt_order where user_id = ?");
         StringBuilder countSql = new StringBuilder("select count(*) from t_aunt_order where user_id = ? ");
         if(!orderType.equals("ALL")){
             countSql.append("and order_status =?");
@@ -84,8 +85,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
     public OpenPage<AuntOrder> findAuntOrderList(String auntId, String orderType, OpenPage<AuntOrder> page) {
         List<Object> params = new ArrayList<Object>();
         params.add(auntId);
-        StringBuilder sql = new StringBuilder("select tao.*,tmi.nick_name from t_aunt_order tao,t_member_info tmi " +
-                " where tmi.user_id = tao.user_id and tao.aunt_id = ?");
+        StringBuilder sql = new StringBuilder("select * from t_aunt_order where aunt_id = ?");
         StringBuilder countSql = new StringBuilder("select count(*) from t_aunt_order where aunt_id = ? ");
         if(!orderType.equals("ALL")){
             countSql.append("and order_status =?");
@@ -108,8 +108,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
     @Override
     public AuntOrder findOrderById(String orderId) {
         StringBuilder sql = new StringBuilder("");
-        sql.append("select tao.*,tmi.nick_name from t_aunt_order tao,t_member_info tmi where tmi.user_id = tao.user_id " +
-                "and tao.order_id = ?");
+        sql.append("select * from t_aunt_order where order_id = ?");
         List<AuntOrder> orderInfoList = getJdbcTemplate().query(sql.toString(),new String[]{orderId},new AuntOrderRowMapper());
         if(!CollectionUtils.isEmpty(orderInfoList) ){
             AuntOrder auntInfo = orderInfoList.get(0);
@@ -174,8 +173,57 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             order.setWorkLength(rs.getInt("work_length"));
             order.setWorkTime(rs.getString("work_time"));
             order.setCorpId(rs.getString("corp_id"));
-            order.setUserName(rs.getString("nick_name"));
             return order;
         }
     }
+	@Override
+	public List<AuntOrder> getListByMemberId(String memberId,String auntId) {
+        StringBuilder sql = new StringBuilder("select * from t_aunt_order where 1=1");
+        List<Object> params = new ArrayList<Object>();
+        
+        if (StringUtils.isNotEmpty(memberId)) {
+			sql.append(" and user_id = ?");
+			params.add(memberId);
+		}
+        if (StringUtils.isNotEmpty(auntId)) {
+			sql.append(" and aunt_id = ?");
+			params.add(auntId);
+		}
+        List<AuntOrder> orderInfoList = getJdbcTemplate().query(sql.toString(),params.toArray(),new AuntOrderRowMapper());
+        return orderInfoList;
+	}
+
+	@Override
+	public OpenPage<AuntOrder> findAuntOrderListByWeb(String auntId,
+			String contactWay, OpenPage<AuntOrder> page)
+			{
+		List<Object> params = new ArrayList<Object>();
+        params.add(auntId);
+        StringBuilder sql = new StringBuilder("select * from t_aunt_order where aunt_id = ?");
+        StringBuilder countSql = new StringBuilder("select count(*) from t_aunt_order where aunt_id = ? ");
+        if(StringUtils.isNotEmpty(contactWay)){
+            countSql.append("and contact_way =?");
+            sql.append("and contact_way =?");
+            params.add(contactWay);
+        }
+        sql.append("limit ?,?");
+        countSql.append("limit ?,?");
+        params.add(page.getPageSize() * (page.getPageNo() - 1));
+        params.add(page.getPageSize());
+
+        List<AuntOrder> orderList = getJdbcTemplate().query(sql.toString(), params.toArray(),new AuntOrderRowMapper());
+        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),params.toArray(),Integer.class);
+        OpenPage<AuntOrder> orderOpenPage = new OpenPage<AuntOrder>();
+        orderOpenPage.setTotal(count);
+        orderOpenPage.setRows(orderList);
+        return orderOpenPage;
+	}
+
+	@Override
+	public void deleteOrderByOrderId(String orderId) {
+		 StringBuilder sql = new StringBuilder("");
+	        sql.append("delete from t_aunt_order where order_id = ?");
+	        getJdbcTemplate().update(sql.toString(),new String[]{orderId});
+		
+	}
 }

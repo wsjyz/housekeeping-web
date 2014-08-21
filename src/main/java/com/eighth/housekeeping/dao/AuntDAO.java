@@ -8,13 +8,23 @@ import com.eighth.housekeeping.domain.OpenPage;
  */
 public interface AuntDAO {
 
-    AuntInfo findAuntByIdForAunt(String auntId);
+	AuntInfo findAuntByIdForAunt(String auntId);
 
-    AuntInfo findAuntByIdForMember(String auntId,String memberId);
+	AuntInfo findAuntByIdForMember(String auntId);
 
-    AuntInfo findAuntByMobileAndPsw(String mobile,String password);
+	AuntInfo findAuntByMobileAndPsw(String mobile, String password);
 
-    OpenPage<AuntInfo> searchAuntByCondition(AuntInfo auntInfo, OpenPage<AuntInfo> page);
+	OpenPage<AuntInfo> searchAuntByCondition(AuntInfo auntInfo,
+			OpenPage<AuntInfo> page);
 
-    void modifyAuntGeo(String auntId,double longitude,double latitude);
+	void modifyAuntGeo(String auntId, double longitude, double latitude);
+
+	String addAuntInfo(AuntInfo auntInfo);
+
+	String updateAuntInfo(AuntInfo auntInfo);
+
+	String deleteAunt(String auntId);
+
+	OpenPage<AuntInfo> searchAuntByWeb(String userName, String mobile,
+			OpenPage<AuntInfo> page);
 }

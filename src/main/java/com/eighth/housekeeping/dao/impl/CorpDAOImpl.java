@@ -3,6 +3,8 @@ package com.eighth.housekeeping.dao.impl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +17,7 @@ import com.eighth.housekeeping.dao.BaseDAO;
 import com.eighth.housekeeping.dao.CorpDAO;
 import com.eighth.housekeeping.domain.Corp;
 import com.eighth.housekeeping.domain.OpenPage;
+import com.eighth.housekeeping.utils.CommonStringUtils;
 
 /**
  * Created by dam on 2014/7/28.
@@ -26,7 +29,7 @@ public class CorpDAOImpl extends BaseDAO implements CorpDAO {
 	public OpenPage<Corp> findCorpPage(String corpName, String loginName,
 			OpenPage page) {
 		   StringBuilder reviewSql = new StringBuilder("");
-		   reviewSql.append("select * from t_corp where");
+		   reviewSql.append("select * from t_corp where 1=1");
 		   if (StringUtils.isNotEmpty(corpName)) {
 			   reviewSql.append("corp_name like '%"+corpName+"%' ");
 		   }
@@ -38,7 +41,7 @@ public class CorpDAOImpl extends BaseDAO implements CorpDAO {
 	                new Object[]{page.getPageSize() * (page.getPageNo()-1),page.getPageSize()},new CorpMapper());
 
 		   StringBuilder countSql = new StringBuilder("");
-		   countSql.append("select * from t_corp where");
+		   countSql.append("select count(*) from t_corp where 1=1");
 		   if (StringUtils.isNotEmpty(corpName)) {
 			   countSql.append("corp_name like '%"+corpName+"%' ");
 		   }
@@ -58,17 +61,18 @@ public class CorpDAOImpl extends BaseDAO implements CorpDAO {
 	                "(corp_id,corp_simple_name,corp_name,login_name," +
 	                "password,description,status,opt_time)");
 	        sql.append("values(?,?,?,?,?,?,?,?)");
+	       final SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	        getJdbcTemplate().update(sql.toString(),new PreparedStatementSetter() {
 	            @Override
 	            public void setValues(PreparedStatement ps) throws SQLException {
-	                ps.setString(1,corp.getCorpId());
+	                ps.setString(1,CommonStringUtils.genPK());
 	                ps.setString(2,corp.getCorpSimpleName());
 	                ps.setString(3,corp.getCorpName());
 	                ps.setString(4,corp.getLoginName());
 	                ps.setString(5,corp.getPassword());
 	                ps.setString(6,corp.getDescription());
-	                ps.setString(7,corp.getStatus());
-	                ps.setString(8,corp.getOptTime());
+	                ps.setString(7,"ACTIVE");
+	                ps.setString(8,sdf.format(new Date()));
 	            }
 	        });
 	}

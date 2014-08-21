@@ -112,6 +112,16 @@
         <artifactId>jetty-webapp</artifactId>
         <version>9.2.0.RC0</version>
     </dependency>
+    <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+    <dependency>
+	  <groupId>commons-io</groupId>
+	  <artifactId>commons-io</artifactId>
+	  <version>1.4</version>
+	</dependency>
     <!--<dependency>-->
         <!--<groupId>cglib</groupId>-->
         <!--<artifactId>cglib</artifactId>-->

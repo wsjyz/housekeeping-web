@@ -1,0 +1,137 @@
+@mixin mix-transition($second:.3s) {
+  transition: $second;
+}
+
+@mixin mix-radius($radius:5px) {
+  border-radius: $radius;
+}
+
+@mixin mix-linear ($color1:#eee, $color2:#ddd) {
+  background-color: $color1;
+  background-repeat: repeat-x;
+  background-image: linear-gradient($color1, $color2);
+}
+
+.table {
+
+  .operation {
+    background-color: #eee;
+    border-left: 1px solid #ccc;
+    text-align: center;
+    white-space: nowrap;
+    width: 64px;
+    word-break: keep-all;
+
+    a {
+      transition: .3s;
+      display: inline-block;
+      line-height: 24px;
+      padding: 0 8px;
+    }
+
+    a:hover {
+      background-color: #fc9;
+    }
+  }
+
+  thead {
+    th {
+      white-space: nowrap;
+      word-break: keep-all;
+    }
+  }
+
+  tbody {
+
+    tr:hover {
+      background-color: #fc9;
+      transition: .3s;
+    }
+
+    tr>th {
+      text-align: center;
+      width: 24px;
+    }
+
+    tr>td {
+      padding: 3px;
+      white-space: nowrap;
+      word-break: keep-all;
+    }
+  }
+
+  tfoot {
+    text-align: center;
+  }
+}
+
+.form-panel {
+
+  .row {
+    padding: 10px 0;
+  }
+
+  .input-group {
+    margin-bottom: 10px;
+  }
+
+  .input-group-addon:first-child {
+    min-width: 100px;
+  }
+
+  input.form-control,
+  select.form-control {
+    _swidth: 200px;
+  }
+
+  .label {
+    vertical-align: top;
+    display: inline-block;
+    text-align: left;
+    color: #666;
+    width: 100px;
+    margin-right: 14px;
+  }
+
+  .text {
+
+  }
+
+  .label:after {
+    content: ':';
+    display: inline-block;
+    //position: absolute;
+    right: 0;
+  }
+}
+
+.inputer {
+  padding: 4px;
+}
+
+.editor {
+  max-height: 250px;
+  height: 250px;
+  background-color: white;
+  border-collapse: separate;
+  border: 1px solid rgb(204, 204, 204);
+  padding: 4px;
+  box-sizing: content-box;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px 0px inset;
+  border-top-right-radius: 3px; border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px; border-top-left-radius: 3px;
+  overflow: scroll;
+  outline: none;
+}
+
+
+div[data-role="editor-toolbar"] {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.dropdown-menu a {
+  cursor: pointer;
+}
