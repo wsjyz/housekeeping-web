@@ -19,6 +19,15 @@ public class Review extends BaseDomain {
     private String createUserId;//创建人
     @Column(name="aunt_id",length = 32,comment = "被评论人")
     private String auntId;//被评论人
+    private String createUserName;//创建人用户名
+
+    public String getCreateUserName() {
+        return createUserName;
+    }
+
+    public void setCreateUserName(String createUserName) {
+        this.createUserName = createUserName;
+    }
 
     public String getAuntId() {
         return auntId;
