@@ -82,7 +82,7 @@ public class ReviewDAOImpl extends BaseDAO implements ReviewDAO {
             review.setReviewId(rs.getString("review_id"));
             review.setReviewTag(rs.getString("review_tag"));
             review.setOptTime(rs.getString("opt_time"));
-            review.setCreateUserName(rs.getString("nick_name"));
+            review.setCreateUserName(rs.getString("create_user_id"));
             return review;
         }
     }
