@@ -2,56 +2,67 @@
     jQuery(function() {
 
         $('#bill-grid').grid({
-            url          : "/data/aunt-comments.json",
-            checkbox     : true,
+            url          : "${request.contextPath}/ReviewService/searchReviewByWeb",
+            checkbox     : false,
             cssClass     : 'bill-list',
-            numberColumn : true,
+            numberColumn : false,
             requestType  : 'post',
-            hoverCols    : true,
-            zebraCols    : true, // 斑马线
+            hoverCols    : false,
+            zebraCols    : false, // 斑马线
             zebraRows    : false, // 斑马线
-            params       : {},
+            params       : {auntId:"${auntId!}",userName:function(){
+            	return $("#userName").val();
+            }},
             columns: [{
-                    field     : 'billDate',
-                    text      : '订单日期',
-                    width     : 100,
-                    align     : 'right',
-                    sortable  : true
-                }, {
                     field     : 'billTime',
                     text      : '订单时间',
-                    width     : 100,
+                    width     : 150,
                     align     : 'left',
-                    sortable  : true
+                    sortable  : false
                 }, {
-                    field     : 'user',
+                    field     : 'createUserName',
                     text      : '评论人',
                     width     : 130,
                     align     : 'left',
-                    sortable  : true,
+                    sortable  : false,
                     formatter : function(index, value, data) {
                         return '<i class="fa fa-user"></i> '+ value;
                     }
                 }, {
-                    field    : 'attitude',
+                    field    : 'reviewTag',
                     text     : '态度评价',
                     width    : 100,
                     align    : 'center',
-                    sortable : true
+                    sortable : false,
+                    formatter : function(index, value, data) {
+                  		if(value=="VERY_SATISFY"){
+                  			return "非常满意";	
+                  		}
+                  		if(value=="SATISFY"){
+                  			return "满意";
+                  		}
+						if(value=="NOT_SATISFY"){
+							return "不满意";
+                  		}
+                    }
                 }, {
-                    field     : 'content',
+                    field     : 'reviewContent',
                     text      : '评论内容',
                     width     : 320,
                     align     : 'left',
-                    sortable  : true
+                    sortable  : false
                 }
             ],
             tools: [{
                     text : "删除",
                     icon : 'fa-times',
                     action : function(data, row, grid) {
-                        var url = "bill-delete.html";
-                        row.remove();
+                        var url = "${request.contextPath}/ReviewService/deleteReviewWeb";
+                        $.post(url, {
+							"reviewId" : data.reviewId
+						}, function(json) {
+							row.remove();
+						});
                     }
                 }
             ]
@@ -63,7 +74,7 @@
   <form action="aunt.html" method="get" accept-charset="utf-8">
     <div class="input-group">
       <span class="input-group-addon">评论人</span>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" id="userName">
     </div>
 
     <div class="btns">
@@ -72,7 +83,7 @@
     </div>
 
     <div class="btns-right">
-      <a href="aunt-add.html" class="btn btn-primary">
+      <a href="${request.contextPath}/AuntService/toAuntView?auntId=${auntId}" class="btn btn-primary">
         <span class="glyphicon glyphicon-plus"></span> 返回
       </a>
     </div>

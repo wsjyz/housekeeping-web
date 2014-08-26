@@ -82,6 +82,14 @@
             </list>
         </property>
     </bean>
+    <bean id="viewResolverCommon" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+        <property name="viewClass">
+            <value>org.springframework.web.servlet.view.InternalResourceView</value>
+        </property>
+        <property name="order" value="1"/>
+    </bean>
     <!-- 默认的视图解析器 在上边的解析错误时使用 (默认使用html)- -->
     <bean id="fmViewResolver"
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver" p:order="2">
@@ -96,6 +104,7 @@
         <property name="exposeRequestAttributes" value="true"/>
         <property name="exposeSessionAttributes" value="true"/>
     </bean>
+    
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF/pages"/>
         <property name="freemarkerSettings">

@@ -1,5 +1,7 @@
 package com.eighth.housekeeping.proxy.service;
 
+import java.util.List;
+
 import com.eighth.housekeeping.domain.SignInfo;
 import com.eighth.housekeeping.proxy.annotation.RemoteMethod;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
@@ -25,4 +27,8 @@ public interface SignInfoService {
      */
     @RemoteMethod(methodVarNames={ "auntId" })
     SignInfo findSignDetail(String auntId)throws RemoteInvokeException;
+    
+    
+    List<SignInfo> getListByAuntId(String auntId);
+
 }

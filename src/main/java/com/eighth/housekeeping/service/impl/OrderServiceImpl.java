@@ -78,4 +78,10 @@ public class OrderServiceImpl implements OrderService {
 	
 		 orderDAO.deleteOrderByOrderId(orderId);
 	}
+
+	@Override
+	public void updateOrderByOrderNo(String orderNo, String orderStatus) {
+		orderDAO.updateOrderByOrderNo(orderNo,orderStatus);
+		
+	}
 }

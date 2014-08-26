@@ -1,15 +1,19 @@
 package com.eighth.housekeeping.controller;
 
+import java.util.Map;
+
 import com.eighth.housekeeping.domain.AuntOrder;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.OrderService;
 import com.eighth.housekeeping.web.FastJson;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/OrderService")
@@ -129,5 +133,47 @@ public class OrderServiceController {
 		} catch (RemoteInvokeException e) {
 			e.printStackTrace();
 		}
+    }
+    
+    @RequestMapping("/payment")
+    public ModelAndView toPay(@RequestParam String orderId) {
+        ModelAndView view = new ModelAndView();
+        AuntOrder auntOrder = null;
+        try {
+            auntOrder = orderService.findOrderById(orderId);
+        } catch (RemoteInvokeException e) {
+            e.printStackTrace();
+        }
+        view.addObject("WIDseller_email", "hl115781");
+        view.addObject("WIDout_trade_no",auntOrder.getOrderNo());
+        view.addObject("WIDsubject",auntOrder.getOrderNo());
+        view.addObject("WIDtotal_fee",auntOrder.getActualPrice());
+
+        view.setViewName("payOrder/index");
+        return view;
+    }
+	
+	@RequestMapping("/toAlipayapi")
+    public ModelAndView toAlipayapi(@RequestParam String WIDseller_email,@RequestParam String WIDout_trade_no,@RequestParam String WIDsubject	,@RequestParam String WIDtotal_fee) {
+        ModelAndView view = new ModelAndView();
+        view.addObject("WIDseller_email", WIDseller_email);
+        view.addObject("WIDout_trade_no", WIDout_trade_no);
+        view.addObject("WIDsubject", WIDsubject);
+        view.addObject("WIDtotal_fee", WIDtotal_fee);
+        view.setViewName("payOrder/alipayapi");
+        return view;
+    }
+	@RequestMapping("/toNotify")
+    public ModelAndView toNotify() {
+        ModelAndView view = new ModelAndView();
+        view.setViewName("payOrder/notify_url");
+        return view;
+    }
+	
+	@RequestMapping("/tocallbackurl")
+    public ModelAndView tocallbackurl() {
+        ModelAndView view = new ModelAndView();
+        view.setViewName("payOrder/call_back_url");
+        return view;
     }
 }

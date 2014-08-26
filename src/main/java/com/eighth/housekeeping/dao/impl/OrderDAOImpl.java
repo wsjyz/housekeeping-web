@@ -1,5 +1,6 @@
 package com.eighth.housekeeping.dao.impl;
 
+import com.alipay.util.UtilDate;
 import com.eighth.housekeeping.dao.BaseDAO;
 import com.eighth.housekeeping.dao.OrderDAO;
 import com.eighth.housekeeping.domain.AuntOrder;
@@ -29,8 +30,8 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
         StringBuilder sql = new StringBuilder("insert into t_aunt_order " +
                 "(order_id,order_use,work_time,work_length," +
                 "address,description,unit_price,total_price,actual_price,use_coupon_count,floor_space," +
-                "order_status,special_need,contact_way,aunt_id,user_id,corp_id,opt_time)");
-        sql.append("values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                "order_status,special_need,contact_way,aunt_id,user_id,corp_id,opt_time,order_no)");
+        sql.append("values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
         getJdbcTemplate().update(sql.toString(),new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
@@ -52,6 +53,8 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
                 ps.setString(16,order.getUserId());
                 ps.setString(17,order.getCorpId());
                 ps.setString(18,order.getOptTime());
+                ps.setString(19,UtilDate.getOrderNum());
+
             }
         });
 
@@ -173,6 +176,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             order.setWorkLength(rs.getInt("work_length"));
             order.setWorkTime(rs.getString("work_time"));
             order.setCorpId(rs.getString("corp_id"));
+            order.setOrderNo(rs.getString("order_no"));
             return order;
         }
     }
@@ -224,6 +228,15 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
 		 StringBuilder sql = new StringBuilder("");
 	        sql.append("delete from t_aunt_order where order_id = ?");
 	        getJdbcTemplate().update(sql.toString(),new String[]{orderId});
+		
+	}
+
+	@Override
+	public void updateOrderByOrderNo(String orderNo, String orderStatus) {
+		   StringBuilder sql = new StringBuilder("update t_aunt_order set ");
+	        sql.append("order_status='"+orderStatus+"'");
+	        sql.append(" where order_no='"+orderNo+"'");
+	        getJdbcTemplate().update(sql.toString());
 		
 	}
 }

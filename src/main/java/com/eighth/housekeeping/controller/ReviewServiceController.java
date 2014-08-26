@@ -1,12 +1,16 @@
 package com.eighth.housekeeping.controller;
 
+import com.eighth.housekeeping.domain.AuntInfo;
+import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.Review;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.ReviewService;
 import com.eighth.housekeeping.web.FastJson;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -25,4 +29,19 @@ public class ReviewServiceController {
         }
         return review;
     }
+    @ResponseBody
+    @RequestMapping(value = "/searchReviewByWeb")
+    public OpenPage<Review> searchReviewByWeb(@RequestParam String userName,@RequestParam String  auntId, @FastJson OpenPage<Review> page){
+        try {
+        	page = reviewService.findReviewByAuntIdByWeb(userName,auntId, page);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return page;
+    }
+	@ResponseBody
+	@RequestMapping(value = "/deleteReviewWeb")
+	public void deleteReviewWeb(@RequestParam  String reviewId)  throws RemoteInvokeException{
+		reviewService.deleteReview(reviewId);
+	}
 }

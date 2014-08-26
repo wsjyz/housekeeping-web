@@ -1,15 +1,20 @@
 package com.eighth.housekeeping.controller;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import com.eighth.housekeeping.domain.AuntInfo;
 import com.eighth.housekeeping.domain.AuntWorkCase;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.Review;
+import com.eighth.housekeeping.domain.SignInfo;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.AuntService;
 import com.eighth.housekeeping.proxy.service.AuntWorkCaseService;
+import com.eighth.housekeeping.proxy.service.SignInfoService;
 import com.eighth.housekeeping.web.FastJson;
 
 import org.apache.commons.lang3.StringUtils;
@@ -27,6 +32,9 @@ public class AuntServiceController {
     AuntService auntService;
     @Autowired
     AuntWorkCaseService auntWorkCaseService;
+    
+    @Autowired
+    SignInfoService signInfoService;
 
     @ResponseBody
     @RequestMapping(value = "/login")
@@ -246,6 +254,10 @@ public class AuntServiceController {
 	}
 	@RequestMapping(value = "/toSignManagement")
 	public ModelAndView toSignManagement(@RequestParam  String auntId)  throws RemoteInvokeException{
+		List<SignInfo> list = signInfoService.getListByAuntId(auntId);
+		Calendar cal=Calendar.getInstance();
+		SimpleDateFormat year=new SimpleDateFormat("yyyy");
+		SimpleDateFormat month=new SimpleDateFormat("MM");
 		ModelAndView view =new ModelAndView();
 		Map<String, Object> model = view.getModel();
 		model.put("auntId",auntId);

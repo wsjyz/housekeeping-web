@@ -1,0 +1,171 @@
+<script>
+    jQuery(function() {
+
+        $('#bill-management-grid').grid({
+            url          : "/data/aunt-bill-record.json",
+            checkbox     : true,
+            cssClass     : 'bill-list',
+            numberColumn : true,
+            requestType  : 'post',
+            hoverCols    : true,
+            zebraCols    : true, // 斑马线
+            zebraRows    : false, // 斑马线
+            params       : {},
+            columns: [{
+                    field     : 'number', // 必需
+                    text      : '订单号',
+                    fixedTo   : 'left',
+                    width     : 100,
+                    align     : 'left',
+                    sortable  : true,
+                    formatter : function (index, value, data) {
+                       return ' <span><i class="fa fa-money"></i> '+ value +'</span> ';
+                    }
+                }, {
+                    field     : 'connect',
+                    text      : '联系方式',
+                    width     : 120,
+                    align     : 'center',
+                    sortable  : true
+                }, {
+                    field     : 'category',
+                    text      : '分类',
+                    width     : 80,
+                    sortable  : true
+                }, {
+                    field     : 'price',
+                    text      : '支付价格',
+                    width     : 100,
+                    align     : 'right',
+                    sortable  : true
+                }, {
+                    field     : 'basePrice', // 必需
+                    text      : '原价',
+                    width     : 100,
+                    align     : 'right',
+                    sortable  : true
+                }, {
+                    field     : 'courtesyCardCount',
+                    text      : '优惠劵<br/>使用次数',
+                    width     : 100,
+                    align     : 'center',
+                    sortable  : true
+                }, {
+                    field     : 'payState',
+                    text      : '状态',
+                    width     : 120,
+                    align     : 'right',
+                    sortable  : true,
+                    formatter : function(index, value, data) {
+                        return value === 1 ?
+                            '<span style="color:green;"><i class="fa fa-rmb"></i> 已支付</span>' :
+                            '<span style="color:red;"><i class="fa fa-rmb"></i> 待支付</span>';
+                    }
+                }, {
+                    field     : 'billDate',
+                    text      : '订单日期',
+                    width     : 100,
+                    align     : 'right',
+                    sortable  : true
+                }, {
+                    field     : 'billTime',
+                    text      : '订单时间',
+                    width     : 100,
+                    align     : 'left',
+                    sortable  : true
+                }, {
+                    field     : 'serveTime',
+                    text      : '服务时间',
+                    width     : 130,
+                    align     : 'right',
+                    sortable  : true
+                }, {
+                    field     : 'serveAddress',
+                    text      : '服务地址',
+                    css : {
+                        width        : 240,
+                        'white-space'   : 'nowrap',
+                        'word-break' : 'keep-all',
+                        textAlign    : 'left'
+                    },
+                    sortable  : true
+                }, {
+                    field     : 'area',
+                    text      : '房屋面积<br/>（m2）',
+                    width     : 100,
+                    align     : 'right',
+                    sortable  : true
+                }, {
+                    field     : 'requirement',
+                    text      : '特殊要求',
+                    width     : 200,
+                    align     : 'left'
+                }
+            ],
+            tools: [{
+                    text : "删除",
+                    icon : 'fa-times',
+                    action : function(data, row, grid) {
+                        var url = "bill-delete.html";
+                        row.remove();
+                    }
+                }
+            ]
+        });
+    });
+</script>
+
+<div class="content-tools clearfix">
+  <form action="aunt.html" method="get" accept-charset="utf-8">
+    <div class="input-group">
+      <span class="input-group-addon">联系方式</span>
+      <input type="text" class="form-control">
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon">订单号</span>
+      <input type="text" class="form-control">
+    </div>
+
+    <div class="btns">
+      <button type="button" class="btn btn-default">查找</button>
+      <button type="reset" class="btn btn-default">重置</button>
+    </div>
+
+    <div class="btns-right">
+      <a href="aunt-add.html" class="btn btn-primary">
+        <span class="glyphicon glyphicon-plus"></span> 返回
+      </a>
+    </div>
+  </form>
+</div>
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">用户管理</div>
+
+  <!-- Table -->
+  <div class="row">
+    <div class="col col-xs-4 col-md-3 col-lg-2">
+
+      <div class="muilt-label">
+        <div class="title">居优月度收入</div>
+        <div class="val">$3,000,00</div>
+      </div>
+      <div class="muilt-label">
+        <div class="title">居优年度收入</div>
+        <div class="val">$3,000,00</div>
+      </div>
+      <div class="muilt-label">
+        <div class="title">居优总收入</div>
+        <div class="val">$3,000,00</div>
+      </div>
+      <div class="muilt-label">
+        <div class="title"><a href="other-institution.html">查看其他机构</a> <i class="fa fa-arrow-right"></i></div>
+      </div>
+
+    </div>
+    <div class="col col-xs-8 col-md-9 col-lg-10">
+      <div id="bill-management-grid"></div>
+    </div>
+  </div>
+</div>

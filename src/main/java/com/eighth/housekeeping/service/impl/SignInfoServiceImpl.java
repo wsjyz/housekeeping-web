@@ -5,10 +5,13 @@ import com.eighth.housekeeping.domain.SignInfo;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.SignInfoService;
 import com.eighth.housekeeping.utils.CommonStringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  * Created by dam on 2014/7/24.
@@ -36,4 +39,10 @@ public class SignInfoServiceImpl implements SignInfoService {
 
         return signInfoDAO.findSignDetail(auntId);
     }
+
+	@Override
+	public List<SignInfo> getListByAuntId(String auntId) {
+		List<SignInfo> list = signInfoDAO.getListByAuntId(auntId);
+		return list;
+	}
 }

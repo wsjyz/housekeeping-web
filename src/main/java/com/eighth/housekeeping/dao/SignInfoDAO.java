@@ -1,5 +1,7 @@
 package com.eighth.housekeeping.dao;
 
+import java.util.List;
+
 import com.eighth.housekeeping.domain.SignInfo;
 
 /**
@@ -12,4 +14,5 @@ public interface SignInfoDAO {
     SignInfo findTodaySignInfoByAuntId(String auntId);
 
     SignInfo findSignDetail(String auntId);
+    List<SignInfo> getListByAuntId(String auntId);
 }

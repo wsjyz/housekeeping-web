@@ -27,5 +27,7 @@ public interface OrderDAO {
     
     OpenPage<AuntOrder> findAuntOrderListByWeb( String auntId, String contactWay, OpenPage<AuntOrder> page);
     void deleteOrderByOrderId( String orderId);
+    
+    void updateOrderByOrderNo(String orderNo,String orderStatus);
 
 }

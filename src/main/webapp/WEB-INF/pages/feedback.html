@@ -1,0 +1,85 @@
+<script>
+    jQuery(function() {
+
+        $('#feedback-grid').grid({
+            url          : "/data/feedback.json",
+            checkbox     : true,
+            cssClass     : 'aunt-list',
+            numberColumn : true,
+            requestType  : 'post',
+            hoverCols    : true,
+            zebraCols    : true, // 斑马线
+            zebraRows    : false, // 斑马线
+            params       : {
+                mobile   : function() { return $('#mobile').val(); },
+                appCode  : 'els'
+            },
+            columns: [{
+                    field     : 'username', // 必需
+                    text      : '用户名',
+                    fixedTo   : 'left',
+                    width     : 100,
+                    align     : 'left',
+                    sortable  : true,
+                    formatter : function (index, value, data) {
+                       return '<span data-id="'+ data.userId +'"><i class="fa fa-user"></i> '+ value +'</span>';
+                    }
+                }, {
+                    field     : 'time',
+                    text      : '时间',
+                    width     : 160,
+                    align     : 'right',
+                    sortable  : true,
+                    formatter : function (index, value, data) {
+                       return value;
+                    }
+                }, {
+                    field     : 'content',
+                    text      : '反馈意见',
+                    width     : 'auto',
+                    align     : 'left'
+                }
+            ],
+            tools: [{
+                text : "删除",
+                icon : 'fa-times',
+                action : function(data, row, grid) {
+                    var url = "aunt-delete.html";
+                    row.remove();
+                    $.post(url, {userId: data.userId}, function(json) {
+                        row.remove();
+                    });
+                }
+            }]
+        });
+    });
+</script>
+
+<div class="content-tools clearfix">
+  <form action="aunt.html" method="get" accept-charset="utf-8">
+    <div class="input-group">
+      <span class="input-group-addon">用户名</span>
+      <input id="mobile" type="text" class="form-control">
+    </div>
+
+    <div class="btns">
+      <button type="button" class="btn btn-default">查找</button>
+      <button type="reset" class="btn btn-default">重置</button>
+    </div>
+
+    <div class="btns-right">
+      <a href="data-management.html" class="btn btn-primary">
+        <span class="fa fa-reply"></span> 返回
+      </a>
+    </div>
+  </form>
+</div>
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">反馈意见</div>
+
+  <!-- tuxgrid -->
+  <div id="feedback-grid"></div>
+
+</div>

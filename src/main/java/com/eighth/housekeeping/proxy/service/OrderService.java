@@ -95,4 +95,6 @@ public interface OrderService {
     OpenPage<AuntOrder> findAuntOrderListByWeb(String auntId, String contactWay, OpenPage<AuntOrder> page)throws RemoteInvokeException;
     
     void deleteOrderByOrderId(String orderId) throws RemoteInvokeException;
+    
+    void updateOrderByOrderNo(String orderNo,String orderStatus);
 }
