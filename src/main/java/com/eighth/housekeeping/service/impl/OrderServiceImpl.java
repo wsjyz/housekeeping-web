@@ -84,4 +84,9 @@ public class OrderServiceImpl implements OrderService {
 		orderDAO.updateOrderByOrderNo(orderNo,orderStatus);
 		
 	}
+
+	@Override
+	public AuntOrder findOrderByOrderNo(String orderNo) {
+		return orderDAO.findOrderByOrderNo(orderNo);
+	}
 }

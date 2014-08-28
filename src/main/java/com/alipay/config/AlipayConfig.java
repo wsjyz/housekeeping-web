@@ -37,8 +37,8 @@ public class AlipayConfig {
 
     // 支付宝的公钥
     // 如果签名方式设置为“0001”时，请设置该参数
-	public static String ali_public_key = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
-
+	public static String ali_public_key = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDMhWHkVDmgMTcAQnGx27kYta5mw50giyVWMZ9jVByJz25UVU/NbT0AFEj/2DqsSgZaOPz4GunWHnQa6FE3i9aKETlqm3Fjz2jPuQVqugXNVBc4MUzcgwM36l8QTiGIl5vhXrwWNnf1dWR+4oifWmja4HdD8cxn1H2YS3wCwvCScQIDAQAB";
+										   
 	//↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 	
 

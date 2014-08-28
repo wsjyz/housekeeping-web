@@ -97,4 +97,7 @@ public interface OrderService {
     void deleteOrderByOrderId(String orderId) throws RemoteInvokeException;
     
     void updateOrderByOrderNo(String orderNo,String orderStatus);
+    
+    AuntOrder findOrderByOrderNo(String orderNo);
+
 }

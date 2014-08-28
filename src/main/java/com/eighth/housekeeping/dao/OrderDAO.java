@@ -29,5 +29,7 @@ public interface OrderDAO {
     void deleteOrderByOrderId( String orderId);
     
     void updateOrderByOrderNo(String orderNo,String orderStatus);
+    AuntOrder findOrderByOrderNo(String orderNo);
+
 
 }

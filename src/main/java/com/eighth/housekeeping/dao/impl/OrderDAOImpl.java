@@ -239,4 +239,15 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
 	        getJdbcTemplate().update(sql.toString());
 		
 	}
+
+	@Override
+	public AuntOrder findOrderByOrderNo(String orderNo) {
+		   StringBuilder sql = new StringBuilder("select * from   t_aunt_order  ");
+	        sql.append(" where  order_no='"+orderNo+"'");
+	        List<AuntOrder> orderList = getJdbcTemplate().query(sql.toString(),new AuntOrderRowMapper());
+	        if(CollectionUtils.isEmpty(orderList)){
+	        	return null;
+	        }
+	        return orderList.get(0);
+	}
 }

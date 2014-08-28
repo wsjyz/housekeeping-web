@@ -2,6 +2,7 @@ package com.eighth.housekeeping.controller;
 
 import java.util.Map;
 
+import com.alipay.util.UtilDate;
 import com.eighth.housekeeping.domain.AuntOrder;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
@@ -33,17 +34,7 @@ public class OrderServiceController {
         return auntOrder;
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/payOrder")
-    public String payOrder(@RequestParam String memberId, @RequestParam String orderId) {
-        String string = null;
-        try {
-            string = orderService.payOrder(memberId, orderId);
-        } catch (RemoteInvokeException e) {
-            e.printStackTrace();
-        }
-        return string;
-    }
+
 
     @ResponseBody
     @RequestMapping(value = "/findOrderList")
@@ -144,9 +135,10 @@ public class OrderServiceController {
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }
-        view.addObject("WIDseller_email", "hl115781");
-        view.addObject("WIDout_trade_no",auntOrder.getOrderNo());
-        view.addObject("WIDsubject",auntOrder.getOrderNo());
+        String orderNo=auntOrder.getOrderNo();
+        view.addObject("WIDseller_email", "geassccvip@163.com");
+        view.addObject("WIDout_trade_no",orderNo);
+        view.addObject("WIDsubject",orderNo);
         view.addObject("WIDtotal_fee",auntOrder.getActualPrice());
 
         view.setViewName("payOrder/index");
@@ -164,16 +156,27 @@ public class OrderServiceController {
         return view;
     }
 	@RequestMapping("/toNotify")
-    public ModelAndView toNotify() {
-        ModelAndView view = new ModelAndView();
-        view.setViewName("payOrder/notify_url");
-        return view;
+    public ModelAndView toNotify(@RequestParam String orderNo) {
+		AuntOrder auntOrder = orderService.findOrderByOrderNo(orderNo);
+		if(auntOrder!=null){
+			orderService.updateOrderByOrderNo(orderNo, "ONLINE_PAYED");
+		}
+	    ModelAndView view = new ModelAndView();
+	    //跳转页面到哪
+		view.setViewName("payOrder/notify_url");
+		return view;
     }
 	
 	@RequestMapping("/tocallbackurl")
-    public ModelAndView tocallbackurl() {
-        ModelAndView view = new ModelAndView();
+    public ModelAndView tocallbackurl(@RequestParam String orderNo) {
+		AuntOrder auntOrder = orderService.findOrderByOrderNo(orderNo);
+		if(auntOrder!=null){
+			orderService.updateOrderByOrderNo(orderNo, "ONLINE_PAYED");
+		}
+	    ModelAndView view = new ModelAndView();
+	    //跳转页面到哪
         view.setViewName("payOrder/call_back_url");
         return view;
+
     }
 }

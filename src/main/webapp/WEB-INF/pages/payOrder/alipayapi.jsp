@@ -48,18 +48,6 @@
 		
 		//req_data详细信息
 		
-		//服务器异步通知页面路径
-		String notify_url = request.getContextPath()+"/UserOrderService/toNotify";
-		//需http://格式的完整路径，不能加?id=123这类自定义参数
-
-		//页面跳转同步通知页面路径
-		String call_back_url =request.getContextPath()+ "/UserOrderService/tocallbackurl";
-		//需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
-
-		//操作中断返回地址
-		String merchant_url = "http://127.0.0.1:8080/WS_WAP_PAYWAP-JAVA-UTF-8/xxxxxx.jsp";
-		//用户付款中途退出返回商户的地址。需http://格式的完整路径，不允许加?id=123这类自定义参数
-
 		//卖家支付宝帐户
 		String seller_email = new String(request.getParameter("WIDseller_email").getBytes("ISO-8859-1"),"UTF-8");
 		//必填
@@ -73,6 +61,18 @@
 
 		//付款金额
 		String total_fee = new String(request.getParameter("WIDtotal_fee").getBytes("ISO-8859-1"),"UTF-8");
+		//服务器异步通知页面路径
+		String notify_url = "http://192.168.1.107:8080/hw/OrderService/toNotify?orderNo="+out_trade_no;
+		//需http://格式的完整路径，不能加?id=123这类自定义参数
+
+		//页面跳转同步通知页面路径
+		String call_back_url ="http://192.168.1.107:8080/hw/OrderService/tocallbackurl?orderNo="+out_trade_no;
+		//需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
+
+		//操作中断返回地址
+		String merchant_url = "http://127.0.0.1:8080/WS_WAP_PAYWAP-JAVA-UTF-8/xxxxxx.jsp";
+		//用户付款中途退出返回商户的地址。需http://格式的完整路径，不允许加?id=123这类自定义参数
+
 		//必填
 		
 		//请求业务参数详细
@@ -93,15 +93,13 @@
 		sParaTempToken.put("req_data", req_dataToken);
 		
 		//建立请求
+		//String sHtmlTextToken =  AlipaySubmit.buildRequest(sParaTempToken, "post", "确认");
 		String sHtmlTextToken = AlipaySubmit.buildRequest(ALIPAY_GATEWAY_NEW,"", "",sParaTempToken);
 		//URLDECODE返回的信息
-			System.out.print(sHtmlTextToken);
-			System.out.print(AlipayConfig.input_charset);
-			
 		sHtmlTextToken = URLDecoder.decode(sHtmlTextToken,AlipayConfig.input_charset);
 		//获取token
 		String request_token = AlipaySubmit.getRequestToken(sHtmlTextToken);
-		//out.println(request_token);
+		System.out.println("我擦"+request_token);
 		
 		////////////////////////////////////根据授权码token调用交易接口alipay.wap.auth.authAndExecute//////////////////////////////////////
 		
