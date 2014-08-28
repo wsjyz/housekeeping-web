@@ -2,6 +2,7 @@ package com.eighth.housekeeping.controller;
 
 import java.util.Map;
 
+import com.alipay.util.UtilDate;
 import com.eighth.housekeeping.domain.AuntOrder;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
@@ -144,9 +145,10 @@ public class OrderServiceController {
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }
-        view.addObject("WIDseller_email", "hl115781");
-        view.addObject("WIDout_trade_no",auntOrder.getOrderNo());
-        view.addObject("WIDsubject",auntOrder.getOrderNo());
+        String orderNo=UtilDate.getOrderNum();
+        view.addObject("WIDseller_email", "geassccvip@163.com");
+        view.addObject("WIDout_trade_no",orderNo);
+        view.addObject("WIDsubject",orderNo);
         view.addObject("WIDtotal_fee",auntOrder.getActualPrice());
 
         view.setViewName("payOrder/index");

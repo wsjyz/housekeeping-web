@@ -49,11 +49,11 @@
 		//req_data详细信息
 		
 		//服务器异步通知页面路径
-		String notify_url = request.getContextPath()+"/UserOrderService/toNotify";
+		String notify_url = "http://192.168.1.72:8080/hw/pages/payOrder/notify_url.jsp";
 		//需http://格式的完整路径，不能加?id=123这类自定义参数
 
 		//页面跳转同步通知页面路径
-		String call_back_url =request.getContextPath()+ "/UserOrderService/tocallbackurl";
+		String call_back_url ="http://192.168.1.72:8080/hw/WEB-INF/pages/payOrder/call_back_url.jsp";
 		//需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
 
 		//操作中断返回地址
@@ -93,15 +93,13 @@
 		sParaTempToken.put("req_data", req_dataToken);
 		
 		//建立请求
+		//String sHtmlTextToken =  AlipaySubmit.buildRequest(sParaTempToken, "post", "确认");
 		String sHtmlTextToken = AlipaySubmit.buildRequest(ALIPAY_GATEWAY_NEW,"", "",sParaTempToken);
 		//URLDECODE返回的信息
-			System.out.print(sHtmlTextToken);
-			System.out.print(AlipayConfig.input_charset);
-			
 		sHtmlTextToken = URLDecoder.decode(sHtmlTextToken,AlipayConfig.input_charset);
 		//获取token
 		String request_token = AlipaySubmit.getRequestToken(sHtmlTextToken);
-		//out.println(request_token);
+		System.out.println("我擦"+request_token);
 		
 		////////////////////////////////////根据授权码token调用交易接口alipay.wap.auth.authAndExecute//////////////////////////////////////
 		
