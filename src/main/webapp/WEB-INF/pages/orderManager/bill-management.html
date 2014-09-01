@@ -2,7 +2,7 @@
     jQuery(function() {
 
         $('#bill-management-grid').grid({
-            url          : "/data/aunt-bill-record.json",
+            url          : "${request.contextPath}/OrderService/findOrderListByWeb",
             checkbox     : true,
             cssClass     : 'bill-list',
             numberColumn : true,
@@ -10,7 +10,12 @@
             hoverCols    : true,
             zebraCols    : true, // 斑马线
             zebraRows    : false, // 斑马线
-            params       : {},
+            params       : {auntNo :  function() {
+				return $("#auntNo").val();
+			},
+				contactWay : function() {
+					return $("#contactWay").val();
+				}},
             columns: [{
                     field     : 'number', // 必需
                     text      : '订单号',
@@ -119,11 +124,11 @@
   <form action="aunt.html" method="get" accept-charset="utf-8">
     <div class="input-group">
       <span class="input-group-addon">联系方式</span>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" id="contactWay">
     </div>
     <div class="input-group">
       <span class="input-group-addon">订单号</span>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" id="auntNo">
     </div>
 
     <div class="btns">
@@ -149,15 +154,15 @@
 
       <div class="muilt-label">
         <div class="title">居优月度收入</div>
-        <div class="val">$3,000,00</div>
+        <div class="val">$${monthMoney!0}</div>
       </div>
       <div class="muilt-label">
         <div class="title">居优年度收入</div>
-        <div class="val">$3,000,00</div>
+        <div class="val">$${yearMoney!0}</div>
       </div>
       <div class="muilt-label">
         <div class="title">居优总收入</div>
-        <div class="val">$3,000,00</div>
+        <div class="val">$${sumMoney!0}</div>
       </div>
       <div class="muilt-label">
         <div class="title"><a href="other-institution.html">查看其他机构</a> <i class="fa fa-arrow-right"></i></div>

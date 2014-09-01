@@ -1,5 +1,7 @@
 package com.eighth.housekeeping.service.impl;
 
+import java.util.List;
+
 import com.eighth.housekeeping.dao.OrderDAO;
 import com.eighth.housekeeping.domain.AuntOrder;
 import com.eighth.housekeeping.domain.OpenPage;
@@ -68,9 +70,9 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public OpenPage<AuntOrder> findAuntOrderListByWeb(String auntId,
-			String contactWay, OpenPage<AuntOrder> page)
+			String contactWay,String auntNo, OpenPage<AuntOrder> page)
 			throws RemoteInvokeException {
-		return orderDAO.findAuntOrderListByWeb(auntId, contactWay, page);
+		return orderDAO.findAuntOrderListByWeb(auntId, contactWay,auntNo, page);
 	}
 
 	@Override
@@ -88,5 +90,10 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public AuntOrder findOrderByOrderNo(String orderNo) {
 		return orderDAO.findOrderByOrderNo(orderNo);
+	}
+
+	@Override
+	public List<AuntOrder> getAllAuntOrder() {
+		return orderDAO.getAllAuntOrder();
 	}
 }

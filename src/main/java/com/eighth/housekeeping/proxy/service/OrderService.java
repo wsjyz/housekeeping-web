@@ -1,5 +1,7 @@
 package com.eighth.housekeeping.proxy.service;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.eighth.housekeeping.domain.AuntOrder;
@@ -92,12 +94,14 @@ public interface OrderService {
     int findOrderCountsByMemberIdAndType(String memberId,String orderType)throws RemoteInvokeException;
     
     
-    OpenPage<AuntOrder> findAuntOrderListByWeb(String auntId, String contactWay, OpenPage<AuntOrder> page)throws RemoteInvokeException;
+    OpenPage<AuntOrder> findAuntOrderListByWeb(String auntId, String contactWay,String auntNo, OpenPage<AuntOrder> page)throws RemoteInvokeException;
     
     void deleteOrderByOrderId(String orderId) throws RemoteInvokeException;
     
     void updateOrderByOrderNo(String orderNo,String orderStatus);
     
     AuntOrder findOrderByOrderNo(String orderNo);
+    
+     List<AuntOrder> getAllAuntOrder();
 
 }

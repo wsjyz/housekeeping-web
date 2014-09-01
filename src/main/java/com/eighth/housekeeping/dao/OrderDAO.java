@@ -25,11 +25,13 @@ public interface OrderDAO {
 
     int findOrderCountsByMemberIdAndType(String memberId,String orderType);
     
-    OpenPage<AuntOrder> findAuntOrderListByWeb( String auntId, String contactWay, OpenPage<AuntOrder> page);
+    OpenPage<AuntOrder> findAuntOrderListByWeb( String auntId, String contactWay,String auntNo, OpenPage<AuntOrder> page);
     void deleteOrderByOrderId( String orderId);
     
     void updateOrderByOrderNo(String orderNo,String orderStatus);
     AuntOrder findOrderByOrderNo(String orderNo);
+    
+    List<AuntOrder> getAllAuntOrder();
 
 
 }

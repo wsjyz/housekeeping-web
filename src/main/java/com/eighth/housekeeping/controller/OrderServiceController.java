@@ -1,5 +1,10 @@
 package com.eighth.housekeeping.controller;
 
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.alipay.util.UtilDate;
@@ -9,6 +14,7 @@ import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.OrderService;
 import com.eighth.housekeeping.web.FastJson;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -110,7 +116,7 @@ public class OrderServiceController {
     OpenPage<AuntOrder> findAuntOrderListByWeb(@RequestParam String auntId,@RequestParam String contactWay,@FastJson OpenPage<AuntOrder> page){
         OpenPage<AuntOrder> openPage = null;
         try {
-            openPage = orderService.findAuntOrderListByWeb(auntId, contactWay,page);
+            openPage = orderService.findAuntOrderListByWeb(auntId, contactWay,null,page);
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }
@@ -156,27 +162,62 @@ public class OrderServiceController {
         return view;
     }
 	@RequestMapping("/toNotify")
-    public ModelAndView toNotify(@RequestParam String orderNo) {
+    public void toNotify(@RequestParam String orderNo) {
 		AuntOrder auntOrder = orderService.findOrderByOrderNo(orderNo);
 		if(auntOrder!=null){
 			orderService.updateOrderByOrderNo(orderNo, "ONLINE_PAYED");
 		}
-	    ModelAndView view = new ModelAndView();
-	    //跳转页面到哪
-		view.setViewName("payOrder/notify_url");
-		return view;
     }
 	
 	@RequestMapping("/tocallbackurl")
-    public ModelAndView tocallbackurl(@RequestParam String orderNo) {
+    public void tocallbackurl(@RequestParam String orderNo) {
 		AuntOrder auntOrder = orderService.findOrderByOrderNo(orderNo);
 		if(auntOrder!=null){
 			orderService.updateOrderByOrderNo(orderNo, "ONLINE_PAYED");
 		}
-	    ModelAndView view = new ModelAndView();
-	    //跳转页面到哪
-        view.setViewName("payOrder/call_back_url");
-        return view;
-
     }
+	   @RequestMapping(value = "/toOrder")
+	   	public String toOrder()  throws RemoteInvokeException{
+		   List<AuntOrder> List = orderService.getAllAuntOrder();
+		   BigDecimal monthMoney=new BigDecimal(0);
+		   BigDecimal yearMoney=new BigDecimal(0);
+		   BigDecimal sumMoney=new BigDecimal(0);
+		   SimpleDateFormat yearSdf=new SimpleDateFormat("yyyy");
+		   SimpleDateFormat monthSdf=new SimpleDateFormat("MM");
+		   Calendar cal=Calendar.getInstance();
+		   Date date=cal.getTime();
+		   String year =yearSdf.format(date);
+		   String month =monthSdf.format(date);
+		   for (AuntOrder auntOrder : List) {
+			   if (auntOrder.getActualPrice()!=null) {
+				   sumMoney=sumMoney.add(auntOrder.getActualPrice());
+				   if(auntOrder.getOptTime().contains(year)){
+					   yearMoney=yearMoney.add(auntOrder.getActualPrice());
+				   }
+				   if(auntOrder.getOptTime().contains("-"+month+"-")){
+					   monthMoney=monthMoney.add(auntOrder.getActualPrice());
+				   }
+			   
+			}
+			   
+		   }
+		   ModelAndView view = new ModelAndView();
+		   Map<String, Object> model = view.getModel();
+	       model.put("monthMoney",monthMoney);
+	       model.put("yearMoney",yearMoney);
+	       model.put("sumMoney",sumMoney);
+	   	   return "orderManager/bill-management";
+	   	}
+	   
+	   @ResponseBody
+	    @RequestMapping(value = "/findOrderListByWeb")
+	    OpenPage<AuntOrder> findOrderListByWeb(@RequestParam String contactWay,@RequestParam String auntNo,@FastJson OpenPage<AuntOrder> page){
+	        OpenPage<AuntOrder> openPage = null;
+	        try {
+	            openPage = orderService.findAuntOrderListByWeb(null, contactWay,auntNo,page);
+	        } catch (RemoteInvokeException e) {
+	            e.printStackTrace();
+	        }
+	        return openPage;
+	    }
 }

@@ -10,7 +10,7 @@
     </div>
 
     <div class="btns">
-      <button type="button" class="btn btn-default">查找</button>
+      <button type="button" class="btn btn-default" id="selectMember">查找</button>
       <button type="reset" class="btn btn-default">重置</button>
     </div>
 
@@ -109,15 +109,16 @@
                     text : "禁用",
                     icon : 'fa-pencil',
                     action : function(data, row, grid) {
-                        var url = "${request.contextPath}/UserService/disableMember?memberId=" + data.userId;
-                        loadPage(url);
+                        var url = "${request.contextPath}/UserService/disableMember";
+                        $.post(url, {"memberId": data.userId}, function(json) {
+                            $('.memberGrid').grid('load', $('.memberGrid .iactive').text());
+                        });
                     }
                 }, {
                     text : "删除",
                     icon : 'fa-times',
                     action : function(data, row, grid) {
                     	var url = "${request.contextPath}/UserService/deleteMemberWeb";
-                        row.remove();
                         $.post(url, {"memberId": data.userId}, function(json) {
                             row.remove();
                         });
@@ -125,5 +126,9 @@
                 }
             ]
         });
+        
+        $("#selectMember").click(function(){
+       	 $('.memberGrid').grid('load', 1);
+       })
     });
 </script>

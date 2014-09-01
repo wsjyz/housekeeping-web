@@ -173,7 +173,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
 	@Override
 	public String deleteByMemberId(String memberId) {
 		StringBuffer sql = new StringBuffer();
-		sql.append("delete from t_member_info where userId='"
+		sql.append("delete from t_member_info where user_id='"
 				+ memberId + "'");
 		int update = getJdbcTemplate().update(sql.toString());
 		if (update > 0) {
@@ -189,7 +189,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
 		   StringBuilder reviewSql = new StringBuilder("");
 		   reviewSql.append("select * from t_member_info where 1=1");
 		   if (StringUtils.isNotEmpty(mobile)) {
-			   reviewSql.append("mobile like '%"+mobile+"%' ");
+			   reviewSql.append(" and mobile like '%"+mobile+"%' ");
 		   }
 		   if (StringUtils.isNotEmpty(nickName)) {
 			   reviewSql.append("  and nick_name  like '%"+nickName+"%' ");
@@ -201,15 +201,14 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
 		   StringBuilder countSql = new StringBuilder("");
 		   countSql.append("select count(*) from t_member_info where 1=1");
 		   if (StringUtils.isNotEmpty(mobile)) {
-			   countSql.append("mobile like '%"+mobile+"%' ");
+			   countSql.append("and mobile like '%"+mobile+"%' ");
 		   }
 		   if (StringUtils.isNotEmpty(nickName)) {
 			   countSql.append("  and nick_name  like '%"+nickName+"%' ");
 		   }
 	        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),Integer.class);
-	        OpenPage<MemberInfo> reviewOpenPage = new OpenPage<MemberInfo>();
-	        reviewOpenPage.setTotal(count);
-	        reviewOpenPage.setRows(reviewList);
-	        return reviewOpenPage;
+	        page.setTotal(count);
+	        page.setRows(reviewList);
+	        return page;
 	}
 }

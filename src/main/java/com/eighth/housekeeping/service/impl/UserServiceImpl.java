@@ -195,13 +195,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public OpenPage<MemberInfo> findUserPage(String mobile, String nickName,
 			OpenPage page) throws RemoteInvokeException {
-		OpenPage<MemberInfo> pageNew= userDAO.findUserPage(mobile, nickName, page);
-		if (pageNew!=null && !CollectionUtils.isEmpty(pageNew.getRows())) {
-			for (MemberInfo memberInfo : pageNew.getRows()) {
+		page= userDAO.findUserPage(mobile, nickName, page);
+		if (page!=null && !CollectionUtils.isEmpty(page.getRows())) {
+			for (Object obj : page.getRows()) {
+				MemberInfo memberInfo=(MemberInfo)obj;
 				setyearOrMonthMoney(memberInfo);
 			}
 		}
-		return pageNew;
+		return page;
 	}
 
 	@Override

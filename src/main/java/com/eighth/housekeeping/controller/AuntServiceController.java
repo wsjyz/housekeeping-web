@@ -217,13 +217,12 @@ public class AuntServiceController {
 	  @ResponseBody
     @RequestMapping(value = "/searchAuntByWeb")
     public OpenPage<AuntInfo> searchAuntByWeb(@RequestParam String userName,@RequestParam String mobile, @FastJson OpenPage<AuntInfo> page){
-        OpenPage<AuntInfo> auntPage = new OpenPage<AuntInfo>();
         try {
-        	auntPage = auntService.searchAuntByWeb(userName,mobile,page);
+        	page = auntService.searchAuntByWeb(userName,mobile,page);
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }
-        return auntPage;
+        return page;
     }
 	  
 	@ResponseBody

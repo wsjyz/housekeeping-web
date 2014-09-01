@@ -31,7 +31,7 @@ public class CorpDAOImpl extends BaseDAO implements CorpDAO {
 		   StringBuilder reviewSql = new StringBuilder("");
 		   reviewSql.append("select * from t_corp where 1=1");
 		   if (StringUtils.isNotEmpty(corpName)) {
-			   reviewSql.append("corp_name like '%"+corpName+"%' ");
+			   reviewSql.append(" and corp_name like '%"+corpName+"%' ");
 		   }
 		   if (StringUtils.isNotEmpty(loginName)) {
 			   reviewSql.append("  and login_name  like '%"+corpName+"%' ");
@@ -43,16 +43,15 @@ public class CorpDAOImpl extends BaseDAO implements CorpDAO {
 		   StringBuilder countSql = new StringBuilder("");
 		   countSql.append("select count(*) from t_corp where 1=1");
 		   if (StringUtils.isNotEmpty(corpName)) {
-			   countSql.append("corp_name like '%"+corpName+"%' ");
+			   countSql.append(" and corp_name like '%"+corpName+"%' ");
 		   }
 		   if (StringUtils.isNotEmpty(loginName)) {
 			   countSql.append("  and login_name  like '%"+corpName+"%' ");
 		   }
 	        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),Integer.class);
-	        OpenPage<Corp> reviewOpenPage = new OpenPage<Corp>();
-	        reviewOpenPage.setTotal(count);
-	        reviewOpenPage.setRows(reviewList);
-	        return reviewOpenPage;
+	        page.setTotal(count);
+	        page.setRows(reviewList);
+	        return page;
 	}
 
 	@Override

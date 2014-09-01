@@ -481,7 +481,7 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 		   StringBuilder reviewSql = new StringBuilder("");
 		   reviewSql.append("select * from t_aunt_info where 1=1");
 		   if (StringUtils.isNotEmpty(userName)) {
-			   reviewSql.append("user_name like '%"+userName+"%' ");
+			   reviewSql.append("and user_name like '%"+userName+"%' ");
 		   }
 		   if (StringUtils.isNotEmpty(mobile)) {
 			   reviewSql.append("  and mobile  like '%"+mobile+"%' ");
@@ -493,15 +493,14 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 		   StringBuilder countSql = new StringBuilder("");
 		   countSql.append("select count(*) from t_aunt_info where 1=1");
 		   if (StringUtils.isNotEmpty(userName)) {
-			   countSql.append("user_name like '%"+userName+"%' ");
+			   countSql.append(" and user_name like '%"+userName+"%' ");
 		   }
 		   if (StringUtils.isNotEmpty(mobile)) {
 			   countSql.append("  and mobile  like '%"+mobile+"%' ");
 		   }
 	        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),Integer.class);
-	        OpenPage<AuntInfo> reviewOpenPage = new OpenPage<AuntInfo>();
-	        reviewOpenPage.setTotal(count);
-	        reviewOpenPage.setRows(reviewList);
-	        return reviewOpenPage;
+	        page.setTotal(count);
+	        page.setRows(reviewList);
+	        return page;
 	}
 }

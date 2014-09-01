@@ -198,17 +198,27 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
 	}
 
 	@Override
-	public OpenPage<AuntOrder> findAuntOrderListByWeb(String auntId,
+	public OpenPage<AuntOrder> findAuntOrderListByWeb(String auntId,String auntNo,
 			String contactWay, OpenPage<AuntOrder> page)
 			{
 		List<Object> params = new ArrayList<Object>();
         params.add(auntId);
-        StringBuilder sql = new StringBuilder("select * from t_aunt_order where aunt_id = ?");
-        StringBuilder countSql = new StringBuilder("select count(*) from t_aunt_order where aunt_id = ? ");
+        StringBuilder sql = new StringBuilder("select * from t_aunt_order where 1=1");
+        StringBuilder countSql = new StringBuilder("select count(*) from t_aunt_order where 1=1 ");
         if(StringUtils.isNotEmpty(contactWay)){
             countSql.append("and contact_way =?");
             sql.append("and contact_way =?");
             params.add(contactWay);
+        }
+        if(StringUtils.isNotEmpty(auntId)){
+            countSql.append("and aunt_id = ?");
+            sql.append("and aunt_id = ?");
+            params.add(contactWay);
+        }
+        if(StringUtils.isNotEmpty(auntNo)){
+            countSql.append("and aunt_no = ?");
+            sql.append("and aunt_no = ?");
+            params.add(auntNo);
         }
         sql.append("limit ?,?");
         countSql.append("limit ?,?");
@@ -249,5 +259,15 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
 	        	return null;
 	        }
 	        return orderList.get(0);
+	}
+
+	@Override
+	public List<AuntOrder> getAllAuntOrder() {
+		  StringBuilder sql = new StringBuilder("select * from   t_aunt_order  ");
+	      List<AuntOrder> orderList = getJdbcTemplate().query(sql.toString(),new AuntOrderRowMapper());
+	      if(CollectionUtils.isEmpty(orderList)){
+	    	  return new ArrayList<AuntOrder>();
+	      }
+	      return orderList;
 	}
 }

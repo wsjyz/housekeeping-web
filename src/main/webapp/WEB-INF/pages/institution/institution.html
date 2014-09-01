@@ -11,7 +11,7 @@
     </div>
 
     <div class="btns">
-      <button type="button" class="btn btn-default">查找</button>
+      <button type="button" class="btn btn-default" id="selectInstitution">查找</button>
       <button type="reset" class="btn btn-default">重置</button>
     </div>
 
@@ -76,21 +76,26 @@
                     text : "禁用",
                     icon : 'fa-pencil',
                     action : function(data, row, grid) {
-                        var url = "${request.contextPath}/CorpService/disableCorp?corpId=" + data.corpId;
-                        loadPage(url);
+                        var url = "${request.contextPath}/CorpService/disableCorp";
+                        $.post(url, {"corpId": data.corpId}, function(json) {
+                        $('.institutionGrid').grid('load', $('.institutionGrid .iactive').text());
+                        });
                     }
                 }, {
                     text : "删除",
                     icon : 'fa-times',
                     action : function(data, row, grid) {
                     	var url = "${request.contextPath}/CorpService/deleteCorpWeb";
-                        row.remove();
                         $.post(url, {"corpId": data.corpId}, function(json) {
                             row.remove();
                         });
+                        $('.institutionGrid').grid('load', $('.institutionGrid .iactive').text());
                     }
                 }
             ]
         });
+        $("#selectInstitution").click(function(){
+        	 $('.institutionGrid').grid('load', 1);
+        })
     });
 </script>

@@ -1,4 +1,4 @@
-.tuxgrid {position: relative;overflow: hidden;;}
+.tuxgrid {position: relative;;border: 1px solid;;;border: 1px solid #eee;;;;border: 1px solid #;;;;;border: 1px solid #e8e8;;;;;;border: 1px solid #e8e8e9;;;;;;;border-radius: 5px;;;;;;;;border: 1px;;;;;;;;;border: 1px solid;;;;;;;;;;border: 1px solid #eee;;}
 .tuxgrid .sort-sign{ color: #888; font-size: 12px; float: right; margin-top: 5px; margin-left: 10px; }
 .tuxgrid .sorting .sort-sign{color: #000;}
 .tuxgrid .grid-header{overflow: hidden;background-color: #f8f8f8;position: relative;z-index: 1;box-shadow: -1px 2px 8px rgba(0,0,0,0.1); }
@@ -291,7 +291,8 @@
     transition: .3s;
 }
 
-.tuxgrid tbody tr.selected {
+.tuxgrid tbody tr.selected,
+.tuxgrid tbody tr.selected td.col{
     background-color: #FF911C;
     color: #fff !important;
 }

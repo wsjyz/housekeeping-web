@@ -120,7 +120,7 @@
 					}
 				}
 			}
-		}).submit(function(event) {
+		}).on('success.form.bv', function(event) {
 			event.preventDefault();
 			var form = $(this);
 			var url = "${request.contextPath}/UserService/saveUserInfo"

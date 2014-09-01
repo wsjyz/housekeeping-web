@@ -10,7 +10,7 @@
 		</div>
 
 		<div class="btns">
-			<button type="button" class="btn btn-default">查找</button>
+			<button type="button" class="btn btn-default" id="selectAunt">查找</button>
 			<button type="reset" class="btn btn-default">重置</button>
 		</div>
 
@@ -281,9 +281,10 @@
 										text : "禁用",
 										icon : 'fa-pencil',
 										action : function(data, row, grid) {
-											var url = "${request.contextPath}/AuntService/disableAunt?auntId="
-													+ data.auntId;
-											loadPage(url);
+											var url = "${request.contextPath}/AuntService/disableAunt";
+										    $.post(url, {"auntId": data.auntId}, function(json) {
+					                            $('.auntGrid').grid('load', $('.auntGrid .iactive').text());
+					                        });
 										}
 									},
 									{
@@ -300,5 +301,8 @@
 										}
 									} ]
 						});
+		   $("#selectAunt").click(function(){
+		       	 $('.auntGrid').grid('load', 1);
+		       })
 	});
 </script>
