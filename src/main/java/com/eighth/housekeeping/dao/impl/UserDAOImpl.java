@@ -201,7 +201,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
 		   StringBuilder countSql = new StringBuilder("");
 		   countSql.append("select count(*) from t_member_info where 1=1");
 		   if (StringUtils.isNotEmpty(mobile)) {
-			   countSql.append("and mobile like '%"+mobile+"%' ");
+			   countSql.append(" and mobile like '%"+mobile+"%' ");
 		   }
 		   if (StringUtils.isNotEmpty(nickName)) {
 			   countSql.append("  and nick_name  like '%"+nickName+"%' ");

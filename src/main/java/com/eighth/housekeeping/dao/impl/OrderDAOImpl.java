@@ -202,7 +202,6 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
 			String contactWay, OpenPage<AuntOrder> page)
 			{
 		List<Object> params = new ArrayList<Object>();
-        params.add(auntId);
         StringBuilder sql = new StringBuilder("select * from t_aunt_order where 1=1");
         StringBuilder countSql = new StringBuilder("select count(*) from t_aunt_order where 1=1 ");
         if(StringUtils.isNotEmpty(contactWay)){
@@ -213,24 +212,23 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
         if(StringUtils.isNotEmpty(auntId)){
             countSql.append("and aunt_id = ?");
             sql.append("and aunt_id = ?");
-            params.add(contactWay);
+            params.add(auntId);
         }
         if(StringUtils.isNotEmpty(auntNo)){
             countSql.append("and aunt_no = ?");
             sql.append("and aunt_no = ?");
             params.add(auntNo);
         }
-        sql.append("limit ?,?");
-        countSql.append("limit ?,?");
+        sql.append(" limit ?,?");
+        countSql.append(" limit ?,?");
         params.add(page.getPageSize() * (page.getPageNo() - 1));
         params.add(page.getPageSize());
 
         List<AuntOrder> orderList = getJdbcTemplate().query(sql.toString(), params.toArray(),new AuntOrderRowMapper());
         Integer count = getJdbcTemplate().queryForObject(countSql.toString(),params.toArray(),Integer.class);
-        OpenPage<AuntOrder> orderOpenPage = new OpenPage<AuntOrder>();
-        orderOpenPage.setTotal(count);
-        orderOpenPage.setRows(orderList);
-        return orderOpenPage;
+        page.setTotal(count);
+        page.setRows(orderList);
+        return page;
 	}
 
 	@Override
