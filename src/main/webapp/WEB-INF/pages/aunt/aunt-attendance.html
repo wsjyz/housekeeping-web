@@ -10,7 +10,7 @@
     </div>
 
     <div class="btns">
-      <button type="button" class="btn btn-default">查找</button>
+      <button type="button" class="btn btn-default" id="selectattendanceGrid" >查找</button>
       <button type="reset" class="btn btn-default">重置</button>
     </div>
 
@@ -296,8 +296,8 @@
 										}
 									} ]
 						});
-		   $("#selectAunt").click(function(){
-		       	 $('.auntGrid').grid('load', 1);
+		   $("#selectattendanceGrid").click(function(){
+		       	 $('#attendanceGrid').grid('load', 1);
 		       })
 	});
 	</script>

@@ -143,6 +143,14 @@
             <span class="label">星级</span>
             <span class="text">${auntInfo.start}星</span>
           </div>
+          <div class="inputer">
+	          <span class="label">机构</span>
+	          <#list corpList as corp>
+				<#if corp.corpId==auntInfo.corpId>
+				<span class="text">${corp.corpName}</span>
+				</#if>
+			</#list>
+        	</div>
         </div>
 
         <div class="col col-xs-6 col-md-5 col-lg-4">
@@ -183,7 +191,7 @@
           <div class="input-group">
           	<#if auntInfo.caseList?exists>
 					<#list auntInfo.caseList as case>
-            	<a href="${request.contextPath}/AuntService/toCaseView?caseId=${case.caseId}&auntId=${auntInfo.auntId}" class="btn btn-default">${case.caseName!}</a>
+            	<a href="${request.contextPath}/AuntService/toCaseView?caseId=${case.caseId}&auntId=${auntInfo.auntId}" id="${case_index}"class="btn btn-default">${case.caseName!}</a>
             </#list>
            </#if>
           </div>

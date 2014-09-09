@@ -1,7 +1,7 @@
 <script>
     jQuery(function() {
 
-        $('#bill-grid').grid({
+        $('#comment-grid').grid({
             url          : "${request.contextPath}/ReviewService/searchReviewByWeb",
             checkbox     : false,
             cssClass     : 'bill-list',
@@ -68,7 +68,7 @@
             ]
         });
         $("#selectAuntComment").click(function(){
-	       	 $('#bill-grid').grid('load', 1);
+	       	 $('#comment-grid').grid('load', 1);
 	       })
     });
 </script>
@@ -98,5 +98,5 @@
   <div class="panel-heading">用户管理</div>
 
   <!-- Table -->
-  <div id="bill-grid"></div>
+  <div id="comment-grid"></div>
 </div>

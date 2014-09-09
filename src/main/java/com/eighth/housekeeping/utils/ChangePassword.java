@@ -1,14 +1,15 @@
 package com.eighth.housekeeping.utils;
 
 public class ChangePassword {
-	private String auntId;
+	private String corpId;
 	private String newPassword;
-	public String getAuntId() {
-		return auntId;
+
+	public void setCorpId(String corpId) {
+		this.corpId = corpId;
 	}
 
-	public void setAuntId(String auntId) {
-		this.auntId = auntId;
+	public String getCorpId() {
+		return corpId;
 	}
 
 	public String getNewPassword() {

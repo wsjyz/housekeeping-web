@@ -4,7 +4,7 @@
 		$('#bill-grid').grid(
 						{
 							url : "${request.contextPath}/OrderService/findAuntOrderListByWeb",
-							checkbox : true,
+							checkbox : false,
 							cssClass : 'bill-list',
 							numberColumn : false,
 							requestType : 'post',
@@ -13,13 +13,16 @@
 							zebraRows : false, // 斑马线
 							params : {
 								auntId : "${auntId}",
+								auntNo: function() {
+									return $("#auntNo").val();
+								},
 								contactWay : function() {
 									return $("#contactWay").val();
 								}
 							},
 							columns : [
 									{
-										field : 'orderId', // 必需
+										field : 'orderNo', // 必需
 										text : '订单号',
 										fixedTo : 'left',
 										width : 100,
@@ -55,21 +58,42 @@
 										text : '支付价格',
 										width : 100,
 										align : 'right',
-										sortable : false
+										sortable : false,
+					                    formatter : function (index, value, data) {
+					                        if(value==0){
+					                     	   return "0";
+					                        }else{
+					                     	   return value;
+					                        }
+					                      }
 									},
 									{
 										field : 'unitPrice', // 必需
 										text : '原价',
 										width : 100,
 										align : 'right',
-										sortable : false
+										sortable : false,
+					                    formatter : function (index, value, data) {
+					                        if(value==0){
+					                     	   return "0";
+					                        }else{
+					                     	   return value;
+					                        }
+					                      }
 									},
 									{
 										field : 'useCouponCount',
 										text : '优惠劵<br/>使用次数',
 										width : 100,
 										align : 'center',
-										sortable : true
+										sortable : true,
+					                    formatter : function (index, value, data) {
+					                        if(value==0 || value==null){
+					                     	   return "0";
+					                        }else{
+					                     	   return value;
+					                        }
+					                      }
 									},
 									{
 										field : 'payState',
@@ -128,6 +152,10 @@
 								}
 							} ]
 						});
+		
+		  $("#selectAuntRecord").click(function(){
+		       	 $('#bill-grid').grid('load', 1);
+		       })
 	});
 </script>
 
@@ -138,12 +166,12 @@
 				class="form-control" name="contactWay" id="contactWay">
 		</div>
 		<div class="input-group">
-			<span class="input-group-addon">订单号</span> <input type="text"
+			<span class="input-group-addon">订单号</span> <input type="text" id="auntNo"
 				class="form-control">
 		</div>
 
 		<div class="btns">
-			<button type="button" class="btn btn-default">查找</button>
+			<button type="button" class="btn btn-default" id="selectAuntRecord">查找</button>
 			<button type="reset" class="btn btn-default">重置</button>
 		</div>
 

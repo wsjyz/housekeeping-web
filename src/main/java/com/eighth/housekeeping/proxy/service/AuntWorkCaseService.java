@@ -14,4 +14,5 @@ public interface AuntWorkCaseService {
     AuntWorkCase findCaseById(String caseId);  
     void addWorkCase(AuntWorkCase auntWorkCase);
     String updateWorkCase(AuntWorkCase auntWorkCase);
+    void deleteWorkCase(String auntId);
 }
