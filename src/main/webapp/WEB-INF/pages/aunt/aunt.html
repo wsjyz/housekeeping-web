@@ -39,13 +39,16 @@
 				.grid(
 						{
 							url : "${request.contextPath}/AuntService/searchAuntByWeb",
-							checkbox : true,
+							checkbox : false,
 							cssClass : 'aunt-list',
 							numberColumn : true,
 							hoverCols : false,
 							zebraCols : false, // 斑马线
 							zebraRows : false, // 斑马线
 							params : {
+								corpId:function(){
+									return $("#AllcorpId").val();
+								},
 								userName:function(){
 									return $("#userName").val();
 								},
@@ -116,37 +119,86 @@
 										field : 'mothOfIncome',
 										text : '本月金额',
 										width : 100,
-										sortable : false
+										sortable : false,
+					                    formatter : function (index, value, data) {
+					                        if(value==0){
+					                     	   return "0";
+					                        }else{
+					                     	   return value;
+					                        }
+					                      }
 									}, {
 										field : 'yearOfIncome',
 										text : '年度金额',
 										width : 100,
-										sortable : false
+										sortable : false,
+					                    formatter : function (index, value, data) {
+					                        if(value==0){
+					                     	   return "0";
+					                        }else{
+					                     	   return value;
+					                        }
+					                      }
 									}, {
 										field : 'sumMoney',
 										text : '总金额',
 										width : 100,
-										sortable : false
+										sortable : false,
+					                    formatter : function (index, value, data) {
+					                        if(value==0){
+					                     	   return "0";
+					                        }else{
+					                     	   return value;
+					                        }
+					                      }
 									}, {
 										field : 'monthOfSignCounts',
 										text : '本月签到',
 										width : 100,
-										sortable : false
+										sortable : false,
+					                    formatter : function (index, value, data) {
+					                        if(value==0){
+					                     	   return "0";
+					                        }else{
+					                     	   return value;
+					                        }
+					                      }
 									}, {
 										field : 'price',
 										text : '单价',
 										width : 100,
-										sortable : false
+										sortable : false,
+					                    formatter : function (index, value, data) {
+					                        if(value==0){
+					                     	   return "0";
+					                        }else{
+					                     	   return value;
+					                        }
+					                      }
 									}, {
 										field : 'monthOfOrderCounts',
 										text : '本月订单数',
 										width : 100,
-										sortable : false
+										sortable : false,
+					                    formatter : function (index, value, data) {
+					                        if(value==0){
+					                     	   return "0";
+					                        }else{
+					                     	   return value;
+					                        }
+					                      }
 									}, {
 										field : 'payOrderCount',
 										text : '本月已支付订单数',
 										width : 100,
-										sortable : false
+										sortable : false,
+					                    formatter : function (index, value, data) {
+					                        if(value==0){
+					                     	   return "0";
+					                        }else{
+					                     	   return value;
+					                        }
+					                      }
 									}, {
 										field : 'status',
 										text : '在线状态',
@@ -164,47 +216,110 @@
 										field : 'age',
 										text : '年龄',
 										width : 100,
-										sortable : false
+										sortable : false,
+					                    formatter : function (index, value, data) {
+					                        if(value==0 || value==null){
+					                     	   return "0";
+					                        }else{
+					                     	   return value;
+					                        }
+					                      }
 									}, {
 										field : 'workYear',
 										text : '工作经验',
 										width : 100,
-										sortable : false
+										sortable : false,
+					                    formatter : function (index, value, data) {
+					                        if(value==0){
+					                     	   return "0";
+					                        }else{
+					                     	   return value;
+					                        }
+					                      }
 									}, {
 										field : 'abilityScore',
 										text : '能力分值',
 										width : 100,
-										sortable : false
+										sortable : false,
+					                    formatter : function (index, value, data) {
+					                        if(value==0){
+					                     	   return "0";
+					                        }else{
+					                     	   return value;
+					                        }
+					                      }
 									}, {
 										field : 'bloodType',
 										text : '血型',
 										width : 100,
-										sortable : false
+										sortable : false,
+					                    formatter : function (index, value, data) {
+					                        if(value==null){
+					                     	   return "未知";
+					                        }else{
+					                     	   return value+"型";
+					                        }
+					                      }
 									}, {
 										field : 'constellation',
 										text : '星座',
 										width : 100,
-										sortable : false
+										sortable : false,
+					                    formatter : function (index, value, data) {
+					                        if(value==null){
+					                     	   return "未知";
+					                        }else{
+					                     	   return value;
+					                        }
+					                      }
 									}, {
 										field : 'discussCount',
 										text : '评论数',
 										width : 100,
-										sortable : false
+										sortable : false,
+					                    formatter : function (index, value, data) {
+					                        if(value==0 ||value==null){
+					                     	   return "0";
+					                        }else{
+					                     	   return value;
+					                        }
+					                      }
 									}, {
 										field : 'verySatisfyCounts',
 										text : '非常满意',
 										width : 100,
-										sortable : false
+										sortable : false,
+					                    formatter : function (index, value, data) {
+					                        if(value==0 ||value==null){
+					                     	   return "0";
+					                        }else{
+					                     	   return value;
+					                        }
+					                      }
 									}, {
 										field : 'satisfyCounts',
 										text : '满意',
 										width : 100,
-										sortable : false
+										sortable : false,
+					                    formatter : function (index, value, data) {
+					                        if(value==0 ||value==null){
+					                     	   return "0";
+					                        }else{
+					                     	   return value;
+					                        }
+					                      }
 									}, {
 										field : 'notSatisfyCounts',
 										text : '不满意',
 										width : 100,
-										sortable : false
+										sortable : false,
+					                    formatter : function (index, value, data) {
+					                        if(value==0 ||value==null){
+					                     	   return "0";
+					                        }else{
+					                     	   return value;
+					                        }
+					                      }
 									}, {
 										field : 'workType',
 										text : '分类',

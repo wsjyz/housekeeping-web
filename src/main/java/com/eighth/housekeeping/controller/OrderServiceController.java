@@ -211,10 +211,10 @@ public class OrderServiceController {
 	   
 	   @ResponseBody
 	    @RequestMapping(value = "/findOrderListByWeb")
-	    OpenPage<AuntOrder> findOrderListByWeb(@RequestParam String auntId,@RequestParam String contactWay,@RequestParam String auntNo,@FastJson OpenPage<AuntOrder> page){
+	    OpenPage<AuntOrder> findOrderListByWeb(@RequestParam String corpId,@RequestParam String contactWay,@RequestParam String auntNo,@FastJson OpenPage<AuntOrder> page){
 	    
 	        try {
-	        	page = orderService.findAuntOrderListByWeb(auntId, contactWay,auntNo,page);
+	        	page = orderService.findAuntOrderListByWeb(corpId, contactWay,auntNo,page);
 	        } catch (RemoteInvokeException e) {
 	            e.printStackTrace();
 	        }

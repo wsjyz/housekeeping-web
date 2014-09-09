@@ -99,6 +99,6 @@ public interface AuntService {
     @RemoteMethod(methodVarNames={ "auntId" })
     AuntInfo findAuntByIdByWeb(String auntId)throws RemoteInvokeException;
     
-    OpenPage<AuntInfo> searchAuntByWeb(String userName,String mobile,OpenPage<AuntInfo> page)throws RemoteInvokeException;
+    OpenPage<AuntInfo> searchAuntByWeb(String corpId,String userName,String mobile,OpenPage<AuntInfo> page)throws RemoteInvokeException;
 
 }

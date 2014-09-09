@@ -69,10 +69,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
 	@Override
-	public OpenPage<AuntOrder> findAuntOrderListByWeb(String auntId,
+	public OpenPage<AuntOrder> findAuntOrderListByWeb(String corpId,
 			String contactWay,String auntNo, OpenPage<AuntOrder> page)
 			throws RemoteInvokeException {
-		return orderDAO.findAuntOrderListByWeb(auntId, contactWay,auntNo, page);
+		return orderDAO.findAuntOrderListByWeb(corpId, contactWay,auntNo, page);
 	}
 
 	@Override

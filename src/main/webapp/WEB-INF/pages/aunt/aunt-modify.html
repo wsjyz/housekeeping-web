@@ -98,11 +98,11 @@
 								<option value="ALL"   <#if auntInfo.workType=="ALL">selected="selected"</#if>>全职</option>
 							</select>
 							<div class="form-group">
-								<label for=""> <input type="checkbox"  <#if auntInfo.workCleanKeeping?? &&auntInfo.workCleanKeeping> checked="checked"</#if> name="workCleanKeeping"  id="">
+								<label for=""> <input type="checkbox" value="true" <#if auntInfo.workCleanKeeping?? &&auntInfo.workCleanKeeping> checked="checked"</#if> name="workCleanKeeping"  id="">
 									保洁
-								</label> <label for=""> <input type="checkbox"  <#if auntInfo.workLaundry?? &&auntInfo.workLaundry> checked="checked"</#if> name="workLaundry" id="">
+								</label> <label for=""> <input type="checkbox"  value="true" <#if auntInfo.workLaundry?? &&auntInfo.workLaundry> checked="checked"</#if> name="workLaundry" id="">
 									洗熨
-								</label> <label for=""> <input type="checkbox"  <#if auntInfo.workCook?? &&auntInfo.workCook> checked="checked"</#if> name="workCook" id="">
+								</label> <label for=""> <input type="checkbox" value="true" <#if auntInfo.workCook?? &&auntInfo.workCook> checked="checked"</#if> name="workCook" id="">
 									做饭
 								</label>
 							</div>
@@ -119,6 +119,16 @@
 								<option value="3" <#if auntInfo.start=="3">selected="selected"</#if>>三星</option>
 								<option value="2" <#if auntInfo.start=="2">selected="selected"</#if>>二星</option>
 								<option value="1" <#if auntInfo.start=="1">selected="selected"</#if>>一星</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">机构: </label>
+						<div class="col-lg-8">
+							<select class="form-control" name="corpId" id="corpName">
+								<#list corpList as corp>
+								<option value="${corp.corpId}" <#if auntInfo.corpId?? && auntInfo.corpId==corp.corpId>selected="selected"</#if> >${corp.corpName}</option>
+								</#list>
 							</select>
 						</div>
 					</div>
@@ -252,7 +262,8 @@
 			uploader : '${request.contextPath}/UserService/saveImageObj?objId=${auntInfo.auntId!}&objType=PORTRAIT',
 			width : 120,
 			'fileObjName' : 'file',
-			'buttonClass' : 'btn btn-primary avatar-uploader',
+			buttonText:"上 传",
+			'buttonClass' : 'btn btn-primary avatar-uploader upload-button',
 			'onUploadSuccess' : function(file, data, response) {
 				$("#avatar-img").attr(
 						'src',
@@ -333,7 +344,6 @@
 			var form = $(this);
 			var url = "${request.contextPath}/AuntService/saveAunt"
 			var json = form.formToJson();
-
 			$.post(url, {
 				"auntInfo" : json
 			}, function() {

@@ -198,7 +198,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
 	}
 
 	@Override
-	public OpenPage<AuntOrder> findAuntOrderListByWeb(String auntId,String contactWay,
+	public OpenPage<AuntOrder> findAuntOrderListByWeb(String corpId,String contactWay,
 			String auntNo, OpenPage<AuntOrder> page)
 			{
 		List<Object> params = new ArrayList<Object>();
@@ -208,10 +208,10 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             countSql.append(" and contact_way like '%"+contactWay+"%'");
             sql.append(" and contact_way like '%"+contactWay+"%'");
         }
-        if(StringUtils.isNotEmpty(auntId)){
-            countSql.append(" and aunt_id = ?");
-            sql.append(" and aunt_id = ?");
-            params.add(auntId);
+        if(StringUtils.isNotEmpty(corpId)){
+            countSql.append(" and corp_id = ?");
+            sql.append(" and corp_id = ?");
+            params.add(corpId);
         }
         if(StringUtils.isNotEmpty(auntNo)){
             countSql.append(" and order_no like '%"+auntNo+"%'");

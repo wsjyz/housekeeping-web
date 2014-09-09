@@ -453,17 +453,26 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 			sql.append("status='" + auntInfo.getStatus() + "',");
 
 		}
+		if (StringUtils.isNotEmpty(auntInfo.getCorpId())) {
+			sql.append("corp_id='" + auntInfo.getCorpId() + "',");
+
+		}
 		if (auntInfo.isWorkCleanKeeping()) {
 			sql.append("work_clean_keeping=" + auntInfo.isWorkCleanKeeping() + ",");
 
+		}else{
+			sql.append("work_clean_keeping=false,");
 		}
 		if (auntInfo.isWorkCook()) {
 			sql.append("work_cook=" + auntInfo.isWorkCook() + ",");
-
+		}else{
+			sql.append("work_cook=false,");
 		}
 		if (auntInfo.isWorkLaundry()) {
 			sql.append("work_laundry=" + auntInfo.isWorkLaundry() + ",");
 
+		}else{
+			sql.append("work_laundry=false,");
 		}
 		if (sql.lastIndexOf(",") + 1 == sql.length()) {
 			sql.delete(sql.lastIndexOf(","), sql.length());
@@ -474,16 +483,20 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 	}
 
 	@Override
-	public OpenPage<AuntInfo> searchAuntByWeb(String userName, String mobile,
+	public OpenPage<AuntInfo> searchAuntByWeb(String corpId,String userName, String mobile,
 			OpenPage<AuntInfo> page) {
 		   StringBuilder reviewSql = new StringBuilder("");
 		   reviewSql.append("select * from t_aunt_info where 1=1");
+		   if (StringUtils.isNotEmpty(corpId)) {
+			   reviewSql.append(" and corp_id ='"+corpId+"' ");
+		   }
 		   if (StringUtils.isNotEmpty(userName)) {
-			   reviewSql.append("and user_name like '%"+userName+"%' ");
+			   reviewSql.append(" and user_name like '%"+userName+"%' ");
 		   }
 		   if (StringUtils.isNotEmpty(mobile)) {
 			   reviewSql.append("  and mobile  like '%"+mobile+"%' ");
 		   }
+		   reviewSql.append(" and status ='ACTIVE' ");
 		   reviewSql.append(" limit ?,?");
 		   List<AuntInfo> reviewList = getJdbcTemplate().query(reviewSql.toString(),
 	                new Object[]{page.getPageSize() * (page.getPageNo()-1),page.getPageSize()},new AuntRowMapper());
@@ -496,6 +509,11 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 		   if (StringUtils.isNotEmpty(mobile)) {
 			   countSql.append("  and mobile  like '%"+mobile+"%' ");
 		   }
+		   if (StringUtils.isNotEmpty(corpId)) {
+			   countSql.append(" and corp_id ='"+corpId+"' ");
+		   }
+		   countSql.append(" and status ='ACTIVE' ");
+
 	        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),Integer.class);
 	        page.setTotal(count);
 	        page.setRows(reviewList);

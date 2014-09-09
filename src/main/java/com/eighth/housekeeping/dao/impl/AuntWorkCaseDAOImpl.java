@@ -62,8 +62,8 @@ public class AuntWorkCaseDAOImpl extends BaseDAO implements AuntWorkCaseDAO {
             workCase.setCaseId(rs.getString("case_id"));
             workCase.setDescription(rs.getString("description"));
             if (StringUtils.isNotEmpty(workCase.getDescription())) {
-				if (workCase.getDescription().length()>5) {
-					workCase.setCaseName(workCase.getDescription().substring(0,5));
+				if (workCase.getDescription().trim().length()>5) {
+					workCase.setCaseName(workCase.getDescription().trim().substring(0,5));
 				}else{
 					workCase.setCaseName(workCase.getDescription());
 				}
@@ -81,7 +81,7 @@ public class AuntWorkCaseDAOImpl extends BaseDAO implements AuntWorkCaseDAO {
 	            @Override
 	            public void setValues(PreparedStatement ps) throws SQLException {
 	                ps.setString(1,auntWorkCase.getAuntId());
-	                ps.setString(2,CommonStringUtils.genPK());
+	                ps.setString(2,auntWorkCase.getCaseId());
 	                ps.setString(3,auntWorkCase.getDescription());
 	                ps.setString(4,auntWorkCase.getCorpId());
 	                ps.setString(5,sdf.format(new Date()));
@@ -96,7 +96,14 @@ public class AuntWorkCaseDAOImpl extends BaseDAO implements AuntWorkCaseDAO {
 	        if (StringUtils.isNotEmpty(auntWorkCase.getDescription())) {
 	        	caseSql.append("description='"+auntWorkCase.getDescription()+"',");
 			}
+	        if (StringUtils.isNotEmpty(auntWorkCase.getAuntId())) {
+	        	caseSql.append("aunt_id='"+auntWorkCase.getAuntId()+"',");
+			}
+	    	if (caseSql.lastIndexOf(",") + 1 == caseSql.length()) {
+	    		caseSql.delete(caseSql.lastIndexOf(","), caseSql.length());
+			}
 	        caseSql.append("where case_id='"+auntWorkCase.getCaseId()+"'");
+	    	getJdbcTemplate().update(caseSql.toString());
 		return null;
 	}
 

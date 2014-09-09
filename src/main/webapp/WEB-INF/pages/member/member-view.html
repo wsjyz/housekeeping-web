@@ -4,7 +4,7 @@
     <a href="${request.contextPath}/UserService/toMemberAdd" class="btn btn-primary">
       <span class="glyphicon glyphicon-plus"></span> 继续添加
     </a>
-    <a href="${request.contextPath}/UserService/toMember" class="btn btn-primary" id="1">
+    <a href="${request.contextPath}/UserService/toMember" class="btn btn-primary" >
       <span class="glyphicon glyphicon-arrow-left"></span> 返回
     </a>
   </div>
@@ -17,7 +17,7 @@
     <div class="profile fixed-top">
       <div class="avatar">
        <#if memberInfo.imageObj?? && memberInfo.imageObj.imageUrl??>
-            <img src="${request.contextPath}/images/portrait/${memberInfo.imageObj.imageUrl!}" alt="">
+            <img src="${request.contextPath}/images/${memberInfo.imageObj.imageUrl!}" alt="">
       <#else>
               <img src="${request.contextPath}/images/avatar.jpg" alt="">
       </#if>
@@ -93,6 +93,15 @@
         <#elseif memberInfo.card?? && memberInfo.card=="WHITE_GOLD"><span class="text">白金 卡</span>
         <#elseif memberInfo.card?? && memberInfo.card=="DIAMOND"><span class="text">钻石卡</span>
         </#if>
+        </div>
+         <div class="inputer">
+          <span class="label">机构</span>
+          <#list corpList as corp>
+			<#if corp.corpId==memberInfo.corpId>
+			<span class="text">${corp.corpName}</span>
+			</#if>
+		</#list>
+	        
         </div>
       </div>
 

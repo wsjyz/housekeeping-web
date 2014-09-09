@@ -68,17 +68,38 @@
                     field     : 'yearMoney',
                     text      : '年度消费',
                     width     : 80,
-                    sortable  : false
+                    sortable  : false,
+                    formatter : function (index, value, data) {
+                       if(value==0){
+                    	   return "0";
+                       }else{
+                    	   return value;
+                       }
+                     }
                 }, {
                     field     : 'monthMoney',
                     text      : '月度消费',
                     width     : 80,
-                    sortable  : false
+                    sortable  : false,
+                    formatter : function (index, value, data) {
+                        if(value==0){
+                     	   return "0";
+                        }else{
+                     	   return value;
+                        }
+                      }
                 }, {
                     field     : 'couponCounts',
                     text      : '优惠券剩余数量',
                     width     : 150,
-                    sortable  : false
+                    sortable  : false,
+                    formatter : function (index, value, data) {
+                        if(value==0 || value==null){
+                     	   return "0";
+                        }else{
+                     	   return value;
+                        }
+                      }
                 }, {
                     field     : 'card',
                     text      : '权限',

@@ -15,6 +15,8 @@ import org.springframework.util.CollectionUtils;
 
 import com.eighth.housekeeping.dao.BaseDAO;
 import com.eighth.housekeeping.dao.CorpDAO;
+import com.eighth.housekeeping.dao.impl.AuntDAOImpl.AuntRowMapper;
+import com.eighth.housekeeping.domain.AuntInfo;
 import com.eighth.housekeeping.domain.Corp;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.utils.CommonStringUtils;
@@ -34,8 +36,10 @@ public class CorpDAOImpl extends BaseDAO implements CorpDAO {
 			   reviewSql.append(" and corp_name like '%"+corpName+"%' ");
 		   }
 		   if (StringUtils.isNotEmpty(loginName)) {
-			   reviewSql.append("  and login_name  like '%"+corpName+"%' ");
+			   reviewSql.append("  and login_name  like '%"+loginName+"%' ");
 		   }
+		   reviewSql.append(" and status='ACTIVE'");
+
 		   reviewSql.append(" limit ?,?");
 		   List<Corp> reviewList = getJdbcTemplate().query(reviewSql.toString(),
 	                new Object[]{page.getPageSize() * (page.getPageNo()-1),page.getPageSize()},new CorpMapper());
@@ -48,6 +52,7 @@ public class CorpDAOImpl extends BaseDAO implements CorpDAO {
 		   if (StringUtils.isNotEmpty(loginName)) {
 			   countSql.append("  and login_name  like '%"+corpName+"%' ");
 		   }
+		   countSql.append(" and status='ACTIVE'");
 	        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),Integer.class);
 	        page.setTotal(count);
 	        page.setRows(reviewList);
@@ -132,4 +137,26 @@ public class CorpDAOImpl extends BaseDAO implements CorpDAO {
 		}
 	}
 
+	@Override
+	public Corp login(String loginName, String md5Psw) {
+		StringBuilder sql = new StringBuilder("");
+		sql.append("select * from t_corp where login_name = ? and password = ?");
+		List<Corp> corpList = getJdbcTemplate().query(sql.toString(),
+				new String[] { loginName, md5Psw }, new CorpMapper());
+		Corp corp = null;
+		if (!CollectionUtils.isEmpty(corpList)) {
+			corp = corpList.get(0);
+		} else {
+			corp = new Corp();
+		}
+		return corp;
+	}
+
+	@Override
+	public List<Corp> corpList() {
+		StringBuilder sql = new StringBuilder("");
+		sql.append("select * from t_corp ");
+		List<Corp> corpList = getJdbcTemplate().query(sql.toString(), new CorpMapper());
+		return corpList;
+	}
 }

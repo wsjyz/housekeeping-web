@@ -29,12 +29,14 @@ public class ReviewDAOImpl extends BaseDAO implements ReviewDAO {
 			OpenPage page) {
 		StringBuilder reviewSql = new StringBuilder("");
 		reviewSql
-				.append("select tr.*,tmi.nick_name from t_review tr,t_member_info tmi"
+				.append("select tr.* from t_review tr,t_member_info tmi"
 						+ " where tr.create_user_id = tmi.user_id  and tr.aunt_id =? ");
 		StringBuilder countSql = new StringBuilder(
 				"select count(*) from t_review tr where aunt_id =?");
 		List<Object> params = new ArrayList<Object>();
 		List<Object> countParams = new ArrayList<Object>();
+		params.add(auntId);
+		countParams.add(auntId);
 		if (!reviewTag.equals("ALL")) {
 			reviewSql.append(" and tr.review_tag = ? ");
 			countSql.append(" and tr.review_tag = ? ");
@@ -42,14 +44,12 @@ public class ReviewDAOImpl extends BaseDAO implements ReviewDAO {
 			countParams.add(reviewTag);
 		}
 		reviewSql.append(" limit ?,? ");
-		params.add(auntId);
 		params.add(page.getPageSize() * (page.getPageNo() - 1));
 		params.add(page.getPageSize());
 
 		List<Review> reviewList = getJdbcTemplate().query(reviewSql.toString(),
 				params.toArray(), new ReviewMapper());
 
-		countParams.add(auntId);
 		Integer count = getJdbcTemplate().queryForObject(countSql.toString(),
 				countParams.toArray(), Integer.class);
 		OpenPage<Review> reviewOpenPage = new OpenPage<Review>();
