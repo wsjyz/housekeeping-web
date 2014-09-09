@@ -49,4 +49,10 @@ public class SystemServiceImpl implements SystemService {
     public String appLogout(String userId, String userType) throws RemoteInvokeException {
         return "SUCCESS";
     }
+
+	@Override
+	public void updateSystemManage(SystemManage systemManage) {
+		systemDAO.updateSystemManage(systemManage);
+		
+	}
 }

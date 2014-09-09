@@ -20,13 +20,14 @@ import com.eighth.housekeeping.domain.VerifyCode;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.AuntService;
 import com.eighth.housekeeping.proxy.service.UserService;
+import com.eighth.housekeeping.utils.ChangePassword;
 import com.eighth.housekeeping.utils.CommonStringUtils;
 import com.eighth.housekeeping.utils.Constants;
 import com.eighth.housekeeping.utils.JsonStatus;
-import com.eighth.housekeeping.utils.Phone;
 import com.eighth.housekeeping.web.FastJson;
 
 import org.apache.commons.lang3.StringUtils;
+import org.eclipse.jetty.util.security.Credential.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -127,7 +128,7 @@ public class UserServiceController {
     	JsonStatus jsonStatus=new JsonStatus();
     	if("ADMIN".equals(mobile) && "hw123456".equals(password)){
     		jsonStatus.setSuccess(true);
-    		jsonStatus.setUrl("/hw/UserService/toIndex");
+    		jsonStatus.setUrl("/hw/UserService/toIndex?auntId=");
     	}else{
     		AuntInfo auntInfo=new AuntInfo();  
     		 try {
@@ -135,16 +136,32 @@ public class UserServiceController {
              } catch (RemoteInvokeException e) {
                  e.printStackTrace();
              }
-			jsonStatus.setSuccess(false);
-    		jsonStatus.setUrl("/hw/UserService/toLogin");
+    		if(auntInfo!=null){
+    			jsonStatus.setSuccess(true);
+    	    	jsonStatus.setUrl("/hw/UserService/toIndex?auntId="+auntInfo.getAuntId());
+    		}else{
+   			 jsonStatus.setSuccess(false);
+	    	 jsonStatus.setUrl("/hw/UserService/toLogin");
+    		}
     	}
     	return jsonStatus;
     }
-    
+    @ResponseBody
     @RequestMapping(value = "/toIndex")
-    public String toIndex(){
-    	return "index";
+    public ModelAndView toIndex(@RequestParam String auntId){
+    	ModelAndView modelAndView=new ModelAndView();
+    	modelAndView.setViewName("index");
+        Map<String, Object> model = modelAndView.getModel();
+        model.put("auntId",auntId);
+    	return modelAndView;
     }
+    @RequestMapping(value = "/toAunt")
+   	public String toAunt(@RequestParam  String auntId)  throws RemoteInvokeException{
+    	if(StringUtils.isNotEmpty(auntId) && !"back".equals(auntId)){
+   		 	auntService.deleteAunt(auntId);
+    	}
+   		return "aunt/aunt";
+   	}
     @RequestMapping(value = "/toInstitution")
 	public String toInstitution()  throws RemoteInvokeException{
 		return "institution/institution";
@@ -235,4 +252,27 @@ public class UserServiceController {
         }
 		return "/"+month+"/"+fileName;
 	}
+	 @ResponseBody
+	 @RequestMapping(value = "/toUpdatePassword")
+   	public ModelAndView toUpdatePassword(@RequestParam String userId)  throws RemoteInvokeException{
+		
+		 ModelAndView view = new ModelAndView();
+		 view.setViewName("member/change-password");
+		 Map<String, Object> model = view.getModel();
+		 model.put("userId", userId);
+			return view;
+   		
+   	}
+	 @ResponseBody
+	 @RequestMapping(value = "/changePassword")
+	 public void changePassword(@FastJson ChangePassword changePassword) throws RemoteInvokeException{
+		 String auntId=changePassword.getAuntId();
+		 if (StringUtils.isNotEmpty(auntId)) {
+			 AuntInfo auntInfo=new AuntInfo();
+			 auntInfo.setAuntId(auntId);
+			 auntInfo.setPassword(CommonStringUtils.getMD5(changePassword.getNewPassword().getBytes()));
+			auntService.updateAuntInfo(auntInfo);
+		}
+	 }
+	
 }

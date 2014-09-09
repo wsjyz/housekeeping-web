@@ -198,26 +198,24 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
 	}
 
 	@Override
-	public OpenPage<AuntOrder> findAuntOrderListByWeb(String auntId,String auntNo,
-			String contactWay, OpenPage<AuntOrder> page)
+	public OpenPage<AuntOrder> findAuntOrderListByWeb(String auntId,String contactWay,
+			String auntNo, OpenPage<AuntOrder> page)
 			{
 		List<Object> params = new ArrayList<Object>();
         StringBuilder sql = new StringBuilder("select * from t_aunt_order where 1=1");
         StringBuilder countSql = new StringBuilder("select count(*) from t_aunt_order where 1=1 ");
         if(StringUtils.isNotEmpty(contactWay)){
-            countSql.append("and contact_way =?");
-            sql.append("and contact_way =?");
-            params.add(contactWay);
+            countSql.append(" and contact_way like '%"+contactWay+"%'");
+            sql.append(" and contact_way like '%"+contactWay+"%'");
         }
         if(StringUtils.isNotEmpty(auntId)){
-            countSql.append("and aunt_id = ?");
-            sql.append("and aunt_id = ?");
+            countSql.append(" and aunt_id = ?");
+            sql.append(" and aunt_id = ?");
             params.add(auntId);
         }
         if(StringUtils.isNotEmpty(auntNo)){
-            countSql.append("and aunt_no = ?");
-            sql.append("and aunt_no = ?");
-            params.add(auntNo);
+            countSql.append(" and order_no like '%"+auntNo+"%'");
+            sql.append(" and order_no  like '%"+auntNo+"%'");
         }
         sql.append(" limit ?,?");
         countSql.append(" limit ?,?");

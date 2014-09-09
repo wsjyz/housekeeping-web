@@ -2,11 +2,11 @@
   <form action="aunt.html" method="get" accept-charset="utf-8">
     <div class="input-group">
       <span class="input-group-addon">机构</span>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" id="corpName">
     </div>
     <div class="input-group">
       <span class="input-group-addon">姓名</span>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" id="auntName">
     </div>
 
     <div class="btns">
@@ -25,479 +25,279 @@
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">阿姨管理</div>
-
-  <!-- Table -->
-  <table class="table">
-    <thead>
-      <tr>
-        <th class="column-fixed left">序号</th>
-        <th class="column-fixed left"><a href="aunt.html?orderby=mobileNo">机构</a></th>
-        <th class="column-fixed left"><a href="aunt.html?orderby=nickname">姓名</a></th>
-        <th class="column-fixed left"><a href="aunt.html?orderby=username">总签到数</a></th>
-        <th class="column-fixed left"><a href="aunt.html?orderby=yearSpending">年度签到数</a></th>
-        <th class="column-fixed left"><a href="aunt.html?orderby=monthSpending">月度签到数</a></th>
-        <th>1</th>
-        <th>2</th>
-        <th>3</th>
-        <th>4</th>
-        <th>5</th>
-        <th>6</th>
-        <th>7</th>
-        <th>8</th>
-        <th>9</th>
-        <th>10</th>
-        <th>11</th>
-        <th>12</th>
-        <th>13</th>
-        <th>14</th>
-        <th>15</th>
-        <th>16</th>
-        <th>17</th>
-        <th>18</th>
-        <th>19</th>
-        <th>20</th>
-        <th>21</th>
-        <th>22</th>
-        <th>23</th>
-        <th>24</th>
-        <th>25</th>
-        <th>26</th>
-        <th>27</th>
-        <th>28</th>
-        <th>29</th>
-        <th>30</th>
-        <th>31</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!--
-      tr*10>th{$}+td{居优}+td{李存在}+td{900}+td{240}+td{28}+td*2+td{Y}+td*2+(td*26>{Y})
-      -->
-      <tr>
-          <th>1</th>
-          <td>居优</td>
-          <td>李存在</td>
-          <td>900</td>
-          <td>240</td>
-          <td>28</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-      </tr>
-      <tr>
-          <th>2</th>
-          <td>居优</td>
-          <td>李存在</td>
-          <td>900</td>
-          <td>240</td>
-          <td>28</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-      </tr>
-      <tr>
-          <th>3</th>
-          <td>居优</td>
-          <td>李存在</td>
-          <td>900</td>
-          <td>240</td>
-          <td>28</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-      </tr>
-      <tr>
-          <th>4</th>
-          <td>居优</td>
-          <td>李存在</td>
-          <td>900</td>
-          <td>240</td>
-          <td>28</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-      </tr>
-      <tr>
-          <th>5</th>
-          <td>居优</td>
-          <td>李存在</td>
-          <td>900</td>
-          <td>240</td>
-          <td>28</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-      </tr>
-      <tr>
-          <th>6</th>
-          <td>居优</td>
-          <td>李存在</td>
-          <td>900</td>
-          <td>240</td>
-          <td>28</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-      </tr>
-      <tr>
-          <th>7</th>
-          <td>居优</td>
-          <td>李存在</td>
-          <td>900</td>
-          <td>240</td>
-          <td>28</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-      </tr>
-      <tr>
-          <th>8</th>
-          <td>居优</td>
-          <td>李存在</td>
-          <td>900</td>
-          <td>240</td>
-          <td>28</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-      </tr>
-      <tr>
-          <th>9</th>
-          <td>居优</td>
-          <td>李存在</td>
-          <td>900</td>
-          <td>240</td>
-          <td>28</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-      </tr>
-      <tr>
-          <th>10</th>
-          <td>居优</td>
-          <td>李存在</td>
-          <td>900</td>
-          <td>240</td>
-          <td>28</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td></td>
-          <td></td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-          <td>Y</td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="37">
-          <ul class="pagination">
-            <li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>
-            <li class="active"><a href="aunt.html?page=1">1</a></li>
-            <li><a href="aunt.html?page=2">2</a></li>
-            <li><a href="aunt.html?page=3">3</a></li>
-            <li><a href="aunt.html?page=4">4</a></li>
-            <li><a href="aunt.html?page=5">5</a></li>
-            <li class="disabled"><a href="#">...</a></li>
-            <li><a href="aunt.html?page=64">64</a></li>
-            <li><a href="aunt.html?page=2">&raquo;</a></li>
-          </ul>
-
-          <div>
-              <!--
-              (a.btn.btn-default[href="aunt-attendance.html?month=$"]*11>{$月})+(a.btn.btn-default.btn-primary[href="aunt-attendance.html?month=$"]>{12月})
-              -->
-              <a href="aunt-attendance.html?month=1" class="btn btn-default">1月</a>
-              <a href="aunt-attendance.html?month=2" class="btn btn-default">2月</a>
-              <a href="aunt-attendance.html?month=3" class="btn btn-default">3月</a>
-              <a href="aunt-attendance.html?month=4" class="btn btn-default">4月</a>
-              <a href="aunt-attendance.html?month=5" class="btn btn-default">5月</a>
-              <a href="aunt-attendance.html?month=6" class="btn btn-default">6月</a>
-              <a href="aunt-attendance.html?month=7" class="btn btn-default">7月</a>
-              <a href="aunt-attendance.html?month=8" class="btn btn-default">8月</a>
-              <a href="aunt-attendance.html?month=9" class="btn btn-default">9月</a>
-              <a href="aunt-attendance.html?month=10" class="btn btn-default">10月</a>
-              <a href="aunt-attendance.html?month=11" class="btn btn-default">11月</a>
-              <a href="aunt-attendance.html?month=1" class="btn btn-default btn-primary">12月</a>
-          </div>
-        </td>
-      </tr>
-    </tfoot>
-  </table>
+<div id="attendanceGrid"></div>
 </div>
+
+<script>
+	jQuery(function() {
+		$('#attendanceGrid')
+				.grid(
+						{
+							url : "${request.contextPath}/SignInfoService/searchAttendanceByWeb",
+							checkbox : true,
+							cssClass : 'aunt-list',
+							numberColumn : true,
+							hoverCols : false,
+							zebraCols : false, // 斑马线
+							zebraRows : false, // 斑马线
+							params : {
+								corpName:function(){
+									return $("#corpName").val();
+								},
+								auntName:function(){
+				            	    return $("#auntName").val();
+				            }},
+							columns : [
+
+									{
+										field : 'corpName', // 必需
+										text : '机构',
+										width : 100,
+										align : 'center',
+										sortable : false
+									}, {
+										field : 'userName',
+										text : '姓名',
+										width : 100,
+										sortable : false,
+										formatter : function(index, value, data) {
+											return '<a href="${request.contextPath}/AuntService/toAuntView?auntId='
+													+ data.auntId
+													+ '"><i class="fa fa-user"></i> '
+													+ value + '</a>';
+										}
+									}, {
+										field : 'mobile',
+										text : '手机号',
+										width : 120,
+										sortable : false
+									}, {
+										field : 'telephone',
+										text : '电话',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'identityCard',
+										text : '实名认证',
+										width : 100,
+										sortable : false,
+										formatter : function(index, value, data) {
+											if(value!=""){
+												 return"是";
+											}else{
+												return"否";
+											}
+											
+										}
+									}, {
+										field : 'integrityAuth',
+										text : '诚信认证',
+										width : 100,
+										sortable : false,
+										formatter : function(index, value, data) {
+											if(value){
+												 return"是";
+											}else{
+												return"否";
+											}
+											
+										}
+									}, {
+										field : 'start',
+										text : '星级',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'mothOfIncome',
+										text : '本月金额',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'yearOfIncome',
+										text : '年度金额',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'sumMoney',
+										text : '总金额',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'monthOfSignCounts',
+										text : '本月签到',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'price',
+										text : '单价',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'monthOfOrderCounts',
+										text : '本月订单数',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'payOrderCount',
+										text : '本月已支付订单数',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'status',
+										text : '在线状态',
+										width : 100,
+										sortable : false,
+										formatter : function(index, value, data) {
+											if(value=="ACTIVE"){
+												 return"是";
+											}else{
+												return"否";
+											}
+											
+										}
+									}, {
+										field : 'age',
+										text : '年龄',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'workYear',
+										text : '工作经验',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'abilityScore',
+										text : '能力分值',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'bloodType',
+										text : '血型',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'constellation',
+										text : '星座',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'discussCount',
+										text : '评论数',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'verySatisfyCounts',
+										text : '非常满意',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'satisfyCounts',
+										text : '满意',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'notSatisfyCounts',
+										text : '不满意',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'workType',
+										text : '分类',
+										width : 100,
+										sortable : false,
+										formatter : function(index, value, data) {
+											if(value=="HOUR_WORK"){
+												 return"小时工";
+											}else{
+												return"全职";
+											}
+											
+										}
+									}, {
+										field : 'workCleanKeeping',
+										text : '子分类1',
+										width : 100,
+										sortable : false,
+										formatter : function(index, value, data) {
+											if(value){
+												 return"是";
+											}else{
+												return"否";
+											}
+											
+										}
+									}, {
+										field : 'workLaundry',
+										text : '子分类2',
+										width : 100,
+										sortable : false,
+										formatter : function(index, value, data) {
+											if(value){
+												 return"是";
+											}else{
+												return"否";
+											}
+											
+										}
+									}, {
+										field : 'workCook',
+										text : '子分类3',
+										width : 100,
+										sortable : false,
+										formatter : function(index, value, data) {
+											if(value){
+												 return"是";
+											}else{
+												return"否";
+											}
+											
+										}
+									}, {
+										field : 'nativePlace',
+										text : '籍贯',
+										width : 100,
+										sortable : false
+									}, {
+										field : 'address',
+										text : '地址',
+										width : 100,
+										sortable : false
+									} ],
+							tools : [
+									{
+										text : "查看",
+										icon : 'fa-eye',
+										action : function(data, row, grid) {
+											var url = "${request.contextPath}/AuntService/toAuntView?auntId="
+													+ data.auntId;
+											loadPage(url);
+										}
+									},
+									{
+										text : "禁用",
+										icon : 'fa-pencil',
+										action : function(data, row, grid) {
+											var url = "${request.contextPath}/AuntService/disableAunt";
+										    $.post(url, {"auntId": data.auntId}, function(json) {
+					                            $('.auntGrid').grid('load', $('.auntGrid .iactive').text());
+					                        });
+										}
+									},
+									{
+										text : "删除",
+										icon : 'fa-times',
+										action : function(data, row, grid) {
+											var url = "${request.contextPath}/AuntService/deleteAuntWeb";
+											$.post(url, {
+												"auntId" : data.auntId
+											}, function(json) {
+												row.remove();
+											});
+										}
+									} ]
+						});
+		   $("#selectAunt").click(function(){
+		       	 $('.auntGrid').grid('load', 1);
+		       })
+	});
+	</script>

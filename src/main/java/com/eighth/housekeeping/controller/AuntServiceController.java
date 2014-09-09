@@ -174,10 +174,6 @@ public class AuntServiceController {
    			auntService.updateAuntInfo(auntInfo);
    		}
    	}
-    @RequestMapping(value = "/toAuntAttendance")
-   	public String toAuntAttendance()  throws RemoteInvokeException{
-   		return "aunt/aunt-attendance";
-   	}
 		@ResponseBody
 	@RequestMapping(value = "/deleteAuntWeb")
 	public void deleteAuntWeb(@RequestParam  String auntId)  throws RemoteInvokeException{

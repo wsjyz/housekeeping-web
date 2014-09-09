@@ -14,8 +14,8 @@
             	return $("#userName").val();
             }},
             columns: [{
-                    field     : 'billTime',
-                    text      : '订单时间',
+                    field     : 'optTime',
+                    text      : '评论时间',
                     width     : 150,
                     align     : 'left',
                     sortable  : false
@@ -67,6 +67,9 @@
                 }
             ]
         });
+        $("#selectAuntComment").click(function(){
+	       	 $('#bill-grid').grid('load', 1);
+	       })
     });
 </script>
 
@@ -78,7 +81,7 @@
     </div>
 
     <div class="btns">
-      <button type="button" class="btn btn-default">查找</button>
+      <button type="button" class="btn btn-default" id="selectAuntComment">查找</button>
       <button type="reset" class="btn btn-default">重置</button>
     </div>
 

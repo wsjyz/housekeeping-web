@@ -2,15 +2,15 @@
   <form action="member.html" method="get" accept-charset="utf-8">
     <div class="input-group">
       <span class="input-group-addon">评论人</span>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" id="userName">
     </div>
     <div class="input-group">
       <span class="input-group-addon">评论对象</span>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" id="auntName">
     </div>
 
     <div class="btns">
-      <button type="button" class="btn btn-default">查找</button>
+      <button type="button" class="btn btn-default" id="selectComments">查找</button>
       <button type="reset" class="btn btn-default">重置</button>
     </div>
 
@@ -25,142 +25,103 @@
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">评论管理</div>
-
-  <!-- Table -->
-  <table class="table">
-    <thead>
-      <tr>
-        <th><a href="member.html?orderby=orderDate">订单日期</a></th>
-        <th><a href="member.html?orderby=orderTime">订单时间</a></th>
-        <th><a href="member.html?orderby=commentUser">评论人</a></th>
-        <th><a href="member.html?orderby=commentCorp">评论机构</a></th>
-        <th><a href="member.html?orderby=commentFor">评论对象</a></th>
-        <th><a href="member.html?orderby=coupon">态度评价</a></th>
-        <th><a href="member.html?orderby=grade">评论内容</a></th>
-        <th class="operation">操作</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!--
-      tr*10>td{2014/5/$}+td{10:2$}+td{geasscc}+td{居优}+td{李存在}+td{非常满意}+td{你是我的小丫小苹果，怎么爱你都不嫌多...}+td.operation>a[href='javascript:void(0);'][class='tools del']{删除}
-      -->
-      <tr>
-        <td>2014/5/1</td>
-        <td>10:21</td>
-        <td>geasscc</td>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>非常满意</td>
-        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
-        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
-      </tr>
-      <tr>
-        <td>2014/5/2</td>
-        <td>10:22</td>
-        <td>geasscc</td>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>非常满意</td>
-        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
-        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
-      </tr>
-      <tr>
-        <td>2014/5/3</td>
-        <td>10:23</td>
-        <td>geasscc</td>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>非常满意</td>
-        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
-        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
-      </tr>
-      <tr>
-        <td>2014/5/4</td>
-        <td>10:24</td>
-        <td>geasscc</td>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>非常满意</td>
-        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
-        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
-      </tr>
-      <tr>
-        <td>2014/5/5</td>
-        <td>10:25</td>
-        <td>geasscc</td>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>非常满意</td>
-        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
-        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
-      </tr>
-      <tr>
-        <td>2014/5/6</td>
-        <td>10:26</td>
-        <td>geasscc</td>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>非常满意</td>
-        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
-        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
-      </tr>
-      <tr>
-        <td>2014/5/7</td>
-        <td>10:27</td>
-        <td>geasscc</td>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>非常满意</td>
-        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
-        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
-      </tr>
-      <tr>
-        <td>2014/5/8</td>
-        <td>10:28</td>
-        <td>geasscc</td>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>非常满意</td>
-        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
-        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
-      </tr>
-      <tr>
-        <td>2014/5/9</td>
-        <td>10:29</td>
-        <td>geasscc</td>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>非常满意</td>
-        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
-        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
-      </tr>
-      <tr>
-        <td>2014/5/10</td>
-        <td>10:210</td>
-        <td>geasscc</td>
-        <td>居优</td>
-        <td>李存在</td>
-        <td>非常满意</td>
-        <td>你是我的小丫小苹果，怎么爱你都不嫌多...</td>
-        <td class="operation"><a href="javascript:void(0);" class="tools del">删除</a></td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="9">
-          <ul class="pagination">
-            <li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>
-            <li class="active"><a href="member.html?page=1">1</a></li>
-            <li><a href="member.html?page=2">2</a></li>
-            <li><a href="member.html?page=3">3</a></li>
-            <li><a href="member.html?page=4">4</a></li>
-            <li><a href="member.html?page=5">5</a></li>
-            <li class="disabled"><a href="#">...</a></li>
-            <li><a href="member.html?page=64">64</a></li>
-            <li><a href="member.html?page=2">&raquo;</a></li>
-          </ul>
-        </td>
-      </tr>
-    </tfoot>
-  </table>
+  	<div class="commentGrid"></div>
+  
 </div>
+
+
+<script>
+	jQuery(function() {
+		$('.commentGrid')
+				.grid(
+						{
+							url : "${request.contextPath}/ReviewService/pageReviewByWeb",
+							checkbox : false,
+							cssClass : 'aunt-list',
+							numberColumn : true,
+							hoverCols : false,
+							zebraCols : false, // 斑马线
+							zebraRows : false, // 斑马线
+							params : {
+								userName:function(){
+									return $("#userName").val();
+								},
+								auntName:function(){
+				            	    return $("#auntName").val();
+				            }},
+							columns : [{
+			                    field     : 'optTime',
+			                    text      : '评论时间',
+			                    width     : 170,
+			                    align     : 'left',
+			                    sortable  : false
+			                }, {
+			                    field     : 'createUserName',
+			                    text      : '评论人',
+			                    width     : 130,
+			                    align     : 'left',
+			                    sortable  : false,
+			                    formatter : function(index, value, data) {
+			                        return '<i class="fa fa-user"></i> '+ value;
+			                    }
+			                },{
+			                    field     : 'auntName',
+			                    text      : '评论对象',
+			                    width     : 130,
+			                    align     : 'left',
+			                    sortable  : false,
+			                    formatter : function(index, value, data) {
+			                        return '<i class="fa fa-user"></i> '+ value;
+			                    }
+			                },{
+			                    field     : 'corpName',
+			                    text      : '评论机构',
+			                    width     : 130,
+			                    align     : 'left',
+			                    sortable  : false,
+			                    formatter : function(index, value, data) {
+			                        return '<i class="fa fa-user"></i> '+ value;
+			                    }
+			                }, {
+			                    field    : 'reviewTag',
+			                    text     : '态度评价',
+			                    width    : 100,
+			                    align    : 'center',
+			                    sortable : false,
+			                    formatter : function(index, value, data) {
+			                  		if(value=="VERY_SATISFY"){
+			                  			return "非常满意";	
+			                  		}
+			                  		if(value=="SATISFY"){
+			                  			return "满意";
+			                  		}
+									if(value=="NOT_SATISFY"){
+										return "不满意";
+			                  		}
+			                    }
+			                }, {
+			                    field     : 'reviewContent',
+			                    text      : '评论内容',
+			                    width     : 320,
+			                    align     : 'left',
+			                    sortable  : false
+			                }],
+							tools : [
+									{
+					                    text : "删除",
+					                    icon : 'fa-times',
+					                    action : function(data, row, grid) {
+					                        var url = "${request.contextPath}/ReviewService/deleteReviewWeb";
+					                        $.post(url, {
+												"reviewId" : data.reviewId
+											}, function(json) {
+												row.remove();
+											});
+					                    }
+									} ]
+						});
+		   $("#selectComments").click(function(){
+		       	 $('.commentGrid').grid('load', 1);
+		       })
+	});
+</script>

@@ -1,6 +1,7 @@
 package com.eighth.housekeeping.service.impl;
 
 import com.eighth.housekeeping.dao.SignInfoDAO;
+import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.SignInfo;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.SignInfoService;
@@ -44,5 +45,11 @@ public class SignInfoServiceImpl implements SignInfoService {
 	public List<SignInfo> getListByAuntId(String auntId) {
 		List<SignInfo> list = signInfoDAO.getListByAuntId(auntId);
 		return list;
+	}
+
+	@Override
+	public OpenPage<SignInfo> searchAttendanceByWeb(String corpName,
+			String auntName, OpenPage<SignInfo> page) {
+		return signInfoDAO.searchAttendanceByWeb(corpName,auntName,page);
 	}
 }

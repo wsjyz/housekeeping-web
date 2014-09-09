@@ -2,6 +2,7 @@ package com.eighth.housekeeping.dao;
 
 import java.util.List;
 
+import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.SignInfo;
 
 /**
@@ -15,4 +16,7 @@ public interface SignInfoDAO {
 
     SignInfo findSignDetail(String auntId);
     List<SignInfo> getListByAuntId(String auntId);
+
+	OpenPage<SignInfo> searchAttendanceByWeb(String corpName, String auntName,
+			OpenPage<SignInfo> page);
 }

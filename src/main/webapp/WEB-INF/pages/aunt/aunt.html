@@ -18,10 +18,11 @@
 			<a href="${request.contextPath}/AuntService/toAuntAdd"
 				class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
 				新增
-			</a> <a href="${request.contextPath}/AuntService/toAuntAttendance"
-				class="btn btn-primary"> <span
-				class="glyphicon glyphicon-log-in"></span> 签到管理
-			</a>
+				</a>
+<!-- 			 <a href="${request.contextPath}/SignInfoService/toAuntAttendance" -->
+<!-- 				class="btn btn-primary"> <span -->
+<!-- 				class="glyphicon glyphicon-log-in"></span> 签到管理 -->
+<!-- 			</a> -->
 		</div>
 	</form>
 </div>
@@ -73,7 +74,7 @@
 									}, {
 										field : 'mobile',
 										text : '手机号',
-										width : 100,
+										width : 120,
 										sortable : false
 									}, {
 										field : 'telephone',
@@ -292,7 +293,6 @@
 										icon : 'fa-times',
 										action : function(data, row, grid) {
 											var url = "${request.contextPath}/AuntService/deleteAuntWeb";
-											row.remove();
 											$.post(url, {
 												"auntId" : data.auntId
 											}, function(json) {

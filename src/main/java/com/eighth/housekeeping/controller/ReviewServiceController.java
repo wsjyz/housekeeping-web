@@ -44,4 +44,15 @@ public class ReviewServiceController {
 	public void deleteReviewWeb(@RequestParam  String reviewId)  throws RemoteInvokeException{
 		reviewService.deleteReview(reviewId);
 	}
+	
+    @ResponseBody
+    @RequestMapping(value = "/pageReviewByWeb")
+    public OpenPage<Review> pageReviewByWeb(@RequestParam String userName,@RequestParam String  auntName, @FastJson OpenPage<Review> page){
+        try {
+        	page = reviewService.pageReviewByWeb(userName,auntName, page);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return page;
+    }
 }

@@ -2,11 +2,13 @@ package com.eighth.housekeeping.dao.impl;
 
 import com.eighth.housekeeping.dao.BaseDAO;
 import com.eighth.housekeeping.dao.ReviewDAO;
+import com.eighth.housekeeping.dao.UserDAO;
 import com.eighth.housekeeping.domain.ImageObj;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.Review;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -111,14 +113,15 @@ public class ReviewDAOImpl extends BaseDAO implements ReviewDAO {
 	@Override
 	public OpenPage<Review> findReviewByAuntIdByWeb(String userName,String auntId, OpenPage page) {
 		  StringBuilder reviewSql = new StringBuilder("");
-	        reviewSql.append("select tr.*,tmi.opt_time as orderOpt_time  from t_review tr inner join t_aunt_order tmi on tr.create_user_id = tmi.user_id" +
-	                " left join t_member_info mi on tr.create_user_id = mi.user_id where  tr.aunt_id =? ");
+		  
+	        reviewSql.append("select tr.*,mi.user_name as createUserName from t_review tr left join t_member_info mi on mi.user_id=tr.create_user_id where  tr.aunt_id =? ");
 	        
-	        StringBuilder countSql = new StringBuilder("select count(*) from t_review tr left join t_member_info mi on tr.create_user_id = mi.user_id where aunt_id =?");
+	        StringBuilder countSql = new StringBuilder("select count(*) from t_review tr left join t_member_info mi on mi.user_id=tr.create_user_id  where aunt_id =?");
 	        List<Object> params = new ArrayList<Object>();
 	        List<Object> countParams = new ArrayList<Object>();
 	        if(StringUtils.isNotEmpty(userName)){
-	        	reviewSql.append(" and mi.userName like '%"+userName+"%'");
+	        	countSql.append(" and mi.user_name like '%"+userName+"%'");
+	        	reviewSql.append(" and mi.user_name like '%"+userName+"%'");
 	        }
 	        reviewSql.append(" limit ?,? ");
 	        params.add(auntId);
@@ -136,16 +139,60 @@ public class ReviewDAOImpl extends BaseDAO implements ReviewDAO {
                     review.setReviewId(rs.getString("review_id"));
                     review.setReviewTag(rs.getString("review_tag"));
                     review.setOptTime(rs.getString("opt_time"));
-                    review.setCreateUserName(rs.getString("create_user_id"));
-                    review.setBillTime(rs.getString("orderOpt_time"));
+                    review.setCreateUserName(rs.getString("createUserName"));
                     return review;
                 }
             });
 	        countParams.add(auntId);
 	        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),countParams.toArray(),Integer.class);
-	        OpenPage<Review> reviewOpenPage = new OpenPage<Review>();
-	        reviewOpenPage.setTotal(count);
-	        reviewOpenPage.setRows(reviewList);
-	        return reviewOpenPage;
+	        page.setTotal(count);
+	        page.setRows(reviewList);
+	        return page;
+	}
+
+	@Override
+	public OpenPage<Review> pageReviewByWeb(String userName, String auntName,
+			OpenPage<Review> page) {
+		  StringBuilder reviewSql = new StringBuilder("");
+	        reviewSql.append("select tr.*,mi.user_name as createUserName,ai.user_name as auntName  from t_review tr " +
+	                " left join t_member_info mi on tr.create_user_id = mi.user_id"
+	                + "  left join t_aunt_info ai on tr.aunt_id = ai.aunt_id where  1=1");
+	        
+	        StringBuilder countSql = new StringBuilder("select count(*)  left join t_member_info mi on tr.create_user_id = mi.user_id"
+	                + "  left join t_aunt_info ai on tr.aunt_id = ai.aunt_id  where 1=1 ");
+	        List<Object> params = new ArrayList<Object>();
+	        List<Object> countParams = new ArrayList<Object>();
+	        if(StringUtils.isNotEmpty(userName)){
+	        	reviewSql.append(" and mi.user_name like '%"+userName+"%'");
+	        	countSql.append(" and mi.user_name like '%"+userName+"%'");
+	        }
+	        if(StringUtils.isNotEmpty(auntName)){
+	        	reviewSql.append(" and ai.user_name like '%"+auntName+"%'");
+	        	countSql.append(" and ai.user_name like '%"+auntName+"%'");
+	        }
+	        reviewSql.append(" limit ?,? ");
+	        params.add(page.getPageSize() * (page.getPageNo()-1));
+	        params.add(page.getPageSize());
+
+
+	        List<Review> reviewList = getJdbcTemplate().query(reviewSql.toString(),params.toArray(),new RowMapper<Review>(){
+              @Override
+              public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
+                  Review review = new Review();
+                  review.setAuntId(rs.getString("aunt_id"));
+                  review.setCreateUserId(rs.getString("create_user_id"));
+                  review.setReviewContent(rs.getString("review_content"));
+                  review.setReviewId(rs.getString("review_id"));
+                  review.setReviewTag(rs.getString("review_tag"));
+                  review.setOptTime(rs.getString("opt_time"));
+                  review.setCreateUserName(rs.getString("createUserName"));
+                  review.setAuntName(rs.getString("auntName"));
+                  return review;
+              }
+          });
+	        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),countParams.toArray(),Integer.class);
+	        page.setTotal(count);
+	        page.setRows(reviewList);
+	        return page;
 	}
 }

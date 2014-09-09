@@ -2,8 +2,11 @@ package com.eighth.housekeeping.dao.impl;
 
 import com.eighth.housekeeping.dao.BaseDAO;
 import com.eighth.housekeeping.dao.SignInfoDAO;
+import com.eighth.housekeeping.domain.OpenPage;
+import com.eighth.housekeeping.domain.Review;
 import com.eighth.housekeeping.domain.SignInfo;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -13,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -104,5 +108,35 @@ public class SignInfoDAOImpl extends BaseDAO implements SignInfoDAO {
 		List<SignInfo> signInfoList = getJdbcTemplate().query(sql.toString(),
 				new String[] { auntId }, new SignInfoRowMapper());
 		return signInfoList;
+	}
+
+	@Override
+	public OpenPage<SignInfo> searchAttendanceByWeb(String corpName,
+			String auntName, OpenPage<SignInfo> page) {
+		 StringBuilder reviewSql = new StringBuilder("");
+		  
+	        reviewSql.append("select * from t_sign_info si left join t_corp corp on corp.corp_id=si.corp_id left join t_aunt_info ai on ai.aunt_id=si.aunt_id where 1=1");
+	        
+	        StringBuilder countSql = new StringBuilder("select count(*) from t_sign_info where 1=1");
+	        List<Object> params = new ArrayList<Object>();
+	        List<Object> countParams = new ArrayList<Object>();
+	        if(StringUtils.isNotEmpty(corpName)){
+	        	reviewSql.append(" and corp.corp_name like '%"+corpName+"%'");
+	        	countSql.append(" and corp.corp_name like '%"+corpName+"%'");
+	        }
+	        if(StringUtils.isNotEmpty(auntName)){
+	        	reviewSql.append(" and ai.user_name like '%"+auntName+"%'");
+	        	countSql.append(" and ai.user_name like '%"+auntName+"%'");
+	        }
+	        reviewSql.append(" limit ?,? ");
+	        params.add(page.getPageSize() * (page.getPageNo()-1));
+	        params.add(page.getPageSize());
+
+
+	        List<SignInfo> signInfoList = getJdbcTemplate().query(reviewSql.toString(),params.toArray(),new SignInfoRowMapper());
+	        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),countParams.toArray(),Integer.class);
+	        page.setTotal(count);
+	        page.setRows(signInfoList);
+	        return page;
 	}
 }
