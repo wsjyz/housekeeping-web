@@ -23,7 +23,6 @@ import com.eighth.housekeeping.proxy.service.UserService;
 import com.eighth.housekeeping.utils.CommonStringUtils;
 import com.eighth.housekeeping.utils.Constants;
 import com.eighth.housekeeping.utils.JsonStatus;
-import com.eighth.housekeeping.utils.Phone;
 import com.eighth.housekeeping.web.FastJson;
 
 import org.apache.commons.lang3.StringUtils;

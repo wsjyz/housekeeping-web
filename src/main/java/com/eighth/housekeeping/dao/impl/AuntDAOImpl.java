@@ -265,8 +265,8 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 				"INSERT INTO t_aunt_info (aunt_id, password, mobile, user_name, identity_card, sex, age, address, "
 						+ "price, telephone, work_year, ability_score, integrity_auth, description, native_place, busi_desc, blood_type, self_evaluate, "
 						+ "constellation, work_type, start, year_of_income, month_of_order_counts, total_order_counts, moth_of_income, very_satisfy_counts, "
-						+ "satisfy_counts, not_satisfy_counts, month_of_sign_counts, longitude, latitude, corp_id, opt_time,status,work_clean_keeping,work_laundry,work_cook) ");
-		sql.append("VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+						+ "satisfy_counts, not_satisfy_counts, month_of_sign_counts, corp_id, opt_time,status,work_clean_keeping,work_laundry,work_cook) ");
+		sql.append("VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		int update = getJdbcTemplate().update(sql.toString(),
 				new PreparedStatementSetter() {
@@ -302,14 +302,12 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 						ps.setInt(27, auntInfo.getSatisfyCounts());
 						ps.setInt(28, auntInfo.getNotSatisfyCounts());
 						ps.setInt(29, auntInfo.getMonthOfSignCounts());
-						ps.setString(30, auntInfo.getLongitude());
-						ps.setString(31, auntInfo.getLatitude());
-						ps.setString(32, auntInfo.getCorpId());
-						ps.setString(33, sdf.format(new Date()));
-						ps.setString(34, "ACTIVE");
-						ps.setBoolean(35, auntInfo.isWorkCleanKeeping());
-						ps.setBoolean(36, auntInfo.isWorkLaundry());
-						ps.setBoolean(37, auntInfo.isWorkCook());
+						ps.setString(30, auntInfo.getCorpId());
+						ps.setString(31, sdf.format(new Date()));
+						ps.setString(32, "ACTIVE");
+						ps.setBoolean(33, auntInfo.isWorkCleanKeeping());
+						ps.setBoolean(34, auntInfo.isWorkLaundry());
+						ps.setBoolean(35, auntInfo.isWorkCook());
 					}
 				});
 		if (update > 0) {
