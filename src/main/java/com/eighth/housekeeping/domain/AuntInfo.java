@@ -55,9 +55,9 @@ public class AuntInfo extends BaseDomain {
 	@Column(name = "start", comment = "星级", length = 1)
 	private String start;
 	@Column(name = "longitude", comment = "经度", length = 5)
-	private String longitude;
+	private double longitude;
 	@Column(name = "latitude", comment = "纬度", length = 5)
-	private String latitude;
+	private double latitude;
 	// 以下是统计信息
 	@Column(name = "year_of_income", comment = "年度金额", length = 10, decimal = 2)
 	private BigDecimal yearOfIncome;// 年度金额
@@ -87,7 +87,7 @@ public class AuntInfo extends BaseDomain {
 
 	
 	private String loginResult;// 登录结果，传值用 UCCESS成功|ACOUNT_NOT_CORRECT用户名或密码错
-
+    private String headPic;//头像地址
 	private BigDecimal sumMoney;
 	private int yearOfOrderCounts;
 	private int discussCount;//评论数
@@ -95,7 +95,25 @@ public class AuntInfo extends BaseDomain {
 	private String corpName;
 	private int payOrderCount;
 
-	public boolean isWorkCleanKeeping() {
+    private boolean userCollected;//当前用户是否收藏了此阿姨
+
+    public boolean getUserCollected() {
+        return userCollected;
+    }
+
+    public void setUserCollected(boolean userCollected) {
+        this.userCollected = userCollected;
+    }
+
+    public String getHeadPic() {
+        return headPic;
+    }
+
+    public void setHeadPic(String headPic) {
+        this.headPic = headPic;
+    }
+
+    public boolean isWorkCleanKeeping() {
 		return workCleanKeeping;
 	}
 
@@ -187,19 +205,19 @@ public class AuntInfo extends BaseDomain {
 		return distanceMeter;
 	}
 
-	public String getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(String longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
-	public String getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(String latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 

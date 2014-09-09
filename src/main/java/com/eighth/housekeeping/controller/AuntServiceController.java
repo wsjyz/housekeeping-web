@@ -62,7 +62,7 @@ public class AuntServiceController {
 
     @ResponseBody
     @RequestMapping(value = "/findAuntByIdForMember")
-    public AuntInfo findAuntByIdForMember(@RequestParam String auntId,@RequestParam String memberId) {
+    public AuntInfo findAuntByIdForMember(@RequestParam String auntId) {
         AuntInfo auntInfo = null;
         try {
             auntInfo = auntService.findAuntByIdForMember(auntId);
