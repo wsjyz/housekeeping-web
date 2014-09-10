@@ -274,7 +274,9 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 					public void setValues(PreparedStatement ps)
 							throws SQLException {
 						ps.setString(1,auntId);
-						ps.setString(2, auntInfo.getPassword());
+						if(auntInfo.getPassword()!=null){
+							ps.setString(2, CommonStringUtils.getMD5(auntInfo.getPassword().getBytes()));
+						}
 						ps.setString(3, auntInfo.getMobile());
 						ps.setString(4, auntInfo.getUserName());
 						ps.setString(5, auntInfo.getIdentityCard());
@@ -336,7 +338,7 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 		}
 		StringBuilder sql = new StringBuilder("update t_aunt_info set ");
 		if (StringUtils.isNotBlank(auntInfo.getPassword())) {
-			sql.append("password='" + auntInfo.getPassword() + "',");
+			sql.append("password='" + CommonStringUtils.getMD5(auntInfo.getPassword().getBytes()) + "',");
 		}
 		if (StringUtils.isNotBlank(auntInfo.getMobile())) {
 			sql.append("address='" + auntInfo.getMobile() + "',");

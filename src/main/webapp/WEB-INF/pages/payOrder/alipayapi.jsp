@@ -99,7 +99,6 @@
 		sHtmlTextToken = URLDecoder.decode(sHtmlTextToken,AlipayConfig.input_charset);
 		//获取token
 		String request_token = AlipaySubmit.getRequestToken(sHtmlTextToken);
-		System.out.println("我擦"+request_token);
 		
 		////////////////////////////////////根据授权码token调用交易接口alipay.wap.auth.authAndExecute//////////////////////////////////////
 		

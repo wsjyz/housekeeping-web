@@ -131,7 +131,22 @@ public class OrderServiceController {
 			e.printStackTrace();
 		}
     }
-    
+    @ResponseBody
+    @RequestMapping("/toPayMent")
+    public AuntOrder toPayMent(@RequestParam String orderId) {
+        AuntOrder auntOrder =new AuntOrder();
+        try {
+            auntOrder = orderService.findOrderById(orderId);
+        } catch (RemoteInvokeException e) {
+            e.printStackTrace();
+        }
+      //  String orderNo=auntOrder.getOrderNo();
+//        view.addObject("WIDseller_email", "geassccvip@163.com");
+//        view.addObject("WIDout_trade_no",orderNo);
+//        view.addObject("WIDsubject",orderNo);
+//        view.addObject("WIDtotal_fee",auntOrder.getActualPrice());
+       return  auntOrder;
+    }
     @RequestMapping("/payment")
     public ModelAndView toPay(@RequestParam String orderId) {
         ModelAndView view = new ModelAndView();
