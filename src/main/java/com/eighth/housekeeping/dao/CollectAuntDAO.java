@@ -10,7 +10,7 @@ public interface CollectAuntDAO {
 
     void addCollect(CollectAunt collectAunt);
 
-    OpenPage<CollectAunt> findCollectAuntList(String userId,OpenPage page);
+    OpenPage<CollectAunt> findCollectAuntList(String userId,OpenPage<CollectAunt> page);
 
     CollectAunt findCollectAuntByMemberIdAndAuntId(String memberId,String auntId);
 }

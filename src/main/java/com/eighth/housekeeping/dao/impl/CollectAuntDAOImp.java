@@ -38,9 +38,10 @@ public class CollectAuntDAOImp extends BaseDAO implements CollectAuntDAO {
     }
 
     @Override
-    public OpenPage<CollectAunt> findCollectAuntList(String userId,OpenPage page) {
+    public OpenPage<CollectAunt> findCollectAuntList(String userId,OpenPage<CollectAunt> page) {
         StringBuilder collectSql = new StringBuilder("");
         collectSql.append("select * from t_collect_aunt where member_id = ? limit ?,?");
+        System.out.println(page == null);
         List<CollectAunt> reviewList = getJdbcTemplate().query(collectSql.toString(),
                 new Object[]{userId, page.getPageSize() * (page.getPageNo() - 1), page.getPageSize()}, new CollectAuntMapper());
 

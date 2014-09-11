@@ -35,7 +35,7 @@ public class CollectAuntServiceImpl implements CollectAuntService {
     }
 
     @Override
-    public OpenPage<CollectAunt> findCollectAuntList(String userId,OpenPage page) throws RemoteInvokeException {
+    public OpenPage<CollectAunt> findCollectAuntList(String userId,OpenPage<CollectAunt> page) throws RemoteInvokeException {
         return collectAuntDAO.findCollectAuntList(userId,page);
     }
 
