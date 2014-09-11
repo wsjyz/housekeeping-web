@@ -37,7 +37,7 @@ public interface OrderService {
     /**
      * 获取用户订单列表
      * @param memberId
-     * @param orderType PAYED已支付|UNPAY未支付|ALL全部
+     * @param orderType PAYED已支付|NOT_PAY未支付|ALL全部
      * @return
      * @throws RemoteInvokeException
      */
@@ -47,7 +47,7 @@ public interface OrderService {
     /**
      * 获取用户订单列表(阿姨端)
      * @param auntId
-     * @param orderType PAYED已支付|UNPAY未支付|ALL全部
+     * @param orderType PAYED已支付|NOT_PAY未支付|ALL全部
      * @return
      * @throws RemoteInvokeException
      */
