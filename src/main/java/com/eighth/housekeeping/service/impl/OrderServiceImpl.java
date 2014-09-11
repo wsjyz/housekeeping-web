@@ -1,14 +1,18 @@
 package com.eighth.housekeeping.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.eighth.housekeeping.dao.OrderDAO;
+import com.eighth.housekeeping.domain.AuntInfo;
 import com.eighth.housekeeping.domain.AuntOrder;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
+import com.eighth.housekeeping.proxy.service.AuntService;
 import com.eighth.housekeeping.proxy.service.OrderService;
 import com.eighth.housekeeping.utils.CommonStringUtils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +25,22 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDAO orderDAO;
 
+    @Autowired
+    AuntService auntService;
+
     @Override
     public AuntOrder saveUserOrder(AuntOrder order) throws RemoteInvokeException {
         order.setOrderId(CommonStringUtils.genPK());
+        String orderStatus = order.getOrderStatus();
+        if(StringUtils.isBlank(orderStatus)){
+            order.setOrderStatus("NOT_PAY");
+        }
+        AuntInfo auntInfo = auntService.findAuntByIdForAunt(order.getAuntId());
+        BigDecimal auntPrice = auntInfo.getPrice();
+        BigDecimal price = auntPrice.multiply(new BigDecimal(order.getWorkLength()));
+        order.setTotalPrice(price);
+        order.setActualPrice(price);
+        order.setUnitPrice(auntPrice);
         orderDAO.saveUserOrder(order);
         return order;
     }
