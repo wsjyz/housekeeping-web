@@ -276,6 +276,8 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 						ps.setString(1,auntId);
 						if(auntInfo.getPassword()!=null){
 							ps.setString(2, CommonStringUtils.getMD5(auntInfo.getPassword().getBytes()));
+						}else{
+							ps.setString(2, null);
 						}
 						ps.setString(3, auntInfo.getMobile());
 						ps.setString(4, auntInfo.getUserName());
