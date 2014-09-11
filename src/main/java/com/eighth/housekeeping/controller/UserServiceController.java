@@ -139,19 +139,14 @@ public class UserServiceController {
 	public JsonStatus loginIng(@RequestParam String mobile,
 			@RequestParam String password) {
 		JsonStatus jsonStatus = new JsonStatus();
-		if ("ADMIN".equals(mobile) && "hw123456".equals(password)) {
+		Corp corp = corpService.login(mobile, password);
+		if (corp != null && StringUtils.isNotEmpty(corp.getCorpId())) {
 			jsonStatus.setSuccess(true);
-			jsonStatus.setUrl("/hw/UserService/toIndex?auntId=");
+			jsonStatus.setUrl("/hw/UserService/toIndex?auntId="
+					+ corp.getCorpId());
 		} else {
-			Corp corp = corpService.login(mobile, password);
-			if (corp != null && StringUtils.isNotEmpty(corp.getCorpId())) {
-				jsonStatus.setSuccess(true);
-				jsonStatus.setUrl("/hw/UserService/toIndex?auntId="
-						+ corp.getCorpId());
-			} else {
-				jsonStatus.setSuccess(false);
-				jsonStatus.setUrl("/hw/UserService/toLogin");
-			}
+			jsonStatus.setSuccess(false);
+			jsonStatus.setUrl("/hw/UserService/toLogin");
 		}
 		return jsonStatus;
 	}
