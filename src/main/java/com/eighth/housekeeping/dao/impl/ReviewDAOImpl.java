@@ -39,6 +39,7 @@ public class ReviewDAOImpl extends BaseDAO implements ReviewDAO {
 			params.add(reviewTag);
 			countParams.add(reviewTag);
 		}
+        reviewSql.append(" order by tmi.opt_time desc");
 		reviewSql.append(" limit ?,? ");
 		params.add(auntId);
 		params.add(page.getPageSize() * (page.getPageNo() - 1));
