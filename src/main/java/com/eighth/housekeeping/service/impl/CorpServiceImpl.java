@@ -1,5 +1,7 @@
 package com.eighth.housekeeping.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +10,7 @@ import com.eighth.housekeeping.domain.Corp;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.CorpService;
+import com.eighth.housekeeping.utils.CommonStringUtils;
 
 /**
  * Created by dam on 2014/7/24.
@@ -40,6 +43,16 @@ public class CorpServiceImpl implements CorpService {
 	@Override
 	public String deleteCorp(String corpId)  throws RemoteInvokeException{
 		return corpDao.deleteCorp(corpId);
+	}
+
+	@Override
+	public Corp login(String loginName, String password) {
+		return corpDao.login(loginName,password);
+	}
+
+	@Override
+	public List<Corp> corpList() {
+		return corpDao.corpList();
 	}
  
 }

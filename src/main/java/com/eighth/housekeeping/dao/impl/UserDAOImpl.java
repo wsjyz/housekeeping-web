@@ -68,8 +68,8 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
     public void saveMember(final MemberInfo info) {
         StringBuilder sql = new StringBuilder("");
         sql.append("insert into t_member_info (user_id,mobile,user_name,nick_name," +
-                "address,card,status,coupon_counts,coupon_end_time,push_aunt_info,opt_time)");
-        sql.append("values(?,?,?,?,?,?,?,?,?,?,?)");
+                "address,card,status,coupon_counts,coupon_end_time,push_aunt_info,corp_id,opt_time)");
+        sql.append("values(?,?,?,?,?,?,?,?,?,?,?,?)");
         getJdbcTemplate().update(sql.toString(),new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
@@ -83,7 +83,8 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
                 ps.setString(8,info.getCouponCounts());
                 ps.setString(9,info.getCouponEndTime());
                 ps.setInt(10,info.getPushAuntInfo());
-                ps.setString(11,info.getOptTime());
+                ps.setString(11,info.getCorpId());
+                ps.setString(12,info.getOptTime());
             }
         });
     }
@@ -112,6 +113,9 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
         if(StringUtils.isNotEmpty(userInfo.getCouponCounts())){
             sql.append("coupon_counts='"+userInfo.getCouponCounts()+"',");
 
+        }
+        if(StringUtils.isNotEmpty(userInfo.getCorpId())){
+            sql.append("corp_id='"+userInfo.getCorpId()+"',");
         }
         if(StringUtils.isNotEmpty(userInfo.getCouponEndTime())){
             sql.append("coupon_end_time='"+userInfo.getCouponEndTime()+"',");
@@ -186,16 +190,17 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
 	@Override
 	public OpenPage<MemberInfo> findUserPage(String mobile, String nickName,
 			OpenPage page) {
-		   StringBuilder reviewSql = new StringBuilder("");
-		   reviewSql.append("select * from t_member_info where 1=1");
+		   StringBuilder userSql = new StringBuilder("");
+		   userSql.append("select * from t_member_info where 1=1");
 		   if (StringUtils.isNotEmpty(mobile)) {
-			   reviewSql.append(" and mobile like '%"+mobile+"%' ");
+			   userSql.append(" and mobile like '%"+mobile+"%' ");
 		   }
 		   if (StringUtils.isNotEmpty(nickName)) {
-			   reviewSql.append("  and nick_name  like '%"+nickName+"%' ");
+			   userSql.append("  and nick_name  like '%"+nickName+"%' ");
 		   }
-		   reviewSql.append(" limit ?,?");
-		   List<MemberInfo> reviewList = getJdbcTemplate().query(reviewSql.toString(),
+		   userSql.append(" and status='ACTIVE'");
+		   userSql.append(" limit ?,?");
+		   List<MemberInfo> reviewList = getJdbcTemplate().query(userSql.toString(),
 	                new Object[]{page.getPageSize() * (page.getPageNo()-1),page.getPageSize()},new MemberInfoRowMapper());
 
 		   StringBuilder countSql = new StringBuilder("");
@@ -206,9 +211,10 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
 		   if (StringUtils.isNotEmpty(nickName)) {
 			   countSql.append("  and nick_name  like '%"+nickName+"%' ");
 		   }
-	        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),Integer.class);
-	        page.setTotal(count);
-	        page.setRows(reviewList);
-	        return page;
+		   countSql.append(" and status='ACTIVE'");
+	       Integer count = getJdbcTemplate().queryForObject(countSql.toString(),Integer.class);
+	       page.setTotal(count);
+	       page.setRows(reviewList);
+	       return page;
 	}
 }

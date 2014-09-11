@@ -5,11 +5,14 @@ import com.eighth.housekeeping.dao.SystemDAO;
 import com.eighth.housekeeping.domain.APKVersion;
 import com.eighth.housekeeping.domain.FeedBack;
 import com.eighth.housekeeping.domain.SystemManage;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -92,4 +95,34 @@ public class SystemDAOImpl extends BaseDAO implements SystemDAO {
             return systemManage;
         }
     }
+
+	@Override
+	public void updateSystemManage(SystemManage systemManage) {
+		 StringBuilder sql = new StringBuilder("");
+	        sql.append("update t_system_manage set ");
+	    	if (StringUtils.isNotBlank(systemManage.getMainPageTip())) {
+				sql.append("main_page_tip='" + systemManage.getMainPageTip() + "',");
+			}
+	    	if (systemManage.getHourlyUnitPrice()!=null) {
+				sql.append("hourly_unit_price='" + systemManage.getHourlyUnitPrice() + "',");
+			}
+	    	if (systemManage.getNewHouseUnitPrice()!=null) {
+				sql.append("new_house_unit_price='" + systemManage.getNewHouseUnitPrice() + "',");
+			}
+	    	if (StringUtils.isNotBlank(systemManage.getPushInfoTime())) {
+				sql.append("push_info_time='" + systemManage.getPushInfoTime() + "',");
+			}
+	    	if (StringUtils.isNotBlank(systemManage.getPushInfo())) {
+				sql.append("push_info='" + systemManage.getPushInfo() + "',");
+			}
+	    	
+			sql.append("push_info_interval='" + systemManage.getPushInfoInterval() + "',");
+	    	if (StringUtils.isNotBlank(systemManage.getSearchKey())) {
+				sql.append("search_key='" + systemManage.getSearchKey() + "',");
+			}
+			if (sql.lastIndexOf(",") + 1 == sql.length()) {
+				sql.delete(sql.lastIndexOf(","), sql.length());
+			}
+			getJdbcTemplate().update(sql.toString());
+	}
 }

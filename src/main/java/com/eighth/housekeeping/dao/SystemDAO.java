@@ -14,4 +14,6 @@ public interface SystemDAO {
     APKVersion findLastVersion();
 
     SystemManage findSystemManage();
+    
+    void updateSystemManage(SystemManage systemManage);
 }

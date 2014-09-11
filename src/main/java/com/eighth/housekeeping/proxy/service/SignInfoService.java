@@ -2,6 +2,7 @@ package com.eighth.housekeeping.proxy.service;
 
 import java.util.List;
 
+import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.SignInfo;
 import com.eighth.housekeeping.proxy.annotation.RemoteMethod;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
@@ -30,5 +31,8 @@ public interface SignInfoService {
     
     
     List<SignInfo> getListByAuntId(String auntId);
+
+	OpenPage<SignInfo> searchAttendanceByWeb(String corpName, String auntName,
+			OpenPage<SignInfo> page);
 
 }

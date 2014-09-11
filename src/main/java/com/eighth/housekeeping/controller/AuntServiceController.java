@@ -2,24 +2,29 @@ package com.eighth.housekeeping.controller;
 
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
 import com.eighth.housekeeping.domain.AuntInfo;
 import com.eighth.housekeeping.domain.AuntWorkCase;
+import com.eighth.housekeeping.domain.Corp;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.Review;
 import com.eighth.housekeeping.domain.SignInfo;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.AuntService;
 import com.eighth.housekeeping.proxy.service.AuntWorkCaseService;
+import com.eighth.housekeeping.proxy.service.CorpService;
 import com.eighth.housekeeping.proxy.service.SignInfoService;
+import com.eighth.housekeeping.utils.CommonStringUtils;
 import com.eighth.housekeeping.web.FastJson;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,7 +37,8 @@ public class AuntServiceController {
     AuntService auntService;
     @Autowired
     AuntWorkCaseService auntWorkCaseService;
-    
+    @Autowired
+    CorpService corpService;
     @Autowired
     SignInfoService signInfoService;
 
@@ -140,11 +146,34 @@ public class AuntServiceController {
     @RequestMapping(value = "/toAuntAdd")
    	public ModelAndView toAuntAdd()  throws RemoteInvokeException{
     	AuntInfo auntInfo=new AuntInfo();
-   		String info = auntService.addAuntInfo(auntInfo);
+   		String auntId = auntService.addAuntInfo(auntInfo);
+   		List<AuntWorkCase> auntWorkList=new ArrayList<AuntWorkCase>();
+   		AuntWorkCase auntWorkCase=new AuntWorkCase();
+		auntWorkCase.setAuntId(auntId);
+		auntWorkCase.setCaseId(CommonStringUtils.genPK());
+		auntWorkCase.setDescription("案例-保洁");
+		auntWorkList.add(auntWorkCase);
+		auntWorkCaseService.addWorkCase(auntWorkCase);
+		auntWorkCase=new AuntWorkCase();
+		auntWorkCase.setAuntId(auntId);
+		auntWorkCase.setCaseId(CommonStringUtils.genPK());
+		auntWorkCase.setDescription("案例-洗熨");
+		auntWorkList.add(auntWorkCase);
+		auntWorkCaseService.addWorkCase(auntWorkCase);
+		auntWorkCase=new AuntWorkCase();
+		auntWorkCase.setAuntId(auntId);
+		auntWorkCase.setCaseId(CommonStringUtils.genPK());
+		auntWorkCase.setDescription("案例-做饭");
+		auntWorkList.add(auntWorkCase);
+		auntWorkCaseService.addWorkCase(auntWorkCase);
+		
    		ModelAndView view = new ModelAndView();
 		view.setViewName("aunt/aunt-add");
 		Map<String, Object> model = view.getModel();
-		model.put("auntId",info);
+		List<Corp> list = corpService.corpList();
+		model.put("auntWorkCaseList", auntWorkList);
+		model.put("corpList", list);
+		model.put("auntId",auntId);
 		return view;
    	}
 	@RequestMapping(value = "/toAuntView")
@@ -153,6 +182,8 @@ public class AuntServiceController {
 	    ModelAndView view = new ModelAndView();
         view.setViewName("aunt/aunt-view");
         Map<String, Object> model = view.getModel();
+        List<Corp> list = corpService.corpList();
+		model.put("corpList", list);
         model.put("auntInfo",auntInfo);
 		return view;
 	}
@@ -162,6 +193,8 @@ public class AuntServiceController {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("aunt/aunt-modify");
 		Map<String, Object> model = view.getModel();
+		List<Corp> list = corpService.corpList();
+		model.put("corpList", list);
 		model.put("auntInfo",auntInfo);
 		return view;
 	}
@@ -173,10 +206,6 @@ public class AuntServiceController {
    		}else{
    			auntService.updateAuntInfo(auntInfo);
    		}
-   	}
-    @RequestMapping(value = "/toAuntAttendance")
-   	public String toAuntAttendance()  throws RemoteInvokeException{
-   		return "aunt/aunt-attendance";
    	}
 		@ResponseBody
 	@RequestMapping(value = "/deleteAuntWeb")
@@ -206,8 +235,6 @@ public class AuntServiceController {
 		ModelAndView view = new ModelAndView();
 		if (StringUtils.isNotEmpty(caseId)) {
 			auntWorkCase= auntWorkCaseService.findCaseById(caseId);
-		}else{
-			auntWorkCase.setAuntId(auntId);
 		}
 		Map<String, Object> model = view.getModel();
 		model.put("auntWorkCase",auntWorkCase);
@@ -216,9 +243,19 @@ public class AuntServiceController {
 	}
 	  @ResponseBody
     @RequestMapping(value = "/searchAuntByWeb")
-    public OpenPage<AuntInfo> searchAuntByWeb(@RequestParam String userName,@RequestParam String mobile, @FastJson OpenPage<AuntInfo> page){
+    public OpenPage<AuntInfo> searchAuntByWeb(@RequestParam String corpId,@RequestParam String userName,@RequestParam String mobile, @FastJson OpenPage<AuntInfo> page){
         try {
-        	page = auntService.searchAuntByWeb(userName,mobile,page);
+        	page = auntService.searchAuntByWeb(corpId,userName,mobile,page);
+        	if(page!=null && !CollectionUtils.isEmpty(page.getRows())){
+        		for (AuntInfo auntInfo : page.getRows()) {
+        			if (StringUtils.isNotEmpty(auntInfo.getCorpId())) {
+						Corp corp = corpService.findCorpId(auntInfo.getCorpId());
+						if(corp!=null){
+							auntInfo.setCorpName(corp.getCorpName());
+						}
+					}
+        		}
+        	}
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }

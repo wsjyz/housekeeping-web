@@ -25,6 +25,6 @@ public interface AuntDAO {
 
 	String deleteAunt(String auntId);
 
-	OpenPage<AuntInfo> searchAuntByWeb(String userName, String mobile,
+	OpenPage<AuntInfo> searchAuntByWeb(String corpId,String userName, String mobile,
 			OpenPage<AuntInfo> page);
 }

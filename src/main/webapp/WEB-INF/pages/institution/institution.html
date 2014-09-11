@@ -12,7 +12,7 @@
 
     <div class="btns">
       <button type="button" class="btn btn-default" id="selectInstitution">查找</button>
-      <button type="reset" class="btn btn-default">重置</button>
+      <button type="reset" class="btn btn-default" >重置</button>
     </div>
 
     <div class="btns-right">
@@ -32,7 +32,7 @@
     jQuery(function() {
         $('.institutionGrid').grid({
             url          : "${request.contextPath}/CorpService/findCorpPage",
-            checkbox     : true,
+            checkbox     : false,
             cssClass     : 'aunt-list',
             numberColumn : true,
             hoverCols    : false,
@@ -50,7 +50,7 @@
                     align     : 'center',
                     sortable  : false,
                     formatter : function (index, value, data) {
-                       return '<a href="${request.contextPath}/CorpService/toInstitutionView?corpId='+ data.userId +'">'+ value +'</a>';
+                       return '<a href="${request.contextPath}/CorpService/toInstitutionView?corpId='+ data.corpId +'">'+ value +'</a>';
                     }
                 }, {
                     field     : 'corpName',
@@ -97,5 +97,6 @@
         $("#selectInstitution").click(function(){
         	 $('.institutionGrid').grid('load', 1);
         })
+        
     });
 </script>

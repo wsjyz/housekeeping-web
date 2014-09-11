@@ -18,4 +18,7 @@ public interface ReviewDAO {
     void deleteReview(String reviewId);
     OpenPage<Review> findReviewByAuntIdByWeb(String userName,String auntId,OpenPage page);
 
+	OpenPage<Review> pageReviewByWeb(String userId, String auntId,
+			OpenPage<Review> page);
+
 }

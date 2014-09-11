@@ -11,11 +11,11 @@
       <i class="fa fa-warning"></i> *温馨提醒，系统级别设定，请注意操作
     </div>
 
-    <div class="btns-right">
-      <a href="feedback.html" class="btn btn-primary">
-        <i class="fa fa-comments"></i> 意见反馈
-      </a>
-    </div>
+<!--     <div class="btns-right"> -->
+<!--       <a href="feedback.html" class="btn btn-primary"> -->
+<!--         <i class="fa fa-comments"></i> 意见反馈 -->
+<!--       </a> -->
+<!--     </div> -->
   </form>
 </div>
 
@@ -31,57 +31,55 @@
           <div class="form-group">
             <label for="inputEmail3" class="col-sm-4 control-label">首页消息</label>
             <div class="col-sm-8">
-              <p>今天你家政了么？</p>
-              <p>心情还好吧</p>
-              <p>用我们的app</p>
+             ${systemManage.mainPageTip}
             </div>
           </div>
 
           <div class="form-group">
             <label for="inputPassword3" class="col-sm-4 control-label">小时工默认单价</label>
             <div class="col-sm-8">
-              <span class="label label-default">30</span> RMB/h
+              <span class="label label-default">${systemManage.hourlyUnitPrice}</span> RMB/h
             </div>
           </div>
 
           <div class="form-group">
             <label for="inputPassword3" class="col-sm-4 control-label">新居开荒默认单价</label>
             <div class="col-sm-8">
-              <span class="label label-default">8</span> RMB/h
+              <span class="label label-default">${systemManage.newHouseUnitPrice}</span> RMB/h
             </div>
           </div>
 
           <div class="form-group">
             <label for="inputPassword3" class="col-sm-4 control-label">推送时间</label>
             <div class="col-sm-8">
-              <span class="label label-default">18:00</span>
+              <span class="label label-default">${systemManage.pushInfoTime}</span>
             </div>
           </div>
 
           <div class="form-group">
             <label for="inputPassword3" class="col-sm-4 control-label">推送内容</label>
             <div class="col-sm-8">
-              <div>你就是我的小可爱啊，要么要么</div>
+              <div>${systemManage.pushInfo}</div>
             </div>
           </div>
 
           <div class="form-group">
             <label for="inputPassword3" class="col-sm-4 control-label">推送间隔</label>
             <div class="col-sm-8">
-              <span class="label label-default">2</span> 天
+              <span class="label label-default">${systemManage.pushInfoInterval}</span> 天
             </div>
           </div>
 
           <div class="form-group">
             <label for="inputPassword3" class="col-sm-4 control-label">推送关键词</label>
             <div class="col-sm-8">
-              <div>阿姨|保姆|小时工|钟点工|保洁|打扫|清洁|开荒保洁|月嫂|家政|管家|云家政|无忧保姆|e家洁|阿姨帮|工作经验|星座|血型|年龄</div>
+              <div>${systemManage.searchKey}</div>
             </div>
           </div>
 
           <div class="form-group">
             <div class="col-sm-offset-4 col-sm-8">
-              <a href="data-management-modify.html" class="btn btn-primary"><i class="fa fa-edit"></i> 修 改</a>
+              <a href="${request.contextPath}/SystemService/toDataManagerEdit" class="btn btn-primary"><i class="fa fa-edit"></i> 修 改</a>
           </div>
         </div>
       </div>

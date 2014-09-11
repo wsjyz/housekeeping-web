@@ -45,6 +45,9 @@ public interface SystemService {
      */
     @RemoteMethod()
     String appLogout(String userId,String userType)throws RemoteInvokeException;
+    
+    void updateSystemManage(SystemManage systemManage);
+
 
 
 }

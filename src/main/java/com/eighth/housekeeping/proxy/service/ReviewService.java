@@ -25,4 +25,5 @@ public interface ReviewService {
     
     OpenPage<Review> findReviewByAuntIdByWeb(String userName,String auntId,OpenPage page);
     void deleteReview(String reviewId);
+	OpenPage<Review> pageReviewByWeb(String userName, String auntName,OpenPage<Review> page);
 }

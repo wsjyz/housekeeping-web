@@ -49,4 +49,9 @@ public class AuntWorkCaseServiceImpl  implements AuntWorkCaseService {
 		return auntWorkCaseDAO.updateWorkCase(auntWorkCase);
 	}
 
+	@Override
+	public void deleteWorkCase(String auntId) {
+		 auntWorkCaseDAO.deleteWorkCase(auntId);
+	}
+
 }

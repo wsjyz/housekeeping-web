@@ -113,10 +113,10 @@ public class OrderServiceController {
     
     @ResponseBody
     @RequestMapping(value = "/findAuntOrderListByWeb")
-    OpenPage<AuntOrder> findAuntOrderListByWeb(@RequestParam String auntId,@RequestParam String contactWay,@FastJson OpenPage<AuntOrder> page){
+    OpenPage<AuntOrder> findAuntOrderListByWeb(@RequestParam String auntId,@RequestParam String contactWay,@RequestParam String auntNo,@FastJson OpenPage<AuntOrder> page){
         OpenPage<AuntOrder> openPage = null;
         try {
-            openPage = orderService.findAuntOrderListByWeb(auntId, contactWay,null,page);
+            openPage = orderService.findAuntOrderListByWeb(auntId,null, contactWay,auntNo,page);
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }
@@ -211,10 +211,10 @@ public class OrderServiceController {
 	   
 	   @ResponseBody
 	    @RequestMapping(value = "/findOrderListByWeb")
-	    OpenPage<AuntOrder> findOrderListByWeb(@RequestParam String contactWay,@RequestParam String auntNo,@FastJson OpenPage<AuntOrder> page){
+	    OpenPage<AuntOrder> findOrderListByWeb(@RequestParam String corpId,@RequestParam String contactWay,@RequestParam String auntNo,@FastJson OpenPage<AuntOrder> page){
 	    
 	        try {
-	        	page = orderService.findAuntOrderListByWeb(null, contactWay,auntNo,page);
+	        	page = orderService.findAuntOrderListByWeb(null,corpId, contactWay,auntNo,page);
 	        } catch (RemoteInvokeException e) {
 	            e.printStackTrace();
 	        }

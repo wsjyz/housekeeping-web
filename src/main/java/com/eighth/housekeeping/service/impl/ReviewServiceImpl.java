@@ -64,4 +64,11 @@ public class ReviewServiceImpl implements ReviewService {
 	public void deleteReview(String reviewId) {
 		reviewDAO.deleteReview(reviewId);
 	}
+
+	@Override
+	public OpenPage<Review> pageReviewByWeb(String userName, String auntName,
+			OpenPage<Review> page) {
+		
+		return reviewDAO.pageReviewByWeb(userName,auntName,page);
+	}
 }

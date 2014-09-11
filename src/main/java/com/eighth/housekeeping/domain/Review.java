@@ -20,6 +20,16 @@ public class Review extends BaseDomain {
 	private String auntId;// 被评论人
 	private String createUserName;// 创建人用户名
 
+	private String auntName;
+
+	public void setAuntName(String auntName) {
+		this.auntName = auntName;
+	}
+
+	public String getAuntName() {
+		return auntName;
+	}
+
 	private String billTime;
 
 	public void setBillTime(String billTime) {
@@ -29,6 +39,7 @@ public class Review extends BaseDomain {
 	public String getBillTime() {
 		return billTime;
 	}
+
 	public String getCreateUserName() {
 		return createUserName;
 	}

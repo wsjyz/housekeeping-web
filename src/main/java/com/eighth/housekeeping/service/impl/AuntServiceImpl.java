@@ -98,6 +98,12 @@ public class AuntServiceImpl implements AuntService {
 	@Override
 	public String deleteAunt(String auntId) {
 		imageObjDAO.deleteImageObj(auntId, Constants.PORTRAIT);
+		List<AuntWorkCase> list = auntWorkCaseDAO.findCaseByAuntId(auntId);
+		if (!CollectionUtils.isEmpty(list)) {
+			for (AuntWorkCase auntWorkCase : list) {
+				imageObjDAO.deleteImageObj(auntWorkCase.getCaseId(), Constants.WORKCASE);
+			}
+		}
 		auntWorkCaseDAO.deleteWorkCase(auntId);
 		return auntDAO.deleteAunt(auntId);
 	}
@@ -144,7 +150,7 @@ public class AuntServiceImpl implements AuntService {
 			String month = cal.get(Calendar.MONTH) + "";
 			for (AuntOrder auntOrder : auntOrderList) {
 				totalOrderCounts++;
-				if (auntOrder.getOrderStatus().equals(Constants.ONLINE_PAYED)) {
+				if (Constants.ONLINE_PAYED.equals(auntOrder.getOrderStatus())) {
 					payOrderCount++;
 					sumMoney = sumMoney
 							.add(auntOrder.getActualPrice() == null ? new BigDecimal(
@@ -194,9 +200,9 @@ public class AuntServiceImpl implements AuntService {
 	}
 
 	@Override
-	public OpenPage<AuntInfo> searchAuntByWeb(String userName, String mobile,
+	public OpenPage<AuntInfo> searchAuntByWeb(String corpId,String userName, String mobile,
 			OpenPage<AuntInfo> page) throws RemoteInvokeException {
-		page = auntDAO.searchAuntByWeb(userName, mobile, page);
+		page = auntDAO.searchAuntByWeb(corpId,userName, mobile, page);
 		if (!CollectionUtils.isEmpty(page.getRows())) {
 			for (AuntInfo auntInfo : page.getRows()) {
 				setMoneyByAuntInfo(auntInfo);
