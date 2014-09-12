@@ -1,14 +1,12 @@
 package com.eighth.housekeeping.service.impl;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
-import com.eighth.housekeeping.dao.AuntDAO;
-import com.eighth.housekeeping.dao.AuntWorkCaseDAO;
-import com.eighth.housekeeping.dao.ImageObjDAO;
-import com.eighth.housekeeping.dao.OrderDAO;
-import com.eighth.housekeeping.dao.ReviewDAO;
+import com.eighth.housekeeping.dao.*;
 import com.eighth.housekeeping.domain.AuntInfo;
 import com.eighth.housekeeping.domain.AuntOrder;
 import com.eighth.housekeeping.domain.AuntWorkCase;
@@ -41,12 +39,22 @@ public class AuntServiceImpl implements AuntService {
 	ImageObjDAO imageObjDAO;
 	@Autowired
 	OrderDAO orderDAO;
+    @Autowired
+    SignInfoDAO signInfoDAO;
 
 	@Override
 	public AuntInfo login(String mobile, String password)
 			throws RemoteInvokeException {
 		String md5Psw = CommonStringUtils.getMD5(password.getBytes());
-		return auntDAO.findAuntByMobileAndPsw(mobile, md5Psw);
+        AuntInfo auntInfo =  auntDAO.findAuntByMobileAndPsw(mobile, md5Psw);
+        if(auntInfo!= null){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String today = sdf.format(new Date());
+            String[] todayStrArr = today.split("-");
+            Integer count = signInfoDAO.findAuntMonthSignCount(auntInfo.getAuntId(),todayStrArr[0],todayStrArr[1]);
+            auntInfo.setMonthOfSignCounts(count);
+        }
+		return auntInfo;
 	}
 
 	@Override

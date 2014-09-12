@@ -71,13 +71,14 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             sql.append("and order_status =?");
             params.add(orderType);
         }
+
+        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),params.toArray(),Integer.class);
         sql.append("limit ?,?");
-        countSql.append("limit ?,?");
         params.add(page.getPageSize() * (page.getPageNo() - 1));
         params.add(page.getPageSize());
 
         List<AuntOrder> orderList = getJdbcTemplate().query(sql.toString(), params.toArray(),new AuntOrderRowMapper());
-        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),params.toArray(),Integer.class);
+
         OpenPage<AuntOrder> orderOpenPage = new OpenPage<AuntOrder>();
         orderOpenPage.setTotal(count);
         orderOpenPage.setRows(orderList);

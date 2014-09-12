@@ -139,4 +139,16 @@ public class SignInfoDAOImpl extends BaseDAO implements SignInfoDAO {
 	        page.setRows(signInfoList);
 	        return page;
 	}
+
+    @Override
+    public Integer findAuntMonthSignCount(String auntId, String year, String month) {
+        StringBuilder sql = new StringBuilder("select count(*) from t_sign_info tsi where tsi.signYear = ?" +
+                " and tsi.signMonth = ? and tsi.aunt_id=? GROUP BY tsi.signMonth");
+        String[] params = new String[3];
+        params[0] = year;
+        params[1] = month;
+        params[2] = auntId;
+        Integer count = getJdbcTemplate().queryForObject(sql.toString(),params,Integer.class);
+        return count;
+    }
 }
