@@ -8,6 +8,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.alipay.config.AlipayConfig;
 import com.alipay.sign.RSA;
 import com.alipay.util.UtilDate;
@@ -146,7 +149,7 @@ public class OrderServiceController {
 
 	@ResponseBody
 	@RequestMapping("/toPayMent")
-	public String toPayMent(@RequestParam String orderId) {
+	public String toPayMent(@RequestParam String orderId,HttpServletRequest request) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			AuntOrder order = orderService.findOrderById(orderId);
@@ -159,12 +162,12 @@ public class OrderServiceController {
 			String out_trade_no = new String(order.getOrderNo());
 			// 商户网站订单系统中唯一订单号，必填
 			// 服务器异步通知页面路径
-			String notify_url = "http://192.168.1.107:8080/hw/OrderService/toNotify?orderNo="
+			String notify_url =request.getLocalAddr()+":"+request.getLocalPort()+"/hw/OrderService/toNotify?orderNo="
 					+ out_trade_no;
 			// 需http://格式的完整路径，不能加?id=123这类自定义参数
 
 			// 页面跳转同步通知页面路径
-			String call_back_url = "http://192.168.1.107:8080/hw/OrderService/tocallbackurl?orderNo="
+			String call_back_url = request.getLocalAddr()+":"+request.getLocalPort()+"/hw/OrderService/tocallbackurl?orderNo="
 					+ out_trade_no;
 			// 需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
 
@@ -191,13 +194,13 @@ public class OrderServiceController {
 			sb.append("\"&payment_type=\"1");
 			sb.append("\"&seller_id=\"");
 			sb.append(seller_email);
-			sb.append("\"&it_b_pay=\"1m");
+			sb.append("\"&it_b_pay=\"1m\"");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		String sbb=sb.toString().replace(" ","");
-		return sbb.toString();
+		return sbb;
 	}
 
 	
