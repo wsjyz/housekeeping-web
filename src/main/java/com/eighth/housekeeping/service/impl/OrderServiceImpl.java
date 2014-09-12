@@ -35,12 +35,19 @@ public class OrderServiceImpl implements OrderService {
         if(StringUtils.isBlank(orderStatus)){
             order.setOrderStatus("NOT_PAY");
         }
-        AuntInfo auntInfo = auntService.findAuntByIdForAunt(order.getAuntId());
-        BigDecimal auntPrice = auntInfo.getPrice();
-        BigDecimal price = auntPrice.multiply(new BigDecimal(order.getWorkLength()));
-        order.setTotalPrice(price);
-        order.setActualPrice(price);
-        order.setUnitPrice(auntPrice);
+        if(order.getOrderUse() != null){
+            BigDecimal price = new BigDecimal(0);
+            if(order.getOrderUse().equals("HOURLY_WORKER")){
+                AuntInfo auntInfo = auntService.findAuntByIdForAunt(order.getAuntId());
+                BigDecimal auntPrice = auntInfo.getPrice();
+                price = auntPrice.multiply(new BigDecimal(order.getWorkLength()));
+                order.setUnitPrice(auntPrice);
+            }else{
+                price = order.getUnitPrice().multiply(new BigDecimal(order.getWorkLength()));
+            }
+            order.setTotalPrice(price);
+            order.setActualPrice(price);
+        }
         orderDAO.saveUserOrder(order);
         return order;
     }
