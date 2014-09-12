@@ -46,7 +46,16 @@ public class AuntServiceImpl implements AuntService {
 	public AuntInfo login(String mobile, String password)
 			throws RemoteInvokeException {
 		String md5Psw = CommonStringUtils.getMD5(password.getBytes());
-		return auntDAO.findAuntByMobileAndPsw(mobile, md5Psw);
+		AuntInfo auntInfo= auntDAO.findAuntByMobileAndPsw(mobile, md5Psw);
+		if (StringUtils.isNotEmpty(auntInfo.getAuntId())) {
+			List<ImageObj> imageList = imageObjDAO.findImageObjByObjIdAndType(
+					auntInfo.getAuntId(), Constants.PORTRAIT);
+			if (!CollectionUtils.isEmpty(imageList)) {
+				ImageObj imageObj = imageList.get(0);
+				auntInfo.setImageObj(imageObj);
+			}
+		}
+		return auntInfo;
 	}
 
 	@Override

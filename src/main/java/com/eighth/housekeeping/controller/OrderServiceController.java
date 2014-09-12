@@ -153,6 +153,9 @@ public class OrderServiceController {
 		StringBuilder sb = new StringBuilder();
 		try {
 			AuntOrder order = orderService.findOrderById(orderId);
+			StringBuffer requestURL = request.getRequestURL();
+	        String requestURLPrefix = requestURL.substring(0,requestURL.indexOf("hw")+3);
+
 			// 必填，须保证每次请求都是唯一
 			// req_data详细信息
 			// 卖家支付宝帐户
@@ -162,12 +165,12 @@ public class OrderServiceController {
 			String out_trade_no = new String(order.getOrderNo());
 			// 商户网站订单系统中唯一订单号，必填
 			// 服务器异步通知页面路径
-			String notify_url =request.getLocalAddr()+":"+request.getLocalPort()+"/hw/OrderService/toNotify?orderNo="
+			String notify_url =requestURLPrefix+"OrderService/toNotify?orderNo="
 					+ out_trade_no;
 			// 需http://格式的完整路径，不能加?id=123这类自定义参数
 
 			// 页面跳转同步通知页面路径
-			String call_back_url = request.getLocalAddr()+":"+request.getLocalPort()+"/hw/OrderService/tocallbackurl?orderNo="
+			String call_back_url =requestURLPrefix+"OrderService/tocallbackurl?orderNo="
 					+ out_trade_no;
 			// 需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
 

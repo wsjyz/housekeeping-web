@@ -223,12 +223,11 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             sql.append(" and order_no  like '%"+auntNo+"%'");
         }
         sql.append(" limit ?,?");
-        countSql.append(" limit ?,?");
         params.add(page.getPageSize() * (page.getPageNo() - 1));
         params.add(page.getPageSize());
 
         List<AuntOrder> orderList = getJdbcTemplate().query(sql.toString(), params.toArray(),new AuntOrderRowMapper());
-        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),params.toArray(),Integer.class);
+        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),Integer.class);
         page.setTotal(count);
         page.setRows(orderList);
         return page;
