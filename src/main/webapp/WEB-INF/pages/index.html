@@ -19,7 +19,7 @@
 
     <script src="${request.contextPath}/js/main.js"></script>
     <script>
-    <#if corpId?? && (corpId!="")>
+    <#if corpId?? && (corpId!="ADMIN")>
     var DEFAULT_PAGE = 'toAunt';
     <#else>
         var DEFAULT_PAGE = 'toInstitution';
@@ -27,12 +27,16 @@
         </script>
   </head>
   <body>
+   <#if corpId?? && (corpId!="ADMIN")>
   <input type="hidden" id="AllcorpId" name="corpId" value="${corpId}">
+  <#else>
+    <input type="hidden" id="AllcorpId" name="corpId" value="">
+  </#if>
     <div class="main clearfix">
       <nav>
         <h1>居优</h1>
         <ul>
-        	<#if corpId?? && (corpId!="")>
+        	<#if corpId?? && (corpId!="ADMIN")>
         	  <li><a href="${request.contextPath}/AuntService/toAunt?auntId=" title="">阿姨管理</a></li>
 	          <li><a href="${request.contextPath}/OrderService/toOrder" title="">订单管理</a></li>
         	  <li><a href="${request.contextPath}/UserService/toUpdatePassword?corpId=${corpId}" title="">修改密码</a></li>
