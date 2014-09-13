@@ -1,14 +1,18 @@
 package com.eighth.housekeeping.service.impl;
 
 import com.eighth.housekeeping.dao.CollectAuntDAO;
+import com.eighth.housekeeping.domain.AuntInfo;
 import com.eighth.housekeeping.domain.CollectAunt;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
+import com.eighth.housekeeping.proxy.service.AuntService;
 import com.eighth.housekeeping.proxy.service.CollectAuntService;
 import com.eighth.housekeeping.utils.CommonStringUtils;
 import com.eighth.housekeeping.utils.Constants;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 /**
  * Created by dam on 2014/7/24.
@@ -18,6 +22,8 @@ public class CollectAuntServiceImpl implements CollectAuntService {
 
     @Autowired
     private CollectAuntDAO collectAuntDAO;
+    @Autowired
+    AuntService auntService;
     @Override
     public CollectAunt addCollect(String auntId, String memberId) throws RemoteInvokeException {
         CollectAunt collectAunt = collectAuntDAO.findCollectAuntByMemberIdAndAuntId(memberId,auntId);
@@ -36,7 +42,14 @@ public class CollectAuntServiceImpl implements CollectAuntService {
 
     @Override
     public OpenPage<CollectAunt> findCollectAuntList(String userId,OpenPage<CollectAunt> page) throws RemoteInvokeException {
-        return collectAuntDAO.findCollectAuntList(userId,page);
+    	page= collectAuntDAO.findCollectAuntList(userId,page);
+    	if (page!=null && !CollectionUtils.isEmpty(page.getRows())) {
+			for (CollectAunt collectAunt : page.getRows()) {
+				AuntInfo auntInfo = auntService.findAuntByIdForAunt(collectAunt.getAuntId());
+				collectAunt.setAuntInfo(auntInfo);
+			}
+		}
+    	return page;
     }
 
 

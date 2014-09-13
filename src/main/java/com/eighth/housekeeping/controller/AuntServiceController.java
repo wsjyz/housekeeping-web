@@ -116,7 +116,6 @@ public class AuntServiceController {
     @ResponseBody
     @RequestMapping(value = "/searchAuntByCondition")
     public OpenPage<AuntInfo> searchAuntByCondition(@FastJson AuntInfo auntInfo,@FastJson OpenPage<AuntInfo> page){
-        OpenPage<AuntInfo> auntPage = new OpenPage<AuntInfo>();
         try {
             page = auntService.searchAuntByCondition(auntInfo,page);
         } catch (RemoteInvokeException e) {

@@ -15,6 +15,7 @@ import com.eighth.housekeeping.utils.CommonStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 /**
  * Created by dam on 2014/7/24.
@@ -52,7 +53,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OpenPage<AuntOrder> findOrderList(String memberId, String orderType,OpenPage<AuntOrder> page) throws RemoteInvokeException {
-        return orderDAO.findOrderList(memberId,orderType,page);
+    	page= orderDAO.findOrderList(memberId,orderType,page);
+    	if(!CollectionUtils.isEmpty(page.getRows())){
+    		for (AuntOrder auntOrder : page.getRows()) {
+    			AuntInfo auntInfo = auntService.findAuntByIdForAunt(auntOrder.getAuntId());
+    			auntOrder.setAuntInfo(auntInfo);
+			}
+    	}
+    	return page;
     }
 
     @Override

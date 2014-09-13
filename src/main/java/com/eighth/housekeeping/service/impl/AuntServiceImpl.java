@@ -61,13 +61,31 @@ public class AuntServiceImpl implements AuntService {
 	@Override
 	public AuntInfo findAuntByIdForAunt(String auntId)
 			throws RemoteInvokeException {
-		return auntDAO.findAuntByIdForAunt(auntId);
+		AuntInfo auntInfo= auntDAO.findAuntByIdForAunt(auntId);
+		if (StringUtils.isNotEmpty(auntInfo.getAuntId())) {
+			List<ImageObj> imageList = imageObjDAO.findImageObjByObjIdAndType(
+					auntInfo.getAuntId(), Constants.PORTRAIT);
+			if (!CollectionUtils.isEmpty(imageList)) {
+				ImageObj imageObj = imageList.get(0);
+				auntInfo.setImageObj(imageObj);
+			}
+		}
+		return auntInfo;
 	}
 
 	@Override
 	public AuntInfo findAuntByIdForMember(String auntId)
 			throws RemoteInvokeException {
-		return auntDAO.findAuntByIdForMember(auntId);
+		AuntInfo auntInfo= auntDAO.findAuntByIdForMember(auntId);
+		if (StringUtils.isNotEmpty(auntInfo.getAuntId())) {
+			List<ImageObj> imageList = imageObjDAO.findImageObjByObjIdAndType(
+					auntInfo.getAuntId(), Constants.PORTRAIT);
+			if (!CollectionUtils.isEmpty(imageList)) {
+				ImageObj imageObj = imageList.get(0);
+				auntInfo.setImageObj(imageObj);
+			}
+		}
+		return auntInfo;
 	}
 
 	@Override
@@ -120,7 +138,20 @@ public class AuntServiceImpl implements AuntService {
 	@Override
 	public OpenPage<AuntInfo> searchAuntByCondition(AuntInfo auntInfo,
 			OpenPage<AuntInfo> page) throws RemoteInvokeException {
-		return auntDAO.searchAuntByCondition(auntInfo, page);
+		page= auntDAO.searchAuntByCondition(auntInfo, page);
+		if(!CollectionUtils.isEmpty(page.getRows())){
+			for (AuntInfo auntInfoTemp : page.getRows()) {
+				if (StringUtils.isNotEmpty(auntInfoTemp.getAuntId())) {
+					List<ImageObj> imageList = imageObjDAO.findImageObjByObjIdAndType(
+							auntInfoTemp.getAuntId(), Constants.PORTRAIT);
+					if (!CollectionUtils.isEmpty(imageList)) {
+						ImageObj imageObj = imageList.get(0);
+						auntInfoTemp.setImageObj(imageObj);
+					}
+				}
+			}
+		}
+		return page;
 	}
 
 	@Override

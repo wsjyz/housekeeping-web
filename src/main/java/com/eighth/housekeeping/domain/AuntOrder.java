@@ -46,6 +46,16 @@ public class AuntOrder extends BaseDomain {
 	@Column(name = "user_id", length = 32, comment = "提交人ID")
 	private String userId;// 提交人ID
 
+	private AuntInfo auntInfo;
+
+	public void setAuntInfo(AuntInfo auntInfo) {
+		this.auntInfo = auntInfo;
+	}
+
+	public AuntInfo getAuntInfo() {
+		return auntInfo;
+	}
+
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
