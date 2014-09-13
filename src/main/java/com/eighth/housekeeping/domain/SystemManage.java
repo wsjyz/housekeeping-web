@@ -30,6 +30,16 @@ public class SystemManage extends BaseDomain {
     private String appPhone;
     @Column(name="app_logo",length = 100,comment = "app logo图片地址")
     private String appLogo;
+    @Column(name="coupon_unit_price",length = 5,decimal = 2,comment = "优惠券默认单价")
+    private BigDecimal couponUnitPrice;
+
+    public BigDecimal getCouponUnitPrice() {
+        return couponUnitPrice;
+    }
+
+    public void setCouponUnitPrice(BigDecimal couponUnitPrice) {
+        this.couponUnitPrice = couponUnitPrice;
+    }
 
     public String getAppPhone() {
         return appPhone;

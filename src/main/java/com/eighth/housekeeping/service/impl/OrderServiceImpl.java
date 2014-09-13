@@ -4,9 +4,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.eighth.housekeeping.dao.OrderDAO;
+import com.eighth.housekeeping.dao.SystemDAO;
 import com.eighth.housekeeping.domain.AuntInfo;
 import com.eighth.housekeeping.domain.AuntOrder;
 import com.eighth.housekeeping.domain.OpenPage;
+import com.eighth.housekeeping.domain.SystemManage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.AuntService;
 import com.eighth.housekeeping.proxy.service.OrderService;
@@ -28,6 +30,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     AuntService auntService;
 
+    @Autowired
+    SystemDAO systemDAO;
+
     @Override
     public AuntOrder saveUserOrder(AuntOrder order) throws RemoteInvokeException {
         order.setOrderId(CommonStringUtils.genPK());
@@ -37,16 +42,21 @@ public class OrderServiceImpl implements OrderService {
         }
         if(order.getOrderUse() != null){
             BigDecimal price = new BigDecimal(0);
-            if(order.getOrderUse().equals("HOURLY_WORKER")){
+            SystemManage systemManage = systemDAO.findSystemManage();
+            if(order.getOrderUse().equals("HOURLY_WORKER")){//小时工
                 AuntInfo auntInfo = auntService.findAuntByIdForAunt(order.getAuntId());
                 BigDecimal auntPrice = auntInfo.getPrice();
                 price = auntPrice.multiply(new BigDecimal(order.getWorkLength()));
                 order.setUnitPrice(auntPrice);
-            }else{
-                price = order.getUnitPrice().multiply(new BigDecimal(order.getWorkLength()));
+            }else{//新居开荒
+                price = systemManage.getNewHouseUnitPrice().multiply(new BigDecimal(order.getFloorSpace()));
             }
+
+            BigDecimal couponPrice = systemManage.getCouponUnitPrice()
+                    .multiply(new BigDecimal(order.getUseCouponCount()));
+
             order.setTotalPrice(price);
-            order.setActualPrice(price);
+            order.setActualPrice(price.subtract(couponPrice));
         }
         orderDAO.saveUserOrder(order);
         return order;
