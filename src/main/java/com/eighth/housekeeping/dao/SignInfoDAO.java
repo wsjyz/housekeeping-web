@@ -19,4 +19,6 @@ public interface SignInfoDAO {
 
 	OpenPage<SignInfo> searchAttendanceByWeb(String corpName, String auntName,
 			OpenPage<SignInfo> page);
+
+    Integer findAuntMonthSignCount(String auntId,String year,String month);
 }

@@ -92,6 +92,7 @@ public class SystemDAOImpl extends BaseDAO implements SystemDAO {
             systemManage.setPushInfoInterval(rs.getInt("push_info_interval"));
             systemManage.setPushInfoTime(rs.getString("push_info_time"));
             systemManage.setSearchKey(rs.getString("search_key"));
+            systemManage.setCouponUnitPrice(rs.getBigDecimal("coupon_unit_price"));
             return systemManage;
         }
     }
@@ -109,6 +110,9 @@ public class SystemDAOImpl extends BaseDAO implements SystemDAO {
 	    	if (systemManage.getNewHouseUnitPrice()!=null) {
 				sql.append("new_house_unit_price='" + systemManage.getNewHouseUnitPrice() + "',");
 			}
+            if (systemManage.getCouponUnitPrice()!=null) {
+                sql.append("coupon_unit_price='" + systemManage.getCouponUnitPrice() + "',");
+            }
 	    	if (StringUtils.isNotBlank(systemManage.getPushInfoTime())) {
 				sql.append("push_info_time='" + systemManage.getPushInfoTime() + "',");
 			}
