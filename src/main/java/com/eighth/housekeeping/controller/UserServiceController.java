@@ -180,9 +180,9 @@ public class UserServiceController {
 	public ModelAndView toMemberAdd() throws RemoteInvokeException {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("member/member-add");
-		Map<String, Object> model = view.getModel();
-		List<Corp> list = corpService.corpList();
-		model.put("corpList", list);
+//		Map<String, Object> model = view.getModel();
+//		List<Corp> list = corpService.corpList();
+//		model.put("corpList", list);
 		return view;
 	}
 
@@ -208,8 +208,8 @@ public class UserServiceController {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("member/member-view");
 		Map<String, Object> model = view.getModel();
-		List<Corp> list = corpService.corpList();
-		model.put("corpList", list);
+//		List<Corp> list = corpService.corpList();
+//		model.put("corpList", list);
 		model.put("memberInfo", userInfo);
 		return view;
 	}
@@ -221,8 +221,8 @@ public class UserServiceController {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("member/member-edit");
 		Map<String, Object> model = view.getModel();
-		List<Corp> list = corpService.corpList();
-		model.put("corpList", list);
+//		List<Corp> list = corpService.corpList();
+//		model.put("corpList", list);
 		model.put("memberInfo", userInfo);
 		return view;
 	}

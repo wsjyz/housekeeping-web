@@ -5,6 +5,7 @@ import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.CollectAuntService;
 import com.eighth.housekeeping.web.FastJson;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,4 +41,9 @@ public class CollectAuntServiceController {
         }
         return openPage;
     }
+    @ResponseBody
+	@RequestMapping(value = "/deleteAuntCollectAunt")
+	public void deleteAuntCollectAunt(@RequestParam  String collectId)  throws RemoteInvokeException{
+    	collectAuntService.deleteCollectAunt(collectId);
+	}
 }

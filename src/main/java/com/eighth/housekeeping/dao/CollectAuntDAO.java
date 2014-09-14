@@ -13,4 +13,6 @@ public interface CollectAuntDAO {
     OpenPage<CollectAunt> findCollectAuntList(String userId,OpenPage<CollectAunt> page);
 
     CollectAunt findCollectAuntByMemberIdAndAuntId(String memberId,String auntId);
+
+	void deleteCollectAunt(String collectId);
 }

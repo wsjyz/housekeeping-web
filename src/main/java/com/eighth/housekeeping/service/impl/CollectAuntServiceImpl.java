@@ -54,5 +54,11 @@ public class CollectAuntServiceImpl implements CollectAuntService {
     	return page;
     }
 
+	@Override
+	public void deleteCollectAunt(String collectId)
+			throws RemoteInvokeException {
+		collectAuntDAO.deleteCollectAunt(collectId);
+	}
+
 
 }
