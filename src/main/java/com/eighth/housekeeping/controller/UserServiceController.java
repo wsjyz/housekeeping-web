@@ -4,15 +4,21 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.alipay.config.AlipayConfig;
+import com.alipay.util.UtilDate;
 import com.eighth.housekeeping.domain.AuntInfo;
+import com.eighth.housekeeping.domain.AuntOrder;
 import com.eighth.housekeeping.domain.Corp;
 import com.eighth.housekeeping.domain.ImageObj;
 import com.eighth.housekeeping.domain.MemberInfo;
@@ -307,4 +313,101 @@ public class UserServiceController {
 		}
 	}
 
+	
+	@ResponseBody
+	@RequestMapping("/toPayMentUserInfo")
+	public String toPayMentUserInfo(@RequestParam String userId,@RequestParam String card,HttpServletRequest request) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			StringBuffer requestURL = request.getRequestURL();
+	        String requestURLPrefix = requestURL.substring(0,requestURL.indexOf("hw")+3);
+	        BigDecimal money=new BigDecimal(0);
+	        String count="0";
+	        if(Constants.GOLD.equals(card)){
+	        	money=new BigDecimal(450);
+	        	count="45";
+	        }else  if(Constants.WHITE_GOLD.equals(card)){
+	        	money=new BigDecimal(900);
+	        	count="90";
+	        }else  if(Constants.DIAMOND.equals(card)){
+	        	money=new BigDecimal(1800);
+	        	count="180";
+	        }
+			// 必填，须保证每次请求都是唯一
+			// req_data详细信息
+			// 卖家支付宝帐户
+			String seller_email = new String("geassccvip@163.com");
+			// 必填
+			// 商户订单号
+			String out_trade_no = new String(UtilDate.getOrderNum());
+			// 商户网站订单系统中唯一订单号，必填
+			// 服务器异步通知页面路径
+			String notify_url =requestURLPrefix+"UserService/toNotify?userId="
+					+ userId+"&card="+card+"&count="+count;
+			// 需http://格式的完整路径，不能加?id=123这类自定义参数
+
+			// 页面跳转同步通知页面路径
+			String call_back_url =requestURLPrefix+"UserService/tocallbackurl?userId="
+					+ userId+"&card="+card+"&count="+count;
+			// 需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
+			// 必填
+
+			sb.append("partner=\"");
+			sb.append(AlipayConfig.partner);
+			sb.append("\"&out_trade_no=\"");
+			sb.append(out_trade_no);
+			sb.append("\"&subject=\"");
+			sb.append(out_trade_no);
+			sb.append("\"&body=\"");
+			sb.append(out_trade_no);
+			sb.append("\"&total_fee=\"");
+			sb.append(money.toString());
+			sb.append("\"&notify_url=\"");
+
+			// 网址需要做URL编码
+			sb.append(URLDecoder.decode(notify_url,AlipayConfig.input_charset));
+			sb.append("\"&service=\"mobile.securitypay.pay");
+			sb.append("\"&_input_charset=\"UTF-8");
+			sb.append("\"&return_url=\"");
+			sb.append( URLDecoder.decode(call_back_url,AlipayConfig.input_charset));
+			sb.append("\"&payment_type=\"1");
+			sb.append("\"&seller_id=\"");
+			sb.append(seller_email);
+			sb.append("\"&it_b_pay=\"1m\"");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String sbb=sb.toString().replace(" ","");
+		return sbb;
+	}
+	@RequestMapping("/toNotify")
+	public void toNotify(@RequestParam String userId,@RequestParam String card,@RequestParam String count) {
+		MemberInfo userInfo=new MemberInfo();
+		userInfo.setUserId(userId);
+		userInfo.setCard(card);
+		userInfo.setCouponCounts(count+"");
+		if (userInfo != null) {
+			try {
+				userService.modifyMemberInfo(userInfo);
+			} catch (RemoteInvokeException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@RequestMapping("/tocallbackurl")
+	public void tocallbackurl(@RequestParam String userId,@RequestParam String card,@RequestParam String  count) {
+		MemberInfo userInfo=new MemberInfo();
+		userInfo.setUserId(userId);
+		userInfo.setCard(card);
+		userInfo.setCouponCounts(count+"");
+		if (userInfo != null) {
+			try {
+				userService.modifyMemberInfo(userInfo);
+			} catch (RemoteInvokeException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
