@@ -254,6 +254,7 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 			auntInfo.setWorkCleanKeeping(rs.getBoolean("work_clean_keeping"));
 			auntInfo.setWorkLaundry(rs.getBoolean("work_laundry"));
 			auntInfo.setWorkCook(rs.getBoolean("work_cook"));
+            auntInfo.setBrowseCounts(rs.getInt("browse_counts"));
 			return auntInfo;
 		}
 	}

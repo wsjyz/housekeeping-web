@@ -45,8 +45,10 @@ public class CollectAuntServiceImpl implements CollectAuntService {
     	page= collectAuntDAO.findCollectAuntList(userId,page);
     	if (page!=null && !CollectionUtils.isEmpty(page.getRows())) {
 			for (CollectAunt collectAunt : page.getRows()) {
-				AuntInfo auntInfo = auntService.findAuntByIdForAunt(collectAunt.getAuntId());
-				collectAunt.setAuntInfo(auntInfo);
+                if(collectAunt != null){
+                    AuntInfo auntInfo = auntService.findAuntByIdForAunt(collectAunt.getAuntId());
+                    collectAunt.setAuntInfo(auntInfo);
+                }
 			}
 		}
     	return page;

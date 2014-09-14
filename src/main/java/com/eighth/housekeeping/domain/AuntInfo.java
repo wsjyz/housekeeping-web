@@ -84,6 +84,8 @@ public class AuntInfo extends BaseDomain {
 	private boolean workLaundry;
 	@Column(name = "work_cook", comment = "做饭", length = 20)
 	private boolean workCook;
+    @Column(name = "browse_counts", comment = "关注数", length = 6)
+    private int browseCounts;//关注数
 
 	
 	private String loginResult;// 登录结果，传值用 UCCESS成功|ACOUNT_NOT_CORRECT用户名或密码错
@@ -92,10 +94,19 @@ public class AuntInfo extends BaseDomain {
 	private int yearOfOrderCounts;
 	private int discussCount;//评论数
 
+
 	private String corpName;
 	private int payOrderCount;
 
     private boolean userCollected;//当前用户是否收藏了此阿姨
+
+    public int getBrowseCounts() {
+        return browseCounts;
+    }
+
+    public void setBrowseCounts(int browseCounts) {
+        this.browseCounts = browseCounts;
+    }
 
     public boolean getUserCollected() {
         return userCollected;

@@ -97,6 +97,8 @@ public class AuntServiceImpl implements AuntService {
 				auntInfo.setImageObj(imageObj);
 			}
 		}
+        auntInfo.setBrowseCounts(auntInfo.getBrowseCounts()+1);
+        auntDAO.updateAuntInfo(auntInfo);
 		return auntInfo;
 	}
 

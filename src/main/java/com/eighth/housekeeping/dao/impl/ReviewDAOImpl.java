@@ -29,7 +29,7 @@ public class ReviewDAOImpl extends BaseDAO implements ReviewDAO {
 			OpenPage page) {
 		StringBuilder reviewSql = new StringBuilder("");
 		reviewSql
-				.append("select tr.* from t_review tr,t_member_info tmi"
+				.append("select tr.*,tmi.nick_name from t_review tr,t_member_info tmi"
 						+ " where tr.create_user_id = tmi.user_id  and tr.aunt_id =? ");
 		StringBuilder countSql = new StringBuilder(
 				"select count(*) from t_review tr where aunt_id =?");
@@ -90,7 +90,7 @@ public class ReviewDAOImpl extends BaseDAO implements ReviewDAO {
 			review.setReviewId(rs.getString("review_id"));
 			review.setReviewTag(rs.getString("review_tag"));
 			review.setOptTime(rs.getString("opt_time"));
-			review.setCreateUserName(rs.getString("create_user_id"));
+			review.setCreateUserName(rs.getString("nick_name"));
 			return review;
 		}
 	}

@@ -73,8 +73,11 @@ public class OrderServiceImpl implements OrderService {
     	page= orderDAO.findOrderList(memberId,orderType,page);
     	if(!CollectionUtils.isEmpty(page.getRows())){
     		for (AuntOrder auntOrder : page.getRows()) {
-    			AuntInfo auntInfo = auntService.findAuntByIdForAunt(auntOrder.getAuntId());
-    			auntOrder.setAuntInfo(auntInfo);
+                if(auntOrder != null&&auntOrder.getAuntId() != null){
+                    AuntInfo auntInfo = auntService.findAuntByIdForAunt(auntOrder.getAuntId());
+                    auntOrder.setAuntInfo(auntInfo);
+                }
+
 			}
     	}
     	return page;
