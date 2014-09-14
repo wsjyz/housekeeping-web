@@ -2,6 +2,7 @@ package com.eighth.housekeeping.dao;
 
 import com.eighth.housekeeping.domain.APKVersion;
 import com.eighth.housekeeping.domain.FeedBack;
+import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.SystemManage;
 
 /**
@@ -16,4 +17,8 @@ public interface SystemDAO {
     SystemManage findSystemManage();
     
     void updateSystemManage(SystemManage systemManage);
+
+	OpenPage findFeedBack(String userName,OpenPage page);
+
+	void deleteFeedWeb(String feedId);
 }

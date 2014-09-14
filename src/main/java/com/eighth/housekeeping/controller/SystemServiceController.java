@@ -4,6 +4,8 @@ import java.util.Map;
 
 import com.eighth.housekeeping.domain.APKVersion;
 import com.eighth.housekeeping.domain.FeedBack;
+import com.eighth.housekeeping.domain.OpenPage;
+import com.eighth.housekeeping.domain.Review;
 import com.eighth.housekeeping.domain.SystemManage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.SystemService;
@@ -92,4 +94,26 @@ public class SystemServiceController {
    	public void updateManage(@FastJson SystemManage systemManage)  throws RemoteInvokeException{
     	systemService.updateSystemManage(systemManage);
    	}
+    @ResponseBody
+    @RequestMapping(value = "/findFeedBack")
+    public OpenPage<FeedBack> findFeedBack(@RequestParam String userName,@FastJson OpenPage page) {
+     
+        try {
+        	page = systemService.findFeedBack(userName,page);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return page;
+    }  
+    @ResponseBody
+   	@RequestMapping(value = "/deleteFeedWeb")
+   	public void deleteFeedWeb(@RequestParam String feedId)  throws RemoteInvokeException{
+    	systemService.deleteFeedWeb(feedId);
+   	}
+	@RequestMapping(value = "/tofeedBack")
+	public String tofeedBack()  throws RemoteInvokeException{
+		return "data-Manage/feedback";
+	
+	}
+
 }

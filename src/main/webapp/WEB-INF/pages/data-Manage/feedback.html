@@ -2,20 +2,19 @@
     jQuery(function() {
 
         $('#feedback-grid').grid({
-            url          : "/data/feedback.json",
-            checkbox     : true,
+            url          : "${request.contextPath}/SystemService/findFeedBack",
+            checkbox     : false,
             cssClass     : 'aunt-list',
             numberColumn : true,
             requestType  : 'post',
-            hoverCols    : true,
-            zebraCols    : true, // 斑马线
+            hoverCols    : false,
+            zebraCols    : false, // 斑马线
             zebraRows    : false, // 斑马线
             params       : {
-                mobile   : function() { return $('#mobile').val(); },
-                appCode  : 'els'
+            	userName   : function() { return $('#userName').val(); }
             },
             columns: [{
-                    field     : 'username', // 必需
+                    field     : 'userName', // 必需
                     text      : '用户名',
                     fixedTo   : 'left',
                     width     : 100,
@@ -25,7 +24,7 @@
                        return '<span data-id="'+ data.userId +'"><i class="fa fa-user"></i> '+ value +'</span>';
                     }
                 }, {
-                    field     : 'time',
+                    field     : 'optTime',
                     text      : '时间',
                     width     : 160,
                     align     : 'right',
@@ -44,14 +43,18 @@
                 text : "删除",
                 icon : 'fa-times',
                 action : function(data, row, grid) {
-                    var url = "aunt-delete.html";
-                    row.remove();
-                    $.post(url, {userId: data.userId}, function(json) {
-                        row.remove();
-                    });
+                	var url = "${request.contextPath}/SystemService/deleteFeedWeb";
+					$.post(url, {
+						"feedId" : data.feedbackId
+					}, function(json) {
+						row.remove();
+					});
                 }
             }]
         });
+	   $("#selectFeed").click(function(){
+	       	 $('#feedback-grid').grid('load', 1);
+	       })
     });
 </script>
 
@@ -59,16 +62,16 @@
   <form action="aunt.html" method="get" accept-charset="utf-8">
     <div class="input-group">
       <span class="input-group-addon">用户名</span>
-      <input id="mobile" type="text" class="form-control">
+      <input id="userName" type="text" class="form-control" name="userName">
     </div>
 
     <div class="btns">
-      <button type="button" class="btn btn-default">查找</button>
+      <button type="button" class="btn btn-default" id="selectFeed">查找</button>
       <button type="reset" class="btn btn-default">重置</button>
     </div>
 
     <div class="btns-right">
-      <a href="data-management.html" class="btn btn-primary">
+      <a href="${request.contextPath}/SystemService/toDataManager" class="btn btn-primary">
         <span class="fa fa-reply"></span> 返回
       </a>
     </div>
