@@ -100,7 +100,19 @@ public class ReviewDAOImpl extends BaseDAO implements ReviewDAO {
 		StringBuilder reviewSql = new StringBuilder("");
 		reviewSql.append("select * from t_review where aunt_id =?");
 		List<Review> reviewList = getJdbcTemplate().query(reviewSql.toString(),
-				new Object[] { auntId }, new ReviewMapper());
+				new Object[] { auntId },new RowMapper<Review>(){
+            @Override
+            public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Review review = new Review();
+                review.setAuntId(rs.getString("aunt_id"));
+                review.setCreateUserId(rs.getString("create_user_id"));
+                review.setReviewContent(rs.getString("review_content"));
+                review.setReviewId(rs.getString("review_id"));
+                review.setReviewTag(rs.getString("review_tag"));
+                review.setOptTime(rs.getString("opt_time"));
+                return review;
+            }
+        });
 		return reviewList;
 	}
 
