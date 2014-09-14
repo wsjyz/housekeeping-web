@@ -4,6 +4,7 @@ import com.eighth.housekeeping.dao.BaseDAO;
 import com.eighth.housekeeping.dao.CollectAuntDAO;
 import com.eighth.housekeeping.domain.CollectAunt;
 import com.eighth.housekeeping.domain.OpenPage;
+
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -78,4 +79,11 @@ public class CollectAuntDAOImp extends BaseDAO implements CollectAuntDAO {
             return collectAunt;
         }
     }
+
+	@Override
+	public void deleteCollectAunt(String collectId) {
+		StringBuilder collectSql = new StringBuilder("");
+        collectSql.append("select * from t_collect_aunt where collect_id='"+collectId+"'");
+        getJdbcTemplate().update(collectSql.toString());
+	}
 }
