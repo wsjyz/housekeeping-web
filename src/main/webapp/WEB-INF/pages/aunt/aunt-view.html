@@ -139,6 +139,7 @@
             <span class="label">星级</span>
             <span class="text">${auntInfo.start}星</span>
           </div>
+          					   <#if corpId?? && (corpId=="ADMIN")>
           <div class="inputer">
 	          <span class="label">机构</span>
 	          <#list corpList as corp>
@@ -148,7 +149,7 @@
 			</#list>
         	</div>
         </div>
-
+</#if>
         <div class="col col-xs-6 col-md-5 col-lg-4">
           <div class="inputer">
             <span class="label">年龄</span>

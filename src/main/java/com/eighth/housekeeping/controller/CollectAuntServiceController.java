@@ -43,7 +43,7 @@ public class CollectAuntServiceController {
     }
     @ResponseBody
 	@RequestMapping(value = "/deleteAuntCollectAunt")
-	public void deleteAuntCollectAunt(@RequestParam  String collectId)  throws RemoteInvokeException{
-    	collectAuntService.deleteCollectAunt(collectId);
+	public String deleteAuntCollectAunt(@RequestParam  String collectId)  throws RemoteInvokeException{
+    	return collectAuntService.deleteCollectAunt(collectId);
 	}
 }

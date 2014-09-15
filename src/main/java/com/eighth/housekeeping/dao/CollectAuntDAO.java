@@ -14,5 +14,5 @@ public interface CollectAuntDAO {
 
     CollectAunt findCollectAuntByMemberIdAndAuntId(String memberId,String auntId);
 
-	void deleteCollectAunt(String collectId);
+	String deleteCollectAunt(String collectId);
 }

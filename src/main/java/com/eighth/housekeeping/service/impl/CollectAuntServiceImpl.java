@@ -55,9 +55,9 @@ public class CollectAuntServiceImpl implements CollectAuntService {
     }
 
 	@Override
-	public void deleteCollectAunt(String collectId)
+	public String deleteCollectAunt(String collectId)
 			throws RemoteInvokeException {
-		collectAuntDAO.deleteCollectAunt(collectId);
+		return collectAuntDAO.deleteCollectAunt(collectId);
 	}
 
 
