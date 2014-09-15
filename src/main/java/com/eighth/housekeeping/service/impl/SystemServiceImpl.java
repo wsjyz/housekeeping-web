@@ -3,12 +3,18 @@ package com.eighth.housekeeping.service.impl;
 import com.eighth.housekeeping.dao.SystemDAO;
 import com.eighth.housekeeping.domain.APKVersion;
 import com.eighth.housekeeping.domain.FeedBack;
+import com.eighth.housekeeping.domain.MemberInfo;
+import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.SystemManage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.SystemService;
+import com.eighth.housekeeping.proxy.service.UserService;
 import com.eighth.housekeeping.utils.CommonStringUtils;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 /**
  * Created by dam on 2014/7/24.
@@ -54,5 +60,16 @@ public class SystemServiceImpl implements SystemService {
 	public void updateSystemManage(SystemManage systemManage) {
 		systemDAO.updateSystemManage(systemManage);
 		
+	}
+
+	@Override
+	public OpenPage findFeedBack(String userName,OpenPage page) {
+		return page= systemDAO.findFeedBack(userName,page);
+	
+	}
+
+	@Override
+	public void deleteFeedWeb(String feedId) {
+		systemDAO.deleteFeedWeb(feedId);
 	}
 }

@@ -35,7 +35,7 @@ public interface CollectAuntService {
      * @throws RemoteInvokeException
      */
     @RemoteMethod(methodVarNames={ "collectId"})
-	void deleteCollectAunt(String collectId)throws RemoteInvokeException;
+	String deleteCollectAunt(String collectId)throws RemoteInvokeException;
 
 
 }

@@ -2,6 +2,7 @@ package com.eighth.housekeeping.proxy.service;
 
 import com.eighth.housekeeping.domain.APKVersion;
 import com.eighth.housekeeping.domain.FeedBack;
+import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.SystemManage;
 import com.eighth.housekeeping.proxy.annotation.RemoteMethod;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
@@ -47,6 +48,10 @@ public interface SystemService {
     String appLogout(String userId,String userType)throws RemoteInvokeException;
     
     void updateSystemManage(SystemManage systemManage);
+
+	OpenPage findFeedBack(String userName,OpenPage page);
+
+	void deleteFeedWeb(String feedId);
 
 
 
