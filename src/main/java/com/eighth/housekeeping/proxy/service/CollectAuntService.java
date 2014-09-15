@@ -28,6 +28,12 @@ public interface CollectAuntService {
      */
     @RemoteMethod(methodVarNames={ "userId","page"})
     OpenPage<CollectAunt> findCollectAuntList(String userId,OpenPage<CollectAunt> page)throws RemoteInvokeException;
+
+    /**
+     * 删除收藏的阿姨
+     * @param collectId
+     * @throws RemoteInvokeException
+     */
     @RemoteMethod(methodVarNames={ "collectId"})
 	void deleteCollectAunt(String collectId)throws RemoteInvokeException;
 

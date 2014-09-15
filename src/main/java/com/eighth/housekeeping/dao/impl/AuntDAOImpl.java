@@ -79,7 +79,7 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 	}
 	   @Override
 	    public OpenPage<AuntInfo> searchAuntByCondition(AuntInfo auntInfo, OpenPage<AuntInfo> page) {
-	        StringBuilder auntSql = new StringBuilder("select tai.aunt_id,tai.user_name,tai.start," +
+	        StringBuilder auntSql = new StringBuilder("select tai.aunt_id,tai.user_name,tai.start,tai.browse_counts," +
 	                "fdistance(?,?,tai.longitude,tai.latitude) distance" +
 	                " from t_aunt_info tai ");
 	        StringBuilder countSql = new StringBuilder("select count(*) "+
@@ -193,6 +193,7 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 	                        aunt.setUserName(rs.getString("user_name"));
 	                        aunt.setStart(rs.getString("start"));
 	                        aunt.setDistanceMeter(new Double(rs.getDouble("distance") *1000).intValue());
+                            aunt.setBrowseCounts(rs.getInt("browse_counts"));
 	                        return aunt;
 	                    }
 	                });
