@@ -383,31 +383,45 @@ public class UserServiceController {
 	}
 	@RequestMapping("/toNotify")
 	public void toNotify(@RequestParam String userId,@RequestParam String card,@RequestParam String count) {
-		MemberInfo userInfo=new MemberInfo();
-		userInfo.setUserId(userId);
-		userInfo.setCard(card);
-		userInfo.setCouponCounts(count+"");
-		if (userInfo != null) {
-			try {
-				userService.modifyMemberInfo(userInfo);
-			} catch (RemoteInvokeException e) {
-				e.printStackTrace();
+		try {
+			MemberInfo info=userService.findMemberByMemberId(userId);
+			MemberInfo userInfo=new MemberInfo();
+			userInfo.setUserId(userId);
+			userInfo.setCard(card);
+			int nowCount=Integer.parseInt(count)+info.getCouponCounts()==null?0:Integer.parseInt(info.getCouponCounts());
+			userInfo.setCouponCounts(nowCount+"");
+			if (userInfo != null) {
+				try {
+					userService.modifyMemberInfo(userInfo);
+				} catch (RemoteInvokeException e) {
+					e.printStackTrace();
+				}
 			}
+		} catch (RemoteInvokeException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 
 	@RequestMapping("/tocallbackurl")
 	public void tocallbackurl(@RequestParam String userId,@RequestParam String card,@RequestParam String  count) {
-		MemberInfo userInfo=new MemberInfo();
-		userInfo.setUserId(userId);
-		userInfo.setCard(card);
-		userInfo.setCouponCounts(count+"");
-		if (userInfo != null) {
-			try {
-				userService.modifyMemberInfo(userInfo);
-			} catch (RemoteInvokeException e) {
-				e.printStackTrace();
+		try {
+			MemberInfo info=userService.findMemberByMemberId(userId);
+			MemberInfo userInfo=new MemberInfo();
+			userInfo.setUserId(userId);
+			userInfo.setCard(card);
+			int nowCount=Integer.parseInt(count)+info.getCouponCounts()==null?0:Integer.parseInt(info.getCouponCounts());
+			userInfo.setCouponCounts(nowCount+"");
+			if (userInfo != null) {
+				try {
+					userService.modifyMemberInfo(userInfo);
+				} catch (RemoteInvokeException e) {
+					e.printStackTrace();
+				}
 			}
+		} catch (RemoteInvokeException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 }
