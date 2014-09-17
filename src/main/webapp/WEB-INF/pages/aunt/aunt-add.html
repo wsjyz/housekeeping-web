@@ -5,7 +5,7 @@
 <!-- 			class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span> -->
 <!-- 			继续添加 -->
 <!-- 		</a> -->
-		 <a href="${request.contextPath}/AuntService/toAunt?auntId=${auntId!}"
+		 <a href="${request.contextPath}/AuntService/toAunt?auntId=${auntId!}&corpId=${corpId}"
 			class="btn btn-primary"> <span
 			class="glyphicon glyphicon-arrow-left"></span> 返回
 		</a>
@@ -125,16 +125,16 @@
 						</div>
 					</div>
 					   <#if corpId?? && (corpId=="ADMIN")>
-					<div class="form-group">
-						<label class="col-lg-3 control-label">机构: </label>
-						<div class="col-lg-8">
-							<select class="form-control" name="corpId" id="corpName">
-								<#list corpList as corp>
-								<option value="${corp.corpId}">${corp.corpName}</option>
-								</#list>
-							</select>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">机构: </label>
+							<div class="col-lg-8">
+								<select class="form-control" name="corpId" id="corpName">
+									<#list corpList as corp>
+									<option value="${corp.corpId}">${corp.corpName}</option>
+									</#list>
+								</select>
+							</div>
 						</div>
-					</div>
 					</#if>
 					<!-- /input-group -->
 

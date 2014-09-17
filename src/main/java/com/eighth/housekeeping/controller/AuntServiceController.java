@@ -136,14 +136,18 @@ public class AuntServiceController {
     }
     
     @RequestMapping(value = "/toAunt")
-   	public String toAunt(@RequestParam  String auntId)  throws RemoteInvokeException{
+   	public ModelAndView toAunt(@RequestParam  String auntId ,@RequestParam  String corpId)  throws RemoteInvokeException{
+    	ModelAndView view = new ModelAndView();
+		view.setViewName("aunt/aunt");
+		Map<String, Object> model = view.getModel();
+		model.put("corpId", corpId);
     	if(StringUtils.isNotEmpty(auntId) && !"back".equals(auntId)){
    		 	auntService.deleteAunt(auntId);
     	}
-   		return "aunt/aunt";
+   		return view;
    	}
     @RequestMapping(value = "/toAuntAdd")
-   	public ModelAndView toAuntAdd()  throws RemoteInvokeException{
+   	public ModelAndView toAuntAdd(@RequestParam  String corpId)  throws RemoteInvokeException{
     	AuntInfo auntInfo=new AuntInfo();
    		String auntId = auntService.addAuntInfo(auntInfo);
    		List<AuntWorkCase> auntWorkList=new ArrayList<AuntWorkCase>();
@@ -176,6 +180,7 @@ public class AuntServiceController {
 		model.put("auntWorkCaseList", auntWorkList);
 		model.put("corpList", list);
 		model.put("auntId",auntId);
+		model.put("corpId", corpId);
 		return view;
    	}
 	@RequestMapping(value = "/toAuntView")

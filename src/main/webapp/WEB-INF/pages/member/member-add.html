@@ -136,7 +136,7 @@
 			var form = $(this);
 			var url = "${request.contextPath}/UserService/saveUserInfo"
 			var json = form.formToJson();
-
+			$.post(url, {"userInfo": json}, function() {
 			BootstrapDialog.show({
 				title:'添加成功',
 	            message:'添加成功, 是否继续添加？',
@@ -155,6 +155,7 @@
 	                }
 	            }]
 	        });
+			});
 		});
 
 	});
