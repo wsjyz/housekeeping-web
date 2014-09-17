@@ -19,10 +19,10 @@
         <div class="col col-lg-3 col-md-4 col-sm-5 col-xs-6">
           <span href="#" class="thumbnail">
           <#if image.imageUrl??>
-        	    <img src="${request.contextPath}/images/${image.imageUrl!}" id="avatar-img" alt="...">
+        	    <img src="${request.contextPath}/images/${image.imageUrl!}" id="avatar-img${image_index}" alt="...">
         	</#if>
           </span>
-        <button class="btn btn-default saveCaseImage" type="button" id="upload${image_index}" img-id="${image.imageId}" name="upload${image_index}" >上传照片</button>
+        <button class="btn btn-default saveCaseImage" type="button" id="upload${image_index}" imgtype="avatar-img${image_index}" img-id="${image.imageId}" name="upload${image_index}" >上传照片</button>
         </div><!-- /.col-lg-6 -->
   </#list>
         <#else>
@@ -59,6 +59,8 @@
   jQuery(function($) {
 	  $('.saveCaseImage').each(function(){
 		    var imgId = $(this).attr('img-id');
+		    var avatarimg=$(this).attr('imgtype');
+		    var kao= $(this);
 		    $(this).uploadify({
 				height : 30,
 				swf : '${request.contextPath}/components/uploadify/uploadify.swf',
@@ -68,7 +70,8 @@
 				buttonText:"上 传",
 				'buttonClass' : 'btn btn-primary avatar-uploader upload-button',
 				'onUploadSuccess' : function(file, data, response) {
-					$(this).parent().parent().find("#avatar-img").attr('src',"${request.contextPath}/images/workcase"+ data);
+					$("#"+avatarimg).attr('src',"${request.contextPath}/images/workcase"+ data);
+					
 				}
 			});
 	  });
