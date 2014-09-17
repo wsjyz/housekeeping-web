@@ -97,7 +97,7 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 	            params.add(auntInfo.getStart());
 	            countParams.add(auntInfo.getStart());
 	        }
-	        if(StringUtils.isNotEmpty(auntInfo.getAge())){
+	        if(StringUtils.isNotBlank(auntInfo.getAge()) ){
 	            if(!auntAppendSql.toString().equals("")){
 	                auntAppendSql.append(" and ");
 	            }
@@ -341,9 +341,9 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 			return "FAILED";
 		}
 		StringBuilder sql = new StringBuilder("update t_aunt_info set ");
-		if (StringUtils.isNotBlank(auntInfo.getPassword())) {
-			sql.append("password='" + CommonStringUtils.getMD5(auntInfo.getPassword().getBytes()) + "',");
-		}
+//		if (StringUtils.isNotBlank(auntInfo.getPassword())) {
+//			sql.append("password='" + CommonStringUtils.getMD5(auntInfo.getPassword().getBytes()) + "',");
+//		}
 		if (StringUtils.isNotBlank(auntInfo.getMobile())) {
 			sql.append("address='" + auntInfo.getMobile() + "',");
 		}
