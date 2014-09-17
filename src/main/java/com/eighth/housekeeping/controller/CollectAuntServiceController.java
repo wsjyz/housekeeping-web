@@ -42,7 +42,7 @@ public class CollectAuntServiceController {
         return openPage;
     }
     @ResponseBody
-	@RequestMapping(value = "/deleteAuntCollectAunt")
+	@RequestMapping(value = "/deleteCollectAunt")
 	public String deleteAuntCollectAunt(@RequestParam  String collectId)  throws RemoteInvokeException{
     	return collectAuntService.deleteCollectAunt(collectId);
 	}
