@@ -1,10 +1,11 @@
 <div class="content-tools clearfix">
 
 	<div class="btns-right">
-		<a href="${request.contextPath}/AuntService/toAuntAdd"
-			class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
-			继续添加
-		</a> <a href="${request.contextPath}/AuntService/toAunt?auntId=${auntId!}"
+<!-- 		<a href="${request.contextPath}/AuntService/toAuntAdd" -->
+<!-- 			class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span> -->
+<!-- 			继续添加 -->
+<!-- 		</a> -->
+		 <a href="${request.contextPath}/AuntService/toAunt?auntId=${auntId!}"
 			class="btn btn-primary"> <span
 			class="glyphicon glyphicon-arrow-left"></span> 返回
 		</a>
@@ -22,20 +23,20 @@
 					<div class="form-group">
 						<label class="col-lg-3 control-label"> 姓名 </label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" name="userName">
+							<input type="text" class="form-control" name="userName" required >
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-lg-3 control-label">手机号 </label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" name="mobile">
+							<input type="text" class="form-control" name="mobile" required> 
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-lg-3 control-label">电话 </label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" name="telephone">
+							<input type="text" class="form-control" name="telephone" maxlength="10">
 						</div>
 					</div>
 					<!-- /input-group -->
@@ -43,7 +44,7 @@
 					<div class="form-group">
 						<label class="col-lg-3 control-label">身份证号</label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" name="identityCard">
+							<input type="text" class="form-control" name="identityCard" required>
 						</div>
 					</div>
 					<!-- /input-group -->
@@ -62,7 +63,7 @@
 					<div class="form-group">
 						<label class="col-lg-3 control-label">籍贯 </label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" name="nativePlace">
+							<input type="text" class="form-control" name="nativePlace" maxlength="5">
 						</div>
 					</div>
 					<!-- /input-group -->
@@ -70,7 +71,7 @@
 					<div class="form-group">
 						<label class="col-lg-3 control-label">地址</label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" name="address">
+							<input type="text" class="form-control" name="address" required>
 						</div>
 					</div>
 					<!-- /input-group -->
@@ -78,7 +79,7 @@
 					<div class="form-group">
 						<label class="col-lg-3 control-label">自我评价 </label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" name="selfEvaluate">
+							<input type="text" class="form-control" name="selfEvaluate" maxlength="100">
 						</div>
 					</div>
 					<!-- /input-group -->
@@ -86,7 +87,7 @@
 					<div class="form-group">
 						<label class="col-lg-3 control-label">密码 </label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" name="password">
+							<input type="text" class="form-control" name="password" required>
 						</div>
 					</div>
 					<!-- /input-group -->
@@ -98,12 +99,12 @@
 								<option value="HOUR_WORK">小时工</option>
 								<option value="ALL">全职</option>
 							</select>
-							<div class="form-group">
-								<label for=""> <input type="checkbox"
-									name="workCleanKeeping" value="true" id=""> 保洁
-								</label> <label for=""> <input type="checkbox"value="true" 
-									name="workLaundry" id=""> 洗熨
-								</label> <label for=""> <input type="checkbox" value="true" name="workCook"
+							<div class="form-group" class="">
+								<label for=""> <input type="checkbox" name="workCleanKeeping" value="true" id="baojie"> 保洁
+								</label>
+								<label for=""> <input type="checkbox"value="true" 
+									name="workLaundry" id="xiyun"> 洗熨
+								</label> <label for="zuofan"> <input type="checkbox" value="true" name="workCook"
 									id=""> 做饭
 								</label>
 							</div>
@@ -154,7 +155,7 @@
 					<div class="form-group">
 						<label class="col-lg-3 control-label">年龄</label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" name="age">
+							<input type="text" class="form-control" name="age" maxlength="3">
 						</div>
 						<div style="float: left;">岁</div>
 					</div>
@@ -163,7 +164,7 @@
 					<div class="form-group">
 						<label class="col-lg-3 control-label">单价 </label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" name="price">
+							<input type="text" class="form-control" name="price" maxlength="8" min="0">
 						</div>
 						<div style="float: left;">元</div>
 					</div>
@@ -172,7 +173,7 @@
 					<div class="form-group">
 						<label class="col-lg-3 control-label">工作经验</label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" name="workYear">
+							<input type="text" class="form-control" name="workYear" maxlength="2">
 						</div>
 						<div style="float: left;">年</div>
 					</div>
@@ -181,7 +182,7 @@
 					<div class="form-group">
 						<label class="col-lg-3 control-label">能力分值</label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" name="abilityScore">
+							<input type="text" class="form-control" name="abilityScore" maxlength="4">
 						</div>
 						<div style="float: left;">分</div>
 					</div>
@@ -190,7 +191,7 @@
 					<div class="form-group">
 						<label class="col-lg-3 control-label">简评</label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" name="description">
+							<input type="text" class="form-control" name="description" maxlength="100">
 						</div>
 					</div>
 					<!-- /input-group -->
@@ -198,7 +199,7 @@
 					<div class="form-group">
 						<label class="col-lg-3 control-label">业务</label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" name="busiDesc">
+							<input type="text" class="form-control" name="busiDesc" maxlength="20">
 						</div>
 					</div>
 					<!-- /input-group -->
@@ -238,10 +239,10 @@
 						</div>
 					</div>
 
-					<div class="form-group">
+					<div class="form-group" id='caseShow'>
 						 <#if auntWorkCaseList?exists>
 						<#list auntWorkCaseList as case>
-			            	<a href="${request.contextPath}/AuntService/toCaseEdit?auntId=${auntId}&caseId=${case.caseId}" class="btn btn-default ">${case.description!}</a>
+			            	<a style="display: none;" href="${request.contextPath}/AuntService/toCaseEdit?auntId=${auntId}&caseId=${case.caseId}" data-id="${case.type}" class="case-link btn btn-default">${case.description!}</a>
 			            </#list>
 			           </#if>
 					</div>
@@ -257,23 +258,21 @@
 
 <script>
 	jQuery(function($) {
-		$("#upload")
-				.uploadify(
-						{
-							height : 30,
-							swf : '${request.contextPath}/components/uploadify/uploadify.swf',
-							uploader : '${request.contextPath}/UserService/saveImageObj?objId=${auntId!}&objType=PORTRAIT',
-							width : 120,
-							'fileObjName' : 'file',
-							buttonText:"上 传",
-							'buttonClass' : 'btn btn-primary avatar-uploader upload-button',
-							'onUploadSuccess' : function(file, data, response) {
-								$("#avatar-img").attr(
-										'src',
-										"${request.contextPath}/images/portrait/"
-												+ data);
-							}
-						});
+		$("#upload").uploadify({
+			height : 30,
+			swf : '${request.contextPath}/components/uploadify/uploadify.swf',
+			uploader : '${request.contextPath}/UserService/saveImageObj?objId=${auntId!}&objType=PORTRAIT',
+			width : 120,
+			'fileObjName' : 'file',
+			buttonText:"上 传",
+			'buttonClass' : 'btn btn-primary avatar-uploader upload-button',
+			'onUploadSuccess' : function(file, data, response) {
+				$("#avatar-img").attr(
+						'src',
+						"${request.contextPath}/images/portrait/"
+								+ data);
+			}
+		});
 
 		$('#auntAddForm').bootstrapValidator({
 			message : '请检查输入项。',
@@ -301,6 +300,9 @@
 				identityCard : {
 					message : '请输入身份证号',
 					validators : {
+						remote:{url:"${request.contextPath}/AuntService/checkIdentityCard",
+							message:"身份证号已存在"
+							},
 						stringLength : {
 							min : 18,
 							max : 18,
@@ -351,8 +353,8 @@
 			$.post(url, {
 				"auntInfo" : json
 			}, function() {
-			isSave=true;
 				alert("保存成功!");
+				$(".case-link").show();
 			});
 		});
 	});

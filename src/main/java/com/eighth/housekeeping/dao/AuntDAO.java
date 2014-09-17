@@ -27,4 +27,6 @@ public interface AuntDAO {
 
 	OpenPage<AuntInfo> searchAuntByWeb(String corpId,String userName, String mobile,
 			OpenPage<AuntInfo> page);
+
+	Boolean checkIdentityCard(String identityCard);
 }

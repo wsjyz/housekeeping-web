@@ -275,6 +275,7 @@ public class UserServiceController {
 		}
 		try {
 			file.transferTo(targetFile);
+			userService.deleteImageObj(objId, objType);
 			ImageObj imageObj = new ImageObj();
 			imageObj.setImageId(name);
 			imageObj.setImageType(objType);

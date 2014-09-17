@@ -143,12 +143,17 @@
 								text : "删除",
 								icon : 'fa-times',
 								action : function(data, row, grid) {
-									var url = "${request.contextPath}/OrderService/deleteOrderByOrderId";
-				                        $.post(url, {
-											"orderId" : data.orderId
-										}, function(json) {
-											row.remove();
-										});
+				                        BootstrapDialog.confirm('确定要删除吗？', function(result) {
+				                            if (result ===true) {
+				                            	var url = "${request.contextPath}/OrderService/deleteOrderByOrderId";
+						                        $.post(url, {
+													"orderId" : data.orderId
+												}, function(json) {
+													row.remove();
+												});
+				                            }
+
+				                        });
 								}
 							} ]
 						});

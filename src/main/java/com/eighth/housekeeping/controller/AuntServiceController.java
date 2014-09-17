@@ -151,16 +151,19 @@ public class AuntServiceController {
 		auntWorkCase.setAuntId(auntId);
 		auntWorkCase.setCaseId(CommonStringUtils.genPK());
 		auntWorkCase.setDescription("案例-保洁");
+		auntWorkCase.setType("baojie");
 		auntWorkList.add(auntWorkCase);
 		auntWorkCaseService.addWorkCase(auntWorkCase);
 		auntWorkCase=new AuntWorkCase();
 		auntWorkCase.setAuntId(auntId);
 		auntWorkCase.setCaseId(CommonStringUtils.genPK());
 		auntWorkCase.setDescription("案例-洗熨");
+		auntWorkCase.setType("xiyun");
 		auntWorkList.add(auntWorkCase);
 		auntWorkCaseService.addWorkCase(auntWorkCase);
 		auntWorkCase=new AuntWorkCase();
 		auntWorkCase.setAuntId(auntId);
+		auntWorkCase.setType("zuofan");
 		auntWorkCase.setCaseId(CommonStringUtils.genPK());
 		auntWorkCase.setDescription("案例-做饭");
 		auntWorkList.add(auntWorkCase);
@@ -298,5 +301,11 @@ public class AuntServiceController {
 		model.put("auntId",auntId);
 		view.setViewName("aunt/aunt-registration");
 		return view;
+	}
+	@ResponseBody
+    @RequestMapping(value = "/checkIdentityCard")
+	public String checkIdentityCard(@RequestParam  String identityCard){
+		boolean a= auntService.checkIdentityCard(identityCard);
+		return "{\"valid\":"+a+"}";
 	}
 }

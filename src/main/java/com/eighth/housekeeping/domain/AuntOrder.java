@@ -24,9 +24,9 @@ public class AuntOrder extends BaseDomain {
 	private String description;// 备注
 	@Column(name = "unit_price", length = 5, decimal = 2, comment = "单价")
 	private BigDecimal unitPrice;// 单价
-	@Column(name = "total_price", length = 10, decimal = 2, comment = "总价")
+	@Column(name = "total_price", length = 5, decimal = 2, comment = "总价")
 	private BigDecimal totalPrice;// 总价
-	@Column(name = "actual_price", length = 10, decimal = 2, comment = "实付价格")
+	@Column(name = "actual_price", length = 5, decimal = 2, comment = "实付价格")
 	private BigDecimal actualPrice;// 实付价格
 	@Column(name = "use_coupon_count", length = 1, comment = "是否使用优惠券 0=没有使用")
 	private int useCouponCount;// 是否使用优惠券 0=没有使用

@@ -17,6 +17,16 @@ public class AuntWorkCase extends BaseDomain {
 	@Column(name = "aunt_id", length = 32)
 	private String auntId;
 
+	private String type;
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getType() {
+		return type;
+	}
+
 	private List<ImageObj> images;
 
 	private String caseName;

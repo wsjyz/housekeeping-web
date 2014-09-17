@@ -1,9 +1,9 @@
 <div class="content-tools clearfix">
 
   <div class="btns-right">
-    <a href="${request.contextPath}/CorpService/toInstitutionAdd" class="btn btn-primary">
-      <span class="glyphicon glyphicon-plus"></span> 继续添加
-    </a>
+<!--     <a href="${request.contextPath}/CorpService/toInstitutionAdd" class="btn btn-primary"> -->
+<!--       <span class="glyphicon glyphicon-plus"></span> 继续添加 -->
+<!--     </a> -->
     <a href="${request.contextPath}/UserService/toInstitution" class="btn btn-primary">
       <span class="glyphicon glyphicon-arrow-left"></span> 返回
     </a>
@@ -107,7 +107,26 @@ jQuery(function($){
 		var json = form.formToJson();
 		
 		$.post(url, {"corp": json}, function() {
-			alert("保存成功!");
+			
+			BootstrapDialog.show({
+				title:'添加成功',
+	            message:'添加成功, 是否继续添加？',
+	            buttons: [ {
+	                label: '继续添加',
+	                cssClass: 'btn-primary',
+	                action: function(dialogItself){
+	                	dialogItself.close();
+	                	$('#institutionAddForm')[0].reset();
+	                }
+	            }, {
+	                label: '返回',
+	                action: function(dialogItself){
+	                    dialogItself.close();
+	                    window.history.back();
+	                }
+	            }]
+	        });
+			
 		});
 	});
 
