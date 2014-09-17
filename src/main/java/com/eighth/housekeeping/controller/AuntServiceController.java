@@ -136,20 +136,16 @@ public class AuntServiceController {
     }
     
     @RequestMapping(value = "/toAunt")
-   	public ModelAndView toAunt(@RequestParam  String auntId ,@RequestParam  String corpId)  throws RemoteInvokeException{
+   	public ModelAndView toAunt(@RequestParam  String corpId)  throws RemoteInvokeException{
     	ModelAndView view = new ModelAndView();
 		view.setViewName("aunt/aunt");
 		Map<String, Object> model = view.getModel();
 		model.put("corpId", corpId);
-    	if(StringUtils.isNotEmpty(auntId) && !"back".equals(auntId)){
-   		 	auntService.deleteAunt(auntId);
-    	}
    		return view;
    	}
     @RequestMapping(value = "/toAuntAdd")
    	public ModelAndView toAuntAdd(@RequestParam  String corpId)  throws RemoteInvokeException{
-    	AuntInfo auntInfo=new AuntInfo();
-   		String auntId = auntService.addAuntInfo(auntInfo);
+   		String auntId = CommonStringUtils.genPK();
    		List<AuntWorkCase> auntWorkList=new ArrayList<AuntWorkCase>();
    		AuntWorkCase auntWorkCase=new AuntWorkCase();
 		auntWorkCase.setAuntId(auntId);
@@ -184,7 +180,7 @@ public class AuntServiceController {
 		return view;
    	}
 	@RequestMapping(value = "/toAuntView")
-	public ModelAndView toAuntView(@RequestParam  String auntId)  throws RemoteInvokeException{
+	public ModelAndView toAuntView(@RequestParam  String auntId,@RequestParam  String corpId)  throws RemoteInvokeException{
 		  AuntInfo auntInfo = auntService.findAuntByIdByWeb(auntId);
 	    ModelAndView view = new ModelAndView();
         view.setViewName("aunt/aunt-view");
@@ -195,7 +191,7 @@ public class AuntServiceController {
 		return view;
 	}
 	@RequestMapping(value = "/toAuntEdit")
-	public ModelAndView toAuntEdit(@RequestParam  String auntId)  throws RemoteInvokeException{
+	public ModelAndView toAuntEdit(@RequestParam  String auntId,@RequestParam  String corpId)  throws RemoteInvokeException{
 		AuntInfo auntInfo = auntService.findAuntByIdByWeb(auntId);
 		ModelAndView view = new ModelAndView();
 		view.setViewName("aunt/aunt-modify");
@@ -208,7 +204,7 @@ public class AuntServiceController {
     @ResponseBody
     @RequestMapping(value = "/saveAunt")
     public void saveAunt(@FastJson AuntInfo auntInfo) throws RemoteInvokeException{
-   		if(StringUtils.isEmpty(auntInfo.getAuntId())){
+   		if(StringUtils.isNotEmpty(auntInfo.getType()) && "ADD".equals(auntInfo.getType())){
    			auntService.addAuntInfo(auntInfo);
    		}else{
    			auntService.updateAuntInfo(auntInfo);

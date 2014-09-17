@@ -77,54 +77,62 @@ public class AuntInfo extends BaseDomain {
 	private int monthOfSignCounts;// 本月签到天数
 	@Column(name = "status", comment = "状态", length = 20)
 	private String status;
-	
+
 	@Column(name = "work_clean_keeping", comment = "保洁", length = 20)
 	private boolean workCleanKeeping;
 	@Column(name = "work_laundry", comment = "洗熨", length = 20)
 	private boolean workLaundry;
 	@Column(name = "work_cook", comment = "做饭", length = 20)
 	private boolean workCook;
-    @Column(name = "browse_counts", comment = "关注数", length = 6)
-    private int browseCounts;//关注数
+	@Column(name = "browse_counts", comment = "关注数", length = 6)
+	private int browseCounts;// 关注数
 
-	
 	private String loginResult;// 登录结果，传值用 UCCESS成功|ACOUNT_NOT_CORRECT用户名或密码错
-    private String headPic;//头像地址
+	private String headPic;// 头像地址
 	private BigDecimal sumMoney;
 	private int yearOfOrderCounts;
-	private int discussCount;//评论数
-
+	private int discussCount;// 评论数
 
 	private String corpName;
 	private int payOrderCount;
 
-    private boolean userCollected;//当前用户是否收藏了此阿姨
+	private boolean userCollected;// 当前用户是否收藏了此阿姨
 
-    public int getBrowseCounts() {
-        return browseCounts;
-    }
+	private String type;
 
-    public void setBrowseCounts(int browseCounts) {
-        this.browseCounts = browseCounts;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public boolean getUserCollected() {
-        return userCollected;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setUserCollected(boolean userCollected) {
-        this.userCollected = userCollected;
-    }
+	public int getBrowseCounts() {
+		return browseCounts;
+	}
 
-    public String getHeadPic() {
-        return headPic;
-    }
+	public void setBrowseCounts(int browseCounts) {
+		this.browseCounts = browseCounts;
+	}
 
-    public void setHeadPic(String headPic) {
-        this.headPic = headPic;
-    }
+	public boolean getUserCollected() {
+		return userCollected;
+	}
 
-    public boolean isWorkCleanKeeping() {
+	public void setUserCollected(boolean userCollected) {
+		this.userCollected = userCollected;
+	}
+
+	public String getHeadPic() {
+		return headPic;
+	}
+
+	public void setHeadPic(String headPic) {
+		this.headPic = headPic;
+	}
+
+	public boolean isWorkCleanKeeping() {
 		return workCleanKeeping;
 	}
 

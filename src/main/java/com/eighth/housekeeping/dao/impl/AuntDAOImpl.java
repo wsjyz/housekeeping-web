@@ -261,7 +261,7 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 
 	@Override
 	public String addAuntInfo(final AuntInfo auntInfo) {
-		final	String auntId= CommonStringUtils.genPK();
+		final String auntId= auntInfo.getAuntId();
 		StringBuilder sql = new StringBuilder(
 				"INSERT INTO t_aunt_info (aunt_id, password, mobile, user_name, identity_card, sex, age, address, "
 						+ "price, telephone, work_year, ability_score, integrity_auth, description, native_place, busi_desc, blood_type, self_evaluate, "

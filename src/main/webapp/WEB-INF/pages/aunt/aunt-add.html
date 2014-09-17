@@ -5,9 +5,9 @@
 <!-- 			class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span> -->
 <!-- 			继续添加 -->
 <!-- 		</a> -->
-		 <a href="${request.contextPath}/AuntService/toAunt?auntId=${auntId!}&corpId=${corpId}"
+		 <a href="${request.contextPath}/AuntService/toAunt?corpId=${corpId}"
 			class="btn btn-primary"> <span
-			class="glyphicon glyphicon-arrow-left"></span> 返回
+			class="glyphicon glyphicon-arrow-left"></span>返回
 		</a>
 	</div>
 </div>
@@ -17,6 +17,7 @@
 	<form id="auntAddForm" name="auntAddForm" action="" method="post"
 		class="form-horizontal">
 		<input type="hidden" name="auntId" value="${auntId!}" />
+		<input type="hidden" name="type" value="ADD" />
 		<div class="form-panel panel-body">
 			<div class="row">
 				<div class="col col-lg-6 col-md-8 col-sm-10 col-xs-12">
