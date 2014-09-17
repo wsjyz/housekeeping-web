@@ -171,10 +171,9 @@ public class ReviewDAOImpl extends BaseDAO implements ReviewDAO {
 	                " left join t_member_info mi on tr.create_user_id = mi.user_id"
 	                + "  left join t_aunt_info ai on tr.aunt_id = ai.aunt_id where  1=1");
 	        
-	        StringBuilder countSql = new StringBuilder("select count(*)  left join t_member_info mi on tr.create_user_id = mi.user_id"
+	        StringBuilder countSql = new StringBuilder("select count(*)  from t_review tr  left join t_member_info mi on tr.create_user_id = mi.user_id"
 	                + "  left join t_aunt_info ai on tr.aunt_id = ai.aunt_id  where 1=1 ");
 	        List<Object> params = new ArrayList<Object>();
-	        List<Object> countParams = new ArrayList<Object>();
 	        if(StringUtils.isNotEmpty(userName)){
 	        	reviewSql.append(" and mi.user_name like '%"+userName+"%'");
 	        	countSql.append(" and mi.user_name like '%"+userName+"%'");
@@ -203,7 +202,7 @@ public class ReviewDAOImpl extends BaseDAO implements ReviewDAO {
                   return review;
               }
           });
-	        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),countParams.toArray(),Integer.class);
+	        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),Integer.class);
 	        page.setTotal(count);
 	        page.setRows(reviewList);
 	        return page;
