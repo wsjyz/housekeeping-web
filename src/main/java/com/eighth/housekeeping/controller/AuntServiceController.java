@@ -152,9 +152,11 @@ public class AuntServiceController {
 		auntWorkCase.setCaseId(CommonStringUtils.genPK());
 		auntWorkCase.setDescription("案例-保洁");
 		auntWorkCase.setType("baojie");
+		auntWorkCase.setCorpId(corpId);
 		auntWorkList.add(auntWorkCase);
 		auntWorkCaseService.addWorkCase(auntWorkCase);
 		auntWorkCase=new AuntWorkCase();
+		auntWorkCase.setCorpId(corpId);
 		auntWorkCase.setAuntId(auntId);
 		auntWorkCase.setCaseId(CommonStringUtils.genPK());
 		auntWorkCase.setDescription("案例-洗熨");
@@ -163,6 +165,7 @@ public class AuntServiceController {
 		auntWorkCaseService.addWorkCase(auntWorkCase);
 		auntWorkCase=new AuntWorkCase();
 		auntWorkCase.setAuntId(auntId);
+		auntWorkCase.setCorpId(corpId);
 		auntWorkCase.setType("zuofan");
 		auntWorkCase.setCaseId(CommonStringUtils.genPK());
 		auntWorkCase.setDescription("案例-做饭");
