@@ -27,7 +27,7 @@ public class ImageObjDAOImpl extends BaseDAO implements ImageObjDAO {
     @Override
     public List<ImageObj> findImageObjByObjIdAndType(String objId, String imageType) {
         StringBuilder imgSql = new StringBuilder("");
-        imgSql.append("select * from t_img_obj where obj_id = ? and image_type =?");
+        imgSql.append("select * from t_img_obj where obj_id = ? and image_type =? order by opt_time desc");
         List<ImageObj> caseList = getJdbcTemplate().query(imgSql.toString(),new String[]{objId,imageType},new ImageObjMapper());
         return caseList;
     }
