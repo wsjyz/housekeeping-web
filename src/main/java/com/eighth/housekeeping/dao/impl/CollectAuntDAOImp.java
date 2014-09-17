@@ -83,7 +83,7 @@ public class CollectAuntDAOImp extends BaseDAO implements CollectAuntDAO {
 	@Override
 	public String deleteCollectAunt(String collectId) {
 		StringBuilder collectSql = new StringBuilder("");
-        collectSql.append("delete from t_collect_aunt where collect_id='"+collectId+"'");
+        collectSql.append("select * from t_collect_aunt where collect_id='"+collectId+"'");
        int update= getJdbcTemplate().update(collectSql.toString());
        if (update>0) {
 		return "SUCCESS";

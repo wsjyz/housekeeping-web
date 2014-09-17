@@ -89,4 +89,6 @@ public interface UserService {
     
 	OpenPage<MemberInfo> findUserPage(String mobile, String nickName, OpenPage page) throws RemoteInvokeException;
 	String saveImageObj(ImageObj imageObj);
+	void deleteImageObj(String objId,String objType);
+
 }

@@ -203,6 +203,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
 			String auntNo, OpenPage<AuntOrder> page)
 			{
 		List<Object> params = new ArrayList<Object>();
+		List<Object> countparams = new ArrayList<Object>();
         StringBuilder sql = new StringBuilder("select * from t_aunt_order where 1=1");
         StringBuilder countSql = new StringBuilder("select count(*) from t_aunt_order where 1=1 ");
         if(StringUtils.isNotEmpty(contactWay)){
@@ -213,11 +214,12 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             countSql.append(" and corp_id = ?");
             sql.append(" and corp_id = ?");
             params.add(corpId);
+            countparams.add(corpId);
         }
         if(StringUtils.isNotEmpty(auntId)){
             countSql.append(" and aunt_id = ?");
             sql.append(" and aunt_id = ?");
-            params.add(auntId);
+            params.add(auntId);countparams.add(auntId);
         }
         if(StringUtils.isNotEmpty(auntNo)){
             countSql.append(" and order_no like '%"+auntNo+"%'");
@@ -228,7 +230,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
         params.add(page.getPageSize());
 
         List<AuntOrder> orderList = getJdbcTemplate().query(sql.toString(), params.toArray(),new AuntOrderRowMapper());
-        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),Integer.class);
+        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),countparams.toArray(),Integer.class);
         page.setTotal(count);
         page.setRows(orderList);
         return page;

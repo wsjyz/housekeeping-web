@@ -101,4 +101,6 @@ public interface AuntService {
     
     OpenPage<AuntInfo> searchAuntByWeb(String corpId,String userName,String mobile,OpenPage<AuntInfo> page)throws RemoteInvokeException;
 
+	Boolean checkIdentityCard(String identityCard);
+
 }

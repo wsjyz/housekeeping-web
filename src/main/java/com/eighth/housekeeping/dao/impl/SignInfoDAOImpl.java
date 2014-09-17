@@ -148,10 +148,7 @@ public class SignInfoDAOImpl extends BaseDAO implements SignInfoDAO {
         params[0] = year;
         params[1] = month;
         params[2] = auntId;
-        List<Integer> results = getJdbcTemplate().queryForList(sql.toString(),params,Integer.class);
-        if(results != null && !results.isEmpty()){
-            return results.get(0);
-        }
-        return 0;
+        Integer count = getJdbcTemplate().queryForObject(sql.toString(),params,Integer.class);
+        return count;
     }
 }

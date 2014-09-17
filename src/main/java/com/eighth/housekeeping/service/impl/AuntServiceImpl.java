@@ -264,4 +264,9 @@ public class AuntServiceImpl implements AuntService {
 		}
 		return page;
 	}
+
+	@Override
+	public Boolean checkIdentityCard(String identityCard) {
+		return auntDAO.checkIdentityCard(identityCard);
+	}
 }

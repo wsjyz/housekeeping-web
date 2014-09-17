@@ -70,7 +70,7 @@
                     icon : 'fa-eye',
                     action : function(data, row, grid) {
                         var url = "${request.contextPath}/CorpService/toInstitutionView?corpId=" + data.corpId;
-                        loadPage(url);
+                        document.location.hash = url; 
                     }
                 }, {
                     text : "禁用",
@@ -85,11 +85,17 @@
                     text : "删除",
                     icon : 'fa-times',
                     action : function(data, row, grid) {
-                    	var url = "${request.contextPath}/CorpService/deleteCorpWeb";
-                        $.post(url, {"corpId": data.corpId}, function(json) {
-                            row.remove();
+                    	BootstrapDialog.confirm('确定要删除吗？', function(result) {
+                            if (result ===true) {
+                            	var url = "${request.contextPath}/CorpService/deleteCorpWeb";
+                                $.post(url, {"corpId": data.corpId}, function(json) {
+                                    row.remove();
+                                });
+                                $('.institutionGrid').grid('load', $('.institutionGrid .iactive').text());
+                            }
+
                         });
-                        $('.institutionGrid').grid('load', $('.institutionGrid .iactive').text());
+                    
                     }
                 }
             ]
