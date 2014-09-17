@@ -19,24 +19,24 @@
         <div class="col col-lg-3 col-md-4 col-sm-5 col-xs-6">
           <span href="#" class="thumbnail">
           <#if image.imageUrl??>
-        	    <img src="${request.contextPath}/images/${image.imageUrl!}" id="avatar-img${image_index}" alt="...">
+        	    <img src="${request.contextPath}/images/${image.imageUrl!}" id="avatar-img" alt="...">
         	</#if>
           </span>
-        <button class="btn btn-default" type="button" id="upload${image_index}" name="upload${image_index}" >上传照片</button>
+        <button class="btn btn-default saveCaseImage" type="button" id="upload${image_index}" img-id="${image.imageId}" name="upload${image_index}" >上传照片</button>
         </div><!-- /.col-lg-6 -->
   </#list>
         <#else>
         <div class="col col-lg-3 col-md-4 col-sm-5 col-xs-6">
           <span href="#" class="thumbnail">
-            <img src="${request.contextPath}/images/case-1.jpg" id="avatar-img1"alt="...">
+            <img src="${request.contextPath}/images/case-1.jpg" id="avatar-img"alt="...">
           </span>
-           <button class="btn btn-default" type="button" id="upload0" name="upload0" >上传照片</button>
+           <button class="btn btn-default saveCaseImage" type="button" id="upload0" name="upload0" >上传照片</button>
         </div><!-- /.col-lg-6 -->
         <div class="col col-lg-3 col-md-4 col-sm-5 col-xs-6">
           <span href="#" class="thumbnail">
-            <img src="${request.contextPath}/images/case-3.jpg" id="avatar-img2" alt="...">
+            <img src="${request.contextPath}/images/case-3.jpg" id="avatar-img" alt="...">
           </span>
-           <button class="btn btn-default" type="button" id="upload1" name="upload1" >上传照片</button>
+           <button class="btn btn-default saveCaseImage" type="button" id="upload1" name="upload1" >上传照片</button>
         </div><!-- /.col-lg-6 -->
         </#if>
       </div><!-- /.row -->
@@ -57,33 +57,37 @@
   });
   
   jQuery(function($) {
-	  $("#upload0").uploadify({
-			height : 30,
-			swf : '${request.contextPath}/components/uploadify/uploadify.swf',
-			uploader : '${request.contextPath}/UserService/saveImageObj?objId=${auntWorkCase.caseId}&objType=WORKCASE',
-			width : 120,
-			'fileObjName' : 'file',
-			buttonText:"上 传",
-			'buttonClass' : 'btn btn-primary avatar-uploader upload-button',
-			'onUploadSuccess' : function(file, data, response) {
-				$("#avatar-img1").attr('src',"${request.contextPath}/images/workcase"+ data);
-			}
-		});
-	  $("#upload1").uploadify({
-			height : 30,
-			swf : '${request.contextPath}/components/uploadify/uploadify.swf',
-			uploader : '${request.contextPath}/UserService/saveImageObj?objId=${auntWorkCase.caseId}&objType=WORKCASE',
-			width : 120,
-			'fileObjName' : 'file',
-			buttonText:"上 传",
-			'buttonClass' : 'btn btn-primary avatar-uploader upload-button',
-			'onUploadSuccess' : function(file, data, response) {
-				$("#avatar-img2").attr(
-						'src',
-						"${request.contextPath}/images/workcase"
-								+ data);
-			}
-		});
+	  $('.saveCaseImage').each(function(){
+		    var imgId = $(this).attr('img-id');
+		    $(this).uploadify({
+				height : 30,
+				swf : '${request.contextPath}/components/uploadify/uploadify.swf',
+				uploader : '${request.contextPath}/UserService/saveImageObjCase?objId=${auntWorkCase.caseId}&objType=WORKCASE&imageId='+imgId,
+				width : 120,
+				'fileObjName' : 'file',
+				buttonText:"上 传",
+				'buttonClass' : 'btn btn-primary avatar-uploader upload-button',
+				'onUploadSuccess' : function(file, data, response) {
+					$(this).parent().parent().find("#avatar-img").attr('src',"${request.contextPath}/images/workcase"+ data);
+				}
+			});
+	  });
+	
+// 	  $("#upload1").uploadify({
+// 			height : 30,
+// 			swf : '${request.contextPath}/components/uploadify/uploadify.swf',
+// 			uploader : '${request.contextPath}/UserService/saveImageObjCase?objId=${auntWorkCase.caseId}&objType=WORKCASE&count=2',
+// 			width : 120,
+// 			'fileObjName' : 'file',
+// 			buttonText:"上 传",
+// 			'buttonClass' : 'btn btn-primary avatar-uploader upload-button',
+// 			'onUploadSuccess' : function(file, data, response) {
+// 				$("#avatar-img1").attr(
+// 						'src',
+// 						"${request.contextPath}/images/workcase"
+// 								+ data);
+// 			}
+// 		});
 	  
 		$('#addCaseForm').bootstrapValidator({
 			message : '请检查输入项。',

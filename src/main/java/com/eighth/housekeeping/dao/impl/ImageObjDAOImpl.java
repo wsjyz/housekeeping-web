@@ -80,4 +80,11 @@ public class ImageObjDAOImpl extends BaseDAO implements ImageObjDAO {
 	        imgSql.append("delete from  t_img_obj where obj_id = '"+objId+"' and image_type ='"+imageType+"'");
 	    	getJdbcTemplate().update(imgSql.toString());
 	}
+	@Override
+	public void deleteImageObjByImageId(String imageId) {
+		  StringBuilder imgSql = new StringBuilder("");
+	        imgSql.append("delete from  t_img_obj where image_id ='"+imageId+"'");
+	    	getJdbcTemplate().update(imgSql.toString());
+		
+	}
 }
