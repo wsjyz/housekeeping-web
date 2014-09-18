@@ -40,14 +40,14 @@
        
         	<#if corpId?? && (corpId!="ADMIN")>
         	  <li><a href="${request.contextPath}/AuntService/toAunt?corpId=${corpId}" title="">阿姨管理</a></li>
-	          <li><a href="${request.contextPath}/OrderService/toOrder" title="">订单管理</a></li>
+	          <li><a href="${request.contextPath}/OrderService/toOrder?corpId=${corpId}" title="">订单管理</a></li>
         	  <li><a href="${request.contextPath}/UserService/toUpdatePassword?corpId=${corpId}" title="">修改密码</a></li>
 	          <li><a href="${request.contextPath}/UserService/toLogin" target="self" title="">退出</a></li>
         	<#else>
         	  <li class="active"><a href="${request.contextPath}/UserService/toInstitution" title="">机构管理</a></li>
 	          <li><a href="${request.contextPath}/UserService/toMember" title="">会员管理</a></li>
 	          <li><a href="${request.contextPath}/AuntService/toAunt?corpId=${corpId}" title="">阿姨管理</a></li>
-	          <li><a href="${request.contextPath}/OrderService/toOrder" title="">订单管理</a></li>
+	          <li><a href="${request.contextPath}/OrderService/toOrder?corpId=${corpId}" title="">订单管理</a></li>
 	          <li><a href="${request.contextPath}/SystemService/toDataManager" title="">数据管理</a></li>
 	          <li><a href="${request.contextPath}/UserService/toUpdatePassword?corpId=" title="">修改密码</a></li>
 	          <li><a href="${request.contextPath}/UserService/toLogin" target="self" title="">退出</a></li>

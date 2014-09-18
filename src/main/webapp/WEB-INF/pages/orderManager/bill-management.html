@@ -96,24 +96,27 @@
                     width     : 200,
                     align     : 'left'
                 }
-            ],
-            tools: [{
-                    text : "删除",
-                    icon : 'fa-times',
-                    action : function(data, row, grid) {
-						BootstrapDialog.confirm('确定要删除吗？', function(result) {
-                            if (result ===true) {
-                            	var url = "${request.contextPath}/OrderService/deleteOrderByOrderId";
-        						$.post(url, {
-        							"orderId" : data.orderId
-        						}, function(json) {
-        							row.remove();
-        						});
-                            }
-   					 });
-                    }
-                }
             ]
+				<#if corpId?? && corpId=="ADMIN">
+				,
+	            tools: [{
+	                    text : "删除",
+	                    icon : 'fa-times',
+	                    action : function(data, row, grid) {
+							BootstrapDialog.confirm('确定要删除吗？', function(result) {
+	                            if (result ===true) {
+	                            	var url = "${request.contextPath}/OrderService/deleteOrderByOrderId";
+	        						$.post(url, {
+	        							"orderId" : data.orderId
+	        						}, function(json) {
+	        							row.remove();
+	        						});
+	                            }
+	   					 });
+	                    }
+	                }
+	            ]
+				</#if>
         });
         $("#selectOrder").click(function(){
 	       	 $('#bill-management-grid').grid('load', 1);

@@ -256,7 +256,7 @@ public class OrderServiceController {
 	}
 
 	@RequestMapping(value = "/toOrder")
-	public String toOrder() throws RemoteInvokeException {
+	public ModelAndView toOrder(@RequestParam String corpId) throws RemoteInvokeException {
 		List<AuntOrder> List = orderService.getAllAuntOrder();
 		BigDecimal monthMoney = new BigDecimal(0);
 		BigDecimal yearMoney = new BigDecimal(0);
@@ -285,7 +285,9 @@ public class OrderServiceController {
 		model.put("monthMoney", monthMoney);
 		model.put("yearMoney", yearMoney);
 		model.put("sumMoney", sumMoney);
-		return "orderManager/bill-management";
+		model.put("corpId", corpId);
+		view.setViewName("orderManager/bill-management");
+		return view;
 	}
 
 	@ResponseBody

@@ -190,6 +190,7 @@ public class AuntServiceController {
         Map<String, Object> model = view.getModel();
         List<Corp> list = corpService.corpList();
 		model.put("corpList", list);
+		model.put("corpId",corpId);
         model.put("auntInfo",auntInfo);
 		return view;
 	}
@@ -201,6 +202,7 @@ public class AuntServiceController {
 		Map<String, Object> model = view.getModel();
 		List<Corp> list = corpService.corpList();
 		model.put("corpList", list);
+		model.put("corpId",corpId);
 		model.put("auntInfo",auntInfo);
 		return view;
 	}
