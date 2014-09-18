@@ -74,14 +74,16 @@ public class AuntServiceImpl implements AuntService {
 	public AuntInfo findAuntByIdForAunt(String auntId)
 			throws RemoteInvokeException {
 		AuntInfo auntInfo= auntDAO.findAuntByIdForAunt(auntId);
-		if (StringUtils.isNotEmpty(auntInfo.getAuntId())) {
-			List<ImageObj> imageList = imageObjDAO.findImageObjByObjIdAndType(
-					auntInfo.getAuntId(), Constants.PORTRAIT);
-			if (!CollectionUtils.isEmpty(imageList)) {
-				ImageObj imageObj = imageList.get(0);
-				auntInfo.setImageObj(imageObj);
-			}
-		}
+        if(auntInfo != null){
+            if (StringUtils.isNotBlank(auntInfo.getAuntId())) {
+                List<ImageObj> imageList = imageObjDAO.findImageObjByObjIdAndType(
+                        auntInfo.getAuntId(), Constants.PORTRAIT);
+                if (!CollectionUtils.isEmpty(imageList)) {
+                    ImageObj imageObj = imageList.get(0);
+                    auntInfo.setImageObj(imageObj);
+                }
+            }
+        }
 		return auntInfo;
 	}
 
