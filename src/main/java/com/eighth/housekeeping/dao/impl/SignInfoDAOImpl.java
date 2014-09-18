@@ -143,7 +143,7 @@ public class SignInfoDAOImpl extends BaseDAO implements SignInfoDAO {
     @Override
     public Integer findAuntMonthSignCount(String auntId, String year, String month) {
         StringBuilder sql = new StringBuilder("select count(*) from t_sign_info tsi where tsi.signYear = ?" +
-                " and tsi.signMonth = ? and tsi.aunt_id=? GROUP BY tsi.signMonth");
+                " and tsi.signMonth = ? and tsi.aunt_id=? ");
         String[] params = new String[3];
         params[0] = year;
         params[1] = month;
