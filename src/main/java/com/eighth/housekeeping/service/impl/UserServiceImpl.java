@@ -221,5 +221,11 @@ public class UserServiceImpl implements UserService {
 		 imageObjDAO.deleteImageObj(objId,objType);
 	}
 
+	@Override
+	public void deleteImageObjByImageId(String imageId) {
+		imageObjDAO.deleteImageObjByImageId(imageId);
+		
+	}
+
 
 }

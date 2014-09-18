@@ -288,6 +288,42 @@ public class UserServiceController {
 		return "/" + month + "/" + fileName;
 	}
 
+	
+	@ResponseBody
+	@RequestMapping(value = "/saveImageObjCase")
+	public String saveImageObjCase(MultipartHttpServletRequest request,
+			HttpServletResponse response, @RequestParam String objId,
+			@RequestParam String objType,@RequestParam String imageId) throws RemoteInvokeException {
+		String name = CommonStringUtils.genPK();
+		String path = request.getSession().getServletContext()
+				.getRealPath("/WEB-INF/images/" + objType.toLowerCase());
+		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar cal = Calendar.getInstance();
+		Date time = cal.getTime();
+		int month = cal.get(Calendar.MONTH) + 1;
+		String fileName = name + ".jpg";
+		path += "/" + month;
+		MultipartFile file = request.getFile("file");
+		File targetFile = new File(path, fileName);
+		if (!targetFile.exists()) {
+			targetFile.mkdirs();
+		}
+		try {
+			file.transferTo(targetFile);
+			if(StringUtils.isNotEmpty(imageId)){
+				userService.deleteImageObjByImageId(imageId);
+			}
+			ImageObj imageObj = new ImageObj();
+			imageObj.setImageId(name);
+			imageObj.setImageType(objType);
+			imageObj.setObjId(objId);
+			imageObj.setOptTime(sdf.format(time));
+			userService.saveImageObj(imageObj);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "/" + month + "/" + fileName;
+	}
 	@ResponseBody
 	@RequestMapping(value = "/toUpdatePassword")
 	public ModelAndView toUpdatePassword(@RequestParam String corpId)

@@ -128,6 +128,9 @@ public class AuntServiceImpl implements AuntService {
 
 	@Override
 	public String addAuntInfo(AuntInfo auntInfo) {
+		if(StringUtils.isEmpty(auntInfo.getAuntId())){
+			auntInfo.setAuntId(CommonStringUtils.genPK());
+		}
 		return auntDAO.addAuntInfo(auntInfo);
 	}
 

@@ -1,10 +1,10 @@
 <div class="content-tools clearfix">
 
   <div class="btns-right">
-    <a href="${request.contextPath}/AuntService/toAuntAdd" class="btn btn-primary">
+    <a href="${request.contextPath}/AuntService/toAuntAdd?corpId=${corpId!}" class="btn btn-primary">
       <span class="glyphicon glyphicon-plus"></span> 继续添加
     </a>
-    <a href="${request.contextPath}/AuntService/toAunt?auntId=back" class="btn btn-primary">
+    <a href="${request.contextPath}/AuntService/toAunt?corpId=${corpId!}" class="btn btn-primary">
       <span class="glyphicon glyphicon-arrow-left"></span> 返回
     </a>
   </div>
@@ -196,7 +196,7 @@
       </div>
     </div>
     <div class="panel-footer">
-      <a class="btn btn-lg btn-primary" href="${request.contextPath}/AuntService/toAuntEdit?auntId=${auntInfo.auntId}">&nbsp;修改&nbsp;</a>
+      <a class="btn btn-lg btn-primary" href="${request.contextPath}/AuntService/toAuntEdit?auntId=${auntInfo.auntId}&corpId=${corpId}">&nbsp;修改&nbsp;</a>
     </div>
   </form>
 </div>

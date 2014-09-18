@@ -15,7 +15,7 @@
 		</div>
 
 		<div class="btns-right">
-			<a href="${request.contextPath}/AuntService/toAuntAdd"
+			<a href="${request.contextPath}/AuntService/toAuntAdd?corpId=${corpId!}"
 				class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
 				新增
 				</a>
@@ -71,7 +71,7 @@
 										formatter : function(index, value, data) {
 											return '<a href="${request.contextPath}/AuntService/toAuntView?auntId='
 													+ data.auntId
-													+ '"><i class="fa fa-user"></i> '
+													+ '&corpId=${corpId!}"><i class="fa fa-user"></i> '
 													+ value + '</a>';
 										}
 									}, {
@@ -389,7 +389,7 @@
 										icon : 'fa-eye',
 										action : function(data, row, grid) {
 											var url = "${request.contextPath}/AuntService/toAuntView?auntId="
-													+ data.auntId;
+													+ data.auntId+"&corpId=${corpId!}";
 					                        document.location.hash = url; 
 										}
 									},
