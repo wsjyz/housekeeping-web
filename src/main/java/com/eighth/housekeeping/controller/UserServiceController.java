@@ -328,7 +328,6 @@ public class UserServiceController {
 	@RequestMapping(value = "/toUpdatePassword")
 	public ModelAndView toUpdatePassword(@RequestParam String corpId)
 			throws RemoteInvokeException {
-
 		ModelAndView view = new ModelAndView();
 		view.setViewName("member/change-password");
 		Map<String, Object> model = view.getModel();
@@ -350,6 +349,21 @@ public class UserServiceController {
 		}
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "/checkPassword")
+	public String checkPassword(@RequestParam String corpId,@RequestParam String oldPassword)
+			throws RemoteInvokeException {
+		boolean a=false;
+		if (StringUtils.isNotEmpty(corpId)) {
+			Corp corp = corpService.findCorpId(corpId);
+			if(corp!=null && oldPassword.equals(corp.getPassword())){
+				a=true;
+			}	
+		}
+		return "{\"valid\":"+a+"}";
+	}
+
+	
 	
 	@ResponseBody
 	@RequestMapping("/toPayMentUserInfo")
