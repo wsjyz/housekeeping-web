@@ -46,8 +46,11 @@ public class CollectAuntServiceImpl implements CollectAuntService {
     	if (page!=null && !CollectionUtils.isEmpty(page.getRows())) {
 			for (CollectAunt collectAunt : page.getRows()) {
                 if(collectAunt != null){
-                    AuntInfo auntInfo = auntService.findAuntByIdForAunt(collectAunt.getAuntId());
-                    collectAunt.setAuntInfo(auntInfo);
+                    if(collectAunt.getAuntId() != null){
+                        AuntInfo auntInfo = auntService.findAuntByIdForAunt(collectAunt.getAuntId());
+                        collectAunt.setAuntInfo(auntInfo);
+                    }
+
                 }
 			}
 		}
