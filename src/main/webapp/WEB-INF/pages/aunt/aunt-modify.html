@@ -113,7 +113,7 @@
 							</select>
 						</div>
 					</div>
-										   <#if corpId?? && (corpId=="ADMIN")>
+					 <#if corpId?? && (corpId=="ADMIN")>
 					<div class="form-group">
 						<label class="col-lg-3 control-label">机构: </label>
 						<div class="col-lg-8">
@@ -124,6 +124,8 @@
 							</select>
 						</div>
 					</div>
+					<#else>
+						<input type="hidden" name="corpId" value="${corpId}" id="corpId"/>
 					</#if>
 					<!-- /input-group -->
 
