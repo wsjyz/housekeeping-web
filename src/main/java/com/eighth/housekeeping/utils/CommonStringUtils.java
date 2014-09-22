@@ -43,9 +43,4 @@ public class CommonStringUtils {
         }
         return s;
     }
-
-    public static void main(String[] args) {
-        System.out.println(CommonStringUtils.gen4RandomKey());
-        System.out.println(CommonStringUtils.getMD5("123".getBytes()));
-    }
 }
