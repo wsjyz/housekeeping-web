@@ -33,7 +33,8 @@
 		String ALIPAY_GATEWAY_NEW = "http://wappaygw.alipay.com/service/rest.htm?";
 
 		////////////////////////////////////调用授权接口alipay.wap.trade.create.direct获取授权码token//////////////////////////////////////
-		
+		StringBuffer requestURL = request.getRequestURL();
+        String requestURLPrefix = requestURL.substring(0,requestURL.indexOf("hw")+3);
 		//返回格式
 		String format = "xml";
 		//必填，不需要修改
@@ -54,7 +55,6 @@
 		//商户订单号
 		String out_trade_no = new String(request.getParameter("WIDout_trade_no").getBytes("ISO-8859-1"),"UTF-8");
 		//商户网站订单系统中唯一订单号，必填
-
 		//订单名称
 		String subject = new String(request.getParameter("WIDsubject").getBytes("ISO-8859-1"),"UTF-8");
 		//必填
@@ -62,11 +62,11 @@
 		//付款金额
 		String total_fee = new String(request.getParameter("WIDtotal_fee").getBytes("ISO-8859-1"),"UTF-8");
 		//服务器异步通知页面路径
-		String notify_url = request.getContextPath()+"/OrderService/toNotify?orderNo="+out_trade_no;
+		String notify_url = requestURLPrefix+"OrderService/toNotify?orderNo="+out_trade_no;
 		//需http://格式的完整路径，不能加?id=123这类自定义参数
 
 		//页面跳转同步通知页面路径
-		String call_back_url =request.getContextPath()+"/OrderService/tocallbackurl?orderNo="+out_trade_no;
+		String call_back_url =requestURLPrefix+"OrderService/tocallbackurl?orderNo="+out_trade_no;
 		//需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
 
 		//操作中断返回地址
