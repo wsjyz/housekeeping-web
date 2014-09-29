@@ -18,6 +18,7 @@ import com.eighth.housekeeping.domain.AuntOrder;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.OrderService;
+import com.eighth.housekeeping.utils.PayOrderJson;
 import com.eighth.housekeeping.web.FastJson;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -206,7 +207,52 @@ public class OrderServiceController {
 		return sbb;
 	}
 
-	
+	@ResponseBody
+	@RequestMapping("/toPayMentJson")
+	public PayOrderJson toPayMentJson(@RequestParam String orderId,HttpServletRequest request) {
+		PayOrderJson payOrderJson=new PayOrderJson();
+		try {
+			AuntOrder order = orderService.findOrderById(orderId);
+			StringBuffer requestURL = request.getRequestURL();
+	        String requestURLPrefix = requestURL.substring(0,requestURL.indexOf("hw")+3);
+
+			// 必填，须保证每次请求都是唯一
+			// req_data详细信息
+			// 卖家支付宝帐户
+			String seller_email = new String("geassccvip@163.com");
+			// 必填
+			// 商户订单号
+			String out_trade_no = new String(order.getOrderNo());
+			// 商户网站订单系统中唯一订单号，必填
+			// 服务器异步通知页面路径
+			String notify_url =requestURLPrefix+"OrderService/toNotify?orderNo="
+					+ out_trade_no;
+			// 需http://格式的完整路径，不能加?id=123这类自定义参数
+
+			// 页面跳转同步通知页面路径
+			String call_back_url =requestURLPrefix+"OrderService/tocallbackurl?orderNo="
+					+ out_trade_no;
+			// 需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
+
+			// 必填
+			payOrderJson.setPartner(AlipayConfig.partner);
+			payOrderJson.setOut_trade_no(out_trade_no);
+			payOrderJson.setSubject(out_trade_no);
+			payOrderJson.setBody(out_trade_no);
+			payOrderJson.setTotal_fee(order.getActualPrice().toString());
+			payOrderJson.setNotify_url(URLDecoder.decode(notify_url,AlipayConfig.input_charset));
+			payOrderJson.setService("mobile.securitypay.pay");
+			payOrderJson.set_input_charset("UTF-8");
+			payOrderJson.setReturn_url(URLDecoder.decode(call_back_url,AlipayConfig.input_charset));
+			payOrderJson.setPayment_type("1");
+			payOrderJson.setSeller_id(seller_email);
+			payOrderJson.setIt_b_pay("1m");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return payOrderJson;
+	}
 	@RequestMapping("/payment")
 	public ModelAndView toPay(@RequestParam String orderId) {
 		ModelAndView view = new ModelAndView();
