@@ -119,7 +119,7 @@ public class AuntServiceImpl implements AuntService {
 	@Override
 	public String resetPassword(String auntId, String oldPassword,
 			String newPassword) throws RemoteInvokeException {
-		return null;
+		return auntDAO.resetPassword(auntId,newPassword);
 	}
 
 	@Override
@@ -273,5 +273,10 @@ public class AuntServiceImpl implements AuntService {
 	@Override
 	public Boolean checkIdentityCard(String identityCard) {
 		return auntDAO.checkIdentityCard(identityCard);
+	}
+
+	@Override
+	public AuntInfo checkIdentityByCardAndMobile(String card, String mobile) {
+		return auntDAO.checkIdentityByCardAndMobile(card, mobile);
 	}
 }

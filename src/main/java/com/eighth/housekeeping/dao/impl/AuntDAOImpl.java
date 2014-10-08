@@ -537,4 +537,29 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 			   return false;
 		   }
 	}
+
+	@Override
+	public AuntInfo checkIdentityByCardAndMobile(String card, String mobile) {
+		  StringBuilder reviewSql = new StringBuilder("");
+		   reviewSql.append("select * from t_aunt_info where identity_card='"+card+"' and mobile='"+mobile+"'");
+		   List<AuntInfo> reviewList = getJdbcTemplate().query(reviewSql.toString(),new AuntRowMapper());
+		   if(CollectionUtils.isEmpty(reviewList)){
+			   return null;
+		   }
+		   return reviewList.get(0);
+	}
+
+	@Override
+	public String resetPassword(String auntId, String newPassword) {
+		if(StringUtils.isEmpty(auntId)|| StringUtils.isEmpty(newPassword)){
+			return "FAILED";
+		}
+		StringBuilder sql = new StringBuilder("update t_aunt_info set ");
+		if (StringUtils.isNotBlank(newPassword)) {
+			sql.append("password='" + CommonStringUtils.getMD5(newPassword.getBytes()) + "',");
+		}	
+		sql.append(" where aunt_id='" + auntId + "'");
+		getJdbcTemplate().update(sql.toString());
+		return "SUCCESS";
+	}
 }

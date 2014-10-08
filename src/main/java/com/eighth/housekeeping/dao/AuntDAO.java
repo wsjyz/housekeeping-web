@@ -29,4 +29,9 @@ public interface AuntDAO {
 			OpenPage<AuntInfo> page);
 
 	Boolean checkIdentityCard(String identityCard);
+	
+	
+	AuntInfo checkIdentityByCardAndMobile(String card,String mobile);
+
+	String resetPassword(String auntId, String newPassword);
 }

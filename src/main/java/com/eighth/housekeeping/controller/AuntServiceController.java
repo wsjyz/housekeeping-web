@@ -314,4 +314,10 @@ public class AuntServiceController {
 		boolean a= auntService.checkIdentityCard(identityCard);
 		return "{\"valid\":"+a+"}";
 	}
+	@ResponseBody
+    @RequestMapping(value = "/checkIdentityByCardAndMobile")
+	public AuntInfo checkIdentityByCardAndMobile(@RequestParam  String card,@RequestParam  String mobile){
+		return auntService.checkIdentityByCardAndMobile(card, mobile);
+		
+	}
 }
