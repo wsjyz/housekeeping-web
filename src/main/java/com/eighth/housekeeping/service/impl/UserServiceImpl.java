@@ -9,6 +9,7 @@ import com.eighth.housekeeping.domain.MemberInfo;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.VerifyCode;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
+import com.eighth.housekeeping.proxy.service.SmsSendService;
 import com.eighth.housekeeping.proxy.service.UserService;
 import com.eighth.housekeeping.utils.CommonStringUtils;
 import com.eighth.housekeeping.utils.Constants;
@@ -36,6 +37,8 @@ public class UserServiceImpl implements UserService {
     OrderDAO orderDAO;
     @Autowired
     ImageObjDAO imageObjDAO;
+    @Autowired
+    SmsSendService SmsSendService;
     @Override
     public MemberInfo add(MemberInfo userInfo) throws RemoteInvokeException {
         if(StringUtils.isBlank(userInfo.getUserId())){
@@ -52,6 +55,7 @@ public class UserServiceImpl implements UserService {
         code.setMobile(mobile);
         code.setToken(CommonStringUtils.gen4RandomKey());
         userDAO.saveVerifyCode(code);
+        SmsSendService.sendSms(mobile, CommonStringUtils.gen4RandomKey());
         return code;
     }
 
