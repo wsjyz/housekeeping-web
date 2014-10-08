@@ -25,6 +25,33 @@
 
   <div class="panel-body">
     <form class="form-horizontal" role="form">
+          <div class="row">
+      <#if systemManage.images?exists && (systemManage.images?size>0)>
+      <#list systemManage.images as image>
+        <div class="col col-lg-4 col-md-5 col-sm-6 col-xs-12">
+          <span href="#" class="thumbnail">
+        	<#if image.imageUrl??>
+        	    <img src="${request.contextPath}/images/${image.imageUrl!}" alt="...">
+        	<#else>
+        	   <img src="${request.contextPath}/images/case-1.jpg" alt="...">
+        	</#if>
+          </span>
+        </div><!-- /.col-lg-6 -->
+        </#list>
+        <#else>
+          <div class="col col-lg-3 col-md-4 col-sm-5 col-xs-6">
+          <span href="#" class="thumbnail">
+            <img src="${request.contextPath}/images/case-1.jpg" alt="...">
+          </span>
+        </div><!-- /.col-lg-6 -->
+
+        <div class="col col-lg-3 col-md-4 col-sm-5 col-xs-6">
+          <span href="#" class="thumbnail">
+            <img src="${request.contextPath}/images/case-3.jpg" alt="...">
+          </span>
+        </div><!-- /.col-lg-6 -->
+        </#if>
+      </div>
       <div class="row">
         <div class="col col-xs-8 col-md-6 col-lg-5">
 

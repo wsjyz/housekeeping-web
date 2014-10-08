@@ -87,6 +87,7 @@ public class SystemDAOImpl extends BaseDAO implements SystemDAO {
         @Override
         public SystemManage mapRow(ResultSet rs, int rowNum) throws SQLException {
             SystemManage systemManage = new SystemManage();
+            systemManage.setSystemId(rs.getString("system_id"));
             systemManage.setAppLogo(rs.getString("app_logo"));
             systemManage.setAppPhone(rs.getString("app_phone"));
             systemManage.setHourlyUnitPrice(rs.getBigDecimal("hourly_unit_price"));

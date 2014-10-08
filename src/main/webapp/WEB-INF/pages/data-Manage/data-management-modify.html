@@ -1,5 +1,24 @@
 <script>
     jQuery(function() {
+    	
+    	 $('.saveAppLogoImage').each(function(){
+ 		    var imgId = $(this).attr('img-id');
+ 		    var avatarimg=$(this).attr('imgtype');
+ 		    var kao= $(this);
+ 		    $(this).uploadify({
+ 				height : 30,
+ 				swf : '${request.contextPath}/components/uploadify/uploadify.swf',
+ 				uploader : '${request.contextPath}/SystemService/saveAppLogoImage?objId=${systemManage.systemId}&objType=APPLOGO&imageId='+imgId,
+ 				width : 120,
+ 				'fileObjName' : 'file',
+ 				buttonText:"上 传",
+ 				'buttonClass' : 'btn btn-primary avatar-uploader upload-button',
+ 				'onUploadSuccess' : function(file, data, response) {
+ 					$("#"+avatarimg).attr('src',"${request.contextPath}/images/applogo"+ data);
+ 					
+ 				}
+ 			});
+ 	  });
     	$('#dataEditForm').bootstrapValidator({
 			message : '请检查输入项。',
 			//submitButtons : 'button[type="submit"]',
@@ -46,6 +65,33 @@
 
   <div class="panel-body">
     <form class="form-horizontal" role="form" id="dataEditForm" name="dataEditForm" action="" method="post">
+        <div class="row">
+		 <#if systemManage.images?exists && (systemManage.images?size>0)>
+		      <#list systemManage.images as image>
+		        <div class="col col-lg-3 col-md-4 col-sm-5 col-xs-6">
+		          <span href="#" class="thumbnail">
+		          <#if image.imageUrl??>
+		        	    <img src="${request.contextPath}/images/${image.imageUrl!}" id="avatar-img${image_index}" alt="...">
+		        	</#if>
+		          </span>
+		        <button class="btn btn-default saveAppLogoImage" type="button" id="upload${image_index}" imgtype="avatar-img${image_index}" img-id="${image.imageId}" name="upload${image_index}" >上传照片</button>
+		        </div><!-- /.col-lg-6 -->
+		  </#list>
+		        <#else>
+		        <div class="col col-lg-3 col-md-4 col-sm-5 col-xs-6">
+		          <span href="#" class="thumbnail">
+		            <img src="${request.contextPath}/images/case-1.jpg" id="avatar-img0"alt="...">
+		          </span>
+		           <button class="btn btn-default saveAppLogoImage" type="button" id="upload0" imgtype="avatar-img0" name="upload0" >上传照片</button>
+		        </div><!-- /.col-lg-6 -->
+		        <div class="col col-lg-3 col-md-4 col-sm-5 col-xs-6">
+		          <span href="#" class="thumbnail">
+		            <img src="${request.contextPath}/images/case-3.jpg" id="avatar-img1" alt="...">
+		          </span>
+		           <button class="btn btn-default saveAppLogoImage" type="button" id="upload1" imgtype="avatar-img1" name="upload1" >上传照片</button>
+		        </div><!-- /.col-lg-6 -->
+		        </#if>
+		      </div>
       <div class="row">
         <div class="col col-xs-12 col-md-10 col-lg-8">
 

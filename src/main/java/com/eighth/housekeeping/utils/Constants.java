@@ -9,6 +9,7 @@ public interface Constants {
     String COLLECTED = "COLLECTED";//已经收藏
     String PORTRAIT="PORTRAIT";//头像
     String WORKCASE="WORKCASE";//案例
+    String APPLOGO="APPLOGO";//案例
     String ONLINE_PAYED="ONLINE_PAYED";//线上已支付 
     String NOT_PAY="NOT_PAY";//未支付
    String  GOLD="GOLD";//金卡
