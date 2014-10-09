@@ -79,7 +79,7 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 	}
 	   @Override
 	    public OpenPage<AuntInfo> searchAuntByCondition(AuntInfo auntInfo, OpenPage<AuntInfo> page) {
-	        StringBuilder auntSql = new StringBuilder("select tai.aunt_id,tai.user_name,tai.start," +
+	        StringBuilder auntSql = new StringBuilder("select tai.aunt_id,tai.user_name,tai.start,tai.identity_card,tai.integrity_auth," +
 	                "fdistance(?,?,tai.longitude,tai.latitude) distance" +
 	                " from t_aunt_info tai ");
 	        StringBuilder countSql = new StringBuilder("select count(*) "+
@@ -192,6 +192,8 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 	                        aunt.setAuntId(rs.getString("aunt_id"));
 	                        aunt.setUserName(rs.getString("user_name"));
 	                        aunt.setStart(rs.getString("start"));
+	                        aunt.setIdentityCard(rs.getString("identity_card"));
+	                        aunt.setIntegrityAuth(rs.getBoolean("integrity_auth"));
 	                        aunt.setDistanceMeter(new Double(rs.getDouble("distance") *1000).intValue());
 	                        return aunt;
 	                    }
@@ -556,7 +558,7 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 		}
 		StringBuilder sql = new StringBuilder("update t_aunt_info set ");
 		if (StringUtils.isNotBlank(newPassword)) {
-			sql.append("password='" + CommonStringUtils.getMD5(newPassword.getBytes()) + "',");
+			sql.append("password='" + CommonStringUtils.getMD5(newPassword.getBytes()) + "' ");
 		}	
 		sql.append(" where aunt_id='" + auntId + "'");
 		getJdbcTemplate().update(sql.toString());
