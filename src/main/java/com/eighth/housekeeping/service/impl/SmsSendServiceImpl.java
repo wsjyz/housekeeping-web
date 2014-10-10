@@ -24,11 +24,10 @@ import java.io.InputStreamReader;
 public class SmsSendServiceImpl implements SmsSendService {
 
     //短信API
-    public final static String SMS_URL="http://sms.uuvio.com:8001/sms.aspx?action=send&userid=8H&account=jkwl014&password=a425631&mobile=";
-  
+    public final static String SMS_URL="http://sh2.ipyy.com/sms.aspx?action=send&userid=JY&account=jkwl014&password=a425631&mobile=";
     @Override
     public boolean sendSms(String tel, String authCode) {
-        String message="&content=["+authCode+"]恭喜您已成功注册为本站会员【居优家政】";
+        String message="&content=居优家政：["+authCode+"]您正在申请注册为本站会员【居优家政】";
         String url=SMS_URL+tel+message;
         HttpPost sendUrl = new HttpPost(url);
         HttpClient http = new DefaultHttpClient();
