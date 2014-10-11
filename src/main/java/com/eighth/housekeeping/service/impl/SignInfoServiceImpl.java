@@ -32,6 +32,8 @@ public class SignInfoServiceImpl implements SignInfoService {
         signInfo.setSignMonth(dateArray[1]);
         signInfo.setSignDay(dateArray[2]);
         signInfoDAO.saveSignInfo(signInfo);
+        Integer count = signInfoDAO.findAuntMonthSignCount(signInfo.getAuntId(),dateArray[0],dateArray[1]);
+        signInfo.setSignCountsMonth(count);
         return signInfo;
     }
 

@@ -51,11 +51,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public VerifyCode obtainVerifyCode(String mobile) throws RemoteInvokeException {
         userDAO.deleteVerifyCode(mobile);
+        String key=CommonStringUtils.gen4RandomKey();
         VerifyCode code = new VerifyCode();
         code.setMobile(mobile);
-        code.setToken(CommonStringUtils.gen4RandomKey());
+        code.setToken(key);
         userDAO.saveVerifyCode(code);
-        SmsSendService.sendSms(mobile, CommonStringUtils.gen4RandomKey());
+        SmsSendService.sendSms(mobile, key);
         return code;
     }
 

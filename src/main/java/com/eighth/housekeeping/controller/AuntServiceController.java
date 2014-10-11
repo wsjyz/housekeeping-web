@@ -125,7 +125,7 @@ public class AuntServiceController {
     }
     @ResponseBody
     @RequestMapping(value = "/modifyAuntGeo")
-    public String modifyAuntGeo(String auntId,double longitude,double latitude){
+    public String modifyAuntGeo(@RequestParam String auntId,@RequestParam double longitude,@RequestParam double latitude){
         String result = null;
         try {
             result = auntService.modifyAuntGeo(auntId,longitude,latitude);
