@@ -204,15 +204,15 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
 			{
 		List<Object> params = new ArrayList<Object>();
 		List<Object> countparams = new ArrayList<Object>();
-        StringBuilder sql = new StringBuilder("select * from t_aunt_order where 1=1");
-        StringBuilder countSql = new StringBuilder("select count(*) from t_aunt_order where 1=1 ");
+        StringBuilder sql = new StringBuilder("select * from t_aunt_order ao left join t_aunt_info ai on ai.aunt_id=ao.aunt_id  where 1=1");
+        StringBuilder countSql = new StringBuilder("select count(*) from t_aunt_order ao left join t_aunt_info ai on ai.aunt_id=ao.aunt_id where 1=1 ");
         if(StringUtils.isNotEmpty(contactWay)){
             countSql.append(" and contact_way like '%"+contactWay+"%'");
             sql.append(" and contact_way like '%"+contactWay+"%'");
         }
         if(StringUtils.isNotEmpty(corpId)){
-            countSql.append(" and corp_id = ?");
-            sql.append(" and corp_id = ?");
+            countSql.append(" and ai.corp_id = ?");
+            sql.append(" and ai.corp_id = ?");
             params.add(corpId);
             countparams.add(corpId);
         }
@@ -225,7 +225,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             countSql.append(" and order_no like '%"+auntNo+"%'");
             sql.append(" and order_no  like '%"+auntNo+"%'");
         }
-        sql.append(" limit ?,?");
+        sql.append(" order by order_no desc limit ?,?");
         params.add(page.getPageSize() * (page.getPageNo() - 1));
         params.add(page.getPageSize());
 
@@ -272,5 +272,13 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
 	    	  return new ArrayList<AuntOrder>();
 	      }
 	      return orderList;
+	}
+
+	@Override
+	public void updateUseCouponCount(String orderId, String useCouponCount) {
+		  StringBuilder sql = new StringBuilder("update t_aunt_order set ");
+	        sql.append(" use_coupon_count='"+useCouponCount+"'");
+	        sql.append(" where order_id='"+ orderId+"'");
+	        getJdbcTemplate().update(sql.toString());
 	}
 }

@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
                     e.printStackTrace();
                 }
                 long diffResult = (currentDate.getTime() - codeGenDate.getTime())/1000;
-                if(diffResult > 30){
+                if(diffResult > 90){
                     result = "PAST";
                 }else if(token.getToken().equals(code.getToken())){
                     MemberInfo memberInfo = userDAO.findMemberByMobile(token.getMobile());

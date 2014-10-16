@@ -14,13 +14,21 @@ import javax.servlet.http.HttpServletResponse;
 import com.alipay.config.AlipayConfig;
 import com.alipay.sign.RSA;
 import com.alipay.util.UtilDate;
+import com.eighth.housekeeping.dao.SystemDAO;
 import com.eighth.housekeeping.domain.AuntOrder;
+import com.eighth.housekeeping.domain.Corp;
+import com.eighth.housekeeping.domain.MemberInfo;
 import com.eighth.housekeeping.domain.OpenPage;
+import com.eighth.housekeeping.domain.SystemManage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
+import com.eighth.housekeeping.proxy.service.CorpService;
 import com.eighth.housekeeping.proxy.service.OrderService;
+import com.eighth.housekeeping.proxy.service.SystemService;
+import com.eighth.housekeeping.proxy.service.UserService;
 import com.eighth.housekeeping.utils.PayOrderJson;
 import com.eighth.housekeeping.web.FastJson;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +42,12 @@ public class OrderServiceController {
 	@Autowired
 	OrderService orderService;
 
+	@Autowired
+	CorpService corpService;
+	@Autowired
+	UserService UserService;
+@Autowired
+SystemService systemService;
 	@ResponseBody
 	@RequestMapping(value = "/saveUserOrder")
 	public AuntOrder saveUserOrder(@FastJson AuntOrder order) {
@@ -150,17 +164,30 @@ public class OrderServiceController {
 
 	@ResponseBody
 	@RequestMapping("/toPayMent")
-	public String toPayMent(@RequestParam String orderId,HttpServletRequest request) {
+	public String toPayMent(@RequestParam String orderId,@RequestParam String useCouponCount,HttpServletRequest request) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			AuntOrder order = orderService.findOrderById(orderId);
+			SystemManage systemManage = systemService.findSystemManage();
+			BigDecimal actualPrice = order.getActualPrice();
+			if(useCouponCount.equals("1")){
+				orderService.updateUseCouponCount(orderId, "1");
+				MemberInfo memberInfoOld=UserService.findMemberByMemberId(order.getUserId());
+				if(memberInfoOld!=null && memberInfoOld.getCouponCounts()!=null){
+					MemberInfo memberInfo=new MemberInfo();
+					memberInfo.setUserId(order.getUserId());
+					memberInfo.setCouponCounts((Integer.parseInt(memberInfoOld.getCouponCounts())-1)+"");
+					UserService.modifyMemberInfo(memberInfo);
+				}
+				actualPrice=actualPrice.subtract(systemManage.getCouponUnitPrice());
+			}
 			StringBuffer requestURL = request.getRequestURL();
 	        String requestURLPrefix = requestURL.substring(0,requestURL.indexOf("hw")+3);
 
 			// 必填，须保证每次请求都是唯一
 			// req_data详细信息
 			// 卖家支付宝帐户
-			String seller_email = new String("geassccvip@163.com");
+			String seller_email = new String("lvsiwei@ylbj.cn");
 			// 必填
 			// 商户订单号
 			String out_trade_no = new String(order.getOrderNo());
@@ -186,7 +213,7 @@ public class OrderServiceController {
 			sb.append("\"&body=\"");
 			sb.append(out_trade_no);
 			sb.append("\"&total_fee=\"");
-			sb.append(order.getActualPrice());
+			sb.append(actualPrice);
 			sb.append("\"&notify_url=\"");
 
 			// 网址需要做URL编码
@@ -219,7 +246,7 @@ public class OrderServiceController {
 			// 必填，须保证每次请求都是唯一
 			// req_data详细信息
 			// 卖家支付宝帐户
-			String seller_email = new String("geassccvip@163.com");
+			String seller_email = new String("lvsiwei@ylbj.cn");
 			// 必填
 			// 商户订单号
 			String out_trade_no = new String(order.getOrderNo());
@@ -263,7 +290,7 @@ public class OrderServiceController {
 			e.printStackTrace();
 		}
 		String orderNo = auntOrder.getOrderNo();
-		view.addObject("WIDseller_email", "geassccvip@163.com");
+		view.addObject("WIDseller_email", "lvsiwei@ylbj.cn");
 		view.addObject("WIDout_trade_no", orderNo);
 		view.addObject("WIDsubject", orderNo);
 		view.addObject("WIDtotal_fee", auntOrder.getActualPrice());
@@ -339,12 +366,12 @@ public class OrderServiceController {
 	@ResponseBody
 	@RequestMapping(value = "/findOrderListByWeb")
 	OpenPage<AuntOrder> findOrderListByWeb(@RequestParam String corpId,
-			@RequestParam String contactWay, @RequestParam String auntNo,
+			@RequestParam String auntNo,@RequestParam String corpName,
 			@FastJson OpenPage<AuntOrder> page) {
 
 		try {
 			page = orderService.findAuntOrderListByWeb(null, corpId,
-					contactWay, auntNo, page);
+					corpName, auntNo, page);
 		} catch (RemoteInvokeException e) {
 			e.printStackTrace();
 		}

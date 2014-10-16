@@ -54,5 +54,10 @@ public class CorpServiceImpl implements CorpService {
 	public List<Corp> corpList() {
 		return corpDao.corpList();
 	}
+
+	@Override
+	public Corp getCorpByName(String corpName) {
+		return corpDao.getCorpByName(corpName);
+	}
  
 }

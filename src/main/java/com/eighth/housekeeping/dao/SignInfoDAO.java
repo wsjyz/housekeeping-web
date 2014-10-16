@@ -21,4 +21,5 @@ public interface SignInfoDAO {
 			OpenPage<SignInfo> page);
 
     Integer findAuntMonthSignCount(String auntId,String year,String month);
+    boolean checkSignToday(String auntId,String year,String month,String day);
 }

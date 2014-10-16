@@ -59,13 +59,16 @@ public class AuntServiceImpl implements AuntService {
 				ImageObj imageObj = imageList.get(0);
 				auntInfo.setImageObj(imageObj);
 			}
-			 if(auntInfo!= null){
-		            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		            String today = sdf.format(new Date());
-		            String[] todayStrArr = today.split("-");
-		            Integer count = signInfoDAO.findAuntMonthSignCount(auntInfo.getAuntId(),todayStrArr[0],todayStrArr[1]);
-		            auntInfo.setMonthOfSignCounts(count);
-		        }
+		}
+		setMoneyByAuntInfo(auntInfo);
+		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+         String today = sdf.format(new Date());
+         String[] todayStrArr = today.split("-");
+		boolean signToday = signInfoDAO.checkSignToday(auntInfo.getAuntId(),todayStrArr[0], todayStrArr[1], todayStrArr[2]);
+		if(signToday){
+			auntInfo.setType("sign_in");
+		}else{
+			auntInfo.setType("sign_out");
 		}
 		return auntInfo;
 	}
@@ -84,6 +87,7 @@ public class AuntServiceImpl implements AuntService {
                 }
             }
         }
+		setMoneyByAuntInfo(auntInfo);
 		return auntInfo;
 	}
 
@@ -101,6 +105,7 @@ public class AuntServiceImpl implements AuntService {
 		}
         auntInfo.setBrowseCounts(auntInfo.getBrowseCounts()+1);
         auntDAO.updateAuntInfo(auntInfo);
+		setMoneyByAuntInfo(auntInfo);
 		return auntInfo;
 	}
 
@@ -167,6 +172,7 @@ public class AuntServiceImpl implements AuntService {
 						ImageObj imageObj = imageList.get(0);
 						auntInfoTemp.setImageObj(imageObj);
 					}
+					setMoneyByAuntInfo(auntInfoTemp);
 				}
 			}
 		}
@@ -200,13 +206,28 @@ public class AuntServiceImpl implements AuntService {
 		int payOrderCount = 0;
 		int discussCount = 0;
 		List<Review> reviewByAuntId = reviewDAO.getReviewByAuntId(auntId);
-		if (CollectionUtils.isEmpty(reviewByAuntId)) {
+		if (!CollectionUtils.isEmpty(reviewByAuntId)) {
 			discussCount = reviewByAuntId.size();
+			int verySatisfyCounts=0;// 非常满意评价数量
+			int satisfyCounts=0;// 满意评价数量
+			int notSatisfyCounts=0;// 不满意评价数量
+			for (Review review : reviewByAuntId) {
+				if("VERY_SATISFY".equals(review.getReviewTag())){
+					verySatisfyCounts++;
+				}else if("SATISFY".equals(review.getReviewTag())){
+					satisfyCounts++;
+				}else if("NOT_SATISFY".equals(review.getReviewTag())){
+					notSatisfyCounts++;
+				}
+			}
+			auntInfo.setVerySatisfyCounts(verySatisfyCounts);
+			auntInfo.setSatisfyCounts(satisfyCounts);
+			auntInfo.setNotSatisfyCounts(notSatisfyCounts);
 		}
 		if (!CollectionUtils.isEmpty(auntOrderList)) {
 			Calendar cal = Calendar.getInstance();
 			String year = cal.get(Calendar.YEAR) + "";
-			String month = cal.get(Calendar.MONTH) + "";
+			String month = cal.get(Calendar.MONTH)+1 + "";
 			for (AuntOrder auntOrder : auntOrderList) {
 				totalOrderCounts++;
 				if (Constants.ONLINE_PAYED.equals(auntOrder.getOrderStatus())) {

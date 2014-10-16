@@ -102,5 +102,7 @@ public interface OrderService {
     AuntOrder findOrderByOrderNo(String orderNo);
     
      List<AuntOrder> getAllAuntOrder();
+     
+     void updateUseCouponCount(String orderId,String useCouponCount);
 
 }

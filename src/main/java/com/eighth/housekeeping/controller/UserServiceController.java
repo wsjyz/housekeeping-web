@@ -376,19 +376,19 @@ public class UserServiceController {
 	        BigDecimal money=new BigDecimal(0);
 	        String count="0";
 	        if(Constants.GOLD.equals(card)){
-	        	money=new BigDecimal(450);
-	        	count="45";
+	        	money=new BigDecimal(400);
+	        	count="50";
 	        }else  if(Constants.WHITE_GOLD.equals(card)){
-	        	money=new BigDecimal(900);
-	        	count="90";
+	        	money=new BigDecimal(1300);
+	        	count="150";
 	        }else  if(Constants.DIAMOND.equals(card)){
-	        	money=new BigDecimal(1800);
-	        	count="180";
+	        	money=new BigDecimal(3200);
+	        	count="350";
 	        }
 			// 必填，须保证每次请求都是唯一
 			// req_data详细信息
 			// 卖家支付宝帐户
-			String seller_email = new String("geassccvip@163.com");
+			String seller_email = new String("lvsiwei@ylbj.cn");
 			// 必填
 			// 商户订单号
 			String out_trade_no = new String(UtilDate.getOrderNum());
@@ -456,7 +456,7 @@ public class UserServiceController {
 			// 必填，须保证每次请求都是唯一
 			// req_data详细信息
 			// 卖家支付宝帐户
-			String seller_email = new String("geassccvip@163.com");
+			String seller_email = new String("lvsiwei@ylbj.cn");
 			// 必填
 			// 商户订单号
 			String out_trade_no = new String(UtilDate.getOrderNum());

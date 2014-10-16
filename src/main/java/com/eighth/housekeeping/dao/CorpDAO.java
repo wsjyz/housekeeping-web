@@ -18,4 +18,5 @@ public interface CorpDAO {
     String deleteCorp(String corpId);
 	Corp login(String loginName, String md5Psw);
 	List<Corp> corpList();
+	Corp getCorpByName(String corpName);
 }

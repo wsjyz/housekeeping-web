@@ -33,5 +33,7 @@ public interface OrderDAO {
     
     List<AuntOrder> getAllAuntOrder();
 
+	void updateUseCouponCount(String orderId, String useCouponCount);
+
 
 }

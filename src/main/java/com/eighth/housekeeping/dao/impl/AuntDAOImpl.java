@@ -79,7 +79,7 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 	}
 	   @Override
 	    public OpenPage<AuntInfo> searchAuntByCondition(AuntInfo auntInfo, OpenPage<AuntInfo> page) {
-	        StringBuilder auntSql = new StringBuilder("select tai.aunt_id,tai.user_name,tai.start,tai.identity_card,tai.integrity_auth," +
+	        StringBuilder auntSql = new StringBuilder("select tai.aunt_id,tai.user_name,tai.start,tai.identity_card,tai.integrity_auth,tai.browse_counts," +
 	                "fdistance(?,?,tai.longitude,tai.latitude) distance" +
 	                " from t_aunt_info tai ");
 	        StringBuilder countSql = new StringBuilder("select count(*) "+
@@ -109,6 +109,33 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 	            params.add(auntInfo.getAge());
 	            countParams.add(auntInfo.getAge());
 	        }
+	        if(StringUtils.isNotBlank(auntInfo.getStatus()) ){
+	            if(!auntAppendSql.toString().equals("")){
+	                auntAppendSql.append(" and ");
+	            }
+	            if(!countAppendSql.toString().equals("")){
+	                countAppendSql.append(" and ");
+	            }
+	            auntAppendSql.append(" status = ?");
+	            countAppendSql.append(" status = ?");
+	            params.add(auntInfo.getStatus());
+	            countParams.add(auntInfo.getStatus());
+	        }
+	        if(StringUtils.isNotBlank(auntInfo.getWorkType()) ){
+	        	if(!"不限".equals(auntInfo.getBloodType())){
+	
+		            if(!auntAppendSql.toString().equals("")){
+		                auntAppendSql.append(" and ");
+		            }
+		            if(!countAppendSql.toString().equals("")){
+		                countAppendSql.append(" and ");
+		            }
+		            auntAppendSql.append(" work_type = ?");
+		            countAppendSql.append(" work_type = ?");
+		            params.add(auntInfo.getWorkType());
+		            countParams.add(auntInfo.getWorkType());
+	        	}
+	        }
 	        if(auntInfo.getWorkYear() != 0){
 	            if(!auntAppendSql.toString().equals("")){
 	                auntAppendSql.append(" and ");
@@ -122,28 +149,36 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 	            countParams.add(auntInfo.getWorkYear());
 	        }
 	        if(StringUtils.isNotBlank(auntInfo.getConstellation())){
-	            if(!auntAppendSql.toString().equals("")){
-	                auntAppendSql.append(" and ");
-	            }
-	            if(!countAppendSql.toString().equals("")){
-	                countAppendSql.append(" and ");
-	            }
-	            auntAppendSql.append(" constellation = ?");
-	            countAppendSql.append(" constellation = ?");
-	            params.add(auntInfo.getConstellation());
-	            countParams.add(auntInfo.getConstellation());
+	        	if(!"不限".equals(auntInfo.getConstellation())){
+	        		if(!auntAppendSql.toString().equals("")){
+	        			auntAppendSql.append(" and ");
+	        		}
+	        		if(!countAppendSql.toString().equals("")){
+	        			countAppendSql.append(" and ");
+	        		}
+	        		auntAppendSql.append(" constellation = ?");
+	        		countAppendSql.append(" constellation = ?");
+	        		params.add(auntInfo.getConstellation());
+	        		countParams.add(auntInfo.getConstellation());
+	        	}
 	        }
 	        if(StringUtils.isNotBlank(auntInfo.getBloodType())){
-	            if(!auntAppendSql.toString().equals("")){
-	                auntAppendSql.append(" and ");
-	            }
-	            if(!countAppendSql.toString().equals("")){
-	                countAppendSql.append(" and ");
-	            }
-	            auntAppendSql.append(" blood_type = ?");
-	            countAppendSql.append(" blood_type = ?");
-	            params.add(auntInfo.getBloodType());
-	            countParams.add(auntInfo.getBloodType());
+	        	if(!"不限".equals(auntInfo.getBloodType())){
+		        	String bloodType = auntInfo.getBloodType();
+		        	if(auntInfo.getBloodType().contains("型")){
+		        		bloodType=auntInfo.getBloodType().substring(0,auntInfo.getBloodType().length()-1);
+		        	}
+		            if(!auntAppendSql.toString().equals("")){
+		                auntAppendSql.append(" and ");
+		            }
+		            if(!countAppendSql.toString().equals("")){
+		                countAppendSql.append(" and ");
+		            }
+		            auntAppendSql.append(" blood_type = ?");
+		            countAppendSql.append(" blood_type = ?");
+		            params.add(bloodType);
+		            countParams.add(bloodType);
+	        	}
 	        }
 	        if(StringUtils.isNotBlank(auntInfo.getDescription())){//关键字
 	            if(!auntAppendSql.toString().equals("")){
@@ -152,8 +187,24 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 	            if(!countAppendSql.toString().equals("")){
 	                countAppendSql.append(" and ");
 	            }
-	            auntAppendSql.append(" description like ?");
-	            countAppendSql.append(" description like ?");
+	            auntAppendSql.append("( age like ?");
+	            countAppendSql.append("( age like ?");
+	            params.add("%"+auntInfo.getDescription()+"%");
+	            countParams.add("%"+auntInfo.getDescription()+"%");
+	            auntAppendSql.append(" or blood_type like ?");
+	            countAppendSql.append(" or  blood_type like ?");
+	            params.add("%"+auntInfo.getDescription()+"%");
+	            countParams.add("%"+auntInfo.getDescription()+"%");
+	            auntAppendSql.append(" or constellation like ?");
+	            countAppendSql.append(" or constellation like ?");
+	            params.add("%"+auntInfo.getDescription()+"%");
+	            countParams.add("%"+auntInfo.getDescription()+"%");
+	            auntAppendSql.append(" or work_year like ?");
+	            countAppendSql.append(" or work_year like ?");
+	            params.add("%"+auntInfo.getDescription()+"%");
+	            countParams.add("%"+auntInfo.getDescription()+"%");
+	            auntAppendSql.append("  or native_place like ? )");
+	            countAppendSql.append(" or native_place like ? )");
 	            params.add("%"+auntInfo.getDescription()+"%");
 	            countParams.add("%"+auntInfo.getDescription()+"%");
 	        }
@@ -194,15 +245,15 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 	                        aunt.setStart(rs.getString("start"));
 	                        aunt.setIdentityCard(rs.getString("identity_card"));
 	                        aunt.setIntegrityAuth(rs.getBoolean("integrity_auth"));
+	                        aunt.setBrowseCounts(rs.getInt("browse_counts"));
 	                        aunt.setDistanceMeter(new Double(rs.getDouble("distance") *1000).intValue());
 	                        return aunt;
 	                    }
 	                });
 
-	        OpenPage<AuntInfo> reviewOpenPage = new OpenPage<AuntInfo>();
-	        reviewOpenPage.setTotal(count);
-	        reviewOpenPage.setRows(auntList);
-	        return reviewOpenPage;
+	        page.setTotal(count);
+	        page.setRows(auntList);
+	        return page;
 	    }
 
 	    @Override
@@ -464,6 +515,10 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 			sql.append("corp_id='" + auntInfo.getCorpId() + "',");
 
 		}
+		if (auntInfo.getBrowseCounts()>=0) {
+			sql.append("browse_counts='" + auntInfo.getBrowseCounts() + "',");
+
+		}
 		if (auntInfo.isWorkCleanKeeping()) {
 			sql.append("work_clean_keeping=" + auntInfo.isWorkCleanKeeping() + ",");
 
@@ -503,7 +558,6 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 		   if (StringUtils.isNotEmpty(mobile)) {
 			   reviewSql.append("  and mobile  like '%"+mobile+"%' ");
 		   }
-		   reviewSql.append(" and status ='ACTIVE' ");
 		   reviewSql.append(" limit ?,?");
 		   List<AuntInfo> reviewList = getJdbcTemplate().query(reviewSql.toString(),
 	                new Object[]{page.getPageSize() * (page.getPageNo()-1),page.getPageSize()},new AuntRowMapper());
@@ -519,7 +573,6 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 		   if (StringUtils.isNotEmpty(corpId)) {
 			   countSql.append(" and corp_id ='"+corpId+"' ");
 		   }
-		   countSql.append(" and status ='ACTIVE' ");
 
 	        Integer count = getJdbcTemplate().queryForObject(countSql.toString(),Integer.class);
 	        page.setTotal(count);

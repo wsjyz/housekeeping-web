@@ -1,9 +1,11 @@
 package com.eighth.housekeeping.service.impl;
 
 import com.eighth.housekeeping.dao.SignInfoDAO;
+import com.eighth.housekeeping.domain.AuntInfo;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.SignInfo;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
+import com.eighth.housekeeping.proxy.service.AuntService;
 import com.eighth.housekeeping.proxy.service.SignInfoService;
 import com.eighth.housekeeping.utils.CommonStringUtils;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +24,8 @@ import java.util.List;
 public class SignInfoServiceImpl implements SignInfoService {
     @Autowired
     private SignInfoDAO signInfoDAO;
+    @Autowired
+    AuntService auntService;
     @Override
     public SignInfo sign(SignInfo signInfo) throws RemoteInvokeException {
         signInfo.setSignId(CommonStringUtils.genPK());
@@ -31,9 +36,21 @@ public class SignInfoServiceImpl implements SignInfoService {
         signInfo.setSignYear(dateArray[0]);
         signInfo.setSignMonth(dateArray[1]);
         signInfo.setSignDay(dateArray[2]);
-        signInfoDAO.saveSignInfo(signInfo);
-        Integer count = signInfoDAO.findAuntMonthSignCount(signInfo.getAuntId(),dateArray[0],dateArray[1]);
-        signInfo.setSignCountsMonth(count);
+        boolean today = signInfoDAO.checkSignToday(signInfo.getAuntId(), dateArray[0], dateArray[1], dateArray[2]);
+        if(today){
+        	return null;
+        }else{
+        	signInfoDAO.saveSignInfo(signInfo);
+            Integer count = signInfoDAO.findAuntMonthSignCount(signInfo.getAuntId(),dateArray[0],dateArray[1]);
+            signInfo.setSignCountsMonth(count);
+            AuntInfo auntInfo = auntService.findAuntByIdByWeb(signInfo.getAuntId());
+            if(auntInfo!= null){
+                auntInfo.setMonthOfSignCounts(count);
+                auntService.updateAuntInfo(auntInfo);
+            }
+        }
+        
+        
         return signInfo;
     }
 

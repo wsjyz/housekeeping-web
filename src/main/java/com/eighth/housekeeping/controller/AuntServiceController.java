@@ -51,6 +51,9 @@ public class AuntServiceController {
         } catch (RemoteInvokeException e) {
             e.printStackTrace();
         }
+        if(auntInfo.getStatus().equals("NOT_ACTIVE")){
+        	auntInfo.setLoginResult("USER_IS_NOT_START");
+        }
         return auntInfo;
     }
 
@@ -222,10 +225,14 @@ public class AuntServiceController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/disableAunt")
-	public void disableAunt(@RequestParam  String auntId)  throws RemoteInvokeException{
+	public String disableAunt(@RequestParam  String auntId)  throws RemoteInvokeException{
 		AuntInfo auntInfo = auntService.findAuntByIdForMember(auntId);
+		if(auntInfo!=null && !auntInfo.getStatus().equals("ACTIVE")){
+			return "FAILED";
+		}
 		auntInfo.setStatus("NOT_ACTIVE");
 		auntService.updateAuntInfo(auntInfo);
+		return "SUCCESS";
 	}
 	@RequestMapping(value = "/toCaseView")
 	public ModelAndView toCaseView(@RequestParam  String caseId,@RequestParam  String auntId)  throws RemoteInvokeException{

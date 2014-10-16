@@ -66,13 +66,20 @@
 									}, {
 										field : 'userName',
 										text : '姓名',
-										width : 100,
+										width : 150,
 										sortable : false,
 										formatter : function(index, value, data) {
-											return '<a href="${request.contextPath}/AuntService/toAuntView?auntId='
+												if(data.status=="ACTIVE"){
+													return '<a href="${request.contextPath}/AuntService/toAuntView?auntId='
 													+ data.auntId
 													+ '&corpId=${corpId!}"><i class="fa fa-user"></i> '
 													+ value + '</a>';
+												}else {
+													return '<a href="${request.contextPath}/AuntService/toAuntView?auntId='
+													+ data.auntId
+													+ '&corpId=${corpId!}"><i class="fa fa-user"></i> '
+													+ value + '</a><span style="color:red">(已禁用)</span>';
+												}
 										}
 									}, {
 										field : 'mobile',
@@ -399,7 +406,13 @@
 										action : function(data, row, grid) {
 											var url = "${request.contextPath}/AuntService/disableAunt";
 										    $.post(url, {"auntId": data.auntId}, function(json) {
-					                            $('.auntGrid').grid('load', $('.auntGrid .iactive').text());
+										    	alert(json)
+										    	if(json=="SUCCESS"){
+					                            	$('.auntGrid').grid('load', $('.auntGrid .iactive').text());
+										    		alert("该用户禁用成功，阿姨不能再用此账户登录!");
+										    	}else{
+										    		alert("该用户已被禁用，不能重复禁用!");
+										    	}
 					                        });
 										}
 									},

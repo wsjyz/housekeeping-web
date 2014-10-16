@@ -27,7 +27,7 @@ public class SmsSendServiceImpl implements SmsSendService {
     public final static String SMS_URL="http://sh2.ipyy.com/sms.aspx?action=send&userid=JY&account=jkwl014&password=a425631&mobile=";
     @Override
     public boolean sendSms(String tel, String authCode) {
-        String message="&content=居优家政：["+authCode+"]您正在申请注册为本站会员【居优家政】";
+        String message="&content=居优：["+authCode+"]您正在申请注册为本站会员【居优】";
         String url=SMS_URL+tel+message;
         HttpPost sendUrl = new HttpPost(url);
         HttpClient http = new DefaultHttpClient();
