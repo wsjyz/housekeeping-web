@@ -24,5 +24,6 @@ public interface CorpService {
 	Corp login(String loginName, String password);
 
 	List<Corp> corpList();
+	Corp getCorpByName(String corpName);
 
 }

@@ -48,6 +48,34 @@ public class AuntOrder extends BaseDomain {
 
 	private AuntInfo auntInfo;
 
+	private String auntName;
+	private String corpName;
+	private String profit;
+
+	public String getAuntName() {
+		return auntName;
+	}
+
+	public void setAuntName(String auntName) {
+		this.auntName = auntName;
+	}
+
+	public String getCorpName() {
+		return corpName;
+	}
+
+	public void setCorpName(String corpName) {
+		this.corpName = corpName;
+	}
+
+	public String getProfit() {
+		return profit;
+	}
+
+	public void setProfit(String profit) {
+		this.profit = profit;
+	}
+
 	public void setAuntInfo(AuntInfo auntInfo) {
 		this.auntInfo = auntInfo;
 	}

@@ -159,4 +159,19 @@ public class CorpDAOImpl extends BaseDAO implements CorpDAO {
 		List<Corp> corpList = getJdbcTemplate().query(sql.toString(), new CorpMapper());
 		return corpList;
 	}
+
+	@Override
+	public Corp getCorpByName(String corpName) {
+		StringBuilder sql = new StringBuilder("");
+		sql.append("select * from t_corp where corp_name=?");
+		List<Corp> corpList = getJdbcTemplate().query(sql.toString(),
+				new String[] { corpName }, new CorpMapper());
+		Corp corp = null;
+		if (!CollectionUtils.isEmpty(corpList)) {
+			corp = corpList.get(0);
+		} else {
+			corp = new Corp();
+		}
+		return corp;
+	}
 }

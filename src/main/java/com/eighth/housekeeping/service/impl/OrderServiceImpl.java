@@ -3,10 +3,12 @@ package com.eighth.housekeeping.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.eighth.housekeeping.dao.CorpDAO;
 import com.eighth.housekeeping.dao.OrderDAO;
 import com.eighth.housekeeping.dao.SystemDAO;
 import com.eighth.housekeeping.domain.AuntInfo;
 import com.eighth.housekeeping.domain.AuntOrder;
+import com.eighth.housekeeping.domain.Corp;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.SystemManage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
@@ -30,7 +32,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     AuntService auntService;
-
+    @Autowired
+    CorpDAO corpDao;
     @Autowired
     SystemDAO systemDAO;
 
@@ -115,9 +118,56 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public OpenPage<AuntOrder> findAuntOrderListByWeb(String auntId,String corpId,
-			String contactWay,String auntNo, OpenPage<AuntOrder> page)
+			String corpName,String auntNo, OpenPage<AuntOrder> page)
 			throws RemoteInvokeException {
-		return orderDAO.findAuntOrderListByWeb(auntId,corpId, contactWay,auntNo, page);
+		Corp corp = corpDao.getCorpByName(corpName);
+		String newCorpId="";
+		if(StringUtils.isNotEmpty(corp.getCorpId())){
+			 newCorpId=corp.getCorpId();
+		}
+		page= orderDAO.findAuntOrderListByWeb(auntId,newCorpId, null,auntNo, page);
+		if (!CollectionUtils.isEmpty(page.getRows())) {
+			for (AuntOrder auntOrder : page.getRows()) {
+				if (StringUtils.isNotEmpty(auntOrder.getAuntId())) {
+					AuntInfo auntInfo =auntService.findAuntByIdForAunt(auntOrder.getAuntId());
+					if(auntInfo!=null){
+						auntOrder.setAuntName(auntInfo.getUserName());
+						if (StringUtils.isNotEmpty(auntInfo.getCorpId())) {
+							corp=corpDao.findCorpId(auntInfo.getCorpId());
+						}
+					}
+				}
+				if(corp!=null && StringUtils.isNotEmpty(corp.getCorpName())){
+					BigDecimal totalPrice = auntOrder.getTotalPrice();
+					if(totalPrice!=null){
+						if(!"NEW_HOUSE".equals(auntOrder.getOrderUse())){
+							BigDecimal multiply=new BigDecimal(0);
+							if("ADMIN".equals(corp.getCorpId())){
+								multiply = totalPrice.divide(new BigDecimal(30),BigDecimal.ROUND_HALF_EVEN).multiply(new BigDecimal(2));
+							}else{
+								 multiply = totalPrice.divide(new BigDecimal(30),BigDecimal.ROUND_HALF_EVEN).multiply(new BigDecimal(3));
+							}
+							auntOrder.setProfit(multiply.toString());
+						}else{
+							auntOrder.setProfit(totalPrice.toString());
+						}
+					}
+					BigDecimal actualPrice = auntOrder.getActualPrice();
+					if(actualPrice!=null){
+						if(StringUtils.isNotEmpty(corpId) && !"ADMIN".equals(corpId)){
+							actualPrice = actualPrice.divide(new BigDecimal(30),BigDecimal.ROUND_HALF_EVEN).multiply(new BigDecimal(28));
+						}
+						auntOrder.setActualPrice(actualPrice);
+					}
+					if("ADMIN".equals(corp.getCorpName())){
+						auntOrder.setCorpName("上海居优家政服务有限公司");
+					}else{
+						auntOrder.setCorpName(corp.getCorpName());
+					}
+				}
+			}
+		}
+		return page;
 	}
 	@Override
 	public void deleteOrderByOrderId(String orderId) throws RemoteInvokeException {

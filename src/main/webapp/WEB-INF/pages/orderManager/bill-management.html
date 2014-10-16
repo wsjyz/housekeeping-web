@@ -14,8 +14,8 @@
             },auntNo :  function() {
 				return $("#auntNo").val();
 			},
-				contactWay : function() {
-					return $("#contactWay").val();
+				corpName : function() {
+					return $("#corpName").val();
 				}},
             columns: [{
                     field     : 'orderNo', // 必需
@@ -27,10 +27,22 @@
                     formatter : function (index, value, data) {
                        return ' <span><i class="fa fa-money"></i> '+ value +'</span> ';
                     }
-                }, {
-                    field     : 'contactWay',
-                    text      : '联系方式',
-                    width     : 120,
+                },{
+                    field     : 'corpName',
+                    text      : '机构名称',
+                    width     : 100,
+                    align     : 'center',
+                    sortable  : true
+                },{
+                    field     : 'auntName',
+                    text      : '阿姨名称',
+                    width     : 100,
+                    align     : 'center',
+                    sortable  : true
+                },{
+                    field     : 'profit',
+                    text      : '利润',
+                    width     : 100,
                     align     : 'center',
                     sortable  : true
                 }, {
@@ -58,7 +70,7 @@
                     align     : 'right',
                     sortable  : true,
                     formatter : function(index, value, data) {
-                        return value === "NOT_PAY" ?
+                        return value == "NOT_PAY" ?
                             '<span style="color:green;"><i class="fa fa-rmb"></i>待支付</span>' :
                             '<span style="color:red;"><i class="fa fa-rmb"></i>  已支付</span>';
                     }
@@ -127,14 +139,13 @@
 <div class="content-tools clearfix">
   <form action="aunt.html" method="get" accept-charset="utf-8">
     <div class="input-group">
-      <span class="input-group-addon">联系方式</span>
-      <input type="text" class="form-control" id="contactWay">
-    </div>
-    <div class="input-group">
       <span class="input-group-addon">订单号</span>
       <input type="text" class="form-control" id="auntNo">
     </div>
-
+ <div class="input-group">
+      <span class="input-group-addon">机构名称</span>
+      <input type="text" class="form-control" id="corpName">
+    </div>
     <div class="btns">
       <button type="button" class="btn btn-default" id="selectOrder">查找</button>
       <button type="reset" class="btn btn-default">重置</button>

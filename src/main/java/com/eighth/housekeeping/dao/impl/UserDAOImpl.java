@@ -79,7 +79,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
                 ps.setString(4,info.getNickName());
                 ps.setString(5,info.getAddress());
                 ps.setString(6,info.getCard());
-                ps.setString(7,info.getStatus());
+                ps.setString(7,"ACTIVE");
                 ps.setString(8,info.getCouponCounts());
                 ps.setString(9,info.getCouponEndTime());
                 ps.setInt(10,info.getPushAuntInfo());

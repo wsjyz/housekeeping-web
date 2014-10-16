@@ -15,12 +15,15 @@ import com.alipay.config.AlipayConfig;
 import com.alipay.sign.RSA;
 import com.alipay.util.UtilDate;
 import com.eighth.housekeeping.domain.AuntOrder;
+import com.eighth.housekeeping.domain.Corp;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
+import com.eighth.housekeeping.proxy.service.CorpService;
 import com.eighth.housekeeping.proxy.service.OrderService;
 import com.eighth.housekeeping.utils.PayOrderJson;
 import com.eighth.housekeeping.web.FastJson;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +37,8 @@ public class OrderServiceController {
 	@Autowired
 	OrderService orderService;
 
+	@Autowired
+	CorpService corpService;
 	@ResponseBody
 	@RequestMapping(value = "/saveUserOrder")
 	public AuntOrder saveUserOrder(@FastJson AuntOrder order) {
@@ -339,12 +344,12 @@ public class OrderServiceController {
 	@ResponseBody
 	@RequestMapping(value = "/findOrderListByWeb")
 	OpenPage<AuntOrder> findOrderListByWeb(@RequestParam String corpId,
-			@RequestParam String contactWay, @RequestParam String auntNo,
+			@RequestParam String auntNo,@RequestParam String corpName,
 			@FastJson OpenPage<AuntOrder> page) {
 
 		try {
 			page = orderService.findAuntOrderListByWeb(null, corpId,
-					contactWay, auntNo, page);
+					corpName, auntNo, page);
 		} catch (RemoteInvokeException e) {
 			e.printStackTrace();
 		}
