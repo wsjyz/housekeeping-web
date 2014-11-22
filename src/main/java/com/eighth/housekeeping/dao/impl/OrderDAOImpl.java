@@ -53,7 +53,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
                 ps.setString(16,order.getUserId());
                 ps.setString(17,order.getCorpId());
                 ps.setString(18,order.getOptTime());
-                ps.setString(19,UtilDate.getOrderNum());
+                ps.setString(19,order.getOrderNo());
 
             }
         });

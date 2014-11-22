@@ -62,4 +62,41 @@ public class SmsSendServiceImpl implements SmsSendService {
         }
         return false;
     }
+    @Override
+    public boolean sendSmsByOrder(String tel, String authCode) {
+        String message="&content=【"+authCode+"]】您有新的订单，请注意查看";
+        String url=SMS_URL+tel+message;
+        HttpPost sendUrl = new HttpPost(url);
+        HttpClient http = new DefaultHttpClient();
+        HttpResponse response = null;
+        try {
+            response = http.execute(sendUrl);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (response.getStatusLine().getStatusCode() == 200) {
+            HttpEntity entity = response.getEntity();
+            InputStream in = null;
+            try{
+                in = entity.getContent();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    System.out.println(line);
+                }
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally{
+                if(in != null)
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+            }
+        }
+        return false;
+    }
 }

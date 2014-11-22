@@ -17,7 +17,11 @@
         <load-on-startup>1</load-on-startup>
         <async-supported>true</async-supported>
     </servlet>
-
+<!-- 	<listener> -->
+<!-- 	 <listener-class> -->
+<!-- 	  com.listener.NFDFlightDataTaskListener -->
+<!-- 	 </listener-class> -->
+<!-- 	</listener> -->
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/</url-pattern>

@@ -3,6 +3,7 @@ package com.eighth.housekeeping.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.alipay.util.UtilDate;
 import com.eighth.housekeeping.dao.CorpDAO;
 import com.eighth.housekeeping.dao.OrderDAO;
 import com.eighth.housekeeping.dao.SystemDAO;
@@ -14,6 +15,7 @@ import com.eighth.housekeeping.domain.SystemManage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.AuntService;
 import com.eighth.housekeeping.proxy.service.OrderService;
+import com.eighth.housekeeping.proxy.service.SmsSendService;
 import com.eighth.housekeeping.utils.CommonStringUtils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -36,6 +38,8 @@ public class OrderServiceImpl implements OrderService {
     CorpDAO corpDao;
     @Autowired
     SystemDAO systemDAO;
+    @Autowired
+    SmsSendService smsSendService;
 
     @Override
     public AuntOrder saveUserOrder(AuntOrder order) throws RemoteInvokeException {
@@ -44,11 +48,11 @@ public class OrderServiceImpl implements OrderService {
         if(StringUtils.isBlank(orderStatus)){
             order.setOrderStatus("NOT_PAY");
         }
+        AuntInfo auntInfo = auntService.findAuntByIdForAunt(order.getAuntId());
         if(order.getOrderUse() != null){
             BigDecimal price = new BigDecimal(0);
             SystemManage systemManage = systemDAO.findSystemManage();
             if(order.getOrderUse().equals("HOURLY_WORKER")){//小时工
-                AuntInfo auntInfo = auntService.findAuntByIdForAunt(order.getAuntId());
                 BigDecimal auntPrice = auntInfo.getPrice();
                 if(auntPrice==null){
                 	auntPrice=systemManage.getHourlyUnitPrice();
@@ -65,7 +69,10 @@ public class OrderServiceImpl implements OrderService {
             order.setTotalPrice(price);
             order.setActualPrice(price.subtract(couponPrice));
         }
+        String orderNo=UtilDate.getOrderNum();
+        order.setOrderNo(orderNo);
         orderDAO.saveUserOrder(order);
+        smsSendService.sendSmsByOrder(auntInfo.getMobile(), orderNo);
         return order;
     }
 

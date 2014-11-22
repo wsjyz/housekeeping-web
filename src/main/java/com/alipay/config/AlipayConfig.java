@@ -25,18 +25,19 @@ public class AlipayConfig {
 	
 	//↓↓↓↓↓↓↓↓↓↓请在这里配置您的基本信息↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 	// 合作身份者ID，以2088开头由16位纯数字组成的字符串
-	public static String partner = "2088511925655681";
+	public static String partner = "2088411815979591";
 	
 	// 交易安全检验码，由数字和字母组成的32位字符串
 	// 如果签名方式设置为“MD5”时，请设置该参数
-	public static String key = "visxmzhnkfu09v7f9dme7w4ftvrdgp6j";
+	public static String key = "o7b6n1vl14kiyvt8r0uditaxvjp5y8iw";
 	
     // 商户的私钥
     // 如果签名方式设置为“0001”时，请设置该参数
-	public static String private_key = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAK1nciy0qOfFzW2IGuGRmLDhSunH3zzrf+mZf9q7tsynHHab7MxTiDvamh0GLD3kzRAYz17RebGJS191gfX8LYAksxypLtHd8/yAOU83ZMV4K/9Wl2BNR9G2axCWkuU4FwHfIDjF2TdOZhTEVbZsUzwTUaVL1oyvcWXAHnUOi/YVAgMBAAECgYA24OdEeMR/3Zz/DjUbsF13lUWFKUlgWVO5FWheTEw1Bqo+a2iM3d7eundNujdkOzYe4ws2AeuWoVHmWyUPOYkYYDcmhyMgVoA6P57t7xDQif5+MKbwhzSyQQO8lWeBeAxIWyQif6nz+UGfkvqzaHmH0ZObaFwN2f8QRsym+vv13QJBAOSUZu1iW0+7MYMwIqJlYjrSS9tFOmkk9YBzoqVsSgsWLiKzbSKkHMzZ7GljsE3SJCebmyJZQ+3rOqYlOOQd2T8CQQDCNJ8Rnyv/dYv7FV/N5ovywC4ncDNE032ufj3NwDZwrmwW0R8ToaynRZJiTFr5G0yvOgIQz4Vh98q7ODKnbOerAkA8M+3sBeTA2i/POqVUmllF3s+F3/Tjbo2OmGY1JZFW3C+oihNrdUf0mE0Q8OWliXxmRjCU2mfuyO64hcM3KblnAkBfrQr85H0JksCOx132k3E4+8MBPP6VFthhQeJy3hIz+0pXB1mXE1x64ASZFuLuvKtP3HUuEP62YBxplesmnrmXAkEAp2/rqqQqfbPQ2/HChbezIXvPKlQMZIc1V8HatGgNcVvzlpbscC9+L0J0o4zq+yOiqht4hYdz5HtyvUMWxE6V9Q==";
+	public static String private_key = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAOS94zJnWb//l4qFttFc9snuaeuk6Hwvpuk0qKP6kMVPcaSjZDfAt+50Q3F2YK4Lf5cQeAJArAveLfo2uubhdgSH+kAgKTUPZI4EmCxr/2uW/2zNw+LEC7tniQvz/yAdNQ+QMtlunW/esON1q5UqN/o8MovQz/4ui7T98Xwq2rPBAgMBAAECgYEAxPLqaD+sezAq3s56tpGAvCVXddmrgyHUaP86JNZdSEY65zL32zlIJTxdxZfTboff98XqTqY4fI90rvfovVprLaLbNtT/HI7/EVIcnjbUykHuw9rBy/rYkyEB/zFU55Bw/7+y7qNNzt3lskzZAK8ggASBJ1ij4rChgG/Ajeha5AECQQD0VLATcYaDhcHZb5Kt16GmPUmHy3B2Y22NcHk3UgElxmwhB2Z/jUrrzEfYphdbWw+qOQN2l2rObX/geAGZXiUxAkEA76qZk26iDTlU4gRunB26/jyoicKgz62mBWhmqTQ9VqpJa//+kKRgorws565zje1zvS1vDB6lic0DS76zvtUTkQJACgspKcNy6hknfM6vUuIYTQMb8K8WMmen6zaCZRnD3k+nxjvNpNSkDclZ8rfxIdo+bJrnX4qd41pw9UM5nZpXIQJAet7Ms3AxtnPhF6rMBk+bsYHpqg7VIQPWrMkUcMTueYL991eb7A3J2UR+BR1D8sx83MzxNJZ1qcsoWGnhfwGAcQJAZ2pIO60ND87bWswa3yKTILPxX9gOH/fNgT46zfSPFYVBa0QTi3UrZ00X6bseItDKo9qniv7e3ZRFDcYR/AzYwg==";
 	// 支付宝的公钥
     // 如果签名方式设置为“0001”时，请设置该参数
-	public static String ali_public_key = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDMhWHkVDmgMTcAQnGx27kYta5mw50giyVWMZ9jVByJz25UVU/NbT0AFEj/2DqsSgZaOPz4GunWHnQa6FE3i9aKETlqm3Fjz2jPuQVqugXNVBc4MUzcgwM36l8QTiGIl5vhXrwWNnf1dWR+4oifWmja4HdD8cxn1H2YS3wCwvCScQIDAQAB";
+	public static String ali_public_key = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
+
 	//↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 	
 
