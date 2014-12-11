@@ -30,10 +30,8 @@ import java.util.List;
  */
 @Repository("AuntDAO")
 public class AuntDAOImpl extends BaseDAO implements AuntDAO {
-
 	@Autowired
 	private AuntWorkCaseDAO auntWorkCaseDAO;
-
 	@Override
 	public AuntInfo findAuntByIdForAunt(String auntId) {
 		StringBuilder sql = new StringBuilder("");

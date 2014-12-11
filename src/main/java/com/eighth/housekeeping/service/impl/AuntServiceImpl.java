@@ -59,8 +59,8 @@ public class AuntServiceImpl implements AuntService {
 				ImageObj imageObj = imageList.get(0);
 				auntInfo.setImageObj(imageObj);
 			}
+			setMoneyByAuntInfo(auntInfo);
 		}
-		setMoneyByAuntInfo(auntInfo);
 		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
          String today = sdf.format(new Date());
          String[] todayStrArr = today.split("-");
@@ -86,8 +86,8 @@ public class AuntServiceImpl implements AuntService {
                     auntInfo.setImageObj(imageObj);
                 }
             }
+            setMoneyByAuntInfo(auntInfo);
         }
-		setMoneyByAuntInfo(auntInfo);
 		return auntInfo;
 	}
 

@@ -48,17 +48,19 @@ public class OrderServiceImpl implements OrderService {
         if(StringUtils.isBlank(orderStatus)){
             order.setOrderStatus("NOT_PAY");
         }
-        AuntInfo auntInfo = auntService.findAuntByIdForAunt(order.getAuntId());
+        String orderNo=UtilDate.getOrderNum();
         if(order.getOrderUse() != null){
             BigDecimal price = new BigDecimal(0);
             SystemManage systemManage = systemDAO.findSystemManage();
             if(order.getOrderUse().equals("HOURLY_WORKER")){//小时工
+            	AuntInfo auntInfo = auntService.findAuntByIdForAunt(order.getAuntId());
                 BigDecimal auntPrice = auntInfo.getPrice();
                 if(auntPrice==null){
                 	auntPrice=systemManage.getHourlyUnitPrice();
                 }
                 price = auntPrice.multiply(new BigDecimal(order.getWorkLength()));
                 order.setUnitPrice(auntPrice);
+                smsSendService.sendSmsByOrder(auntInfo.getMobile(), orderNo);
             }else{//新居开荒
                 price = systemManage.getNewHouseUnitPrice().multiply(new BigDecimal(order.getFloorSpace()));
             }
@@ -69,10 +71,8 @@ public class OrderServiceImpl implements OrderService {
             order.setTotalPrice(price);
             order.setActualPrice(price.subtract(couponPrice));
         }
-        String orderNo=UtilDate.getOrderNum();
         order.setOrderNo(orderNo);
         orderDAO.saveUserOrder(order);
-        smsSendService.sendSmsByOrder(auntInfo.getMobile(), orderNo);
         return order;
     }
 
@@ -98,7 +98,17 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OpenPage<AuntOrder> findAuntOrderList(String auntId, String orderType, OpenPage<AuntOrder> page) throws RemoteInvokeException {
-        return orderDAO.findAuntOrderList(auntId,orderType,page);
+    	page= orderDAO.findAuntOrderList(auntId,orderType,page);
+    	if (!CollectionUtils.isEmpty(page.getRows())) {
+    		for (AuntOrder auntOrder : page.getRows()) {
+    			BigDecimal totalPrice = auntOrder.getTotalPrice();
+				if(!"NEW_HOUSE".equals(auntOrder.getOrderUse())){
+					totalPrice = totalPrice.divide(new BigDecimal(30),BigDecimal.ROUND_HALF_EVEN).multiply(new BigDecimal(25));
+				}
+				auntOrder.setTotalPrice(totalPrice);
+    		}
+		}
+    	return page;
     }
 
     @Override

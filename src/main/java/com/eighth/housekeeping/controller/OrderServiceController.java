@@ -236,10 +236,23 @@ SystemService systemService;
 
 	@ResponseBody
 	@RequestMapping("/toPayMentJson")
-	public PayOrderJson toPayMentJson(@RequestParam String orderId,HttpServletRequest request) {
+	public PayOrderJson toPayMentJson(@RequestParam String orderId,@RequestParam String useCouponCount,HttpServletRequest request) {
 		PayOrderJson payOrderJson=new PayOrderJson();
 		try {
 			AuntOrder order = orderService.findOrderById(orderId);
+			SystemManage systemManage = systemService.findSystemManage();
+			BigDecimal actualPrice = order.getActualPrice();
+			if(useCouponCount.equals("1")){
+				orderService.updateUseCouponCount(orderId, "1");
+				MemberInfo memberInfoOld=UserService.findMemberByMemberId(order.getUserId());
+				if(memberInfoOld!=null && memberInfoOld.getCouponCounts()!=null){
+					MemberInfo memberInfo=new MemberInfo();
+					memberInfo.setUserId(order.getUserId());
+					memberInfo.setCouponCounts((Integer.parseInt(memberInfoOld.getCouponCounts())-1)+"");
+					UserService.modifyMemberInfo(memberInfo);
+				}
+				actualPrice=actualPrice.subtract(systemManage.getCouponUnitPrice());
+			}
 			StringBuffer requestURL = request.getRequestURL();
 	        String requestURLPrefix = requestURL.substring(0,requestURL.indexOf("hw")+3);
 
@@ -266,7 +279,7 @@ SystemService systemService;
 			payOrderJson.setOut_trade_no(out_trade_no);
 			payOrderJson.setSubject(out_trade_no);
 			payOrderJson.setBody(out_trade_no);
-			payOrderJson.setTotal_fee(order.getActualPrice().toString());
+			payOrderJson.setTotal_fee(actualPrice+"");
 			payOrderJson.setNotify_url(URLDecoder.decode(notify_url,AlipayConfig.input_charset));
 			payOrderJson.setService("mobile.securitypay.pay");
 			payOrderJson.set_input_charset("UTF-8");
