@@ -345,7 +345,8 @@ public class UserServiceController {
 		if (StringUtils.isNotEmpty(corpId)) {
 			Corp corp = corpService.findCorpId(corpId);
 			corp.setPassword(changePassword.getNewPassword());
-			corp.setOptTime(new Date().toString());
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			corp.setOptTime(sdf.format(new Date()));
 			corpService.updateCorp(corp);
 		}
 	}
