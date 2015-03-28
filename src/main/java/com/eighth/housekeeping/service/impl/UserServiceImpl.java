@@ -155,11 +155,13 @@ public class UserServiceImpl implements UserService {
 	public MemberInfo findMemberByMemberId(String memberId)
 			throws RemoteInvokeException {
 		MemberInfo memberInfo = userDAO.findMemberByMemberId(memberId);
-		List<ImageObj> imageList = imageObjDAO.findImageObjByObjIdAndType(
-				memberId, Constants.PORTRAIT);
-		if (!CollectionUtils.isEmpty(imageList)) {
-			ImageObj imageObj = imageList.get(0);
-			memberInfo.setImageObj(imageObj);
+		if (memberInfo!=null) {
+			List<ImageObj> imageList = imageObjDAO.findImageObjByObjIdAndType(
+					memberId, Constants.PORTRAIT);
+			if (!CollectionUtils.isEmpty(imageList)) {
+				ImageObj imageObj = imageList.get(0);
+				memberInfo.setImageObj(imageObj);
+			}
 		}
 		return memberInfo;
 	}

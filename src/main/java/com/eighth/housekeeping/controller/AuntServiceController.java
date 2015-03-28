@@ -1,6 +1,7 @@
 package com.eighth.housekeeping.controller;
 
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -215,6 +216,9 @@ public class AuntServiceController {
    		if(StringUtils.isNotEmpty(auntInfo.getType()) && "ADD".equals(auntInfo.getType())){
    			auntService.addAuntInfo(auntInfo);
    		}else{
+   			if ("".equals(auntInfo.getPrice()) || auntInfo.getPrice()==null) {
+   				auntInfo.setPrice(new BigDecimal(0));
+			}
    			auntService.updateAuntInfo(auntInfo);
    		}
    	}
@@ -288,18 +292,20 @@ public class AuntServiceController {
    	}
 	
 	@RequestMapping(value = "/toOrder")
-	public ModelAndView toOrder(@RequestParam  String auntId)  throws RemoteInvokeException{
+	public ModelAndView toOrder(@RequestParam  String auntId,@RequestParam String corpId)  throws RemoteInvokeException{
 		ModelAndView view =new ModelAndView();
 		Map<String, Object> model = view.getModel();
 		model.put("auntId",auntId);
+		model.put("corpId", corpId);
 		view.setViewName("aunt/aunt-bill-record");
 		return view;
 	}
 	@RequestMapping(value = "/toDiscuss")
-	public ModelAndView toDiscuss(@RequestParam  String auntId)  throws RemoteInvokeException{
+	public ModelAndView toDiscuss(@RequestParam  String auntId,@RequestParam String corpId)  throws RemoteInvokeException{
 		ModelAndView view =new ModelAndView();
 		Map<String, Object> model = view.getModel();
 		model.put("auntId",auntId);
+		model.put("corpId", corpId);
 		view.setViewName("aunt/aunt-comments");
 		return view;
 	}

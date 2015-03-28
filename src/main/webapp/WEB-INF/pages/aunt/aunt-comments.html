@@ -63,7 +63,7 @@
                                   $.post(url, {
           							"reviewId" : data.reviewId
           						}, function(json) {
-          							row.remove();
+          					       	 $('#comment-grid').grid('load', 1);
           						});
                             }
    					 });
@@ -90,7 +90,7 @@
     </div>
 
     <div class="btns-right">
-      <a href="${request.contextPath}/AuntService/toAuntView?auntId=${auntId}" class="btn btn-primary">
+      <a href="${request.contextPath}/AuntService/toAuntView?auntId=${auntId}&corpId=${corpId}" class="btn btn-primary">
         <span class="glyphicon glyphicon-plus"></span> 返回
       </a>
     </div>

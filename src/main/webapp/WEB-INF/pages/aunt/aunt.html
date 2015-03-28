@@ -426,7 +426,7 @@
 													$.post(url, {
 														"auntId" : data.auntId
 													}, function(json) {
-														row.remove();
+												       	 $('.auntGrid').grid('load', 1);
 													});
 					                            }
 

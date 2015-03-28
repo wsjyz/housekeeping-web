@@ -34,6 +34,12 @@
                     align     : 'center',
                     sortable  : true
                 },{
+                    field     : 'userPhone',
+                    text      : '用户电话',
+                    width     : 140,
+                    align     : 'center',
+                    sortable  : true
+                },{
                     field     : 'auntName',
                     text      : '阿姨名称',
                     width     : 100,
@@ -121,7 +127,7 @@
 	        						$.post(url, {
 	        							"orderId" : data.orderId
 	        						}, function(json) {
-	        							row.remove();
+	        					       	 $('#bill-management-grid').grid('load', 1);
 	        						});
 	                            }
 	   					 });

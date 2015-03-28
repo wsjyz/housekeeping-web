@@ -9,14 +9,16 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.alipay.config.AlipayConfig;
-import com.alipay.sign.RSA;
-import com.alipay.util.UtilDate;
-import com.eighth.housekeeping.dao.SystemDAO;
 import com.eighth.housekeeping.domain.AuntOrder;
-import com.eighth.housekeeping.domain.Corp;
 import com.eighth.housekeeping.domain.MemberInfo;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.SystemManage;
@@ -27,14 +29,6 @@ import com.eighth.housekeeping.proxy.service.SystemService;
 import com.eighth.housekeeping.proxy.service.UserService;
 import com.eighth.housekeeping.utils.PayOrderJson;
 import com.eighth.housekeeping.web.FastJson;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/OrderService")

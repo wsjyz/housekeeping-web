@@ -217,8 +217,8 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             countparams.add(corpId);
         }
         if(StringUtils.isNotEmpty(auntId)){
-            countSql.append(" and aunt_id = ?");
-            sql.append(" and aunt_id = ?");
+            countSql.append(" and ai.aunt_id = ?");
+            sql.append(" and ai.aunt_id = ?");
             params.add(auntId);countparams.add(auntId);
         }
         if(StringUtils.isNotEmpty(auntNo)){

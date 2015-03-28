@@ -34,7 +34,7 @@
 										}
 									},
 									{
-										field : 'contactWay',
+										field : 'userPhone',
 										text : '联系方式',
 										width : 120,
 										align : 'center',
@@ -149,7 +149,7 @@
 						                        $.post(url, {
 													"orderId" : data.orderId
 												}, function(json) {
-													row.remove();
+											       	 $('#bill-grid').grid('load', 1);
 												});
 				                            }
 
@@ -181,7 +181,7 @@
 		</div>
 
 		<div class="btns-right">
-			<a href="${request.contextPath}/AuntService/toAuntView?auntId=${auntId}" class="btn btn-primary"> <span
+			<a href="${request.contextPath}/AuntService/toAuntView?auntId=${auntId}&corpId=${corpId}" class="btn btn-primary"> <span
 				class="glyphicon glyphicon-plus"></span> 返回
 			</a>
 		</div>

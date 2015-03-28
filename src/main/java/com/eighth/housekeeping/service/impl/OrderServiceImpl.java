@@ -10,12 +10,14 @@ import com.eighth.housekeeping.dao.SystemDAO;
 import com.eighth.housekeeping.domain.AuntInfo;
 import com.eighth.housekeeping.domain.AuntOrder;
 import com.eighth.housekeeping.domain.Corp;
+import com.eighth.housekeeping.domain.MemberInfo;
 import com.eighth.housekeeping.domain.OpenPage;
 import com.eighth.housekeeping.domain.SystemManage;
 import com.eighth.housekeeping.proxy.exception.RemoteInvokeException;
 import com.eighth.housekeeping.proxy.service.AuntService;
 import com.eighth.housekeeping.proxy.service.OrderService;
 import com.eighth.housekeeping.proxy.service.SmsSendService;
+import com.eighth.housekeeping.proxy.service.UserService;
 import com.eighth.housekeeping.utils.CommonStringUtils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -40,6 +42,8 @@ public class OrderServiceImpl implements OrderService {
     SystemDAO systemDAO;
     @Autowired
     SmsSendService smsSendService;
+    @Autowired
+    UserService userService;
 
     @Override
     public AuntOrder saveUserOrder(AuntOrder order) throws RemoteInvokeException {
@@ -189,6 +193,12 @@ public class OrderServiceImpl implements OrderService {
 						auntOrder.setCorpName("上海居优家政服务有限公司");
 					}else{
 						auntOrder.setCorpName(corp.getCorpName());
+					}
+					if (StringUtils.isNotEmpty(auntOrder.getUserId())) {
+						MemberInfo memberInfo = userService.findMemberByMemberId(auntOrder.getUserId());
+						if (memberInfo!=null) {
+							auntOrder.setUserPhone(memberInfo.getMobile());
+						}
 					}
 				}
 			}

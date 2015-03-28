@@ -145,7 +145,7 @@
                             if (result ===true) {
                             	var url = "${request.contextPath}/UserService/deleteMemberWeb";
                                 $.post(url, {"memberId": data.userId}, function(json) {
-                                    row.remove();
+                                  	 $('.memberGrid').grid('load', 1);
                                 });
                             }
 
