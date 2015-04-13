@@ -183,13 +183,17 @@ public class AuntServiceImpl implements AuntService {
 	public AuntInfo findAuntByIdByWeb(String auntId)
 			throws RemoteInvokeException {
 		AuntInfo auntInfo = auntDAO.findAuntByIdForMember(auntId);
-		List<ImageObj> imageList = imageObjDAO.findImageObjByObjIdAndType(
-				auntId, Constants.PORTRAIT);
-		if (!CollectionUtils.isEmpty(imageList)) {
-			ImageObj imageObj = imageList.get(0);
-			auntInfo.setImageObj(imageObj);
+		try {
+			List<ImageObj> imageList = imageObjDAO.findImageObjByObjIdAndType(
+					auntId, Constants.PORTRAIT);
+			if (!CollectionUtils.isEmpty(imageList)) {
+				ImageObj imageObj = imageList.get(0);
+				auntInfo.setImageObj(imageObj);
+			}
+			setMoneyByAuntInfo(auntInfo);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		setMoneyByAuntInfo(auntInfo);
 		return auntInfo;
 	}
 

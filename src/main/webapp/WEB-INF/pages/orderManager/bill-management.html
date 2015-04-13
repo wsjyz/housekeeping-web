@@ -33,13 +33,17 @@
                     width     : 100,
                     align     : 'center',
                     sortable  : true
-                },{
+                },
+				<#if corpId?? && corpId=="ADMIN">
+				{
                     field     : 'userPhone',
                     text      : '用户电话',
                     width     : 140,
                     align     : 'center',
                     sortable  : true
-                },{
+                },
+				</#if>
+				{
                     field     : 'auntName',
                     text      : '阿姨名称',
                     width     : 100,

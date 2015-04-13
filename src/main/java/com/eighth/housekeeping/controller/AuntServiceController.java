@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -196,10 +197,12 @@ public class AuntServiceController {
 		model.put("corpList", list);
 		model.put("corpId",corpId);
         model.put("auntInfo",auntInfo);
+    	model.put("ts",new Date().getTime());
 		return view;
 	}
 	@RequestMapping(value = "/toAuntEdit")
 	public ModelAndView toAuntEdit(@RequestParam  String auntId,@RequestParam  String corpId)  throws RemoteInvokeException{
+	
 		AuntInfo auntInfo = auntService.findAuntByIdByWeb(auntId);
 		ModelAndView view = new ModelAndView();
 		view.setViewName("aunt/aunt-modify");
@@ -217,7 +220,7 @@ public class AuntServiceController {
    			auntService.addAuntInfo(auntInfo);
    		}else{
    			if ("".equals(auntInfo.getPrice()) || auntInfo.getPrice()==null) {
-   				auntInfo.setPrice(new BigDecimal(0));
+   				auntInfo.setPrice(null);
 			}
    			auntService.updateAuntInfo(auntInfo);
    		}

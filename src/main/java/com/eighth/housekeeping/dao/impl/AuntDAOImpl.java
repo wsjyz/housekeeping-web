@@ -287,7 +287,7 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 			auntInfo.setIntegrityAuth(rs.getBoolean("integrity_auth"));
 			auntInfo.setNativePlace(rs.getString("native_place"));
 			auntInfo.setMobile(rs.getString("mobile"));
-			auntInfo.setPrice(rs.getBigDecimal("price"));
+			auntInfo.setPrice(rs.getFloat("price"));
 			auntInfo.setSelfEvaluate(rs.getString("self_evaluate"));
 			auntInfo.setSex(rs.getString("sex"));
 			auntInfo.setWorkYear(rs.getInt("work_year"));
@@ -337,7 +337,7 @@ public class AuntDAOImpl extends BaseDAO implements AuntDAO {
 						ps.setString(6, "FAMALE");
 						ps.setString(7, auntInfo.getAge());
 						ps.setString(8, auntInfo.getAddress());
-						ps.setBigDecimal(9, auntInfo.getPrice());
+						ps.setFloat(9, auntInfo.getPrice());
 						ps.setString(10, auntInfo.getTelephone());
 						ps.setInt(11, auntInfo.getWorkYear());
 						ps.setInt(12, auntInfo.getAbilityScore());

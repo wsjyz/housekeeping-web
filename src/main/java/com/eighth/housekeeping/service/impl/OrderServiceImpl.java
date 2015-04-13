@@ -58,8 +58,8 @@ public class OrderServiceImpl implements OrderService {
             SystemManage systemManage = systemDAO.findSystemManage();
             if(order.getOrderUse().equals("HOURLY_WORKER")){//小时工
             	AuntInfo auntInfo = auntService.findAuntByIdForAunt(order.getAuntId());
-                BigDecimal auntPrice = auntInfo.getPrice();
-                if(auntPrice==null){
+                BigDecimal auntPrice = new BigDecimal(auntInfo.getPrice());
+                if(auntPrice==null || BigDecimal.ZERO==auntPrice){
                 	auntPrice=systemManage.getHourlyUnitPrice();
                 }
                 price = auntPrice.multiply(new BigDecimal(order.getWorkLength()));

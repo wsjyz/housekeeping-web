@@ -396,7 +396,7 @@
 										icon : 'fa-eye',
 										action : function(data, row, grid) {
 											var url = "${request.contextPath}/AuntService/toAuntView?auntId="
-													+ data.auntId+"&corpId=${corpId!}";
+													+ data.auntId+"&corpId=${corpId!}&ts="+ Math.random();
 					                        document.location.hash = url; 
 										}
 									},
@@ -406,7 +406,6 @@
 										action : function(data, row, grid) {
 											var url = "${request.contextPath}/AuntService/disableAunt";
 										    $.post(url, {"auntId": data.auntId}, function(json) {
-										    	alert(json)
 										    	if(json=="SUCCESS"){
 					                            	$('.auntGrid').grid('load', $('.auntGrid .iactive').text());
 										    		alert("该用户禁用成功，阿姨不能再用此账户登录!");

@@ -29,7 +29,7 @@ public class AuntInfo extends BaseDomain {
 	@Column(name = "address", comment = "居住地址", length = 50)
 	private String address;
 	@Column(name = "price", comment = "单价", length = 10, decimal = 2)
-	private BigDecimal price;
+	private Float price;
 	@Column(name = "telephone", comment = "电话", length = 10)
 	private String telephone;
 	@Column(name = "work_year", comment = "工作经验", length = 2)
@@ -324,11 +324,11 @@ public class AuntInfo extends BaseDomain {
 		this.address = address;
 	}
 
-	public BigDecimal getPrice() {
+	public Float getPrice() {
 		return price;
 	}
 
-	public void setPrice(BigDecimal price) {
+	public void setPrice(Float price) {
 		this.price = price;
 	}
 

@@ -377,13 +377,13 @@ public class UserServiceController {
 	        BigDecimal money=new BigDecimal(0);
 	        String count="0";
 	        if(Constants.GOLD.equals(card)){
-	        	money=new BigDecimal(400);
+	        	money=new BigDecimal(500);
 	        	count="50";
 	        }else  if(Constants.WHITE_GOLD.equals(card)){
-	        	money=new BigDecimal(1300);
+	        	money=new BigDecimal(1500);
 	        	count="150";
 	        }else  if(Constants.DIAMOND.equals(card)){
-	        	money=new BigDecimal(3200);
+	        	money=new BigDecimal(3500);
 	        	count="350";
 	        }
 			// 必填，须保证每次请求都是唯一
@@ -445,14 +445,14 @@ public class UserServiceController {
 	        BigDecimal money=new BigDecimal(0);
 	        String count="0";
 	        if(Constants.GOLD.equals(card)){
-	        	money=new BigDecimal(450);
-	        	count="45";
+	        	money=new BigDecimal(500);
+	        	count="50";
 	        }else  if(Constants.WHITE_GOLD.equals(card)){
-	        	money=new BigDecimal(900);
-	        	count="90";
+	        	money=new BigDecimal(1500);
+	        	count="150";
 	        }else  if(Constants.DIAMOND.equals(card)){
-	        	money=new BigDecimal(1800);
-	        	count="180";
+	        	money=new BigDecimal(3500);
+	        	count="350";
 	        }
 			// 必填，须保证每次请求都是唯一
 			// req_data详细信息
